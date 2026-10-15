@@ -346,7 +346,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#f2f5f2;color:#1c2e1f
   --ds-radius:14px; --ds-radius-lg:18px; --ds-shadow:0 1px 2px rgba(15,47,26,.05),0 4px 16px rgba(15,47,26,.06);
   --ds-shadow-hover:0 2px 4px rgba(15,47,26,.06),0 10px 28px rgba(15,47,26,.10);
   --ds-serif:'Source Serif 4',Georgia,'Times New Roman',serif; --ds-sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --ds-w:1120px; --ds-pad:24px;
+  --ds-w:1680px; --ds-pad:clamp(16px,3.2vw,56px);
   /* variables de las páginas de tema/ejemplos, alineadas con la paleta */
   --primary:#2d7a45; --primary-l:#3d9458; --primary-pale:#e6f4eb; --secondary:#1a6fa8; --secondary-pale:#e8f3fc;
   --accent:#b86800; --accent-pale:#fff6e5; --danger:#c0392b; --danger-pale:#fdf0ee; --success:#2d7a45; --success-pale:#e6f4eb;
@@ -355,7 +355,13 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#f2f5f2;color:#1c2e1f
   --shadow-sm:0 1px 2px rgba(15,47,26,.05); --shadow-md:var(--ds-shadow); --shadow-lg:var(--ds-shadow-hover);
   --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
 }
-body.ds-read{--ds-w:960px}
+body.ds-read{--ds-w:1680px}
+/* Tamaño de letra: páginas en rem crecen con html; las páginas en px se escalan con zoom */
+html{font-size:118.75%}
+body.p-index .page,body.p-estadistica .main,body.p-estadistica .hdr,body.p-catalogo .page,body.p-incertidumbre .page{zoom:1.2}
+body.p-index .page,body.p-catalogo .page,body.p-incertidumbre .page{max-width:calc(var(--ds-w)/1.2)!important;padding-left:calc(var(--ds-pad)/1.2)!important;padding-right:calc(var(--ds-pad)/1.2)!important}
+body.p-estadistica .main{max-width:calc(var(--ds-w)/1.2)!important;padding-left:calc(var(--ds-pad)/1.2)!important;padding-right:calc(var(--ds-pad)/1.2)!important}
+body.p-estadistica .hdr{padding:0 calc(var(--ds-pad)/1.2)!important}
 html{scroll-padding-top:64px}
 body{font-family:var(--ds-sans)!important;background:var(--ds-bg)!important;color:var(--ds-ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 h1,h2,h3,.sec-title,.sec-titulo,.ds-hero h1{font-family:var(--ds-serif);letter-spacing:-.01em}
@@ -365,9 +371,9 @@ a{color:var(--ds-blue);text-underline-offset:2px}
 /* Barra global */
 .sitenav{background:var(--ds-green-900)!important;border-bottom:1px solid rgba(255,255,255,.06)}
 .sitenav-in{max-width:calc(var(--ds-w) + 2*var(--ds-pad));padding:8px var(--ds-pad)!important;gap:2px!important}
-.sitenav .brand{display:flex;align-items:center;gap:8px;font-family:var(--ds-serif);font-size:15px!important;letter-spacing:-.01em;margin-right:14px!important}
+.sitenav .brand{display:flex;align-items:center;gap:8px;font-family:var(--ds-serif);font-size:17px!important;letter-spacing:-.01em;margin-right:14px!important}
 .sitenav .brand i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--ds-green-600);font-size:14px}
-.sitenav a{font-size:13px!important;padding:7px 11px!important;color:#cfe3d5!important}
+.sitenav a{font-size:15px!important;padding:8px 13px!important;color:#cfe3d5!important}
 .sitenav a b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);font-size:10.5px;margin-right:5px}
 .sitenav a[aria-current=page]{background:#fff!important;color:var(--ds-green-800)!important}
 .sitenav a[aria-current=page] b{background:var(--ds-green-100);color:var(--ds-green-700)}
@@ -378,13 +384,13 @@ a{color:var(--ds-blue);text-underline-offset:2px}
 .ds-hero .ds-wrap{position:relative;max-width:var(--ds-w);margin:0 auto;padding:44px var(--ds-pad) 40px;box-sizing:content-box}
 .ds-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#cfe8d6;margin:0 0 14px}
 .ds-eyebrow .ds-step{background:#fff;color:var(--ds-green-700);border-radius:999px;padding:3px 10px;letter-spacing:.04em}
-.ds-hero h1{font-size:clamp(28px,4.2vw,42px);line-height:1.12;font-weight:700;margin:0 0 12px;max-width:760px;color:#fff}
-.ds-lead{font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.88);max-width:680px;margin:0}
+.ds-hero h1{font-size:clamp(30px,3.6vw,50px);line-height:1.1;font-weight:700;margin:0 0 14px;max-width:1000px;color:#fff}
+.ds-lead{font-size:clamp(17px,1.25vw,20px);line-height:1.6;color:rgba(255,255,255,.9);max-width:900px;margin:0}
 .ds-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.ds-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px}
+.ds-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;font-size:15px;font-weight:600;padding:6px 12px;border-radius:999px}
 a.ds-chip:hover{background:rgba(255,255,255,.22)}
 .ds-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-.ds-btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;text-decoration:none;padding:11px 18px;border-radius:10px;transition:transform .15s,background .15s}
+.ds-btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:16px;text-decoration:none;padding:11px 18px;border-radius:10px;transition:transform .15s,background .15s}
 .ds-btn.primary{background:#fff;color:var(--ds-green-700)}
 .ds-btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
 .ds-btn:hover{transform:translateY(-1px)}
@@ -397,7 +403,7 @@ a.ds-chip:hover{background:rgba(255,255,255,.22)}
 .header .logo,.hdr-top{display:none!important}
 .header-inner{max-width:var(--ds-w)!important;padding:0!important;justify-content:flex-start!important}
 .header .nav,.hdr .tabs{display:flex;gap:4px!important;overflow-x:auto;flex-wrap:nowrap!important;scrollbar-width:none;max-width:var(--ds-w);margin:0 auto}
-.header .nav-a,.hdr .tab{color:var(--ds-muted)!important;background:none!important;border:none!important;border-bottom:2.5px solid transparent!important;border-radius:0!important;padding:14px 12px 12px!important;font-size:13.5px!important;font-weight:600!important;white-space:nowrap}
+.header .nav-a,.hdr .tab{color:var(--ds-muted)!important;background:none!important;border:none!important;border-bottom:2.5px solid transparent!important;border-radius:0!important;padding:15px 14px 13px!important;font-size:15.5px!important;font-weight:600!important;white-space:nowrap}
 .header .nav-a:hover,.hdr .tab:hover{color:var(--ds-ink)!important}
 .header .nav-a.active,.hdr .tab.active{color:var(--ds-green-700)!important;border-bottom-color:var(--ds-green-600)!important}
 
@@ -422,7 +428,7 @@ body.p-index .page,body.p-catalogo .page,body.p-incertidumbre .page{padding-top:
 table th{font-weight:700}
 
 /* Pie común */
-.ds-footer{background:var(--ds-green-900)!important;color:#cfe3d5!important;margin:56px 0 0!important;padding:0!important;font-size:13.5px!important;text-align:left!important;max-width:none!important}
+.ds-footer{background:var(--ds-green-900)!important;color:#cfe3d5!important;margin:56px 0 0!important;padding:0!important;font-size:15px!important;text-align:left!important;max-width:none!important}
 .ds-footer .ds-wrap{max-width:var(--ds-w);margin:0 auto;padding:36px var(--ds-pad) 28px;display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:28px;box-sizing:content-box}
 .ds-footer h2{font-family:var(--ds-serif);color:#fff;font-size:17px;margin:0 0 8px}
 .ds-footer h3{font-family:var(--ds-sans);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9fc4aa;margin:0 0 10px}
@@ -436,6 +442,7 @@ table th{font-weight:700}
 
 @media (max-width:760px){
   :root{--ds-pad:16px}
+  body.p-index .page,body.p-estadistica .main,body.p-estadistica .hdr,body.p-catalogo .page,body.p-incertidumbre .page{zoom:1.06}
   .ds-hero .ds-wrap{padding:30px var(--ds-pad) 28px}
   .ds-lead{font-size:15.5px}
   .ds-footer .ds-wrap{grid-template-columns:1fr;gap:20px}
@@ -634,9 +641,9 @@ table th{font-weight:700}
 <!-- ══ CHECKLIST ══ -->
 <div id="panel-checklist" class="panel">
   <div class="sec-title">✅ Checklist de Validación — antes de entregar</div>
-  <div class="sec-sub">Complétalo antes de entregar tu investigación científica. Basado en los criterios de evaluación del IB y el Material de Ayuda al Profesor 2025.</div>
+  <div class="sec-sub">Complétalo antes de entregar. Los apartados siguen los criterios del IB (Diseño, Análisis de datos, Conclusión y Evaluación) y cada punto incluye un ejemplo de cómo reflejarlo en tu informe, con los datos del experimento de la catalasa usado en esta guía.</div>
   <div class="warn-bar">⚠️ <strong>Recordatorio clave IB 2025:</strong> p &gt; 0,05 NO prueba que H₀ sea verdadera. Solo indica que <em>no hay evidencia suficiente para rechazarla</em>. Usar "se acepta H₀" en lugar de "no se puede rechazar H₀" es una imprecisión conceptual.</div>
-  <div class="prog-card"><div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;font-weight:600;color:var(--text)">Progreso</span><span id="prog-txt" style="font-size:13px;font-weight:700">0/24 ítems</span></div><div class="prog-bar-bg"><div class="prog-bar" id="prog-fill" style="width:0%"></div></div><div id="prog-msg" style="margin-top:6px;font-size:12px;color:var(--muted)">Comienza marcando los ítems completados.</div></div><div class="prog-circle" id="prog-circle">0%</div></div>
+  <div class="prog-card"><div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;font-weight:600;color:var(--text)">Progreso</span><span id="prog-txt" style="font-size:13px;font-weight:700">0/30 ítems</span></div><div class="prog-bar-bg"><div class="prog-bar" id="prog-fill" style="width:0%"></div></div><div id="prog-msg" style="margin-top:6px;font-size:12px;color:var(--muted)">Comienza marcando los ítems completados.</div></div><div class="prog-circle" id="prog-circle">0%</div></div>
   <div id="cl-secs"></div>
   <button class="btn" style="margin-top:4px" onclick="resetCL()">↺ Reiniciar</button>
 </div>
@@ -1205,39 +1212,48 @@ function toggleEA(uid){
 }
 // ══ CHECKLIST DATA ══
 const CHECKLIST=[
-  {id:'var',title:'1. Variables e Hipótesis',icon:'🔬',items:[
-    {id:'c1',t:'He identificado la VI y la VD con sus unidades del SI'},
-    {id:'c2',t:'He clasificado las variables: continua / discreta / nominal / ordinal'},
-    {id:'c3',t:'He identificado y justificado el control de variables controladas (valor + cómo + por qué)',errId:3},
-    {id:'c4',t:'Mi hipótesis experimental predice la dirección del efecto'},
-    {id:'c5',t:'He formulado H₀ y H₁ estadísticas explícitas antes del análisis',errId:5},
+  {id:'dis',title:'1. Diseño: antes de recoger datos (Criterio 1)',icon:'🔬',items:[
+    {id:'d1',t:'La VI y la VD están definidas como magnitudes con su unidad del SI y los niveles de la VI',ej:['«Efecto de la temperatura en la enzima.»','«VI: temperatura del baño (°C), 5 niveles: 10, 20, 30, 40 y 50 °C. VD: volumen de O₂ liberado en 5 min (cm³).»']},
+    {id:'d2',t:'He identificado el tipo de cada variable (continua, discreta o categórica) y sé qué gráfico y qué prueba implica',ej:['«Los datos son números.»','«La VD es cuantitativa continua (cm³) y la VI es continua con 5 niveles: represento un gráfico XY y comparo los niveles con ANOVA.»']},
+    {id:'d3',t:'He identificado la incertidumbre de cada instrumento y de cada condición controlada, y explico cómo la estimé',ej:['«Se usó una probeta y un termómetro.»','«Probeta invertida de 10 cm³ (± 0,1 cm³: mitad de la división mínima de 0,2 cm³). El termómetro digital mide ± 0,1 °C, pero el baño fluctuó ± 1 °C, que es la incertidumbre que asigno a la VI.»'],ac:'Consulta el paso 1 del protocolo de incertidumbre.'},
+    {id:'d4',t:'He justificado el número de réplicas y de niveles de la VI (por ejemplo, con un ensayo piloto)',ej:['«Hice 3 repeticiones.»','«En el ensayo piloto a 30 °C la s fue 0,3 cm³ con 3 réplicas; para estimar mejor la variabilidad hice 5 réplicas por nivel (25 ensayos), el máximo compatible con el tiempo disponible.»']},
+    {id:'d5',t:'He formulado H₀ y H₁ y fijado α antes de analizar los datos',ej:['«Mi hipótesis es que la temperatura afecta.»','«H₀: el volumen medio de O₂ es igual a todas las temperaturas. H₁: al menos una media es distinta. α = 0,05, fijado antes del análisis.»'],errId:5},
   ]},
-  {id:'rec',title:'2. Recogida y Presentación de Datos',icon:'📊',items:[
-    {id:'c6',t:'Tabla de datos brutos: encabezados con nombre, símbolo y unidades SI',errId:2},
-    {id:'c7',t:'He elegido medidas de centro y dispersión acordes con el tipo de dato y su distribución; indico n y unidades',errId:4},
-    {id:'c8',t:'Incluyo n junto a todas las estadísticas descriptivas'},
-    {id:'c9',t:'Tipo de gráfico correcto (barras / XY dispersión / líneas) según tipo de variables',errId:10},
-    {id:'c10',t:'Gráficas con título, ejes y unidades SI; si incluyo barras de error, indico qué representan',errId:10},
+  {id:'reg',title:'2. Registro y procesamiento de los datos (Criterio 2)',icon:'📋',items:[
+    {id:'r1',t:'La tabla de datos brutos indica en el encabezado la magnitud, la unidad y la incertidumbre; las celdas solo contienen números',ej:['Encabezado «Oxígeno» y celdas con «4,8 ml».','Encabezado «Volumen de O₂ / cm³ ± 0,1 cm³» y celdas con 4,8; 5,1; 4,9…'],errId:2},
+    {id:'r2',t:'Los decimales son coherentes con la precisión del instrumento en todas las tablas',ej:['Datos con 1 decimal y media «4,9400».','Datos con 1 decimal → media 4,9 cm³; la s con, como mucho, un decimal más: 0,27 cm³.']},
+    {id:'r3',t:'He registrado observaciones cualitativas que pueden explicar la variabilidad',ej:['(Ninguna observación.)','«En la réplica 3 a 50 °C se formó espuma que retuvo burbujas: el volumen pudo quedar subestimado.»']},
+    {id:'r4',t:'He elegido medidas de centro y dispersión adecuadas a mis datos e indico siempre n',ej:['«Media = 4,9.»','«Media = 4,9 cm³; s = 0,27 cm³; n = 5.» Con datos asimétricos: «mediana = 42 mm; RIC = 8 mm; n = 8».'],errId:4},
+    {id:'r5',t:'He incluido un ejemplo de cálculo de cada procesamiento (tasas, porcentajes, índices)',ej:['«Calculé las tasas.»','«Tasa de liberación de O₂ = 4,9 cm³ ÷ 300 s = 0,016 cm³·s⁻¹ (mismo cálculo para todos los niveles).»']},
+    {id:'r6',t:'He propagado la incertidumbre en los cálculos derivados de mis medidas',ej:['«Cambio de masa = 0,52 g.»','«Cambio de masa = 2,48 g − 1,96 g = 0,52 ± 0,02 g (se suman dos lecturas de ± 0,01 g). Cambio porcentual = 0,52 ÷ 1,96 × 100 = 27 % ± 1 %.»'],ac:'Sumas y restas: se suman incertidumbres absolutas. Productos y cocientes: se suman las incertidumbres porcentuales.'},
+    {id:'r7',t:'He comparado la variabilidad (s o CV) con la incertidumbre del instrumento y digo qué fuente domina',ej:['«La incertidumbre es ± 0,1 cm³.»','«La s (0,16–0,38 cm³) es entre 1,6 y 3,8 veces la incertidumbre de la probeta: la variabilidad procede sobre todo del tejido y del procedimiento, no del instrumento.»'],ac:'Usa la calculadora de la página de incertidumbre.'},
+    {id:'r8',t:'He tratado los valores atípicos con un criterio explícito y lo explico',ej:['«Eliminé un dato raro.»','«La réplica 4 a 40 °C (2,6 cm³) está a menos de 2 s de la media (3,1 cm³; s = 0,38 cm³) y no hay ninguna causa registrada, así que la mantengo.»']},
   ]},
-  {id:'ana',title:'3. Análisis Estadístico (IB 2025)',icon:'🧮',items:[
-    {id:'c11',t:'Justificada la elección de la prueba según pregunta, tipo de dato, unidad de muestreo, diseño y supuestos',errId:5},
-    {id:'c12',t:'Incluida la función Excel/Sheets usada con sus parámetros'},
-    {id:'c13',t:'Grados de libertad (gl) calculados e indicados'},
-    {id:'c14',t:'He comparado p con el α fijado antes del análisis y explicado qué significa, sin decir que demuestra causalidad'},
-    {id:'c15',t:'No digo "acepta H₀" — uso "no hay evidencia suficiente para rechazar H₀"',errId:5},
+  {id:'pre',title:'3. Presentación: tablas y gráficos (Criterio 2)',icon:'📈',items:[
+    {id:'g1',t:'El tipo de gráfico corresponde al tipo de variables',ej:['Gráfico de líneas de Excel con la temperatura como categoría.','VI continua → gráfico XY de dispersión con las medias; VI categórica (tipo de fruta) → gráfico de barras.'],errId:10},
+    {id:'g2',t:'Tablas y figuras numeradas, con título descriptivo y ejes con magnitud y unidad',ej:['Título «Gráfico» y eje Y «Oxígeno».','«Figura 2. Volumen medio de O₂ liberado por la catalasa frente a la temperatura.» Eje Y: «Volumen medio de O₂ / cm³».']},
+    {id:'g3',t:'Las barras de error son personalizadas y el pie indica qué representan y la n',ej:['Barras automáticas de Excel (5 %) sin explicación.','«Las barras de error representan ± 1 desviación típica (n = 5).» Introducidas como valores personalizados.'],errId:10},
+    {id:'g4',t:'Las tablas y figuras necesarias para seguir el análisis están en el cuerpo del informe',ej:['Todas las tablas en el apéndice.','Tablas 1 y 2 y figura 2 en Resultados; el apéndice, si existe, solo para fotos del montaje.']},
   ]},
-  {id:'int',title:'4. Interpretación Biológica',icon:'🧬',items:[
-    {id:'c16',t:'Resultado estadístico interpretado en términos biológicos con unidades SI',errId:8},
-    {id:'c17',t:'Si uso PEARSON/R², NO afirmo causalidad basándome solo en estos valores',errId:6},
-    {id:'c18',t:'Conclusión comparada con valores bibliográficos publicados',errId:6},
-    {id:'c19',t:'Si uso regresión, interpreto la pendiente con unidades SI (cm·°C⁻¹)',errId:6},
+  {id:'est',title:'4. Prueba estadística (Criterio 2)',icon:'🧮',items:[
+    {id:'p1',t:'He justificado la prueba según la pregunta, el tipo de dato y el diseño',ej:['«Hice una t de Student.»','«Comparo 5 grupos independientes con una VD continua y aproximadamente normal → ANOVA de un factor: varias t aumentarían el riesgo de falsos positivos.»'],errId:5},
+    {id:'p2',t:'He comprobado o discutido los supuestos de la prueba',ej:['(No se menciona.)','«Los datos de cada grupo son aproximadamente simétricos y las s son parecidas (0,16–0,38 cm³). Con 5 datos por grupo la comprobación es limitada, y lo indico en la evaluación.»']},
+    {id:'p3',t:'He indicado el estadístico, los grados de libertad, el valor p y α',ej:['«p es muy pequeño.»','«ANOVA de un factor: F(4, 20) = 169; p < 0,001; α = 0,05 → se rechaza H₀.»']},
+    {id:'p4',t:'Redacto correctamente cuando no rechazo H₀ y, si hay más de dos grupos, digo entre cuáles hay diferencias',ej:['«Se acepta H₀.»','«p = 0,342 > 0,05: no hay evidencia suficiente para rechazar H₀; los datos son compatibles con la proporción 3:1.» Tras un ANOVA significativo: «la prueba de Tukey indica que 30 °C difiere de todos los demás niveles».']},
   ]},
-  {id:'lim',title:'5. Limitaciones y Mejoras',icon:'⚠️',items:[
-    {id:'c20',t:'≥2 limitaciones específicas con impacto en los datos — no "error humano" genérico',errId:7},
-    {id:'c21',t:'Distingo errores aleatorios (reducibles con mayor n) de sistemáticos (cambio de diseño)',errId:1},
-    {id:'c22',t:'Para cada limitación propongo una mejora concreta y realista con justificación',errId:7},
-    {id:'c23',t:'He evaluado si el tamaño muestral y la unidad de muestreo permiten sostener mis conclusiones'},
-    {id:'c24',t:'He verificado que todos los números del texto coinciden con tablas y gráficas',errId:10},
+  {id:'int',title:'5. Interpretación y conclusión (Criterio 3)',icon:'🧬',items:[
+    {id:'i1',t:'Interpreto el resultado en términos biológicos, con valores y unidades',ej:['«Hay una diferencia significativa.»','«El volumen de O₂ aumentó de 1,2 a 4,9 cm³ entre 10 y 30 °C y cayó a 1,0 cm³ a 50 °C, coherente con el aumento de la frecuencia de colisiones y la posterior desnaturalización de la catalasa.»'],errId:8},
+    {id:'i2',t:'Comparo la magnitud de las diferencias o de la tendencia con la incertidumbre',ej:['«4,9 ± 0,27 frente a 3,1 ± 0,38.» (sin comentario)','«La diferencia entre 30 y 40 °C (1,8 cm³) es casi 5 veces la s mayor (0,38 cm³): no se explica por la variabilidad entre réplicas.»']},
+    {id:'i3',t:'No afirmo causalidad a partir de una correlación (r o R²)',ej:['«El CO₂ causa el aumento de temperatura porque r = 0,93.»','«r = 0,93 indica una asociación positiva fuerte; la relación causal se apoya en el mecanismo del efecto invernadero descrito en la bibliografía, no en el valor de r.»'],errId:6},
+    {id:'i4',t:'Comparo con la bibliografía teniendo en cuenta la resolución y la incertidumbre de mis datos',ej:['«Coincide con la bibliografía.»','«Con niveles cada 10 °C solo puedo situar el óptimo entre 30 y 40 °C; compruebo si el valor publicado cae en ese intervalo y cito la fuente.»'],errId:6},
+    {id:'i5',t:'Si uso regresión, interpreto la pendiente con sus unidades y limito la conclusión al rango estudiado',ej:['«La recta es y = 0,19x − 0,86.»','«Entre 10 y 30 °C la pendiente es 0,19 cm³·°C⁻¹: por cada grado el volumen aumenta unos 0,19 cm³. No extrapolo fuera de 10–50 °C ni a otras especies.»']},
+  ]},
+  {id:'eva',title:'6. Evaluación (Criterio 4)',icon:'⚠️',items:[
+    {id:'e1',t:'Explico limitaciones específicas y su impacto relativo, apoyándome en los datos (CV, % de incertidumbre, atípicos)',ej:['«Hubo error humano.»','«La mayor limitación fue la fluctuación del baño (± 1 °C): coincide con el CV más alto (29 % a 50 °C), donde la desnaturalización es más sensible a la temperatura.»'],errId:7},
+    {id:'e2',t:'Distingo errores aleatorios (aumentan la s) de errores sistemáticos (desplazan todos los valores)',ej:['«Hubo errores de medida.»','«El O₂ que queda disuelto y no llega a la probeta es un error sistemático: reduce todos los volúmenes y no se refleja en la s.»'],errId:1},
+    {id:'e3',t:'Cada mejora es concreta, realista y está ligada a una limitación',ej:['«Repetiría más veces.»','«Usaría un baño termostático con agitación y registraría la temperatura con un sensor cada 30 s para reducir la fluctuación a unos ± 0,2 °C.»'],errId:7},
+    {id:'e4',t:'He valorado si el tamaño muestral y la independencia de las réplicas sostienen la conclusión',ej:['(No se menciona.)','«Los 5 discos de cada nivel procedían de 2 tubérculos, así que las réplicas no son del todo independientes; con más tubérculos la conclusión sería más general.»']},
+    {id:'e5',t:'He comprobado que los números del texto coinciden con las tablas y los gráficos',ej:['Texto «4,94 cm³», tabla «4,9 cm³» y gráfico con otro valor.','El mismo valor (4,9 cm³) en la tabla 2, la figura 2 y el texto.'],errId:10},
   ]},
 ];
 
@@ -1254,7 +1270,7 @@ function renderCL(){
         <span style="color:var(--dim);font-size:11px">${coll?'▼':'▲'}</span>
       </button>
       ${!coll?`<div class="cl-items">${sec.items.map(it=>{
-        const e=it.errId?ERRORES_MAP[it.errId]:null;
+        const ee=it.errId?ERRORES_MAP[it.errId]:null;const e=it.ej?{titulo:'Cómo reflejarlo en tu informe',malo:{txt:it.ej[0]},bien:{txt:it.ej[1]},accion:it.ac||(ee?ee.accion:''),sev:ee?ee.sev:''}:ee;
         const uid='cl_'+it.id;
         return `<div class="cl-item cl-item-exp">
           <div style="display:flex;align-items:flex-start;gap:9px;width:100%;cursor:pointer" onclick="toggleIt('${it.id}')">
@@ -1263,16 +1279,16 @@ function renderCL(){
             </div>
             <div style="flex:1">
               <span class="cl-txt ${checked[it.id]?'done':''}">${it.t}</span>
-              ${e?`<div><button class="cl-expand-btn" onclick="event.stopPropagation();toggleCLej('${uid}')" id="${uid}_btn">⚠️ Ver error frecuente ${e.sev==='crítico'?'🔴':'🟡'}</button></div>`:''}
+              ${e?`<div><button class="cl-expand-btn" onclick="event.stopPropagation();toggleCLej('${uid}')" id="${uid}_btn">${it.ej?'📝 Ver ejemplo de redacción':'⚠️ Ver error frecuente'} ${e.sev==='crítico'?'🔴':''}</button></div>`:''}
             </div>
           </div>
           ${e?`<div class="cl-ejemplo-wrap" id="${uid}">
-            <div class="cl-ej-hdr">⚠️ Error ${it.errId}: ${e.titulo}</div>
+            <div class="cl-ej-hdr">${it.ej?"📝 "+e.titulo:"⚠️ Error "+it.errId+": "+e.titulo}</div>
             <div class="cl-ej-grid">
               <div class="cl-ej-box m"><div class="cl-ej-lbl m">❌ Nivel bajo</div><div class="cl-ej-txt">${e.malo.txt}</div></div>
               <div class="cl-ej-box b"><div class="cl-ej-lbl b">✅ Nivel 5–6</div><div class="cl-ej-txt">${e.bien.txt}</div></div>
             </div>
-            <div class="cl-ej-accion">🎯 <strong>Acción:</strong> ${e.accion}</div>
+            <div class="cl-ej-accion">🎯 <strong>Acción:</strong> ${e.accion||"Escríbelo con tus propios datos, unidades y valores."}</div>
           </div>`:''}
         </div>`;
       }).join('')}</div>`:''}
@@ -1286,7 +1302,7 @@ function toggleCLej(uid){
   if(!w)return;
   const open=w.classList.contains('open');
   w.classList.toggle('open',!open);
-  if(btn)btn.textContent=open?'⚠️ Ver error frecuente':'▲ Ocultar ejemplo';
+  if(btn)btn.textContent=open?'📝 Ver ejemplo de redacción':'▲ Ocultar ejemplo';
 }
 function toggleSec(id){collapsed[id]=!collapsed[id];renderCL();}
 function resetCL(){checked={};saveChecked();renderCL();}
