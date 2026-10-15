@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos de Investigación — Biología IB · IES Celia Viñas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0d9488;--primary-l:#14b8a6;--primary-pale:#ccfbf1;
+  --secondary:#0ea5e9;--secondary-pale:#e0f2fe;
+  --accent:#f59e0b;--accent-pale:#fef3c7;
+  --danger:#ef4444;--danger-pale:#fee2e2;
+  --success:#22c55e;--success-pale:#dcfce7;
+  --purple:#7c3aed;--purple-pale:#f5f3ff;
+  --orange:#ea580c;--orange-pale:#fff7ed;
+  --text:#1e293b;--text-l:#64748b;--text-m:#94a3b8;
+  --bg:#f8fafb;--bg-card:#fff;--border:#e2e8f0;--border-l:#f1f5f9;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,.07);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.09);
+  --r-sm:8px;--r-md:12px;--r-lg:20px;--r-xl:28px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;}
+::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--primary-l);border-radius:4px;}
+
+/* HEADER */
+html{scroll-padding-top:80px;scroll-behavior:smooth;}
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:1rem 2rem;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.logo{display:flex;align-items:center;gap:.75rem;color:white;text-decoration:none;}
+.logo-ic{width:42px;height:42px;background:rgba(255,255,255,.2);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.logo-name{font-weight:700;font-size:1.1rem;}
+.logo-sub{font-size:.72rem;opacity:.85;}
+.nav{display:flex;gap:.3rem;flex-wrap:wrap;}
+.nav-a{color:rgba(255,255,255,.85);text-decoration:none;padding:.45rem .9rem;border-radius:var(--r-sm);font-size:.85rem;font-weight:500;transition:all .2s;}
+.nav-a:hover,.nav-a.active{background:rgba(255,255,255,.2);color:white;}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,var(--bg-card),var(--bg));padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,var(--primary-pale),transparent 40%),radial-gradient(circle at 70% 50%,var(--secondary-pale),transparent 40%);opacity:.45;z-index:0;}
+.hero-content{position:relative;z-index:1;max-width:800px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--primary-pale);color:var(--primary);padding:.45rem 1rem;border-radius:50px;font-size:.82rem;font-weight:600;margin-bottom:1.25rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4.5vw,3rem);line-height:1.2;margin-bottom:.9rem;}
+.hero h1 span{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-desc{font-size:1.05rem;color:var(--text-l);max-width:600px;margin:0 auto 1.75rem;}
+.stats-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+.stat-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:.9rem 1.5rem;text-align:center;min-width:130px;}
+.stat-num{font-size:2rem;font-weight:800;color:var(--primary);line-height:1;}
+.stat-lbl{font-size:.78rem;color:var(--text-l);margin-top:.3rem;}
+
+/* MAIN */
+.main{max-width:1300px;margin:0 auto;padding:2rem;}
+.section{margin-bottom:3.5rem;}
+.sec-hdr{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;}
+.sec-ic{width:52px;height:52px;background:linear-gradient(135deg,var(--primary-pale),var(--secondary-pale));border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;}
+.sec-sub{font-size:.9rem;color:var(--text-l);margin-top:.2rem;}
+
+/* ALERT */
+.alert{padding:1.1rem 1.4rem;border-radius:var(--r-md);margin-bottom:1.75rem;display:flex;gap:.9rem;align-items:flex-start;}
+.alert-ic{font-size:1.4rem;flex-shrink:0;}
+.alert-title{font-weight:700;margin-bottom:.3rem;}
+.alert-txt{font-size:.88rem;color:var(--text-l);line-height:1.5;}
+.alert.info{background:var(--secondary-pale);border:1px solid rgba(14,165,233,.3);}
+.alert.warn{background:var(--accent-pale);border:1px solid rgba(245,158,11,.3);}
+.alert.success{background:var(--success-pale);border:1px solid rgba(34,197,94,.3);}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.75rem;align-items:center;}
+.filter-label{font-size:.82rem;font-weight:600;color:var(--text-l);margin-right:.3rem;}
+.filter-btn{padding:.45rem .9rem;background:var(--bg-card);border:2px solid var(--border);border-radius:50px;font-family:inherit;font-size:.8rem;font-weight:600;color:var(--text-l);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.filter-btn:hover{border-color:var(--primary);color:var(--primary);}
+.filter-btn.active{background:var(--primary);border-color:var(--primary);color:white;}
+
+/* INV CARDS GRID */
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.35rem;}
+
+.inv-card{background:var(--bg-card);border-radius:var(--r-lg);border:2px solid var(--border);transition:all .28s;overflow:hidden;display:flex;flex-direction:column;}
+.inv-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);}
+.inv-card.has-comments{border-color:var(--accent-pale);}
+.inv-card.has-comments:hover{border-color:var(--accent);}
+
+.inv-card-top{padding:1.25rem 1.25rem .85rem;}
+.inv-num{font-size:.72rem;font-weight:700;color:var(--text-m);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;}
+.inv-num .num-badge{background:var(--primary-pale);color:var(--primary);border-radius:6px;padding:2px 8px;font-size:.75rem;}
+.inv-num .comments-badge{background:var(--accent-pale);color:#92400e;border-radius:6px;padding:2px 8px;font-size:.72rem;display:flex;align-items:center;gap:3px;}
+
+.inv-title{font-weight:700;font-size:.97rem;line-height:1.4;margin-bottom:.85rem;color:var(--text);}
+
+.inv-meta{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.75rem;}
+.meta-tag{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .7rem;border-radius:50px;font-size:.72rem;font-weight:600;}
+.meta-tag.type-exp{background:var(--success-pale);color:#15803d;}
+.meta-tag.type-eco{background:var(--primary-pale);color:var(--primary);}
+.meta-tag.type-db{background:var(--secondary-pale);color:#0369a1;}
+.meta-tag.type-sim{background:var(--purple-pale);color:var(--purple);}
+.meta-tag.block{background:var(--border-l);color:var(--text-l);}
+
+.inv-vi-vd{font-size:.82rem;color:var(--text-l);line-height:1.55;padding:.7rem .85rem;background:var(--bg);border-radius:var(--r-sm);margin-bottom:.85rem;}
+.vi-label{font-weight:700;color:var(--secondary);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:.15rem;}
+.vd-label{font-weight:700;color:var(--primary);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;display:block;margin-top:.5rem;margin-bottom:.15rem;}
+
+/* Score bar */
+.score-bar{padding:.75rem 1.25rem;background:linear-gradient(135deg,var(--accent-pale),#fef9ee);border-top:1px solid var(--border-l);display:flex;align-items:center;gap:1rem;}
+.score-label{font-size:.75rem;font-weight:700;color:#92400e;white-space:nowrap;}
+.score-track{flex:1;height:8px;background:rgba(0,0,0,.08);border-radius:4px;overflow:hidden;}
+.score-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),#f97316);}
+.score-num{font-size:.85rem;font-weight:800;color:#92400e;white-space:nowrap;}
+
+.inv-card-footer{margin-top:auto;padding:.85rem 1.25rem;border-top:1px solid var(--border-l);display:flex;gap:.5rem;flex-wrap:wrap;}
+.inv-link{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1rem;border-radius:var(--r-sm);font-size:.8rem;font-weight:700;text-decoration:none;transition:opacity .15s;color:white;}
+.inv-link:hover{opacity:.85;}
+.inv-link.primary-l{background:var(--primary);}
+.inv-link.comments-l{background:var(--accent);}
+
+/* COMMENTS PANEL */
+.comments-section{background:var(--bg-card);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;margin-bottom:3.5rem;}
+.cs-header{background:linear-gradient(135deg,#92400e,var(--accent));padding:1.75rem;color:white;}
+.cs-header h2{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.4rem;}
+.cs-header p{opacity:.9;font-size:.9rem;}
+
+.cs-tabs-hdr{display:flex;overflow-x:auto;background:var(--bg);border-bottom:1px solid var(--border);padding:.4rem;gap:.3rem;}
+.cs-tab{flex-shrink:0;padding:.65rem 1.1rem;background:transparent;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.83rem;font-weight:600;color:var(--text-l);cursor:pointer;transition:all .18s;white-space:nowrap;}
+.cs-tab:hover{background:var(--border-l);color:var(--text);}
+.cs-tab.active{background:var(--accent);color:white;}
+.cs-panel{display:none;padding:1.75rem;}
+.cs-panel.active{display:block;}
+
+.criteria-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.1rem;margin-bottom:1.5rem;}
+.crit-card{background:var(--bg);border-radius:var(--r-md);padding:1.1rem;border-left:4px solid;}
+.crit-card.ex{border-color:#0369a1;}
+.crit-card.cp{border-color:#15803d;}
+.crit-card.a{border-color:var(--purple);}
+.crit-card.c{border-color:var(--orange);}
+.crit-card.ev{border-color:var(--danger);}
+.crit-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
+.crit-label.ex{color:#0369a1;}
+.crit-label.cp{color:#15803d;}
+.crit-label.a{color:var(--purple);}
+.crit-label.c{color:var(--orange);}
+.crit-label.ev{color:var(--danger);}
+.crit-badge{padding:1px 7px;border-radius:4px;font-size:.72rem;}
+.crit-badge.ex{background:var(--secondary-pale);}
+.crit-badge.cp{background:var(--success-pale);}
+.crit-badge.a{background:var(--purple-pale);}
+.crit-badge.c{background:var(--orange-pale);}
+.crit-badge.ev{background:var(--danger-pale);}
+.crit-items{list-style:none;}
+.crit-items li{font-size:.82rem;color:var(--text-l);padding:.3rem 0 .3rem 1rem;position:relative;line-height:1.5;}
+.crit-items li::before{content:'›';position:absolute;left:0;color:var(--text-m);font-weight:700;}
+.crit-items li.good::before{content:'✓';color:var(--success);font-weight:700;}
+.crit-items li.bad::before{content:'✗';color:var(--danger);}
+
+/* LESSONS SECTION */
+.lessons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;}
+.lesson-card{background:var(--bg-card);border-radius:var(--r-lg);padding:1.35rem;border:1px solid var(--border);border-top:4px solid;}
+.lesson-card.ex{border-top-color:#0369a1;}
+.lesson-card.cp{border-top-color:#15803d;}
+.lesson-card.a{border-top-color:var(--purple);}
+.lesson-card.c{border-top-color:var(--orange);}
+.lesson-card.ev{border-top-color:var(--danger);}
+.lesson-crit{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.65rem;display:flex;align-items:center;gap:.45rem;}
+.lesson-crit.ex{color:#0369a1;}
+.lesson-crit.cp{color:#15803d;}
+.lesson-crit.a{color:var(--purple);}
+.lesson-crit.c{color:var(--orange);}
+.lesson-crit.ev{color:var(--danger);}
+.lesson-icon{font-size:1.5rem;margin-bottom:.65rem;}
+.lesson-title{font-weight:700;font-size:.93rem;margin-bottom:.45rem;}
+.lesson-txt{font-size:.85rem;color:var(--text-l);line-height:1.55;}
+.lesson-examples{margin-top:.7rem;padding:.65rem .85rem;background:var(--bg);border-radius:var(--r-sm);}
+.lesson-examples p{font-size:.78rem;color:var(--text-m);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.35rem;}
+.lesson-examples ul{list-style:none;}
+.lesson-examples li{font-size:.8rem;color:var(--text-l);padding:.2rem 0 .2rem 1rem;position:relative;}
+.lesson-examples li::before{content:'→';position:absolute;left:0;color:var(--primary);}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px 2rem 4px;border-top:2px solid var(--border);margin-top:3.5rem;background:var(--bg);}
+.footer-main{font-weight:700;color:var(--primary);font-size:13.5px;margin-bottom:5px;}
+.footer-nota{font-size:11.5px;color:var(--text-m);line-height:1.6;margin-bottom:14px;}
+.footer-autora{font-size:12.5px;font-weight:600;color:var(--text-l);margin-bottom:12px;}
+.footer-autora span{color:var(--primary);}
+.cc-box{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 16px;margin-bottom:8px;}
+.cc-icons{display:flex;align-items:center;}
+.cc-icon{width:24px;height:24px;border-radius:50%;background:#04a635;color:white;font-size:11px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-right:3px;flex-shrink:0;font-family:'Outfit',sans-serif;}
+.cc-text{text-align:left;}
+.cc-title{font-size:12px;font-weight:700;color:var(--text);display:block;margin-bottom:1px;}
+.cc-detail{font-size:10.5px;color:var(--text-m);display:block;}
+.cc-link{font-size:10px;color:var(--primary);text-decoration:none;display:block;margin-top:1px;}
+.cc-link:hover{text-decoration:underline;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .header-inner{flex-direction:column;gap:.75rem;}
+  .nav{flex-wrap:wrap;justify-content:center;}
+  .hero{padding:2.5rem 1.25rem;}
+  .main{padding:1.25rem;}
+  .sec-hdr{flex-direction:column;text-align:center;}
+  .stats-row{gap:1rem;}
+  .stat-box{min-width:100px;padding:.7rem 1rem;}
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.inv-card{animation:fadeIn .35s ease both;}
+.inv-card:nth-child(2){animation-delay:.05s;}
+.inv-card:nth-child(3){animation-delay:.1s;}
+.inv-card.hidden{display:none;}
+</style>
+<meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
+<meta name="theme-color" content="#1e5c32">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<script>
+/* Si el navegador bloquea el almacenamiento (p. ej. dentro de un iframe de Google Sites), usar memoria para que la página no se rompa */
+(function(){try{var k='__p';localStorage.setItem(k,k);localStorage.removeItem(k);}catch(e){var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}});}catch(_){}}})();
+</script>
+<style>
+.sitenav{background:#143f23;font-family:'DM Sans',system-ui,sans-serif;position:relative;z-index:200}
+.sitenav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto;scrollbar-width:none}
+.sitenav-in::-webkit-scrollbar{display:none}
+.sitenav a{color:#d9eedf;text-decoration:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:7px;white-space:nowrap;line-height:1.2}
+.sitenav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sitenav a[aria-current=page]{background:#fff;color:#143f23}
+.sitenav .brand{font-weight:800;color:#fff;margin-right:6px;white-space:nowrap;font-size:14px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#143f23;padding:8px 12px;z-index:999;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><span class="brand">🧬 IA Biología IB</span><a href="index.html">🏠 Inicio</a><a href="tema.html">🔬 Elegir tema</a><a href="ejemplos.html" aria-current="page">📄 Ejemplos</a><a href="catalogo.html">🔎 Catálogo</a><a href="estadistica.html">📊 Estadística</a><a href="incertidumbre.html">📏 Incertidumbre</a></div></nav>
+<div id="contenido"></div>
+
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-ic">🧬</div>
+      <div><div class="logo-name">Biología IB · IES Celia Viñas</div><div class="logo-sub">Investigación Científica — Evaluación Interna</div></div>
+    </a>
+    <nav class="nav">
+      <a href="#ejemplos" class="nav-a active" onclick="navScroll('ejemplos',event)">Ejemplos</a>
+      <a href="#con-comentarios" class="nav-a" onclick="navScroll('con-comentarios',event)">Con comentarios</a>
+      <a href="#lecciones" class="nav-a" onclick="navScroll('lecciones',event)">Lecciones</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span>📄</span><span>Material de ayuda al profesor del IB · criterios anteriores a 2025</span></div>
+    <h1>Ejemplos de <span>Investigaciones Reales</span></h1>
+    <p class="hero-desc">17 investigaciones científicas IB reales para que veas cómo se estructura un buen trabajo, qué valoran los examinadores y qué errores evitar.</p>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num">17</div><div class="stat-lbl">Investigaciones reales</div></div>
+      <div class="stat-box"><div class="stat-num">8</div><div class="stat-lbl">Con comentarios del examinador</div></div>
+      <div class="stat-box"><div class="stat-num">4</div><div class="stat-lbl">Tipos distintos</div></div>
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-lbl">Temas del programa (B, C y D)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+<div class="alert info">
+  <span class="alert-ic">📌</span>
+  <div><div class="alert-title">Cómo usar estos ejemplos</div>
+  <div class="alert-txt">Son trabajos reales de alumnos del IB, no trabajos perfectos. Los marcados con 🗒️ incluyen anotaciones del examinador, hechas con los <strong>criterios anteriores a 2025</strong>; más abajo se reorganizan según los cuatro criterios actuales. Úsalos para ver el nivel esperado y aprender de sus errores, no para copiar. ¿Buscas más ideas? Consulta el <a href="catalogo.html">catálogo de más de 360 investigaciones y protocolos</a>.</div></div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <span class="filter-label">Filtrar por tipo:</span>
+  <button class="filter-btn active" onclick="filterCards('all',this)">Todos (17)</button>
+  <button class="filter-btn" onclick="filterCards('experiment',this)">🧪 Experimento</button>
+  <button class="filter-btn" onclick="filterCards('ecology',this)">🌿 Ecológico</button>
+  <button class="filter-btn" onclick="filterCards('database',this)">🗄️ Base de datos</button>
+  <button class="filter-btn" onclick="filterCards('simulation',this)">💻 Simulación</button>
+  <button class="filter-btn" onclick="filterCards('comments',this)">🗒️ Con comentarios</button>
+</div>
+
+<!-- CARDS -->
+<section class="section" id="ejemplos">
+  <div class="sec-hdr">
+    <div class="sec-ic">📄</div>
+    <div><h2 class="sec-title">Las 17 Investigaciones</h2><p class="sec-sub">Ordenadas por número. Haz clic en cualquier tarjeta para abrir el PDF.</p></div>
+  </div>
+  <div class="inv-grid" id="invGrid">
+
+    <!-- INV 1 -->
+    <div class="inv-card" data-type="experiment">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 01</span></div>
+        <div class="inv-title">Efecto del agua ahumada sobre la germinación y crecimiento de <em>Eucalyptus pilularis</em></div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">D3.1 · Reproducción (germinación)</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Tipo de agua (ahumada vs desionizada)
+          <span class="vd-label">Variable Dependiente</span>% de germinación y altura de plántula (mm)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1zsYc_D4Gs05YOnbgQXF-N0BrzXaTsizR/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 2 -->
+    <div class="inv-card" data-type="ecology">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 02</span></div>
+        <div class="inv-title">Efecto de la exposición solar sobre la biomasa seca de hierba</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-eco">🌿 Ecológico</span>
+          <span class="meta-tag block">C1.3 · Fotosíntesis / C4.2</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Exposición al sol (plena luz vs sombra)
+          <span class="vd-label">Variable Dependiente</span>Biomasa seca de hierba (g)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/16UcXOxLkbBNsVbzA6xUrPv2We3jnkSms/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 3 -->
+    <div class="inv-card" data-type="experiment">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 03</span></div>
+        <div class="inv-title">Efecto de la temperatura sobre el contenido mineral y pH de alfisoles (Ecología del fuego)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">C4.2 · Materia y energía</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Temperatura del horno (70–110 °C en 5 niveles)
+          <span class="vd-label">Variable Dependiente</span>Concentración de P, N, K y pH del suelo alfisol
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1Y83rUOzmWXj-qYnZiD3rHBOguf4m46b7/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 4 -->
+    <div class="inv-card" data-type="experiment">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 04</span></div>
+        <div class="inv-title">Efecto del método de maduración sobre el metabolismo del almidón en nectarinas (<em>Prunus persica</em>)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">B1.1 · Carbohidratos</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Método de maduración (bolsa con banana / arroz / control)
+          <span class="vd-label">Variable Dependiente</span>Tiempo de decoloración del KMnO₄ como indicador de glucosa (min)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/116Q4hAt8ZbQRRNryrro9dSyS5XGKxI84/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 5 -->
+    <div class="inv-card" data-type="experiment">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 05</span></div>
+        <div class="inv-title">Efecto del tiempo de almacenamiento sobre la plasmólisis de papas (ósmosis)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">D2.3 · Potencial hídrico</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Tiempo de almacenamiento de la papa (semanas, 1–5)
+          <span class="vd-label">Variable Dependiente</span>Variación de masa del cilindro de papa al sumergirlo en agua (g)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1yL3TodK99SiGeQwDcbgCk9wYHJiBfQRt/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 6 -->
+    <div class="inv-card" data-type="database">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 06</span></div>
+        <div class="inv-title">Relación entre la estructura primaria de amilasas de cebada y el efecto del pH sobre su actividad</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-db">🗄️ Base de datos</span>
+          <span class="meta-tag block">B1.2 · Proteínas / C1.1</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Bases de datos usadas</span>UniProt (secuencias proteínas) · BLAST (alineamiento)
+          <span class="vd-label">Variable de Respuesta</span>Proporción de aminoácidos ácidos, básicos y polares en α- y β-amilasa
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1tCwgwjRjn3af2y6jrqQuToR77ANg2faK/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 7 -->
+    <div class="inv-card" data-type="simulation">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 07</span></div>
+        <div class="inv-title">Efecto del nivel de luz sobre la depredación de la polilla moteada (<em>Biston betularia</em>)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-sim">💻 Simulación</span>
+          <span class="meta-tag block">D4.1 · Selección natural</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Intensidad de la luz de pantalla (100%, 50%, 25%) × tipo de bosque (claro/oscuro)
+          <span class="vd-label">Variable Dependiente</span>% de variedad moteada superviviente tras 1 min de "depredación"
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/12KMTs3Kj2ygOuO2Ia4qLFfgA0uxdqpOy/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 8 -->
+    <div class="inv-card" data-type="simulation">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 08</span></div>
+        <div class="inv-title">Efecto de la intensidad de luz sobre la producción de O₂ en planta acuática (simulación en línea)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-sim">💻 Simulación</span>
+          <span class="meta-tag block">C1.3 · Fotosíntesis</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Intensidad de luz (escala 1–10 en simulación)
+          <span class="vd-label">Variable Dependiente</span>N.º de burbujas de O₂ producidas en 30 segundos
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1I_QObFzjVb2JY6ygdFvYZHkeGD1efXef/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 9 -->
+    <div class="inv-card" data-type="ecology">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 09</span></div>
+        <div class="inv-title">Relación entre la distancia al mar y la densidad de <em>Siphonaria pectinata</em> (estudio ecológico)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-eco">🌿 Ecológico</span>
+          <span class="meta-tag block">C4.1 · Poblaciones y comunidades</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Distancia al mar (m) — cuadrantes en transecto
+          <span class="vd-label">Variable Dependiente</span>Densidad de caracoles por m² (n/m²)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1Ws46BF1AqoZ13WBJs76Ber6SnfmQdF_t/view" target="_blank" class="inv-link primary-l">📄 Abrir PDF →</a>
+      </div>
+    </div>
+
+    <!-- INV 10 con comentarios -->
+    <div class="inv-card has-comments" data-type="experiment comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 10</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Concentración de plomo (Pb) en lápices labiales de dos marcas diferentes</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">⚠ Escaso contenido biológico</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Marca del lápiz labial (2 marcas × 5 muestras de cada una)
+          <span class="vd-label">Variable Dependiente</span>Tiempo de decoloración de la tirita de detección de plomo (min)
+        </div>
+      </div>
+      <div class="score-bar">
+        <span class="score-label">Puntuación</span>
+        <div class="score-track"><div class="score-fill" style="width:58%"></div></div>
+        <span class="score-num">14 / 24</span>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1qBv-NoAVK3JkhGoq7WAgBtDThBOgz531/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#cs-10" onclick="openComments('cs10')" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+    <!-- INV 11 con comentarios -->
+    <div class="inv-card has-comments" data-type="experiment comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 11</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Efecto del tipo de sustrato sobre la germinación y crecimiento de rábanos (<em>Raphanus sativus</em>)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">D3.1 · Reproducción (germinación)</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Tipo de sustrato (incluyendo Peat Moss — permacultura)
+          <span class="vd-label">Variable Dependiente</span>% de germinación y longitud de la plántula (cm)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1scyXvxa5CmE0CMZ9lUnoVsOGGeJeto2y/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#con-comentarios" onclick="navScroll('con-comentarios',event)" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+    <!-- INV 12 con comentarios -->
+    <div class="inv-card has-comments" data-type="experiment comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 12</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Efecto de la rotación de la planta sobre el ángulo de fototropismo</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">C3.1 · Fototropismo y auxinas</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Intervalo de rotación (cada 1 hora, 3 h, sin rotación)
+          <span class="vd-label">Variable Dependiente</span>Ángulo de curvatura del tallo hacia la luz (grados)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1VYTUMsy0lAnJHdr0RT2f5xUQZjF9erMU/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#con-comentarios" onclick="navScroll('con-comentarios',event)" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+    <!-- INV 13 con comentarios -->
+    <div class="inv-card has-comments" data-type="database comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 13</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Colesterol ingerido en desayuno y almuerzo: comida rápida vs dieta mediterránea</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-db">🗄️ Base de datos</span>
+          <span class="meta-tag block">B1.1 · Lípidos</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Tipo de dieta (comida rápida vs dieta mediterránea)
+          <span class="vd-label">Variable Dependiente</span>Cantidad de colesterol ingerido en las 2 comidas principales (mg)
+        </div>
+      </div>
+      <div class="score-bar">
+        <span class="score-label">Puntuación</span>
+        <div class="score-track"><div class="score-fill" style="width:58%"></div></div>
+        <span class="score-num">14 / 24</span>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1Zsn_d68D9cWQ_jvbOZ1AEcV1rgsUvSw2/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#con-comentarios" onclick="navScroll('con-comentarios',event)" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+    <!-- INV 14 con comentarios -->
+    <div class="inv-card has-comments" data-type="experiment comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 14</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Comparación del contenido energético de dos fuentes de carbohidratos para el rendimiento deportivo (calorimetría)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">B1.1 · Carbohidratos / C1.2</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Tipo de carbohidrato (dos fuentes diferentes)
+          <span class="vd-label">Variable Dependiente</span>Contenido energético calculado por calorimetría (kJ·g⁻¹)
+        </div>
+      </div>
+      <div class="score-bar">
+        <span class="score-label">Puntuación</span>
+        <div class="score-track"><div class="score-fill" style="width:67%"></div></div>
+        <span class="score-num">16 / 24</span>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1hEItZzUHjSrymJKfz3gVjAm16taAPc5W/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#con-comentarios" onclick="navScroll('con-comentarios',event)" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+    <!-- INV 15 con comentarios -->
+    <div class="inv-card has-comments" data-type="experiment comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 15</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Concentración de gluten en distintas variedades de harina</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">B1.2 · Proteínas</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Variedad de harina (5 tipos: normal, fuerza, integral, espelta, maíz)
+          <span class="vd-label">Variable Dependiente</span>Masa de gluten lavado por 100 g de harina (g)
+        </div>
+      </div>
+      <div class="score-bar">
+        <span class="score-label">Puntuación</span>
+        <div class="score-track"><div class="score-fill" style="width:62%"></div></div>
+        <span class="score-num">15 / 24</span>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1Erw0O_sAg3wysYXjhTw36P8xmZu-owd1/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#con-comentarios" onclick="navScroll('con-comentarios',event)" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+    <!-- INV 16 con comentarios -->
+    <div class="inv-card has-comments" data-type="experiment comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 16</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Efecto de la congelación previa sobre la actividad de la catalasa en hígado de pollo</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">C1.1 · Enzimas</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Temperatura de almacenamiento del tejido (congelado vs temperatura ambiente)
+          <span class="vd-label">Variable Dependiente</span>% de O₂ liberado en la descomposición de H₂O₂ (sensor)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/15Z1yeOV9TznokL0pBvatwbNlgPZsBCDs/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#con-comentarios" onclick="navScroll('con-comentarios',event)" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+    <!-- INV 17 con comentarios -->
+    <div class="inv-card has-comments" data-type="experiment comments">
+      <div class="inv-card-top">
+        <div class="inv-num"><span class="num-badge">Inv. 17</span><span class="comments-badge">🗒️ Con comentarios</span></div>
+        <div class="inv-title">Efecto de la temperatura sobre la tasa metabólica de organismos poiquilotermos (medida por CO₂)</div>
+        <div class="inv-meta">
+          <span class="meta-tag type-exp">🧪 Experimento</span>
+          <span class="meta-tag block">C1.2 · Respiración celular</span>
+        </div>
+        <div class="inv-vi-vd">
+          <span class="vi-label">Variable Independiente</span>Temperatura de incubación (3 niveles, °C)
+          <span class="vd-label">Variable Dependiente</span>Concentración de CO₂ producido por los organismos (ppm · min⁻¹)
+        </div>
+      </div>
+      <div class="inv-card-footer">
+        <a href="https://drive.google.com/file/d/1TvE_1KqUyeLIGun_-XaEo3KRoABJiHNA/view" target="_blank" class="inv-link primary-l">📄 PDF →</a>
+        <a href="#con-comentarios" onclick="navScroll('con-comentarios',event)" class="inv-link comments-l">🗒️ Ver comentarios →</a>
+      </div>
+    </div>
+
+  </div><!-- /inv-grid -->
+</section>
+
+<!-- SECTION: CON COMENTARIOS (reorganizado según los criterios 2025) -->
+<section class="section" id="con-comentarios">
+  <div class="sec-hdr">
+    <div class="sec-ic">🗒️</div>
+    <div><h2 class="sec-title">Qué valoran los examinadores</h2><p class="sec-sub">Patrones de las anotaciones del examinador en las 8 investigaciones con comentarios, reorganizados según los 4 criterios actuales</p></div>
+  </div>
+
+  <div class="comments-section">
+    <div class="cs-header">
+      <h2>Anotaciones del examinador, leídas con los criterios 2025</h2>
+      <p>Estos trabajos se corrigieron con los criterios anteriores (Compromiso personal, Exploración, Análisis, Evaluación y Comunicación). Aquí sus comentarios se agrupan en los criterios vigentes: <strong>Diseño de la investigación</strong> · <strong>Análisis de datos</strong> · <strong>Conclusión</strong> · <strong>Evaluación</strong> (6 puntos cada uno).</p>
+    </div>
+    <div class="cs-tabs-hdr" role="tablist">
+      <button class="cs-tab active" role="tab" onclick="showCsTab('general',this)">Patrones generales</button>
+      <button class="cs-tab" role="tab" onclick="showCsTab('ex',this)">1 · Diseño</button>
+      <button class="cs-tab" role="tab" onclick="showCsTab('a',this)">2 · Análisis de datos</button>
+      <button class="cs-tab" role="tab" onclick="showCsTab('c',this)">3 · Conclusión</button>
+      <button class="cs-tab" role="tab" onclick="showCsTab('ev',this)">4 · Evaluación</button>
+    </div>
+
+    <!-- GENERAL -->
+    <div class="cs-panel active" id="cs-general">
+      <div class="alert warn"><span class="alert-ic">⚠️</span><div><div class="alert-title">Las notas no son trasladables a los criterios actuales</div><div class="alert-txt">Los trabajos con comentarios obtuvieron entre 14 y 16 puntos sobre 24 con los criterios anteriores. El reparto de puntos era distinto (incluía Compromiso personal y Comunicación), así que úsalos para aprender de sus aciertos y errores, no para estimar una nota.</div></div></div>
+      <div class="alert info"><span class="alert-ic">ℹ️</span><div><div class="alert-title">¿Qué ha cambiado?</div><div class="alert-txt">El <strong>compromiso personal ya no se evalúa</strong>: tu interés por el tema puede aparecer en una frase, pero las palabras rinden más en el contexto científico. La <strong>comunicación</strong> (tablas, unidades, decimales, terminología) ya no es un criterio aparte: forma parte de la comunicación «clara y precisa» del Análisis de datos.</div></div></div>
+      <div class="criteria-grid">
+        <div class="crit-card ex">
+          <div class="crit-label ex"><span class="crit-badge ex">1</span>Errores frecuentes en Diseño</div>
+          <ul class="crit-items">
+            <li class="bad">Usar «cantidad» sin especificar la magnitud ni la unidad del SI</li>
+            <li class="bad">Pregunta poco focalizada: VI y VD sin precisar ni sistema biológico concreto</li>
+            <li class="bad">Contexto teórico superficial o que no justifica la predicción</li>
+            <li class="bad">Variables controladas sin valor ni método de control</li>
+          </ul>
+        </div>
+        <div class="crit-card a">
+          <div class="crit-label a"><span class="crit-badge a">2</span>Errores frecuentes en Análisis de datos</div>
+          <ul class="crit-items">
+            <li class="bad">No indicar qué representan las barras de error</li>
+            <li class="bad">Pocas réplicas (2–3) para estimar la variabilidad</li>
+            <li class="bad">Prueba estadística sin justificar su elección</li>
+            <li class="bad">Decimales incoherentes entre datos brutos y procesados; tablas sin unidades o sin incertidumbre</li>
+          </ul>
+        </div>
+        <div class="crit-card c">
+          <div class="crit-label c"><span class="crit-badge c">3</span>Errores frecuentes en Conclusión</div>
+          <ul class="crit-items">
+            <li class="bad">No comparar los resultados con valores o explicaciones publicados</li>
+            <li class="bad">Conclusión que va más allá de lo que muestran los datos procesados y su incertidumbre</li>
+            <li class="bad">Incluir en la conclusión factores que no se analizaron</li>
+          </ul>
+        </div>
+        <div class="crit-card ev">
+          <div class="crit-label ev"><span class="crit-badge ev">4</span>Errores frecuentes en Evaluación</div>
+          <ul class="crit-items">
+            <li class="bad">Debilidades genéricas que valdrían para cualquier investigación</li>
+            <li class="bad">Mejoras vagas, sin instrumento, cantidad o protocolo concretos</li>
+            <li class="bad">No explicar cuánto afecta cada limitación a la conclusión</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISEÑO -->
+    <div class="cs-panel" id="cs-ex">
+      <h3 style="margin-bottom:1.25rem">Criterio 1 — Diseño de la investigación (máx. 6 puntos)</h3>
+      <div class="criteria-grid">
+        <div class="crit-card ex">
+          <div class="crit-label ex">✓ Lo que valoró el examinador</div>
+          <ul class="crit-items">
+            <li class="good">Nombre científico de la especie y región de estudio (Inv. 9, 17)</li>
+            <li class="good">Justificar por qué se elige ese organismo o material concreto</li>
+            <li class="good">Diagrama o fotografía rotulada del montaje experimental (Inv. 17)</li>
+            <li class="good">Cada variable controlada con su valor, unidad y cómo se controla</li>
+            <li class="good">Bibliografía que sustenta la predicción</li>
+            <li class="good">Medidas de seguridad, éticas y ambientales específicas del método</li>
+          </ul>
+        </div>
+        <div class="crit-card ex">
+          <div class="crit-label ex">✗ Lo que restó puntos</div>
+          <ul class="crit-items">
+            <li class="bad">«Cantidad» en lugar de la magnitud con su unidad (masa en g, volumen en mL)</li>
+            <li class="bad">No especificar en la pregunta los niveles o tipos de la VI</li>
+            <li class="bad">Confundir variables controladas con variables independientes</li>
+            <li class="bad">Omitir volúmenes, temperaturas o concentraciones: el método no es reproducible</li>
+            <li class="bad">«Una gota» en lugar de un volumen medido</li>
+            <li class="bad">No indicar cómo se controló ni se comprobó la temperatura</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANÁLISIS -->
+    <div class="cs-panel" id="cs-a">
+      <h3 style="margin-bottom:1.25rem">Criterio 2 — Análisis de datos (máx. 6 puntos)</h3>
+      <div class="criteria-grid">
+        <div class="crit-card a">
+          <div class="crit-label a">✓ Lo que valoró el examinador</div>
+          <ul class="crit-items">
+            <li class="good">Mostrar las fórmulas usadas (media, s, pendiente…) con un ejemplo de cálculo</li>
+            <li class="good">Explicar por qué se elige una prueba estadística antes de aplicarla</li>
+            <li class="good">Interpretar correctamente el estadístico (t, χ²) frente al valor crítico o el valor p</li>
+            <li class="good">Indicar qué representan las barras de error</li>
+            <li class="good">Incluir observaciones cualitativas relevantes</li>
+            <li class="good">Calcular la pendiente para obtener una tasa de reacción (Inv. 17)</li>
+            <li class="good">Terminología precisa («masa», no «peso»); tablas y figuras numeradas con pie</li>
+          </ul>
+        </div>
+        <div class="crit-card a">
+          <div class="crit-label a">✗ Lo que restó puntos</div>
+          <ul class="crit-items">
+            <li class="bad">Desviación típica con 2–3 valores: se puede calcular, pero estima muy mal la variabilidad</li>
+            <li class="bad">Barras de error sin explicar (± s, ± SEM, IC 95 %)</li>
+            <li class="bad">Datos necesarios para seguir el análisis solo en un apéndice</li>
+            <li class="bad">Tablas sin encabezados, sin unidades o sin incertidumbre del instrumento</li>
+            <li class="bad">Incertidumbres sin unidades («± 0,5»)</li>
+            <li class="bad">Decimales incoherentes: datos con 1 decimal y medias con 3</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:.85rem;margin-top:.5rem">👉 Guía paso a paso: <a href="incertidumbre.html">Cómo tratar la incertidumbre</a> · <a href="estadistica.html">Herramientas estadísticas</a></p>
+    </div>
+
+    <!-- CONCLUSIÓN -->
+    <div class="cs-panel" id="cs-c">
+      <h3 style="margin-bottom:1.25rem">Criterio 3 — Conclusión (máx. 6 puntos)</h3>
+      <div class="criteria-grid">
+        <div class="crit-card c">
+          <div class="crit-label c">✓ Lo que valoró el examinador</div>
+          <ul class="crit-items">
+            <li class="good">Comparar los resultados con valores bibliográficos publicados</li>
+            <li class="good">Discutir cómo la variabilidad (s) afecta a la solidez de la conclusión</li>
+            <li class="good">Mantener la conclusión ligada a la pregunta de investigación original</li>
+          </ul>
+        </div>
+        <div class="crit-card c">
+          <div class="crit-label c">✗ Lo que restó puntos</div>
+          <ul class="crit-items">
+            <li class="bad">Conclusión no comparada con la bibliografía («podría haberse comparado con…»)</li>
+            <li class="bad">Mencionar factores que no se analizaron como parte de la conclusión</li>
+            <li class="bad">Afirmar causalidad a partir de una correlación</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVALUACIÓN -->
+    <div class="cs-panel" id="cs-ev">
+      <h3 style="margin-bottom:1.25rem">Criterio 4 — Evaluación (máx. 6 puntos)</h3>
+      <div class="criteria-grid">
+        <div class="crit-card ev">
+          <div class="crit-label ev">✓ Lo que valoró el examinador</div>
+          <ul class="crit-items">
+            <li class="good">Debilidades específicas de esta metodología, no genéricas</li>
+            <li class="good">Mejoras concretas y realistas ligadas a cada debilidad</li>
+            <li class="good">Explicar el impacto de cada limitación en los resultados</li>
+          </ul>
+        </div>
+        <div class="crit-card ev">
+          <div class="crit-label ev">✗ Lo que restó puntos</div>
+          <ul class="crit-items">
+            <li class="bad">Mejoras vagas sin instrumento, cantidades o protocolo</li>
+            <li class="bad">Limitaciones listadas sin decir cuánto afectan a la conclusión</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:.85rem;margin-top:.5rem">ℹ️ Proponer extensiones de la investigación o enumerar fortalezas puede ser útil, pero los descriptores actuales de Evaluación se centran en el <strong>impacto relativo de las limitaciones</strong> y en <strong>mejoras pertinentes</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: LECCIONES -->
+<section class="section" id="lecciones">
+  <div class="sec-hdr">
+    <div class="sec-ic">💡</div>
+    <div><h2 class="sec-title">10 lecciones prácticas</h2><p class="sec-sub">Extraídas de las anotaciones del examinador y alineadas con los criterios 2025</p></div>
+  </div>
+  <div class="lessons-grid">
+    <div class="lesson-card ex">
+      <div class="lesson-crit ex"><span>1</span>Diseño</div>
+      <div class="lesson-icon">🎯</div>
+      <div class="lesson-title">Sé preciso desde la pregunta</div>
+      <div class="lesson-txt">«Cantidad» es ambiguo: nombra la magnitud que mides y su unidad del SI desde la primera línea.</div>
+      <div class="lesson-examples"><p>En lugar de…</p><ul><li>❌ «¿Cómo afecta la cantidad de luz?»</li><li>✅ «¿Cómo afecta la intensidad luminosa (lx)…?»</li><li>❌ «¿Cuánto colesterol hay?»</li><li>✅ «¿Cuál es la masa de colesterol (mg) por ración…?»</li></ul></div>
+    </div>
+    <div class="lesson-card ex">
+      <div class="lesson-crit ex"><span>1</span>Diseño</div>
+      <div class="lesson-icon">🔬</div>
+      <div class="lesson-title">Nombra el organismo y justifica la elección</div>
+      <div class="lesson-txt">El descriptor de 5-6 pide una pregunta «en el marco de un contexto específico y apropiado». El nombre científico, el sistema biológico y por qué ese organismo es adecuado forman parte de ese contexto.</div>
+      <div class="lesson-examples"><p>Buenos ejemplos</p><ul><li>✅ Inv. 9: <em>Siphonaria pectinata</em> y la zona de estudio</li><li>✅ Inv. 17: justifica el uso de poiquilotermos y explica la tasa metabólica</li></ul></div>
+    </div>
+    <div class="lesson-card ex">
+      <div class="lesson-crit ex"><span>1</span>Diseño</div>
+      <div class="lesson-icon">📚</div>
+      <div class="lesson-title">Contexto científico antes que motivación personal</div>
+      <div class="lesson-txt">Una observación personal puede abrir la introducción (Inv. 4: «las frutas de mi supermercado no maduran bien»), pero no puntúa por sí misma. Lo que se evalúa es la teoría directamente pertinente que conecta la VI con la VD.</div>
+    </div>
+    <div class="lesson-card a">
+      <div class="lesson-crit a"><span>2</span>Análisis de datos</div>
+      <div class="lesson-icon">📊</div>
+      <div class="lesson-title">Réplicas suficientes… y justificadas</div>
+      <div class="lesson-txt">Con 2–3 réplicas la desviación típica es una estimación muy poco fiable y las pruebas estadísticas tienen poca potencia. El IB no fija un mínimo: decide el número con un ensayo piloto y explícalo.</div>
+      <div class="lesson-examples"><p>Detectado</p><ul><li>❌ Inv. 10: 3 réplicas, señalado por el examinador como insuficiente para las 10 horas de trabajo</li><li>✅ Orientación habitual: 5 o más niveles de la VI y 5 o más réplicas por nivel, si el sistema lo permite</li></ul></div>
+    </div>
+    <div class="lesson-card a">
+      <div class="lesson-crit a"><span>2</span>Análisis de datos</div>
+      <div class="lesson-icon">📈</div>
+      <div class="lesson-title">Justifica la prueba estadística antes de usarla</div>
+      <div class="lesson-txt">No basta con aplicar una t de Student o un χ²: explica por qué encaja con tu pregunta, tu tipo de datos y tu diseño.</div>
+      <div class="lesson-examples"><p>Modelo</p><ul><li>✅ «Aplico la t de Student para muestras independientes porque comparo dos grupos con una VD continua y distribución aproximadamente normal.»</li><li>✅ Inv. 14: el examinador valora que explica por qué usa la t</li></ul></div>
+    </div>
+    <div class="lesson-card a">
+      <div class="lesson-crit a"><span>2</span>Análisis de datos</div>
+      <div class="lesson-icon">⚠️</div>
+      <div class="lesson-title">Di siempre qué son las barras de error</div>
+      <div class="lesson-txt">En cada gráfico con barras de error, el pie debe indicar qué representan y el tamaño muestral.</div>
+      <div class="lesson-examples"><p>Error repetido en los trabajos comentados</p><ul><li>❌ «No se indica qué representan las barras»</li><li>✅ «Las barras de error representan ± 1 desviación típica (n = 5).»</li></ul></div>
+    </div>
+    <div class="lesson-card a">
+      <div class="lesson-crit a"><span>2</span>Análisis de datos</div>
+      <div class="lesson-icon">🔢</div>
+      <div class="lesson-title">Decimales coherentes con el instrumento</div>
+      <div class="lesson-txt">La media se expresa con los mismos decimales que los datos brutos (los que permite el instrumento). La desviación típica puede llevar, como mucho, un decimal más. Aplica la misma regla en todas las tablas.</div>
+      <div class="lesson-examples"><p>Regla</p><ul><li>❌ Datos: 8,1 g → media: 9,563 g</li><li>✅ Datos: 8,1 g → media: 9,6 g; s = 0,42 g</li></ul></div>
+    </div>
+    <div class="lesson-card a">
+      <div class="lesson-crit a"><span>2</span>Análisis de datos</div>
+      <div class="lesson-icon">📋</div>
+      <div class="lesson-title">Lo que se evalúa debe estar en el cuerpo</div>
+      <div class="lesson-txt">El apéndice no es obligatorio. Las tablas y los gráficos que el examinador necesita para seguir tu procesamiento deben estar en el informe (las tablas no cuentan en el límite de palabras).</div>
+      <div class="lesson-examples"><p>Detectado</p><ul><li>❌ Inv. 13: las masas ingeridas solo aparecen en el apéndice</li></ul></div>
+    </div>
+    <div class="lesson-card c">
+      <div class="lesson-crit c"><span>3</span>Conclusión</div>
+      <div class="lesson-icon">📚</div>
+      <div class="lesson-title">Compara con la bibliografía</div>
+      <div class="lesson-txt">Para el nivel más alto, la conclusión se justifica mediante una comparación pertinente con el contexto científico aceptado: valores publicados, mecanismos explicados en la bibliografía o resultados de estudios similares.</div>
+      <div class="lesson-examples"><p>Detectado</p><ul><li>❌ Inv. 10: no se comparan los datos con la bibliografía</li><li>❌ Inv. 14: la conclusión no está respaldada por bibliografía</li><li>✅ Busca valores de referencia en PubMed o Google Académico y cítalos</li></ul></div>
+    </div>
+    <div class="lesson-card ev">
+      <div class="lesson-crit ev"><span>4</span>Evaluación</div>
+      <div class="lesson-icon">🔧</div>
+      <div class="lesson-title">Mejoras concretas y con su efecto</div>
+      <div class="lesson-txt">«Usaría más réplicas» no basta. Especifica instrumento, técnica, protocolo o cantidad, y explica qué limitación resuelve.</div>
+      <div class="lesson-examples"><p>Diferencia</p><ul><li>❌ «Repetiría el experimento con más muestras.»</li><li>✅ «Pasaría de 3 a 10 réplicas por nivel: el error típico de la media se reduciría aproximadamente un 45 % (factor √(3/10) ≈ 0,55), lo que permitiría distinguir las medias de 30 y 40 °C, cuyas barras se solapan.»</li></ul></div>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-main">🧬 Biología IB 2025 · IES Celia Viñas · Almería</div>
+  <div class="footer-nota">
+    Investigaciones de ejemplo tomadas de los materiales de ayuda al profesor de Biología del IB (corregidas con los criterios anteriores a 2025).<br>
+    Son trabajos de alumnos reales proporcionados por la Organización del Bachillerato Internacional. © IB Organization.
+  </div>
+  <div class="footer-autora">
+    Elaborado por <span>María Dolores Gámez Ortiz</span> · Profesora de Biología IB · IES Celia Viñas, Almería
+  </div>
+  <div>
+    <div class="cc-box">
+      <div class="cc-icons">
+        <span class="cc-icon">CC</span><span class="cc-icon">BY</span><span class="cc-icon">NC</span><span class="cc-icon">SA</span>
+      </div>
+      <div class="cc-text">
+        <span class="cc-title">CC BY-NC-SA 4.0 — Atribución · No comercial · Compartir igual</span>
+        <span class="cc-detail">Puedes compartir y adaptar este material siempre que cites a la autora,<br>no lo uses con fines comerciales y distribuyas bajo la misma licencia.</span>
+        <a class="cc-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">creativecommons.org/licenses/by-nc-sa/4.0 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// FILTER
+function filterCards(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.inv-card').forEach(card => {
+    if (type === 'all') { card.classList.remove('hidden'); return; }
+    const types = card.dataset.type || '';
+    card.classList.toggle('hidden', !types.includes(type));
+  });
+}
+
+// COMMENTS TABS
+function showCsTab(id, btn) {
+  document.querySelectorAll('.cs-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.cs-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cs-' + id).classList.add('active');
+}
+
+function navScroll(id, e) {
+  if (e) e.preventDefault();
+  const el = document.getElementById(id);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - 75;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+function openComments(id) {
+  navScroll('con-comentarios', null);
+}
+
+// NAV active
+window.addEventListener('scroll', () => {
+  let cur = '';
+  document.querySelectorAll('section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 110) cur = s.id; });
+  document.querySelectorAll('.nav-a').forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+</script>
+
+<script>
+/* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
+(function(){
+  function mark(root){(root.querySelectorAll?root:document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select)').forEach(function(el){if(!el.hasAttribute('role')){el.setAttribute('role','button');el.setAttribute('tabindex','0');}});}
+  document.addEventListener('keydown',function(e){var el=e.target.closest&&e.target.closest('[role="button"]');if(el&&el.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();el.click();}});
+  function init(){mark(document);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)mark(n.parentNode||n);});});}).observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.querySelectorAll('a[target="_blank"]').forEach(function(a){a.rel='noopener';});
+})();
+</script>
+</body>
+</html>

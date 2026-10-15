@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selección del Tema — Investigación Científica IB · IES Celia Viñas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#0d9488;--primary-l:#14b8a6;--primary-pale:#ccfbf1;
+  --secondary:#0ea5e9;--secondary-pale:#e0f2fe;
+  --accent:#f59e0b;--accent-pale:#fef3c7;
+  --danger:#ef4444;--danger-pale:#fee2e2;
+  --success:#22c55e;--success-pale:#dcfce7;
+  --purple:#7c3aed;--purple-pale:#f5f3ff;
+  --text:#1e293b;--text-l:#64748b;--text-m:#94a3b8;
+  --bg:#f8fafb;--bg-card:#ffffff;--border:#e2e8f0;--border-l:#f1f5f9;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,.06);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.08);
+  --r-sm:8px;--r-md:12px;--r-lg:20px;--r-xl:28px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;}
+::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--primary-l);border-radius:4px;}
+
+/* ── HEADER ── */
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:1rem 2rem;position:sticky;top:0;z-index:100;box-shadow:var(--shadow-md);}
+.header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.logo{display:flex;align-items:center;gap:.75rem;color:white;text-decoration:none;}
+.logo-ic{width:42px;height:42px;background:rgba(255,255,255,.2);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.logo-name{font-weight:700;font-size:1.15rem;}
+.logo-sub{font-size:.72rem;opacity:.85;}
+.nav{display:flex;gap:.3rem;flex-wrap:wrap;}
+.nav-a{color:rgba(255,255,255,.85);text-decoration:none;padding:.45rem .9rem;border-radius:var(--r-sm);font-size:.85rem;font-weight:500;transition:all .2s;}
+.nav-a:hover,.nav-a.active{background:rgba(255,255,255,.2);color:white;}
+
+/* ── PROGRESS ── */
+.prog-bar-wrap{background:var(--bg-card);border-bottom:1px solid var(--border);padding:.9rem 2rem;}
+.prog-inner{max-width:1300px;margin:0 auto;}
+.prog-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;}
+.prog-title{font-weight:600;font-size:.88rem;}
+.prog-pct{font-weight:700;color:var(--primary);font-size:.88rem;}
+.prog-track{height:7px;background:var(--border-l);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:4px;transition:width .5s ease;width:0%;}
+.prog-steps{display:flex;justify-content:space-between;margin-top:.6rem;}
+.prog-step{font-size:.72rem;color:var(--text-m);display:flex;align-items:center;gap:.3rem;}
+.prog-step.done{color:var(--primary);}
+.prog-dot{width:7px;height:7px;border-radius:50%;background:var(--border);}
+.prog-step.done .prog-dot{background:var(--primary);}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(180deg,var(--bg-card),var(--bg));padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,var(--primary-pale) 0%,transparent 40%),radial-gradient(circle at 70% 50%,var(--secondary-pale) 0%,transparent 40%);opacity:.5;z-index:0;}
+.hero-content{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--primary-pale);color:var(--primary);padding:.45rem 1rem;border-radius:50px;font-size:.82rem;font-weight:600;margin-bottom:1.25rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:700;line-height:1.2;margin-bottom:.9rem;}
+.hero h1 span{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{font-size:1.05rem;color:var(--text-l);max-width:580px;margin:0 auto 1.75rem;}
+.hero-cta{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.8rem 1.6rem;border-radius:var(--r-md);font-weight:600;font-size:.9rem;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:all .22s;}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-l));color:white;box-shadow:0 4px 14px rgba(13,148,136,.35);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(13,148,136,.45);}
+.btn-secondary{background:var(--bg-card);color:var(--text);border:2px solid var(--border);}
+.btn-secondary:hover{border-color:var(--primary);color:var(--primary);}
+
+/* ── MAIN ── */
+.main{max-width:1300px;margin:0 auto;padding:2rem;}
+.section{margin-bottom:3.5rem;}
+.sec-hdr{display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;}
+.sec-ic{width:52px;height:52px;background:linear-gradient(135deg,var(--primary-pale),var(--secondary-pale));border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;}
+.sec-sub{font-size:.9rem;color:var(--text-l);margin-top:.2rem;}
+
+/* ── ALERTS ── */
+.alert{padding:1.1rem 1.4rem;border-radius:var(--r-md);margin-bottom:1.75rem;display:flex;gap:.9rem;align-items:flex-start;}
+.alert-ic{font-size:1.4rem;flex-shrink:0;}
+.alert-title{font-weight:700;margin-bottom:.3rem;}
+.alert-txt{font-size:.88rem;color:var(--text-l);line-height:1.5;}
+.alert.warn{background:var(--accent-pale);border:1px solid rgba(245,158,11,.3);}
+.alert.danger{background:var(--danger-pale);border:1px solid rgba(239,68,68,.3);}
+.alert.info{background:var(--secondary-pale);border:1px solid rgba(14,165,233,.3);}
+.alert.success{background:var(--success-pale);border:1px solid rgba(34,197,94,.3);}
+
+/* ── CARDS GRID ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.4rem;}
+.card{background:var(--bg-card);border-radius:var(--r-lg);padding:1.6rem;border:1px solid var(--border);transition:all .28s;}
+.card:hover{box-shadow:var(--shadow-lg);border-color:var(--primary-pale);transform:translateY(-3px);}
+.card-ic{width:60px;height:60px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin-bottom:1.1rem;}
+.card-ic.exp{background:linear-gradient(135deg,#dcfce7,#bbf7d0);}
+.card-ic.eco{background:linear-gradient(135deg,#d1fae5,#a7f3d0);}
+.card-ic.db{background:linear-gradient(135deg,#e0f2fe,#bae6fd);}
+.card-ic.sim{background:linear-gradient(135deg,#f3e8ff,#e9d5ff);}
+.card-title{font-size:1.1rem;font-weight:700;margin-bottom:.45rem;}
+.card-desc{font-size:.88rem;color:var(--text-l);margin-bottom:.9rem;line-height:1.6;}
+.card-reqs{background:var(--bg);border-radius:var(--r-sm);padding:.9rem;margin-bottom:.9rem;}
+.card-reqs-title{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-m);margin-bottom:.45rem;}
+.card-reqs-list{list-style:none;font-size:.82rem;}
+.card-reqs-list li{display:flex;align-items:flex-start;gap:.4rem;padding:.2rem 0;}
+.card-reqs-list li::before{content:'✓';color:var(--success);font-weight:700;flex-shrink:0;}
+.card-tags{display:flex;flex-wrap:wrap;gap:.45rem;}
+.tag{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .7rem;background:var(--bg);border-radius:50px;font-size:.72rem;font-weight:500;color:var(--text-l);}
+.tag.ok{background:var(--success-pale);color:#15803d;}
+.tag.warn{background:var(--accent-pale);color:#b45309;}
+.tag.bad{background:var(--danger-pale);color:#dc2626;}
+
+/* ── TABS TOPICS ── */
+.tabs-wrap{background:var(--bg-card);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;}
+.tabs-hdr{display:flex;overflow-x:auto;background:var(--bg);border-bottom:1px solid var(--border);padding:.45rem;gap:.3rem;}
+.tab-btn{flex-shrink:0;padding:.7rem 1.15rem;background:transparent;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.85rem;font-weight:500;color:var(--text-l);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab-btn:hover{background:var(--border-l);color:var(--text);}
+.tab-btn.active{background:var(--primary);color:white;}
+.tab-content{display:none;padding:1.75rem;}
+.tab-content.active{display:block;}
+.topics-list{display:flex;flex-direction:column;gap:.9rem;}
+.topic-card{background:var(--bg);border-radius:var(--r-md);border:1px solid var(--border-l);overflow:hidden;transition:all .2s;}
+.topic-card:hover{border-color:var(--primary-pale);}
+.topic-hdr{padding:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:.9rem;}
+.topic-hdr:hover{background:rgba(13,148,136,.03);}
+.topic-main{display:flex;align-items:center;gap:.9rem;flex:1;}
+.type-badge{padding:.3rem .7rem;border-radius:50px;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap;}
+.type-badge.experiment{background:var(--success-pale);color:#15803d;}
+.type-badge.database{background:var(--secondary-pale);color:#0369a1;}
+.type-badge.ecology{background:var(--primary-pale);color:var(--primary);}
+.type-badge.simulation{background:var(--purple-pale);color:var(--purple);}
+.topic-title{font-weight:600;font-size:.93rem;}
+.topic-toggle{width:30px;height:30px;border-radius:50%;background:var(--border-l);display:flex;align-items:center;justify-content:center;transition:all .28s;flex-shrink:0;font-size:.8rem;}
+.topic-card.open .topic-toggle{transform:rotate(180deg);background:var(--primary);color:white;}
+.topic-body{display:none;padding:0 1.1rem 1.1rem;}
+.topic-card.open .topic-body{display:block;}
+.vars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem;margin-bottom:.9rem;}
+.var-box{background:var(--bg-card);border-radius:var(--r-sm);padding:.9rem;border:1px solid var(--border);}
+.var-lbl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.45rem;display:flex;align-items:center;gap:.3rem;}
+.var-lbl.vi{color:var(--secondary);}
+.var-lbl.vd{color:var(--primary);}
+.var-body{font-size:.87rem;}
+.var-body ul{list-style:none;margin-top:.45rem;}
+.var-body ul li{padding:.2rem 0 .2rem 1.1rem;position:relative;font-size:.82rem;color:var(--text-l);}
+.var-body ul li::before{content:'•';position:absolute;left:0;color:var(--primary);}
+.select-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.1rem;background:var(--primary);color:white;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.select-btn:hover{background:var(--primary-l);transform:translateY(-1px);}
+
+/* ══════════════════════════════
+   RESOURCES — main new section
+══════════════════════════════ */
+.res-tabs-wrap{background:var(--bg-card);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;}
+.res-tabs-hdr{display:flex;overflow-x:auto;background:var(--bg);border-bottom:1px solid var(--border);padding:.45rem;gap:.3rem;}
+.res-tab{flex-shrink:0;padding:.7rem 1.15rem;background:transparent;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.85rem;font-weight:600;color:var(--text-l);cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.4rem;}
+.res-tab:hover{background:var(--border-l);color:var(--text);}
+.res-tab.active{background:var(--primary);color:white;}
+.res-panel{display:none;padding:1.75rem;}
+.res-panel.active{display:block;}
+
+/* Buscadores académicos */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;}
+.res-card{background:var(--bg-card);border-radius:var(--r-lg);padding:1.35rem;border:1px solid var(--border);transition:all .2s;}
+.res-card:hover{border-color:var(--primary-pale);box-shadow:var(--shadow-md);}
+.res-hdr{display:flex;align-items:center;gap:.9rem;margin-bottom:.75rem;}
+.res-ic{width:44px;height:44px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.res-ic.ac{background:linear-gradient(135deg,#fef3c7,#fde68a);}
+.res-ic.bio{background:linear-gradient(135deg,#dcfce7,#bbf7d0);}
+.res-ic.data{background:linear-gradient(135deg,#e0f2fe,#bae6fd);}
+.res-ic.act{background:linear-gradient(135deg,#f3e8ff,#e9d5ff);}
+.res-ic.sensor{background:linear-gradient(135deg,#fff7ed,#fed7aa);}
+.res-name{font-weight:700;font-size:.93rem;}
+.res-spec{font-size:.75rem;color:var(--text-m);}
+.res-desc{font-size:.85rem;color:var(--text-l);margin-bottom:.75rem;line-height:1.55;}
+.res-link{display:inline-flex;align-items:center;gap:.3rem;color:var(--primary);text-decoration:none;font-weight:600;font-size:.82rem;}
+.res-link:hover{text-decoration:underline;}
+
+/* DB by topic table */
+.db-topic-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.db-topic-table th{background:var(--primary-pale);color:var(--primary);padding:.65rem .9rem;text-align:left;font-weight:700;font-size:.75rem;text-transform:uppercase;border-bottom:2px solid var(--primary-pale);}
+.db-topic-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border-l);vertical-align:top;}
+.db-topic-table tr:hover td{background:var(--border-l);}
+.db-topic-table td:first-child{font-weight:700;}
+.db-topic-table td a{color:var(--primary);text-decoration:none;font-weight:600;}
+.db-topic-table td a:hover{text-decoration:underline;}
+.db-tag{display:inline-block;background:var(--primary-pale);color:var(--primary);border-radius:4px;padding:1px 6px;font-size:.7rem;font-weight:700;margin-right:3px;}
+.db-tag.t2{background:var(--secondary-pale);color:#0369a1;}
+.db-tag.t3{background:var(--accent-pale);color:#92400e;}
+.db-tag.t4{background:var(--success-pale);color:#166534;}
+.db-tag.t5{background:var(--purple-pale);color:var(--purple);}
+.db-tag.t6{background:#fdf4ff;color:#86198f;}
+
+/* Simulations table */
+.sim-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.sim-table th{background:#f3e8ff;color:var(--purple);padding:.65rem .9rem;text-align:left;font-weight:700;font-size:.75rem;text-transform:uppercase;border-bottom:2px solid #e9d5ff;}
+.sim-table td{padding:.65rem .9rem;border-bottom:1px solid var(--border-l);vertical-align:top;}
+.sim-table tr:hover td{background:var(--border-l);}
+.sim-table td a{color:var(--purple);text-decoration:none;font-weight:600;}
+.sim-table td a:hover{text-decoration:underline;}
+.pp-badge{display:inline-flex;align-items:center;gap:3px;background:#fef3c7;color:#92400e;border-radius:4px;padding:1px 6px;font-size:.68rem;font-weight:700;}
+
+/* Activities section */
+.act-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;}
+.act-card{background:var(--bg-card);border-radius:var(--r-lg);padding:1.5rem;border:2px solid;transition:all .2s;}
+.act-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.act-card.co2{border-color:#fed7aa;}
+.act-card.genes{border-color:#bbf7d0;}
+.act-card.pcr{border-color:#e9d5ff;}
+.act-header{display:flex;align-items:center;gap:.9rem;margin-bottom:.9rem;}
+.act-ic{font-size:2rem;}
+.act-tema{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-m);margin-bottom:.15rem;}
+.act-title{font-size:1rem;font-weight:700;}
+.act-desc{font-size:.85rem;color:var(--text-l);margin-bottom:.9rem;line-height:1.55;}
+.act-steps{font-size:.8rem;color:var(--text-l);}
+.act-steps li{margin-bottom:.25rem;padding-left:1rem;position:relative;}
+.act-steps li::before{content:'→';position:absolute;left:0;color:var(--primary);}
+.act-footer{margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--border-l);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.act-link{display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1rem;border-radius:var(--r-sm);font-size:.8rem;font-weight:700;text-decoration:none;transition:opacity .15s;}
+.act-link:hover{opacity:.85;}
+.act-link.co2-l{background:#fed7aa;color:#92400e;}
+.act-link.gene-l{background:#bbf7d0;color:#166534;}
+.act-link.pcr-l{background:#e9d5ff;color:#6d28d9;}
+
+/* Sensors */
+.sensor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+.sensor-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:1.1rem;display:flex;gap:.75rem;align-items:flex-start;transition:all .2s;}
+.sensor-card:hover{border-color:var(--primary-pale);box-shadow:var(--shadow-sm);}
+.sensor-ic{font-size:1.6rem;flex-shrink:0;}
+.sensor-name{font-weight:700;font-size:.9rem;margin-bottom:.2rem;}
+.sensor-link{font-size:.78rem;color:var(--primary);text-decoration:none;font-weight:600;}
+.sensor-link:hover{text-decoration:underline;}
+
+/* ── BUILDER ── */
+.builder-wrap{background:var(--bg-card);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;}
+.builder-hdr{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:1.75rem;color:white;}
+.builder-hdr h3{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:.4rem;}
+.builder-hdr p{opacity:.9;font-size:.9rem;}
+.builder-body{padding:1.75rem;}
+.builder-step{margin-bottom:1.35rem;}
+.step-lbl{display:flex;align-items:center;gap:.7rem;margin-bottom:.65rem;}
+.step-num{width:26px;height:26px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;}
+.step-title{font-weight:600;}
+.builder-input{width:100%;padding:.8rem .95rem;border:2px solid var(--border);border-radius:var(--r-md);font-family:inherit;font-size:.95rem;transition:all .2s;background:var(--bg);}
+.builder-input:focus{outline:none;border-color:var(--primary);background:white;}
+.builder-select{width:100%;padding:.8rem .95rem;border:2px solid var(--border);border-radius:var(--r-md);font-family:inherit;font-size:.95rem;background:var(--bg);cursor:pointer;}
+.builder-select:focus{outline:none;border-color:var(--primary);}
+.builder-preview{background:linear-gradient(135deg,var(--primary-pale),var(--secondary-pale));border-radius:var(--r-lg);padding:1.35rem;margin-top:1.35rem;}
+.bp-label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--primary);margin-bottom:.65rem;}
+.bp-text{font-size:1.1rem;font-weight:500;font-style:italic;line-height:1.5;}
+
+/* ── METHODOLOGY ── */
+.method-tabs{display:flex;gap:.45rem;margin-bottom:1.35rem;flex-wrap:wrap;}
+.method-tab{padding:.7rem 1.15rem;background:var(--bg);border:2px solid var(--border);border-radius:var(--r-md);font-family:inherit;font-size:.88rem;font-weight:600;color:var(--text-l);cursor:pointer;transition:all .2s;}
+.method-tab:hover{border-color:var(--primary);color:var(--primary);}
+.method-tab.active{background:var(--primary);border-color:var(--primary);color:white;}
+.method-content{display:none;}
+.method-content.active{display:block;}
+.method-table{width:100%;border-collapse:collapse;background:var(--bg-card);border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border);}
+.method-table th{background:var(--bg);padding:.9rem;text-align:left;font-weight:600;font-size:.88rem;border-bottom:1px solid var(--border);}
+.method-table td{padding:.9rem;border-bottom:1px solid var(--border-l);vertical-align:top;}
+.method-table tr:last-child td{border-bottom:none;}
+.method-table td:first-child{font-weight:600;color:var(--primary);width:175px;background:var(--bg);}
+.method-qs{list-style:none;}
+.method-qs li{padding:.3rem 0;font-size:.88rem;color:var(--text-l);display:flex;gap:.45rem;}
+.method-qs li::before{content:'→';color:var(--primary);flex-shrink:0;}
+
+/* ── CHECKLIST ── */
+.cl-wrap{background:var(--bg-card);border-radius:var(--r-xl);border:1px solid var(--border);overflow:hidden;}
+.cl-hdr{padding:1.35rem 1.75rem;background:var(--bg);border-bottom:1px solid var(--border);}
+.cl-hdr-title{font-weight:700;font-size:1rem;margin-bottom:.2rem;}
+.cl-hdr-sub{font-size:.82rem;color:var(--text-m);}
+.cl-body{padding:1.35rem 1.75rem;}
+.cl-phase{margin-bottom:1.75rem;}
+.cl-phase:last-child{margin-bottom:0;}
+.cl-phase-title{font-weight:700;margin-bottom:.9rem;display:flex;align-items:center;gap:.45rem;}
+.cl-phase-badge{padding:.22rem .6rem;background:var(--primary);color:white;border-radius:50px;font-size:.68rem;font-weight:600;}
+.cl-items{display:flex;flex-direction:column;gap:.65rem;}
+.cl-item{display:flex;align-items:flex-start;gap:.7rem;cursor:pointer;}
+.cl-chk{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.15rem;}
+.cl-chk:hover{border-color:var(--primary);}
+.cl-chk.checked{background:var(--primary);border-color:var(--primary);}
+.cl-chk.checked::after{content:'✓';color:white;font-size:.75rem;font-weight:700;}
+.cl-txt{font-size:.9rem;color:var(--text);line-height:1.5;}
+.cl-item.done .cl-txt{color:var(--text-m);text-decoration:line-through;}
+
+/* ── ERRORS ── */
+.err-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.9rem;}
+.err-card{background:var(--bg-card);border-radius:var(--r-md);padding:1.1rem;border-left:4px solid var(--danger);box-shadow:var(--shadow-sm);}
+.err-ic{font-size:1.4rem;margin-bottom:.65rem;}
+.err-title{font-weight:700;margin-bottom:.3rem;}
+.err-desc{font-size:.87rem;color:var(--text-l);}
+
+/* ── FOOTER ── */
+/* ── FOOTER (igual que página Inicio) ── */
+.footer {
+  text-align: center;
+  padding: 24px 2rem 4px;
+  border-top: 2px solid var(--border);
+  margin-top: 3.5rem;
+  background: var(--bg);
+}
+.footer-main { font-weight: 700; color: var(--primary); font-size: 13.5px; margin-bottom: 5px; }
+.footer-nota { font-size: 11.5px; color: var(--text-m); line-height: 1.6; margin-bottom: 14px; }
+.footer-autora { font-size: 12.5px; font-weight: 600; color: var(--text-l); margin-bottom: 12px; }
+.footer-autora span { color: var(--primary); }
+.cc-box {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 16px; margin-bottom: 8px;
+}
+.cc-icons { display: flex; align-items: center; }
+.cc-icon {
+  width: 24px; height: 24px; border-radius: 50%; background: #04a635;
+  color: white; font-size: 11px; font-weight: 900;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-right: 3px; flex-shrink: 0; font-family: 'Outfit', sans-serif;
+}
+.cc-text { text-align: left; }
+.cc-title { font-size: 12px; font-weight: 700; color: var(--text); display: block; margin-bottom: 1px; }
+.cc-detail { font-size: 10.5px; color: var(--text-m); display: block; }
+.cc-link { font-size: 10px; color: var(--primary); text-decoration: none; display: block; margin-top: 1px; }
+.cc-link:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .header-inner{flex-direction:column;gap:.75rem;}
+  .nav{flex-wrap:wrap;justify-content:center;}
+  .hero{padding:2.5rem 1.25rem;}
+  .main{padding:1.25rem;}
+  .sec-hdr{flex-direction:column;text-align:center;}
+  .tabs-hdr,.res-tabs-hdr{padding:.3rem;}
+  .tab-btn,.res-tab{padding:.55rem .8rem;font-size:.78rem;}
+  .method-table td:first-child{width:110px;}
+  .vars-grid{grid-template-columns:1fr;}
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(9px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{animation:fadeIn .38s ease forwards;}
+@media print{.header,.nav,.prog-bar-wrap{display:none;}.main{max-width:100%;}}
+</style>
+<meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
+<meta name="theme-color" content="#1e5c32">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<script>
+/* Si el navegador bloquea el almacenamiento (p. ej. dentro de un iframe de Google Sites), usar memoria para que la página no se rompa */
+(function(){try{var k='__p';localStorage.setItem(k,k);localStorage.removeItem(k);}catch(e){var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}});}catch(_){}}})();
+</script>
+<style>
+.sitenav{background:#143f23;font-family:'DM Sans',system-ui,sans-serif;position:relative;z-index:200}
+.sitenav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto;scrollbar-width:none}
+.sitenav-in::-webkit-scrollbar{display:none}
+.sitenav a{color:#d9eedf;text-decoration:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:7px;white-space:nowrap;line-height:1.2}
+.sitenav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sitenav a[aria-current=page]{background:#fff;color:#143f23}
+.sitenav .brand{font-weight:800;color:#fff;margin-right:6px;white-space:nowrap;font-size:14px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#143f23;padding:8px 12px;z-index:999;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><span class="brand">🧬 IA Biología IB</span><a href="index.html">🏠 Inicio</a><a href="tema.html" aria-current="page">🔬 Elegir tema</a><a href="ejemplos.html">📄 Ejemplos</a><a href="catalogo.html">🔎 Catálogo</a><a href="estadistica.html">📊 Estadística</a><a href="incertidumbre.html">📏 Incertidumbre</a></div></nav>
+<div id="contenido"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-ic">🧬</div>
+      <div><div class="logo-name">Biología IB · IES Celia Viñas</div><div class="logo-sub">Investigación Científica — Evaluación Interna</div></div>
+    </a>
+    <nav class="nav">
+      <a href="#inicio" class="nav-a active">Inicio</a>
+      <a href="#tipos" class="nav-a">Tipos</a>
+      <a href="#temas" class="nav-a">Temas</a>
+      <a href="#recursos" class="nav-a">Recursos</a>
+      <a href="#pregunta" class="nav-a">Pregunta</a>
+      <a href="#checklist" class="nav-a">Checklist</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div class="prog-bar-wrap">
+  <div class="prog-inner">
+    <div class="prog-hdr"><span class="prog-title">Tu progreso en la preparación</span><span class="prog-pct" id="progPct">0%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-steps">
+      <span class="prog-step" data-step="1"><span class="prog-dot"></span>Selección tema</span>
+      <span class="prog-step" data-step="2"><span class="prog-dot"></span>Antecedentes</span>
+      <span class="prog-step" data-step="3"><span class="prog-dot"></span>Metodología</span>
+      <span class="prog-step" data-step="4"><span class="prog-dot"></span>¡Listo!</span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <div class="hero-badge"><span>📚</span><span>Programa 2025 · Primera evaluación 2025</span></div>
+    <h1>Selección del Tema de <span>Investigación</span></h1>
+    <p>Tu guía paso a paso para elegir, planificar y preparar tu investigación científica IB. No apresures esta tarea: invertir tiempo ahora evitará rehacerla después.</p>
+    <div class="hero-cta">
+      <a href="#tipos" class="btn btn-primary"><span>🚀</span>Comenzar ahora</a>
+      <a href="#recursos" class="btn btn-secondary"><span>🗄️</span>Ver recursos</a>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+<div class="alert warn">
+  <span class="alert-ic">💡</span>
+  <div><div class="alert-title">Mensaje importante</div>
+  <div class="alert-txt">No apresures esta tarea. Es vital que selecciones una pregunta que sea realmente factible. Si la apresuras, perderás el tiempo y deberás repetirla. <strong>En primer lugar, haz un buen y minucioso trabajo.</strong></div></div>
+</div>
+
+<!-- ═══ TIPOS ═══ -->
+<section class="section" id="tipos">
+  <div class="sec-hdr">
+    <div class="sec-ic">🔬</div>
+    <div><h2 class="sec-title">Tipos de Investigación</h2><p class="sec-sub">Elige el tipo que mejor se adapte a tus intereses y recursos disponibles</p></div>
+  </div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-ic exp">🧪</div>
+      <h3 class="card-title">Experimento Controlado</h3>
+      <p class="card-desc">Manipulas una variable independiente y mides su efecto en una variable dependiente en condiciones controladas.</p>
+      <div class="card-reqs"><div class="card-reqs-title">Orientaciones</div>
+      <ul class="card-reqs-list"><li>Rango y niveles de la VI suficientes para ver la tendencia (orientativo: 5 o más)</li><li>Réplicas suficientes para estimar la variabilidad (orientativo: 5 o más; justifícalo con un ensayo piloto)</li><li>Variables controladas con su valor y método de control</li></ul></div>
+      <div class="card-tags"><span class="tag ok">✓ Control de variables</span><span class="tag ok">✓ Causa-efecto clara</span></div>
+    </div>
+    <div class="card">
+      <div class="card-ic eco">🌿</div>
+      <h3 class="card-title">Estudio Ecológico / Campo</h3>
+      <p class="card-desc">Análisis de un sitio de campo, estudiando la relación entre factores abióticos y biodiversidad.</p>
+      <div class="card-reqs"><div class="card-reqs-title">Orientaciones</div>
+      <ul class="card-reqs-list"><li>Muestreo representativo y aleatorio o sistemático justificado</li><li>Datos de campo bien documentados</li><li>Múltiples puntos de muestreo</li></ul></div>
+      <div class="card-tags"><span class="tag ok">✓ Conexión con la naturaleza</span><span class="tag warn">⚠ Variables externas</span></div>
+    </div>
+    <div class="card">
+      <div class="card-ic db">🗃️</div>
+      <h3 class="card-title">Análisis de Base de Datos</h3>
+      <p class="card-desc">Usar datos existentes de bases científicas para responder una pregunta original con tu propio análisis.</p>
+      <div class="card-reqs"><div class="card-reqs-title">Orientaciones</div>
+      <ul class="card-reqs-list"><li>Datos brutos de una fuente fiable (institución, método de obtención y fecha)</li><li>Tamaño muestral suficiente para la prueba estadística, justificado</li><li>Procesamiento propio: tablas, gráficos y estadística</li></ul></div>
+      <div class="card-tags"><span class="tag ok">✓ Sin laboratorio</span><span class="tag warn">⚠ Análisis debe ser original</span></div>
+    </div>
+    <div class="card">
+      <div class="card-ic sim">💻</div>
+      <h3 class="card-title">Simulación Científica</h3>
+      <p class="card-desc">Usar simulaciones científicas validadas para investigar fenómenos biológicos difíciles de replicar en laboratorio.</p>
+      <div class="card-reqs"><div class="card-reqs-title">Orientaciones</div>
+      <ul class="card-reqs-list"><li>Simulación de una fuente reconocida y modelo explicado</li><li>Si incluye azar, réplicas suficientes; si es determinista (mismo resultado siempre), explícalo</li><li>Discusión de los supuestos y límites del modelo</li></ul></div>
+      <div class="card-tags"><span class="tag ok">✓ Fenómenos complejos</span><span class="tag warn">⚠ Validar fiabilidad del modelo</span></div>
+    </div>
+  </div>
+  <div class="alert danger" style="margin-top:1.75rem">
+    <span class="alert-ic">⚠️</span>
+    <div><div class="alert-title">Precaución: investigaciones con personas</div>
+    <div class="alert-txt">La variabilidad entre personas es alta y muchas variables son difíciles de controlar (sueño, dieta, forma física, motivación), por lo que suelen hacer falta <strong>muestras grandes o medidas repetidas</strong>. Además, las Directrices del IB exigen <strong>consentimiento informado</strong> y no permiten administrar sustancias (cafeína, alcohol, suplementos…) ni usar fluidos corporales.</div></div>
+  </div>
+</section>
+
+<!-- ═══ TEMAS ═══ -->
+<section class="section" id="temas">
+  <div class="sec-hdr">
+    <div class="sec-ic">📚</div>
+    <div><h2 class="sec-title">Explorador de Temas</h2><p class="sec-sub">Ideas organizadas por áreas, con el subtema del programa 2025 y variables sugeridas. ¿Quieres ver investigaciones reales sobre cada idea? Busca en el <a href="catalogo.html">catálogo de ejemplos</a>.</p></div>
+  </div>
+  <div class="tabs-wrap">
+    <div class="tabs-hdr">
+      <button class="tab-btn active" data-tab="b1">Células y membranas</button>
+      <button class="tab-btn" data-tab="b2">Metabolismo</button>
+      <button class="tab-btn" data-tab="b3">Genética y bioinformática</button>
+      <button class="tab-btn" data-tab="b4">Ecología y clima</button>
+      <button class="tab-btn" data-tab="b5">Evolución y diversidad</button>
+      <button class="tab-btn" data-tab="b6">Fisiología humana</button>
+      <button class="tab-btn" data-tab="b9">Fisiología vegetal</button>
+    </div>
+    <!-- B1 -->
+    <div class="tab-content active" id="b1">
+      <h3 style="margin-bottom:1rem">Células y membranas</h3>
+      <div class="topics-list">
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🔬 Ósmosis (D2.3 Potencial hídrico · B2.1 Membranas)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Concentración de soluto</li><li>Temperatura</li><li>Tipo de vegetal</li><li>Área de contacto</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Cambio de masa del tejido vegetal (g)</div></div></div>
+        <button class="select-btn" onclick="selTopic('Ósmosis','Concentración de soluto','Cambio de masa (g)')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🧬 Homología de ADN y endosimbiosis (A2.2 Estructura celular)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 Variables a correlacionar</div><div class="var-body">Genes en bacterias, ADNmt y ADN cromosómico</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">% de homología en secuencia de ADN</div></div></div>
+        <button class="select-btn" onclick="selTopic('Homología ADN','Genes comparados','% homología ADN')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🔬 Epidemiología del cáncer — CDC (D2.1 División celular)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI (elegir de CDC)</div><div class="var-body">Edad, región, tipo de cáncer, factores de riesgo...</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Incidencia, mortalidad o supervivencia</div></div></div>
+        <button class="select-btn" onclick="selTopic('Análisis de cáncer','Variable CDC','Incidencia de cáncer')">✓ Seleccionar</button></div></div>
+      </div>
+    </div>
+    <!-- B2 -->
+    <div class="tab-content" id="b2">
+      <h3 style="margin-bottom:1rem">Metabolismo</h3>
+      <div class="topics-list">
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">⚗️ Actividad enzimática (C1.1 Enzimas y metabolismo)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Temperatura</li><li>pH</li><li>Concentración de sustrato</li><li>Concentración de inhibidor</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Velocidad de reacción (mL·min⁻¹ o cambio en masa/volumen)<br><em>Enzimas sugeridas: catalasa, amilasa, lipasa, pectinasa, lactasa</em></div></div></div>
+        <button class="select-btn" onclick="selTopic('Actividad enzimática','Variable a elegir','Velocidad de reacción')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">☀️ Fotosíntesis (C1.3 Fotosíntesis)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Intensidad de la luz (lux)</li><li>Longitud de onda / color de luz</li><li>Concentración de CO₂</li><li>Temperatura (°C)</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD — Elige una</div><div class="var-body"><ul><li>O₂ producido (burbujas·min⁻¹)</li><li>Ensayo de disco foliar</li><li>Cambio en biomasa</li></ul></div></div></div>
+        <button class="select-btn" onclick="selTopic('Fotosíntesis','Variable a elegir','Variable a elegir')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🍞 Fermentación en levadura (C1.2 Respiración celular)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Tipo de azúcar</li><li>Temperatura de incubación (°C)</li><li>Cantidad de levadura (g)</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD — Elige una</div><div class="var-body"><ul><li>Volumen de CO₂ producido (mL)</li><li>Recuento de burbujas·min⁻¹</li></ul></div></div></div>
+        <button class="select-btn" onclick="selTopic('Fermentación levadura','Variable a elegir','CO₂ producido (mL)')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🍃 Pigmentos fotosintéticos — cromatografía (C1.3 Fotosíntesis)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Plantas de sombra vs luz</li><li>Estadio de desarrollo de las hojas</li><li>Plantas terrestres vs acuáticas</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Número y cantidad relativa de pigmentos (Rf)</div></div></div>
+        <button class="select-btn" onclick="selTopic('Pigmentos fotosintéticos','Tipo de planta','Cantidad de pigmentos (Rf)')">✓ Seleccionar</button></div></div>
+      </div>
+    </div>
+    <!-- B3 -->
+    <div class="tab-content" id="b3">
+      <h3 style="margin-bottom:1rem">Genética y bioinformática</h3>
+      <div class="topics-list">
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🧬 Frecuencias alélicas — ALFRED (D4.1 Selección natural · D3.2 Herencia)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 Variable</div><div class="var-body">Diferentes poblaciones humanas (geográficas, étnicas...)</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Frecuencia alélica (%) — Base de datos ALFRED (alfred.med.yale.edu)</div></div></div>
+        <button class="select-btn" onclick="selTopic('Frecuencias alélicas','Poblaciones humanas','Frecuencia alélica (%)')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🔬 Secuencias génicas — NCBI (A3.2 Clasificación y cladística)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 Variable</div><div class="var-body">Diferentes especies (NCBI GenBank / EMBL)</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">% similitud en la secuencia de nucleótidos de un gen (alineamiento EMBOSS Needle)</div></div></div>
+        <div class="alert info" style="margin:.7rem 0"><span class="alert-ic" style="font-size:1rem">🎓</span><div><div class="alert-txt"><strong>Actividad guiada disponible</strong> — Se ha preparado una actividad paso a paso para usar NCBI y comparar el gen cox1 entre dos especies. Ver sección <a href="#recursos" style="color:var(--secondary)">Recursos → Actividades guiadas</a>.</div></div></div>
+        <button class="select-btn" onclick="selTopic('Secuencias génicas NCBI','Especies','% similitud en secuencia')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🦠 Mutaciones en cáncer — COSMIC (D1.3 Mutaciones · D2.1)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 Variable</div><div class="var-body">Tipo de cáncer (mama vs endometrio, etc.) — cancer.sanger.ac.uk/cosmic</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Principales mutaciones somáticas presentes</div></div></div>
+        <button class="select-btn" onclick="selTopic('Mutaciones en cáncer COSMIC','Tipo de cáncer','Mutaciones somáticas')">✓ Seleccionar</button></div></div>
+      </div>
+    </div>
+    <!-- B4 -->
+    <div class="tab-content" id="b4">
+      <h3 style="margin-bottom:1rem">Ecología y clima</h3>
+      <div class="topics-list">
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge ecology">Ecológico</span><span class="topic-title">🌍 Factores abióticos y distribución (B4.1 Adaptación · C4.1 Poblaciones)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Cantidad de luz (lux)</li><li>Humedad del suelo (%)</li><li>Distancia de perturbación humana (m)</li><li>Distancia del agua (m)</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body"><ul><li>Abundancia de especies (n)</li><li>Asociación entre dos especies</li></ul></div></div></div>
+        <button class="select-btn" onclick="selTopic('Factores abióticos','Factor a elegir','Abundancia de especies (n)')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🐚 Acidificación y conchas (D4.3 Cambio climático)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI</div><div class="var-body">Acidez (pH) de la solución</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Velocidad de disolución del CaCO₃ — cambio de masa (g)</div></div></div>
+        <button class="select-btn" onclick="selTopic('Acidificación conchas','pH de la solución','Cambio de masa (g)')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🌡️ CO₂ y temperatura global — NASA/NOAA (D4.3 Cambio climático)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 Variable</div><div class="var-body">Concentración media anual de CO₂ (ppm) — NASA climate.nasa.gov</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Anomalía térmica global media (°C) respecto a 1951-1980</div></div></div>
+        <div class="alert info" style="margin:.7rem 0"><span class="alert-ic" style="font-size:1rem">🎓</span><div><div class="alert-txt"><strong>Actividad guiada disponible</strong> — Se ha preparado una actividad paso a paso para usar la web de la NASA y analizar la correlación CO₂-temperatura. Ver sección <a href="#recursos" style="color:var(--secondary)">Recursos → Actividades guiadas</a>.</div></div></div>
+        <button class="select-btn" onclick="selTopic('CO₂ y temperatura NASA','Concentración CO₂ (ppm)','Anomalía térmica (°C)')">✓ Seleccionar</button></div></div>
+      </div>
+    </div>
+    <!-- B5 -->
+    <div class="tab-content" id="b5">
+      <h3 style="margin-bottom:1rem">Evolución y diversidad</h3>
+      <div class="topics-list">
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge ecology">Medición</span><span class="topic-title">📏 Variación en rasgos (A3.1 Diversidad de organismos)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI</div><div class="var-body">Especies de plantas relacionadas (ej. diferentes coníferas)</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Variación cuantificada de un rasgo morfológico (longitud, anchura...)</div></div></div>
+        <button class="select-btn" onclick="selTopic('Variación de rasgos','Especies','Variación del rasgo morfológico')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🌳 Cladogramas por ADN (A3.2 Clasificación y cladística)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 Variable</div><div class="var-body">Diferentes especies — NCBI GenBank</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">% de homología en secuencia de ADN → construcción de cladograma</div></div></div>
+        <button class="select-btn" onclick="selTopic('Cladogramas por ADN','Especies','% homología en ADN')">✓ Seleccionar</button></div></div>
+      </div>
+    </div>
+    <!-- B6 -->
+    <div class="tab-content" id="b6">
+      <h3 style="margin-bottom:1rem">Fisiología humana</h3>
+      <div class="alert danger" style="margin-bottom:1.35rem"><span class="alert-ic">⚠️</span><div><div class="alert-title">Precaución en fisiología humana</div><div class="alert-txt">Las investigaciones con pocas personas y variables mal controladas producen datos muy dispersos y conclusiones débiles. Planifica una muestra amplia o medidas repetidas, controla las variables de confusión y cumple las Directrices del IB (consentimiento informado, sin sustancias ni fluidos corporales).</div></div></div>
+      <div class="topics-list">
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">❤️ Frecuencia cardíaca y ejercicio (C3.1 Integración · B3.2 Transporte)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI</div><div class="var-body">Intensidad del ejercicio (niveles cuantificados)</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body"><ul><li>Tiempo de recuperación FC (s)</li><li>Cambio en FC (ppm)</li></ul><em>Sensor Vernier disponible en el centro</em></div></div></div>
+        <button class="select-btn" onclick="selTopic('Frecuencia cardíaca','Intensidad del ejercicio','Tiempo de recuperación FC (s)')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🫁 Ventilación y ejercicio (B3.1 Intercambio de gases · C3.1)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI</div><div class="var-body">Intensidad del ejercicio</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body"><ul><li>Tasa de ventilación (ciclos·min⁻¹)</li><li>Cambio en pH al exhalar (sonda de pH)</li></ul><em>Sensor de CO₂ / pH / cinturón respiratorio disponibles</em></div></div></div>
+        <button class="select-btn" onclick="selTopic('Ventilación y ejercicio','Intensidad del ejercicio','Tasa de ventilación')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge database">Base de datos</span><span class="topic-title">🦠 COVID-19 y temperatura — OMS (C3.2 Defensa) ⚠ muchas variables de confusión</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 Variable</div><div class="var-body">Temperatura media por países (°C)</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">N.º de casos de COVID-19 confirmados — covid19.who.int</div></div></div>
+        <button class="select-btn" onclick="selTopic('COVID-19 y temperatura','Temperatura media (°C)','Casos confirmados (n)')">✓ Seleccionar</button></div></div>
+      </div>
+    </div>
+    <!-- B9 -->
+    <div class="tab-content" id="b9">
+      <h3 style="margin-bottom:1rem">Fisiología vegetal</h3>
+      <div class="topics-list">
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🔬 Densidad estomática (B3.1 Intercambio de gases)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Ubicación / exposición solar</li><li>Hora del día</li><li>Tipo de planta</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Recuento de estomas (impresiones con esmalte) por mm²</div></div></div>
+        <button class="select-btn" onclick="selTopic('Recuento de estomas','Variable a elegir','Estomas por mm²')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">💧 Transpiración con potómetro (B3.1 · B3.2 Transporte)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Humedad ambiental (%)</li><li>Temperatura (°C)</li><li>Intensidad de luz (lux)</li><li>Viento</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body">Tasa de transpiración (mL·h⁻¹) — medida con potómetro</div></div></div>
+        <button class="select-btn" onclick="selTopic('Transpiración','Variable a elegir','Tasa de transpiración (mL·h⁻¹)')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🌱 Germinación de semillas (D3.1 Reproducción)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI — Elige una</div><div class="var-body"><ul><li>Temperatura (°C)</li><li>pH del agua</li><li>Concentración de ácido giberélico</li><li>Intensidad de luz (lux)</li></ul></div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body"><ul><li>% de germinación</li><li>Tiempo de germinación (h)</li></ul></div></div></div>
+        <button class="select-btn" onclick="selTopic('Germinación','Variable a elegir','% de germinación')">✓ Seleccionar</button></div></div>
+        <div class="topic-card"><div class="topic-hdr" onclick="toggleTopic(this)"><div class="topic-main"><span class="type-badge experiment">Experimento</span><span class="topic-title">🌿 Enraizamiento de esquejes con auxinas (C3.1 Integración: hormonas vegetales)</span></div><div class="topic-toggle">▼</div></div>
+        <div class="topic-body"><div class="vars-grid"><div class="var-box"><div class="var-lbl vi">📥 VI</div><div class="var-body">Concentración de ácido indolbutírico — hormona de enraizamiento</div></div><div class="var-box"><div class="var-lbl vd">📤 VD</div><div class="var-body"><ul><li>Tiempo hasta aparición de raíces (días)</li><li>Número de raíces</li></ul><em>Esquejes recomendados: geranio o rosa</em></div></div></div>
+        <button class="select-btn" onclick="selTopic('Enraizamiento esquejes','Concentración AIB','Número de raíces')">✓ Seleccionar</button></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECURSOS ═══ -->
+<section class="section" id="recursos">
+  <div class="sec-hdr">
+    <div class="sec-ic">🔗</div>
+    <div><h2 class="sec-title">Bases de Datos, Simulaciones y Recursos</h2><p class="sec-sub">Recursos organizados por tipo y por subtema del programa 2025</p></div>
+  </div>
+
+  <div class="res-tabs-wrap">
+    <div class="res-tabs-hdr">
+      <button class="res-tab active" onclick="showResTab('buscadores',this)">🔍 Buscadores académicos</button>
+      <button class="res-tab" onclick="showResTab('bd-temas',this)">🗄️ Bases de datos por tema</button>
+      <button class="res-tab" onclick="showResTab('sims',this)">💻 Simulaciones por tema</button>
+      <button class="res-tab" onclick="showResTab('actividades',this)">🎓 Actividades guiadas</button>
+      <button class="res-tab" onclick="showResTab('sensores',this)">🔬 Sensores del centro</button>
+    </div>
+
+    <!-- BUSCADORES -->
+    <div class="res-panel active" id="rp-buscadores">
+      <p style="font-size:.88rem;color:var(--text-l);margin-bottom:1.35rem">Plataformas con acceso gratuito a artículos científicos revisados por pares. Úsalos para buscar información de contexto y bibliografía.</p>
+      <div class="res-grid">
+        <div class="res-card"><div class="res-hdr"><div class="res-ic ac">📚</div><div><div class="res-name">Google Académico</div><div class="res-spec">General · Todas las disciplinas</div></div></div><p class="res-desc">Búsqueda de literatura científica y artículos revisados por pares. Genera citas en formato APA automáticamente.</p><a href="https://scholar.google.com" target="_blank" class="res-link">scholar.google.com →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic ac">🌐</div><div><div class="res-name">CORE</div><div class="res-spec">Acceso abierto · Universidades</div></div></div><p class="res-desc">Investigaciones de universidades y repositorios de todo el mundo, texto completo gratuito.</p><a href="https://core.ac.uk" target="_blank" class="res-link">core.ac.uk →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic ac">📖</div><div><div class="res-name">BASE</div><div class="res-spec">+300 millones de documentos</div></div></div><p class="res-desc">Bielefeld Academic Search Engine — uno de los motores más extensos con documentos de libre acceso.</p><a href="https://www.base-search.net" target="_blank" class="res-link">base-search.net →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic bio">🔬</div><div><div class="res-name">PubMed</div><div class="res-spec">Biomedicina · Fisiología</div></div></div><p class="res-desc">Artículos de biomedicina y biología molecular revisados por pares. Excelente para enzimas y fisiología.</p><a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" class="res-link">pubmed.ncbi.nlm.nih.gov →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic bio">🧬</div><div><div class="res-name">PLoS Biology</div><div class="res-spec">Acceso libre · Biología</div></div></div><p class="res-desc">Revista de investigación en biología de acceso completamente libre. Artículos de alta calidad revisados por pares.</p><a href="https://journals.plos.org/plosbiology/" target="_blank" class="res-link">journals.plos.org/plosbiology →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic ac">🎓</div><div><div class="res-name">Science in School</div><div class="res-spec">Ciencias para el aula</div></div></div><p class="res-desc">Revista con artículos de ciencia pensados para el bachillerato. Fuente de inspiración para temas de investigación.</p><a href="https://www.scienceinschool.org" target="_blank" class="res-link">scienceinschool.org →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic ac">📝</div><div><div class="res-name">Emerging Investigators</div><div class="res-spec">Investigación estudiantil</div></div></div><p class="res-desc">Revista de investigación científica de estudiantes. Inspiración y ejemplos de proyectos exitosos similares al IA.</p><a href="https://www.emerginginvestigators.org" target="_blank" class="res-link">emerginginvestigators.org →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic ac">🎓</div><div><div class="res-name">Biology for Life</div><div class="res-spec">Recursos IB de Gretel von Bargen</div></div></div><p class="res-desc">Recursos específicos para la evaluación interna de Biología IB, creados por una experta reconocida internacionalmente.</p><a href="https://www.biologyforlife.com" target="_blank" class="res-link">biologyforlife.com →</a></div>
+        <div class="res-card"><div class="res-hdr"><div class="res-ic ac">🔭</div><div><div class="res-name">Practical Biology</div><div class="res-spec">Protocolos de laboratorio</div></div></div><p class="res-desc">Métodos y protocolos detallados para experimentos de biología verificados por expertos.</p><a href="https://practicalbiology.org" target="_blank" class="res-link">practicalbiology.org →</a></div>
+      </div>
+    </div>
+
+    <!-- BASES DE DATOS POR TEMA -->
+    <div class="res-panel" id="rp-bd-temas">
+      <p style="font-size:.88rem;color:var(--text-l);margin-bottom:1.35rem">Bases de datos organizadas por subtema del programa de estudios IB. Todas son de acceso gratuito.</p>
+      <div style="overflow-x:auto">
+      <table class="db-topic-table">
+        <thead><tr><th>Base de datos</th><th>Subtema 2025</th><th>Sugerencia de actividad de investigación</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://ourworldindata.org" target="_blank">Our World in Data</a></td><td><span class="db-tag">D2.1</span><span class="db-tag t6">C3.2</span></td><td>Correlación entre consumo de tabaco e incidencia de cáncer de pulmón por países. Ojo: los datos agregados por país no permiten conclusiones individuales.</td></tr>
+          <tr><td><a href="https://cancer.sanger.ac.uk/cosmic" target="_blank">COSMIC — Mutaciones en cáncer</a></td><td><span class="db-tag t2">D1.3</span><span class="db-tag">D2.1</span></td><td>Comparación de las mutaciones somáticas más frecuentes entre dos tipos de cáncer (p. ej., mama y endometrio).</td></tr>
+          <tr><td><a href="https://www.ncbi.nlm.nih.gov" target="_blank">NCBI — GenBank y BLAST</a></td><td><span class="db-tag t4">A3.2</span><span class="db-tag t2">D1.3</span></td><td>Alineamiento de secuencias de ADN o de aminoácidos entre especies para estimar su parentesco. <strong>Actividad guiada disponible.</strong></td></tr>
+          <tr><td><a href="https://www.uniprot.org" target="_blank">UniProt — Proteínas</a></td><td><span class="db-tag t2">B1.2</span><span class="db-tag t2">C1.1</span></td><td>Composición de aminoácidos o secuencias de enzimas homólogas de distintos organismos.</td></tr>
+          <tr><td><a href="https://alfred.med.yale.edu" target="_blank">ALFRED — Frecuencias alélicas</a></td><td><span class="db-tag t4">D4.1</span></td><td>Comparar frecuencias alélicas entre poblaciones humanas.</td></tr>
+          <tr><td><a href="https://www.ncbi.nlm.nih.gov/datasets/" target="_blank">NCBI Datasets — Genomas</a></td><td><span class="db-tag t4">A3.1</span></td><td>Relación entre tamaño del genoma, número de cromosomas o número de genes en distintas especies.</td></tr>
+          <tr><td><a href="https://gml.noaa.gov/ccgg/trends/" target="_blank">NOAA GML — CO₂ de Mauna Loa</a></td><td><span class="db-tag t3">D4.3</span></td><td>Serie histórica de CO₂ atmosférico (desde 1958). Sustituye a CDIAC, que ya no está activo.</td></tr>
+          <tr><td><a href="https://data.giss.nasa.gov/gistemp/" target="_blank">NASA GISTEMP — Temperatura global</a></td><td><span class="db-tag t3">D4.3</span></td><td>Anomalías de temperatura global; combinable con los datos de CO₂ de NOAA. <strong>Actividad guiada disponible.</strong></td></tr>
+          <tr><td><a href="https://www.gbif.org" target="_blank">GBIF — Biodiversidad global</a></td><td><span class="db-tag t3">C4.1</span><span class="db-tag t4">A4.2</span></td><td>Registros de distribución y abundancia de especies para estudios ecológicos.</td></tr>
+          <tr><td><a href="https://data.who.int/" target="_blank">OMS — Datos de salud</a></td><td><span class="db-tag t6">C3.2</span></td><td>Indicadores de salud por países (enfermedades infecciosas, vacunación, esperanza de vida).</td></tr>
+          <tr><td><a href="https://www.unaids.org/es/topic/data" target="_blank">ONUSIDA — Datos del VIH</a></td><td><span class="db-tag t6">C3.2</span></td><td>Prevalencia del VIH por regiones, edad o sexo y su relación con variables como la cobertura de tratamiento.</td></tr>
+          <tr><td><a href="https://www.cdc.gov" target="_blank">CDC — Centros para el Control de Enfermedades</a></td><td><span class="db-tag">D2.1</span><span class="db-tag t6">B3.2</span></td><td>Datos epidemiológicos de cáncer o enfermedad cardiovascular por estados de EE. UU.</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- SIMULACIONES -->
+    <div class="res-panel" id="rp-sims">
+      <p style="font-size:.88rem;color:var(--text-l);margin-bottom:1.35rem">Simulaciones organizadas por subtema del programa 2025 (enlaces comprobados en octubre de 2026). Antes de basar tu investigación en una simulación, comprueba que genera <strong>datos cuantitativos</strong>, que puedes <strong>controlar las variables</strong> y si incluye <strong>azar</strong> (si no, las réplicas darán siempre el mismo resultado).</p>
+      <div style="overflow-x:auto">
+      <table class="sim-table">
+        <thead><tr><th>Subtema 2025</th><th>Actividad con simulación</th><th>Enlace</th></tr></thead>
+        <tbody>
+          <tr><td>B2.1 Membranas</td><td>Canales de membrana y difusión (PhET)</td><td><a href="https://phet.colorado.edu/es/simulations/membrane-channels" target="_blank">Abrir →</a></td></tr>
+          <tr><td>C2.2 Señalización neuronal</td><td>Potencial de acción en la neurona (PhET)</td><td><a href="https://phet.colorado.edu/es/simulations/neuron" target="_blank">Abrir →</a></td></tr>
+          <tr><td>C4.1 Poblaciones y comunidades</td><td>Dinámica depredador-presa «Wolf Sheep Predation» (NetLogo Web)</td><td><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Sample%20Models/Biology/Wolf%20Sheep%20Predation.nlogo" target="_blank">Abrir →</a></td></tr>
+          <tr><td>D1.1 Replicación del ADN</td><td>Electroforesis en gel (Learn.Genetics)</td><td><a href="https://learn.genetics.utah.edu/content/labs/gel/" target="_blank">Abrir →</a></td></tr>
+          <tr><td>D1.1 Replicación del ADN</td><td>PCR — Reacción en cadena de la polimerasa (Learn.Genetics) <strong>★</strong></td><td><a href="https://learn.genetics.utah.edu/content/labs/pcr/" target="_blank">Abrir →</a></td></tr>
+          <tr><td>D1.2 · D2.2 Expresión génica</td><td>Fundamentos de la expresión génica (PhET)</td><td><a href="https://phet.colorado.edu/es/simulations/gene-expression-essentials" target="_blank">Abrir →</a></td></tr>
+          <tr><td>D2.1 División celular</td><td>Análisis de un cariotipo (Biology Corner)</td><td><a href="https://www.biologycorner.com/karyotype/" target="_blank">Abrir →</a></td></tr>
+          <tr><td>D3.1 Reproducción</td><td>Factores que influyen en la germinación (Gizmos, requiere licencia)</td><td><a href="https://www.explorelearning.com/index.cfm?method=cResource.dspDetail&amp;ResourceID=378" target="_blank">Abrir →</a></td></tr>
+          <tr><td>A4.1 · D4.1 Evolución</td><td>Selección natural (PhET)</td><td><a href="https://phet.colorado.edu/es/simulations/natural-selection" target="_blank">Abrir →</a></td></tr>
+          <tr><td>A4.1 Evolución y especiación</td><td>Evolución de las lagartijas <i>Anolis</i> (HHMI BioInteractive)</td><td><a href="https://www.biointeractive.org/classroom-resources/lizard-evolution-virtual-lab" target="_blank">Abrir →</a></td></tr>
+          <tr><td>D4.3 Cambio climático</td><td>Efecto invernadero (PhET)</td><td><a href="https://phet.colorado.edu/es/simulations/greenhouse-effect" target="_blank">Abrir →</a></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="font-size:.78rem;color:var(--text-m);margin-top:.75rem">★ Actividad guiada de PCR disponible en la pestaña «Actividades guiadas». Busca más simulaciones en <a href="https://phet.colorado.edu/es/simulations/filter?subjects=biology" target="_blank">PhET Biología</a> y <a href="https://www.labxchange.org/" target="_blank">LabXchange</a>.</p>
+    </div>
+
+    <!-- ACTIVIDADES GUIADAS -->
+    <div class="res-panel" id="rp-actividades">
+      <p style="font-size:.88rem;color:var(--text-l);margin-bottom:1.35rem">Actividades paso a paso elaboradas para tu trabajo de investigación. Puedes usarlas directamente o como inspiración para formular tu propia pregunta.</p>
+      <div class="act-grid">
+        <!-- CO2 -->
+        <div class="act-card co2">
+          <div class="act-header">
+            <div class="act-ic">🌡️</div>
+            <div><div class="act-tema">D4.3 · Cambio climático · Base de datos</div><div class="act-title">Correlaciones CO₂ y temperatura global</div></div>
+          </div>
+          <p class="act-desc">Determina si existe correlación entre las concentraciones de CO₂ (ppm) y la temperatura global media (°C) usando series reales de NOAA (CO₂ de Mauna Loa) y NASA GISTEMP (anomalía térmica).</p>
+          <ul class="act-steps">
+            <li>Descargar la media anual de CO₂ de NOAA GML (gml.noaa.gov)</li>
+            <li>Descargar datos de anomalía térmica</li>
+            <li>Crear gráfico de dispersión con línea de tendencia y R²</li>
+            <li>Calcular r de Pearson y discutir por qué la correlación no demuestra por sí sola la causalidad</li>
+          </ul>
+          <div class="act-footer">
+            <a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" class="act-link co2-l">🌐 NOAA CO₂ →</a> <a href="https://data.giss.nasa.gov/gistemp/" target="_blank" class="act-link co2-l">🌡️ NASA GISTEMP →</a>
+          </div>
+        </div>
+        <!-- Secuencias génicas -->
+        <div class="act-card genes">
+          <div class="act-header">
+            <div class="act-ic">🧬</div>
+            <div><div class="act-tema">A3.2 · Clasificación y cladística · Base de datos</div><div class="act-title">Comparación de secuencias génicas entre especies</div></div>
+          </div>
+          <p class="act-desc">Obtener la secuencia del gen mitocondrial <i>COX1</i> en varias especies (p. ej., <i>Homo sapiens</i> y <i>Mus musculus</i>) desde NCBI y alinearlas con EMBOSS Needle para estudiar la homología.</p>
+          <ul class="act-steps">
+            <li>Buscar el gen cox1 en NCBI para cada especie</li>
+            <li>Copiar secuencias en formato FASTA</li>
+            <li>Alinear con EMBOSS Needle (ebi.ac.uk)</li>
+            <li>Calcular % de similitud e interpretar gaps</li>
+          </ul>
+          <div class="act-footer">
+            <a href="https://www.ncbi.nlm.nih.gov/" target="_blank" class="act-link gene-l">🧬 NCBI →</a>
+            <a href="https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle" target="_blank" class="act-link gene-l">🔬 EMBOSS Needle →</a>
+          </div>
+        </div>
+        <!-- PCR -->
+        <div class="act-card pcr">
+          <div class="act-header">
+            <div class="act-ic">🔬</div>
+            <div><div class="act-tema">D1.1 · PCR y electroforesis · Simulación</div><div class="act-title">PCR — Amplificación de ADN (actividad formativa)</div></div>
+          </div>
+          <p class="act-desc">Simula una reacción en cadena de la polimerasa (PCR) en el laboratorio virtual de la Universidad de Utah para entender sus componentes y etapas. <strong>Actividad formativa:</strong> no genera datos cuantitativos variables, así que no sirve por sí sola como investigación.</p>
+          <ul class="act-steps">
+            <li>Acceder al laboratorio virtual de PCR</li>
+            <li>Identificar los componentes necesarios</li>
+            <li>Seguir las etapas de cada ciclo: desnaturalización, hibridación y extensión</li>
+            <li>Relacionar el número de ciclos con la amplificación teórica (2ⁿ copias)</li>
+          </ul>
+          <div class="act-footer">
+            <a href="https://learn.genetics.utah.edu/content/labs/pcr/" target="_blank" class="act-link pcr-l">💻 Laboratorio virtual PCR →</a>
+          </div>
+        </div>
+      </div>
+      <div class="alert info" style="margin-top:1.35rem">
+        <span class="alert-ic">📐</span>
+        <div><div class="alert-title">Experimentos con sensores — Vernier IB</div>
+        <div class="alert-txt">Además de las actividades anteriores, el centro dispone de sensores Vernier para realizar experimentos con datos en tiempo real. Consulta la pestaña <strong>"Sensores del centro"</strong> para ver el listado completo y sus posibilidades experimentales.</div></div>
+      </div>
+    </div>
+
+    <!-- SENSORES -->
+    <div class="res-panel" id="rp-sensores">
+      <p style="font-size:.88rem;color:var(--text-l);margin-bottom:1.35rem">Sensores disponibles en el IES Celia Viñas para experimentos en tiempo real. Haz clic en el enlace de cada sensor para ver todos los experimentos que se pueden realizar. Consulta también el catálogo completo de experimentos IB de Vernier.</p>
+      <div style="margin-bottom:1.35rem"><a href="https://www.vernier.com/educational-standards/international-baccalaureate/biology" target="_blank" class="btn btn-primary" style="font-size:.85rem;padding:.65rem 1.25rem">🔬 Catálogo completo Vernier IB Biology →</a></div>
+      <div class="sensor-grid">
+        <div class="sensor-card"><div class="sensor-ic">⚗️</div><div><div class="sensor-name">Sensor de pH</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Enzimas, fermentación, fotosíntesis, ventilación</div><a href="https://www.vernier.com/product/ph-sensor/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+        <div class="sensor-card"><div class="sensor-ic">🌡️</div><div><div class="sensor-name">Sensor de temperatura</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Calorimetría, metabolismo, ecología</div><a href="https://www.vernier.com/product/stainless-steel-temperature-probe/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+        <div class="sensor-card"><div class="sensor-ic">💨</div><div><div class="sensor-name">Sensor de CO₂</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Fotosíntesis, respiración celular, fermentación</div><a href="https://www.vernier.com/product/co2-gas-sensor/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+        <div class="sensor-card"><div class="sensor-ic">🌬️</div><div><div class="sensor-name">Sensor de O₂ en el aire</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Respiración, fotosíntesis, metabolismo</div><a href="https://www.vernier.com/product/o2-gas-sensor/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+        <div class="sensor-card"><div class="sensor-ic">💧</div><div><div class="sensor-name">Sensor de presión</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Ósmosis, transpiración, respiración, fermentación</div><a href="https://www.vernier.com/product/gas-pressure-sensor/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+        <div class="sensor-card"><div class="sensor-ic">🫁</div><div><div class="sensor-name">Cinturón respiratorio</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Tasa de ventilación, ejercicio, fisiología</div><a href="https://www.vernier.com/product/go-direct-respiration-belt/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+        <div class="sensor-card"><div class="sensor-ic">❤️</div><div><div class="sensor-name">Monitor de ritmo cardíaco</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Frecuencia cardíaca, recuperación, ejercicio</div><a href="https://www.vernier.com/product/go-wireless-exercise-heart-rate/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+        <div class="sensor-card"><div class="sensor-ic">🌬️</div><div><div class="sensor-name">Espirómetro</div><div style="font-size:.78rem;color:var(--text-l);margin-bottom:4px">Capacidad pulmonar, volúmenes pulmonares</div><a href="https://www.vernier.com/product/spirometer/" target="_blank" class="sensor-link">Experimentos disponibles →</a></div></div>
+      </div>
+    </div>
+
+  </div><!-- /res-tabs-wrap -->
+</section>
+
+<!-- ═══ PREGUNTA ═══ -->
+<section class="section" id="pregunta">
+  <div class="sec-hdr">
+    <div class="sec-ic">❓</div>
+    <div><h2 class="sec-title">Constructor de Pregunta de Investigación</h2><p class="sec-sub">Construye tu pregunta paso a paso — debe incluir VI, VD y contexto biológico</p></div>
+  </div>
+  <div class="builder-wrap">
+    <div class="builder-hdr"><h3>Constructor de Pregunta</h3><p>Tu pregunta debe incluir claramente una variable independiente, una variable dependiente y el sistema biológico</p></div>
+    <div class="builder-body">
+      <div class="builder-step"><div class="step-lbl"><span class="step-num">1</span><span class="step-title">Selecciona el bloque temático</span></div>
+        <select class="builder-select" id="bBloque" onchange="updatePreview()"><option value="">— Elige un tema —</option><option>A · Unidad y diversidad</option><option>B · Forma y función</option><option>C · Interacción e interdependencia</option><option>D · Continuidad y cambio</option></select></div>
+      <div class="builder-step"><div class="step-lbl"><span class="step-num">2</span><span class="step-title">Tipo de pregunta de investigación</span></div>
+        <select class="builder-select" id="bTipo" onchange="updatePreview()"><option value="">— Elige el tipo —</option><option value="afecta">Experimento: ¿Cómo afecta X a Y?</option><option value="relacion">Correlación: ¿Cuál es la relación entre X e Y?</option></select></div>
+      <div class="builder-step"><div class="step-lbl"><span class="step-num">3</span><span class="step-title">Variable Independiente (lo que cambias o manipulas)</span></div>
+        <input class="builder-input" id="bVI" type="text" placeholder="Ej: la concentración de sacarosa, la temperatura (°C), el pH..." oninput="updatePreview()"></div>
+      <div class="builder-step"><div class="step-lbl"><span class="step-num">4</span><span class="step-title">Variable Dependiente (lo que mides)</span></div>
+        <input class="builder-input" id="bVD" type="text" placeholder="Ej: el cambio de masa (g), la velocidad de reacción (mL·min⁻¹)..." oninput="updatePreview()"></div>
+      <div class="builder-step"><div class="step-lbl"><span class="step-num">5</span><span class="step-title">Organismo / sistema / contexto biológico</span></div>
+        <input class="builder-input" id="bCtx" type="text" placeholder="Ej: en tejido de patata (Solanum tuberosum), en levadura Saccharomyces cerevisiae..." oninput="updatePreview()"></div>
+      <div class="builder-preview">
+        <div class="bp-label">📝 Vista previa de tu pregunta de investigación</div>
+        <div class="bp-text" id="bPreview">Completa los campos anteriores para ver tu pregunta...</div>
+      </div>
+      <div style="margin-top:1.35rem">
+        <h4 style="font-size:.88rem;margin-bottom:.9rem">✓ Lista de verificación rápida</h4>
+        <div style="display:flex;flex-direction:column;gap:.55rem">
+          <div style="display:flex;align-items:center;gap:.65rem;font-size:.88rem"><div class="cl-chk" id="qchkVI"></div><span>¿Incluye claramente la variable independiente?</span></div>
+          <div style="display:flex;align-items:center;gap:.65rem;font-size:.88rem"><div class="cl-chk" id="qchkVD"></div><span>¿Incluye claramente la variable dependiente?</span></div>
+          <div style="display:flex;align-items:center;gap:.65rem;font-size:.88rem"><div class="cl-chk" id="qchkCtx"></div><span>¿Especifica el sistema / organismo biológico?</span></div>
+          <div style="display:flex;align-items:center;gap:.65rem;font-size:.88rem"><div class="cl-chk" id="qchkTipo"></div><span>¿Has elegido el tipo de investigación?</span></div>
+          <div style="display:flex;align-items:center;gap:.65rem;font-size:.88rem" onclick="toggleChk(this.querySelector('.cl-chk'))"><div class="cl-chk"></div><span>¿Es factible con los recursos disponibles en el centro?</span></div>
+          <div style="display:flex;align-items:center;gap:.65rem;font-size:.88rem" onclick="toggleChk(this.querySelector('.cl-chk'))"><div class="cl-chk"></div><span>¿Puedo obtener suficientes niveles de la VI y réplicas para ver la tendencia y su variabilidad?</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ METODOLOGÍA ═══ -->
+<section class="section" id="metodologia">
+  <div class="sec-hdr">
+    <div class="sec-ic">📋</div>
+    <div><h2 class="sec-title">Plantillas de Metodología</h2><p class="sec-sub">Preguntas guía según tu tipo de investigación</p></div>
+  </div>
+  <div class="method-tabs">
+    <button class="method-tab active" onclick="showMethod('experiment',this)">🧪 Experimento</button>
+    <button class="method-tab" onclick="showMethod('database',this)">📊 Base de datos</button>
+    <button class="method-tab" onclick="showMethod('simulation',this)">💻 Simulación</button>
+  </div>
+  <div class="method-content active" id="mt-experiment">
+    <table class="method-table"><thead><tr><th>Elemento</th><th>Preguntas a responder en tu metodología</th></tr></thead>
+    <tbody>
+      <tr><td>Variable Independiente</td><td><ul class="method-qs"><li>¿Cómo se recopilarán los datos? ¿Qué herramientas?</li><li>¿Cuáles son las unidades del SI?</li><li>¿Cuáles son los 5+ niveles de la VI y cómo se seleccionaron?</li></ul></td></tr>
+      <tr><td>Variable Dependiente</td><td><ul class="method-qs"><li>¿Cómo se recopilarán los datos cuantitativos?</li><li>¿Cuáles son las unidades del SI?</li><li>¿Cuántas réplicas harás y por qué son suficientes? (usa un ensayo piloto)</li></ul></td></tr>
+      <tr><td>Variables Controladas</td><td><ul class="method-qs"><li>¿Qué variables deben controlarse? ¿Cómo?</li><li>¿Qué herramientas o protocolos aseguran el control efectivo?</li><li>Indica el valor de control con su unidad SI para cada variable</li></ul></td></tr>
+      <tr><td>Validez y reproducibilidad</td><td><ul class="method-qs"><li>¿Cómo garantizar que el método sea reproducible?</li><li>Ej: misma báscula, mismo termómetro, lavar cristalería entre ensayos</li></ul></td></tr>
+      <tr><td>Seguridad y Ética</td><td><ul class="method-qs"><li>¿Qué cuestiones de seguridad hay que considerar?</li><li>¿Se requieren formularios de consentimiento?</li><li>¿Cómo minimizar el desperdicio o el impacto ambiental?</li></ul></td></tr>
+    </tbody></table>
+  </div>
+  <div class="method-content" id="mt-database">
+    <table class="method-table"><thead><tr><th>Elemento</th><th>Preguntas a responder en tu metodología</th></tr></thead>
+    <tbody>
+      <tr><td>Selección de la BD</td><td><ul class="method-qs"><li>¿Cómo seleccionaste la base de datos?</li><li>Proporciona el enlace exacto a la fuente</li><li>¿Cómo sabes que los datos son fiables? (institución, fecha, metodología de recogida)</li></ul></td></tr>
+      <tr><td>Muestreo de los datos</td><td><ul class="method-qs"><li>¿Cómo seleccionarás qué datos incluir en tu muestra?</li><li>¿Cuántos datos usarás y por qué son suficientes para la prueba estadística?</li><li>¿Cómo garantizar que la muestra sea representativa?</li></ul></td></tr>
+      <tr><td>Análisis original</td><td><ul class="method-qs"><li><strong>Crítico:</strong> ¿Cómo analizarás los datos de forma nueva y propia?</li><li>No puedes limitarte a reportar datos existentes</li><li>Debes crear tus propias tablas, gráficos y estadísticas</li></ul></td></tr>
+      <tr><td>Ética de los datos</td><td><ul class="method-qs"><li>¿Qué cuestiones éticas hay en la recopilación y uso de datos?</li><li>¿Los datos respetan la privacidad de las personas?</li></ul></td></tr>
+    </tbody></table>
+  </div>
+  <div class="method-content" id="mt-simulation">
+    <table class="method-table"><thead><tr><th>Elemento</th><th>Preguntas a responder en tu metodología</th></tr></thead>
+    <tbody>
+      <tr><td>Selección de la simulación</td><td><ul class="method-qs"><li>¿Qué simulación usas? Proporciona el enlace</li><li>¿Por qué es un modelo fiable del fenómeno que investigas?</li></ul></td></tr>
+      <tr><td>Parámetros (VI)</td><td><ul class="method-qs"><li>¿Qué parámetros y rangos establecerás?</li><li>¿Cuáles son los niveles de la variable? ¿Por qué ese rango?</li><li>¿Cuáles son las unidades del SI?</li></ul></td></tr>
+      <tr><td>Datos (VD)</td><td><ul class="method-qs"><li>¿Qué datos cuantitativos recopilarás?</li><li>¿La simulación incluye azar? Si es así, ¿cuántas repeticiones harás? Si es determinista, ¿cómo lo tratarás?</li></ul></td></tr>
+      <tr><td>Variables controladas</td><td><ul class="method-qs"><li>¿Qué variables controlarás en la simulación?</li><li>Si no puedes controlarlas directamente, ¿cuáles deben analizarse como limitaciones?</li></ul></td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<!-- ═══ ERRORES ═══ -->
+<section class="section" id="errores">
+  <div class="sec-hdr">
+    <div class="sec-ic">⚠️</div>
+    <div><h2 class="sec-title">Errores Comunes a Evitar</h2><p class="sec-sub">Aprende de los errores más frecuentes antes de empezar</p></div>
+  </div>
+  <div class="err-grid">
+    <div class="err-card"><div class="err-ic">📊</div><div class="err-title">Datos insuficientes</div><div class="err-desc">Pocos niveles de la VI o pocas réplicas impiden ver la tendencia y estimar la variabilidad. Orientación: 5 o más niveles y 5 o más réplicas, justificados con un ensayo piloto.</div></div>
+    <div class="err-card"><div class="err-ic">🌀</div><div class="err-title">Experimento irrealizable</div><div class="err-desc">Planificar algo que no puede realizarse con el tiempo y recursos disponibles. Sé ambicioso pero siempre realista.</div></div>
+    <div class="err-card"><div class="err-ic">👥</div><div class="err-title">Tema duplicado</div><div class="err-desc">Dos alumnos no pueden presentar el mismo conjunto de datos brutos. Coordina con tu clase antes de decidir.</div></div>
+    <div class="err-card"><div class="err-ic">⚖️</div><div class="err-title">Ignorar pautas éticas</div><div class="err-desc">No seguir las directrices IB de experimentación con microorganismos, sujetos humanos o animales.</div></div>
+    <div class="err-card"><div class="err-ic">📋</div><div class="err-title">Solo reportar datos (BD)</div><div class="err-desc">En bases de datos: simplemente informar datos sin realizar análisis propio. Necesitas tu propio gráfico y estadística.</div></div>
+    <div class="err-card"><div class="err-ic">👤</div><div class="err-title">Fisiología humana sin diseño sólido</div><div class="err-desc">Muestras pequeñas, variables incontroladas, variables de confusión. El IB advierte específicamente sobre esto.</div></div>
+  </div>
+</section>
+
+<!-- ═══ CHECKLIST ═══ -->
+<section class="section" id="checklist">
+  <div class="sec-hdr">
+    <div class="sec-ic">✅</div>
+    <div><h2 class="sec-title">Checklist de Preparación</h2><p class="sec-sub">Verifica que has completado todas las tareas antes de comenzar la investigación</p></div>
+  </div>
+  <div class="cl-wrap">
+    <div class="cl-hdr"><div class="cl-hdr-title">Tu progreso se guarda automáticamente</div><div class="cl-hdr-sub">Marca cada tarea a medida que la completes</div></div>
+    <div class="cl-body">
+      <div class="cl-phase">
+        <div class="cl-phase-title"><span class="cl-phase-badge">Fase 1</span>Selección del Tema</div>
+        <div class="cl-items" id="cl-f1"></div>
+      </div>
+      <div class="cl-phase">
+        <div class="cl-phase-title"><span class="cl-phase-badge">Fase 2</span>Investigación de Antecedentes</div>
+        <div class="cl-items" id="cl-f2"></div>
+      </div>
+      <div class="cl-phase">
+        <div class="cl-phase-title"><span class="cl-phase-badge">Fase 3</span>Propuesta Metodológica</div>
+        <div class="cl-items" id="cl-f3"></div>
+      </div>
+    </div>
+  </div>
+  <div class="alert success" style="margin-top:1.75rem;display:none" id="completionMsg">
+    <span class="alert-ic">🎉</span>
+    <div><div class="alert-title">¡Preparación completa!</div>
+    <div class="alert-txt">Has completado todas las fases. Estás listo/a para comenzar a recopilar datos. ¡Mucho éxito con tu investigación!</div></div>
+  </div>
+</section>
+
+</main><!-- /main -->
+
+<!-- FOOTER -->
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <div class="footer-main">🧬 Biología IB 2025 · IES Celia Viñas · Almería</div>
+  <div class="footer-nota">
+    Basado en los recursos de Gretel von Bargen (<em>biologyforlife.com</em>), la <em>Guía de Biología del IB</em> (primera evaluación 2025)<br>
+    y el banco de simulaciones y bases de datos de <em>Espacio Profesores</em> (espacioprofesores.com).<br>
+    «No apresures esta tarea. En primer lugar, haz un buen y minucioso trabajo.»
+  </div>
+  <div class="footer-autora">
+    Elaborado por <span>María Dolores Gámez Ortiz</span> · Profesora de Biología IB · IES Celia Viñas, Almería
+  </div>
+  <div>
+    <div class="cc-box">
+      <div class="cc-icons">
+        <span class="cc-icon">CC</span>
+        <span class="cc-icon">BY</span>
+        <span class="cc-icon">NC</span>
+        <span class="cc-icon">SA</span>
+      </div>
+      <div class="cc-text">
+        <span class="cc-title">CC BY-NC-SA 4.0 — Atribución · No comercial · Compartir igual</span>
+        <span class="cc-detail">Puedes compartir y adaptar este material siempre que cites a la autora,<br>no lo uses con fines comerciales y distribuyas bajo la misma licencia.</span>
+        <a class="cc-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">
+          creativecommons.org/licenses/by-nc-sa/4.0 →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── TABS (TEMAS) ──
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{const id=btn.dataset.tab;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');});});
+
+// ── RESOURCE TABS ──
+function showResTab(id,btn){
+  document.querySelectorAll('.res-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.res-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rp-'+id).classList.add('active');
+}
+
+// ── TOPIC CARDS ──
+function toggleTopic(hdr){const card=hdr.closest('.topic-card');card.classList.toggle('open');}
+
+// ── SELECT TOPIC ──
+function selTopic(tema,vi,vd){
+  document.getElementById('bVI').value=vi;
+  document.getElementById('bVD').value=vd;
+  updatePreview();
+  document.getElementById('pregunta').scrollIntoView({behavior:'smooth'});
+  showToast(`Tema "${tema}" seleccionado. Completa tu pregunta.`);
+}
+
+// ── BUILDER ──
+function updatePreview(){
+  const tipo=document.getElementById('bTipo').value;
+  const vi=document.getElementById('bVI').value.trim();
+  const vd=document.getElementById('bVD').value.trim();
+  const ctx=document.getElementById('bCtx').value.trim();
+  let p='Completa los campos anteriores para ver tu pregunta...';
+  if(tipo==='afecta'&&(vi||vd)) p=`¿Cómo afecta ${vi||'[VI]'} a ${vd||'[VD]'}${ctx?' en '+ctx:''}?`;
+  else if(tipo==='relacion'&&(vi||vd)) p=`¿Cuál es la relación entre ${vi||'[X]'} y ${vd||'[Y]'}${ctx?' en '+ctx:''}?`;
+  else if(vi||vd) p=`[Tipo] ${vi||'[VI]'} → ${vd||'[VD]'}${ctx?' en '+ctx:''}`;
+  document.getElementById('bPreview').textContent=p;
+  const set=(id,on)=>{const el=document.getElementById(id);if(el){el.classList.toggle('checked',on);}};
+  set('qchkVI',vi.length>2);set('qchkVD',vd.length>2);set('qchkCtx',ctx.length>2);set('qchkTipo',!!tipo);
+  updateProgress();
+}
+
+function toggleChk(el){el.classList.toggle('checked');updateProgress();}
+
+// ── METHOD TABS ──
+function showMethod(type,btn){
+  document.querySelectorAll('.method-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.method-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('mt-'+type).classList.add('active');
+}
+
+// ── CHECKLIST DATA ──
+const CL=[
+  {phase:'f1',title:'Fase 1 — Selección del Tema',items:[
+    {k:'f1-1',t:'He elegido un bloque/tema del temario IB'},
+    {k:'f1-2',t:'He identificado el enfoque (laboratorio, campo, base de datos, simulación o combinación)'},
+    {k:'f1-3',t:'He definido mi Variable Independiente con sus unidades SI'},
+    {k:'f1-4',t:'He definido mi Variable Dependiente con sus unidades SI'},
+    {k:'f1-5',t:'He formulado mi pregunta de investigación con contexto específico'},
+    {k:'f1-6',t:'He comprobado que mi diseño cumple las Directrices del IB (seguridad, ética y medio ambiente)'},
+    {k:'f1-7',t:'Mi tema ha sido aprobado por el/la profesor/a'},
+  ]},
+  {phase:'f2',title:'Fase 2 — Investigación de Antecedentes',items:[
+    {k:'f2-1',t:'He buscado en fuentes académicas confiables'},
+    {k:'f2-2',t:'Tengo al menos 3 términos de búsqueda documentados'},
+    {k:'f2-3',t:'He descrito el proceso biológico que investigo'},
+    {k:'f2-4',t:'He explicado la Variable Independiente en contexto biológico'},
+    {k:'f2-5',t:'He explicado la Variable Dependiente en contexto biológico'},
+    {k:'f2-6',t:'He formulado H₀ y H₁ estadísticas'},
+    {k:'f2-7',t:'Mis fuentes son fiables y están citadas con un formato coherente (p. ej., APA)'},
+  ]},
+  {phase:'f3',title:'Fase 3 — Propuesta Metodológica',items:[
+    {k:'f3-1',t:'He buscado protocolos similares al mío'},
+    {k:'f3-2',t:'He completado la plantilla de metodología según mi tipo de investigación'},
+    {k:'f3-3',t:'Tengo la lista completa de materiales'},
+    {k:'f3-4',t:'He identificado los materiales que necesito conseguir'},
+    {k:'f3-5',t:'He considerado cuestiones de seguridad y ética'},
+    {k:'f3-6',t:'Mi método está descrito de forma reproducible (pasos detallados, cantidades exactas, unidades SI)'},
+  ]},
+];
+
+function renderCL(){
+  CL.forEach(sec=>{
+    const el=document.getElementById('cl-'+sec.phase);
+    if(!el) return;
+    el.innerHTML=sec.items.map(it=>{
+      const checked=localStorage.getItem('ia-cl-'+it.k)==='true';
+      return `<div class="cl-item ${checked?'done':''}" onclick="toggleSave('${it.k}',this)">
+        <div class="cl-chk ${checked?'checked':''}"></div>
+        <span class="cl-txt">${it.t}</span>
+      </div>`;
+    }).join('');
+  });
+  updateProgress();
+}
+
+function toggleSave(k,row){
+  const chk=row.querySelector('.cl-chk');
+  chk.classList.toggle('checked');
+  row.classList.toggle('done');
+  localStorage.setItem('ia-cl-'+k,chk.classList.contains('checked'));
+  updateProgress();
+}
+
+function updateProgress(){
+  const all=document.querySelectorAll('#checklist .cl-chk[class*="chk"]');
+  const checked=document.querySelectorAll('#checklist .cl-chk.checked');
+  const tot=CL.flatMap(s=>s.items).length;
+  const dn=document.querySelectorAll('[onclick*="toggleSave"] .cl-chk.checked').length;
+  const nPhase=p=>(CL.find(s=>s.phase===p)||{items:[]}).items.length;
+  const pct=tot>0?Math.round(dn/tot*100):0;
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progPct').textContent=pct+'%';
+  const f1=document.querySelectorAll('#cl-f1 .cl-chk.checked').length;
+  const f2=document.querySelectorAll('#cl-f2 .cl-chk.checked').length;
+  const f3=document.querySelectorAll('#cl-f3 .cl-chk.checked').length;
+  document.querySelectorAll('.prog-step').forEach((s,i)=>{
+    s.classList.remove('done');
+    if(i===0&&f1>=nPhase('f1')) s.classList.add('done');
+    if(i===1&&f2>=nPhase('f2')) s.classList.add('done');
+    if(i===2&&f3>=nPhase('f3')) s.classList.add('done');
+    if(i===3&&pct===100) s.classList.add('done');
+  });
+  const cm=document.getElementById('completionMsg');
+  if(cm) cm.style.display=pct===100?'flex':'none';
+}
+
+// ── NAV SCROLL ──
+document.querySelectorAll('.nav-a').forEach(a=>{a.addEventListener('click',e=>{const h=a.getAttribute('href');if(h.startsWith('#')){e.preventDefault();const t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth'});}});});
+window.addEventListener('scroll',()=>{let cur='';document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-110)cur=s.id;});document.querySelectorAll('.nav-a').forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});});
+
+// ── TOAST ──
+function showToast(msg){const t=document.createElement('div');t.style.cssText='position:fixed;bottom:1.5rem;right:1.5rem;background:var(--primary);color:white;padding:.9rem 1.35rem;border-radius:var(--r-md);box-shadow:var(--shadow-lg);z-index:9999;font-size:.88rem;font-weight:600;max-width:280px;';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},2800);}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{renderCL();updatePreview();});
+</script>
+
+<script>
+/* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
+(function(){
+  function mark(root){(root.querySelectorAll?root:document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select)').forEach(function(el){if(!el.hasAttribute('role')){el.setAttribute('role','button');el.setAttribute('tabindex','0');}});}
+  document.addEventListener('keydown',function(e){var el=e.target.closest&&e.target.closest('[role="button"]');if(el&&el.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();el.click();}});
+  function init(){mark(document);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)mark(n.parentNode||n);});});}).observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.querySelectorAll('a[target="_blank"]').forEach(function(a){a.rel='noopener';});
+})();
+</script>
+</body>
+</html>

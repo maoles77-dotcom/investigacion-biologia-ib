@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigación Científica — Biología IB · IES Celia Viñas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #2d7a45;
+    --verde-claro: #e6f4eb;
+    --verde-mid: #4caf6e;
+    --verde-oscuro: #1e5c32;
+    --azul: #1a6fa8;
+    --azul-claro: #e8f3fc;
+    --azul-bd: #b3d4f0;
+    --ambar: #b86800;
+    --ambar-claro: #fff8ed;
+    --ambar-bd: #f0c878;
+    --rojo: #c0392b;
+    --rojo-claro: #fdf0ee;
+    --rojo-bd: #f0b8b0;
+    --morado: #6b3fa0;
+    --morado-claro: #f2edf9;
+    --morado-bd: #cdb8e8;
+    --fondo: #f4f7f4;
+    --superficie: #ffffff;
+    --borde: #d6e5d8;
+    --borde-sutil: #eaf0ea;
+    --texto: #1c2e1f;
+    --texto-suave: #4d6e54;
+    --texto-dim: #8aab8e;
+    --sombra: 0 2px 12px rgba(45,122,69,.08);
+    --sombra-hover: 0 6px 24px rgba(45,122,69,.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1e5c32 0%, #2d7a45 55%, #3d9458 100%);
+    color: white;
+    padding: 52px 40px 48px;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -70px; left: -40px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.04);
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-sub {
+    font-size: 15px;
+    opacity: .88;
+    max-width: 560px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-pills {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .hero-pill.highlight {
+    background: rgba(255,255,255,.22);
+    border: 1px solid rgba(255,255,255,.3);
+  }
+
+  /* ── SECCIONES ── */
+  .sec {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 18px;
+    box-shadow: var(--sombra);
+  }
+  .sec-titulo {
+    font-family: 'Source Serif 4', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--texto);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-sub {
+    font-size: 13.5px;
+    color: var(--texto-suave);
+    margin-bottom: 18px;
+    line-height: 1.55;
+  }
+
+  /* ── QUÉ ES ── */
+  .cards-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+  }
+  .mini-card {
+    background: var(--fondo);
+    border: 1px solid var(--borde-sutil);
+    border-radius: 11px;
+    padding: 13px 15px;
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+  }
+  .mini-card .ic { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .mini-card-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .mini-card-body { font-size: 12.5px; color: var(--texto-suave); line-height: 1.5; }
+
+  /* ── ENFOQUES ── */
+  .enfoques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 9px;
+    margin-top: 14px;
+  }
+  .enfoque-pill {
+    background: var(--verde-claro);
+    border: 1px solid #b3d9c0;
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--verde-oscuro);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .enfoque-pill .ep-ic { font-size: 20px; }
+  .enfoque-pill .ep-sub { font-size: 11px; font-weight: 400; opacity: .8; line-height: 1.35; }
+
+  /* ── INFO-BOX ── */
+  .info-box {
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-top: 14px;
+  }
+  .info-box.azul  { background: var(--azul-claro);  border: 1px solid var(--azul-bd);  color: #1a3a5a; }
+  .info-box.ambar { background: var(--ambar-claro); border: 1px solid var(--ambar-bd); color: #6b4500; }
+  .info-box.verde { background: var(--verde-claro); border: 1px solid #b3d9c0;         color: #1a4a2a; }
+  .info-box.rojo  { background: var(--rojo-claro);  border: 1px solid var(--rojo-bd);  color: #7a1a1a; }
+  .info-box strong { color: inherit; }
+
+  /* ── COLABORACIÓN ── */
+  .colab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+    margin-top: 14px;
+  }
+  .colab-card {
+    border-radius: 11px;
+    padding: 14px 15px;
+    border: 1.5px solid;
+  }
+  .colab-card.si  { background: var(--verde-claro); border-color: #b3d9c0; }
+  .colab-card.no  { background: var(--rojo-claro);  border-color: var(--rojo-bd); }
+  .colab-card-hdr {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .colab-card.si .colab-card-hdr { color: var(--verde); }
+  .colab-card.no .colab-card-hdr { color: var(--rojo); }
+  .colab-item {
+    font-size: 12.5px;
+    color: var(--texto);
+    padding: 3px 0;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+  .colab-item::before {
+    content: '•';
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .colab-card.si .colab-item::before { color: var(--verde); }
+  .colab-card.no .colab-item::before { color: var(--rojo); }
+
+  /* ── CRITERIOS TABLA ── */
+  .crit-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin-top: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  }
+  .crit-tabla thead tr { background: var(--verde); color: white; }
+  .crit-tabla th {
+    padding: 11px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .crit-tabla th:nth-child(2), .crit-tabla th:nth-child(3),
+  .crit-tabla td:nth-child(2), .crit-tabla td:nth-child(3) { text-align: center; }
+  .crit-tabla tbody tr { border-bottom: 1px solid var(--borde-sutil); }
+  .crit-tabla tbody tr:hover { background: var(--verde-claro); }
+  .crit-tabla tbody tr:nth-child(even) { background: #f9fcf9; }
+  .crit-tabla tbody tr:nth-child(even):hover { background: var(--verde-claro); }
+  .crit-tabla td { padding: 13px 16px; vertical-align: top; }
+  .crit-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--verde);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .crit-nombre { font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .crit-desc { font-size: 12px; color: var(--texto-suave); margin-top: 3px; line-height: 1.5; }
+  .crit-pts { font-weight: 800; font-size: 16px; color: var(--verde); }
+  .crit-tabla tfoot tr {
+    background: var(--verde-claro);
+    border-top: 2px solid var(--verde);
+  }
+  .crit-tabla tfoot td {
+    font-weight: 800; color: var(--verde-oscuro); padding: 12px 16px; font-size: 14px;
+  }
+
+  /* ── CRITERIOS EXPANDIBLES ── */
+  .crit-expandible {
+    background: var(--superficie);
+    border: 1.5px solid var(--borde);
+    border-radius: 13px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: var(--sombra);
+  }
+  .crit-exp-hdr {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: background .15s;
+  }
+  .crit-exp-hdr:hover { background: var(--verde-claro); }
+  .crit-exp-num {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--verde);
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .crit-exp-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 700;
+    flex: 1;
+  }
+  .crit-exp-pts {
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--verde);
+    background: var(--verde-claro);
+    border: 1px solid #b3d9c0;
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+  .crit-exp-arr {
+    color: var(--texto-dim);
+    font-size: 12px;
+    transition: transform .2s;
+  }
+  .crit-exp-arr.open { transform: rotate(180deg); }
+  .crit-exp-body {
+    display: none;
+    border-top: 1px solid var(--borde-sutil);
+    padding: 16px 18px;
+  }
+  .crit-exp-body.open { display: block; }
+
+  /* Descriptores de nivel */
+  .nivel-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--borde-sutil);
+  }
+  .nivel-row:last-child { border-bottom: none; }
+  .nivel-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 8px;
+    padding: 6px 10px;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .nivel-badge.n0  { background: #f0f0f0; color: #666; border: 1px solid #ddd; }
+  .nivel-badge.n12 { background: var(--ambar-claro); color: var(--ambar); border: 1px solid var(--ambar-bd); }
+  .nivel-badge.n34 { background: var(--azul-claro); color: var(--azul); border: 1px solid var(--azul-bd); }
+  .nivel-badge.n56 { background: var(--verde-claro); color: var(--verde-oscuro); border: 1px solid #b3d9c0; }
+  .nivel-bullets { list-style: none; }
+  .nivel-bullets li {
+    font-size: 13px;
+    color: var(--texto);
+    line-height: 1.55;
+    padding: 3px 0 3px 18px;
+    position: relative;
+  }
+  .nivel-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--verde);
+    font-size: 11px;
+    top: 5px;
+  }
+  .crit-aclaraciones {
+    background: var(--fondo);
+    border-radius: 9px;
+    padding: 11px 14px;
+    margin-top: 12px;
+    border-left: 3px solid var(--verde);
+  }
+  .crit-acl-titulo {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--verde);
+    margin-bottom: 7px;
+  }
+  .crit-acl-body {
+    font-size: 12.5px;
+    color: var(--texto-suave);
+    line-height: 1.6;
+  }
+  .crit-acl-body ul { list-style: none; margin-top: 5px; }
+  .crit-acl-body ul li { padding: 2px 0 2px 16px; position: relative; }
+  .crit-acl-body ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--verde);
+    font-size: 11px;
+  }
+
+  /* ── PALABRAS ── */
+  .palabras-sec {
+    background: linear-gradient(135deg, var(--morado-claro), var(--azul-claro));
+    border: 1.5px solid var(--morado-bd);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+  }
+  .palabras-titulo {
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .palabras-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+  }
+  .palabras-col {
+    border-radius: 10px;
+    padding: 13px 15px;
+  }
+  .palabras-col.cuenta { background: var(--rojo-claro); border: 1px solid var(--rojo-bd); }
+  .palabras-col.no-cuenta { background: var(--verde-claro); border: 1px solid #b3d9c0; }
+  .palabras-col-hdr {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+  }
+  .palabras-col.cuenta .palabras-col-hdr { color: var(--rojo); }
+  .palabras-col.no-cuenta .palabras-col-hdr { color: var(--verde); }
+  .palabras-item {
+    font-size: 12.5px;
+    color: var(--texto);
+    padding: 2px 0 2px 14px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .palabras-item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+  }
+  .palabras-col.cuenta .palabras-item::before { color: var(--rojo); }
+  .palabras-col.no-cuenta .palabras-item::before { color: var(--verde); }
+  .palabras-numero {
+    text-align: center;
+    margin-top: 14px;
+    padding: 14px;
+    background: rgba(107,63,160,.1);
+    border: 2px solid var(--morado-bd);
+    border-radius: 12px;
+  }
+  .palabras-numero .num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--morado);
+    display: block;
+  }
+  .palabras-numero .num-label {
+    font-size: 12px;
+    color: var(--texto-suave);
+    font-weight: 600;
+  }
+
+  /* ── ÉTICA ── */
+  .etica-sec {
+    background: var(--ambar-claro);
+    border: 1px solid var(--ambar-bd);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .etica-titulo {
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .etica-sub { font-size: 13px; color: #6b4500; margin-bottom: 15px; line-height: 1.5; }
+  .etica-lista { display: flex; flex-direction: column; gap: 9px; }
+  .etica-item {
+    display: flex;
+    gap: 11px;
+    background: rgba(255,255,255,.65);
+    border-radius: 10px;
+    padding: 11px 14px;
+    align-items: flex-start;
+  }
+  .etica-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--ambar);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .etica-txt { font-size: 13px; line-height: 1.55; }
+  .etica-txt strong { color: var(--ambar); }
+
+  /* ── HERRAMIENTAS ── */
+  .herr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  a.herr-card { text-decoration: none; color: inherit; display: block; }
+  .herr-card {
+    background: var(--superficie);
+    border: 2px solid var(--borde);
+    border-radius: 15px;
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    transition: all .22s;
+    box-shadow: var(--sombra);
+    cursor: pointer;
+  }
+  .herr-card:hover {
+    border-color: var(--verde);
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-hover);
+  }
+  .herr-card.azul:hover { border-color: var(--azul); }
+  .herr-ic { font-size: 34px; line-height: 1; }
+  .herr-titulo {
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .herr-desc { font-size: 12.5px; color: var(--texto-suave); line-height: 1.55; flex: 1; }
+  .herr-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .herr-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+  }
+  .herr-tag.v { background: var(--verde-claro); color: var(--verde-oscuro); border: 1px solid #b3d9c0; }
+  .herr-tag.a { background: var(--azul-claro); color: #1a3a6e; border: 1px solid var(--azul-bd); }
+  .herr-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 12.5px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: opacity .15s;
+    font-family: inherit;
+  }
+  .herr-btn.vb { background: var(--verde); color: white; }
+  .herr-btn.ab { background: var(--azul); color: white; }
+  .herr-btn:hover { opacity: .86; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 24px 0 4px;
+    border-top: 1px solid var(--borde);
+    margin-top: 8px;
+  }
+  .footer-main { font-weight: 700; color: var(--verde); font-size: 13.5px; margin-bottom: 5px; }
+  .footer-nota { font-size: 11.5px; color: var(--texto-dim); line-height: 1.6; margin-bottom: 14px; }
+  .footer-autora {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--texto-suave);
+    margin-bottom: 12px;
+  }
+  .footer-autora span { color: var(--verde); }
+  .cc-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin-bottom: 8px;
+  }
+  .cc-icons {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .cc-icon {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #555;
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3px;
+    font-family: 'DM Sans', sans-serif;
+    flex-shrink: 0;
+    letter-spacing: 0;
+  }
+  .cc-icon.cc  { background: #04a635; }
+  .cc-icon.by  { background: #04a635; }
+  .cc-icon.nc  { background: #04a635; }
+  .cc-icon.sa  { background: #04a635; }
+  .cc-text {
+    text-align: left;
+  }
+  .cc-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--texto);
+    display: block;
+    margin-bottom: 1px;
+  }
+  .cc-detail {
+    font-size: 10.5px;
+    color: var(--texto-dim);
+  }
+  .cc-link {
+    font-size: 10px;
+    color: var(--azul);
+    text-decoration: none;
+    display: block;
+    margin-top: 1px;
+  }
+  .cc-link:hover { text-decoration: underline; }
+
+  /* ── BADGE FUENTE ── */
+  .badge-fuente {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--verde-claro);
+    border: 1px solid #b3d9c0;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--verde);
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    vertical-align: middle;
+    margin-left: 7px;
+  }
+
+  /* ── ANIMACIONES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { opacity: 0; animation: fadeUp .45s ease forwards; }
+  .fade-up:nth-child(1) { animation-delay: .05s; }
+  .fade-up:nth-child(2) { animation-delay: .12s; }
+  .fade-up:nth-child(3) { animation-delay: .19s; }
+  .fade-up:nth-child(4) { animation-delay: .26s; }
+  .fade-up:nth-child(5) { animation-delay: .33s; }
+  .fade-up:nth-child(6) { animation-delay: .40s; }
+  .fade-up:nth-child(7) { animation-delay: .47s; }
+  .fade-up:nth-child(8) { animation-delay: .54s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 620px) {
+    .page { padding: 0 14px 48px; }
+    .hero { padding: 34px 20px 32px; border-radius: 0 0 16px 16px; }
+    .sec { padding: 20px 16px; }
+    .cards-2x2, .colab-grid, .palabras-grid, .herr-grid { grid-template-columns: 1fr; }
+    .enfoques-grid { grid-template-columns: 1fr 1fr; }
+    .nivel-row { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+<meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
+<meta name="theme-color" content="#1e5c32">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<script>
+/* Si el navegador bloquea el almacenamiento (p. ej. dentro de un iframe de Google Sites), usar memoria para que la página no se rompa */
+(function(){try{var k='__p';localStorage.setItem(k,k);localStorage.removeItem(k);}catch(e){var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}});}catch(_){}}})();
+</script>
+<style>
+.sitenav{background:#143f23;font-family:'DM Sans',system-ui,sans-serif;position:relative;z-index:200}
+.sitenav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto;scrollbar-width:none}
+.sitenav-in::-webkit-scrollbar{display:none}
+.sitenav a{color:#d9eedf;text-decoration:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:7px;white-space:nowrap;line-height:1.2}
+.sitenav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sitenav a[aria-current=page]{background:#fff;color:#143f23}
+.sitenav .brand{font-weight:800;color:#fff;margin-right:6px;white-space:nowrap;font-size:14px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#143f23;padding:8px 12px;z-index:999;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><span class="brand">🧬 IA Biología IB</span><a href="index.html" aria-current="page">🏠 Inicio</a><a href="tema.html">🔬 Elegir tema</a><a href="ejemplos.html">📄 Ejemplos</a><a href="catalogo.html">🔎 Catálogo</a><a href="estadistica.html">📊 Estadística</a><a href="incertidumbre.html">📏 Incertidumbre</a></div></nav>
+<div id="contenido"></div>
+
+
+<div class="page">
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="hero-badge">🧬 Biología IB · Primera evaluación 2025</div>
+    <h1>Bienvenido/a a las herramientas de apoyo para la Investigación Científica</h1>
+    <p class="hero-sub">Todo lo que necesitas para diseñar, analizar y redactar tu evaluación interna de Biología. Orientación paso a paso desde la elección del tema hasta el análisis estadístico.</p>
+    <div class="hero-pills">
+      <div class="hero-pill">🏫 IES Celia Viñas · Almería</div>
+      <div class="hero-pill highlight">📋 Evaluación interna · 20 % de la nota final</div>
+      <div class="hero-pill">⏱️ 10 horas lectivas</div>
+      <div class="hero-pill">📝 Máx. 3.000 palabras</div>
+    </div>
+  </div>
+
+  <!-- ══ QUÉ ES ══ -->
+  <div class="sec fade-up">
+    <div class="sec-titulo">🔍 ¿Qué es la investigación científica?</div>
+    <p class="sec-sub">La investigación científica <span class="badge-fuente">Fuente: Guía IB 2025</span> es la tarea de evaluación interna del Programa del Diploma para Biología (NM y NS). Es una tarea abierta en la que cada estudiante obtiene y analiza datos para responder una pregunta de investigación que ha formulado. Representa el <strong>20 % de la evaluación final</strong> y es obligatoria para ambos niveles.</p>
+
+    <div class="cards-2x2">
+      <div class="mini-card">
+        <span class="ic">👤</span>
+        <div>
+          <div class="mini-card-title">Pregunta única e individual</div>
+          <div class="mini-card-body">Cada estudiante formula y responde su propia pregunta. Dos estudiantes no pueden presentar el mismo conjunto de datos brutos.</div>
+        </div>
+      </div>
+      <div class="mini-card">
+        <span class="ic">📝</span>
+        <div>
+          <div class="mini-card-title">Informe escrito individual</div>
+          <div class="mini-card-body">El informe final se redacta de forma individual, incluyendo la descripción de la metodología. No se permiten informes escritos en grupo.</div>
+        </div>
+      </div>
+      <div class="mini-card">
+        <span class="ic">📊</span>
+        <div>
+          <div class="mini-card-title">Datos cuantitativos obligatorios</div>
+          <div class="mini-card-body">La investigación debe incluir obtención y análisis de datos cuantitativos, respaldados con observaciones cualitativas cuando proceda.</div>
+        </div>
+      </div>
+      <div class="mini-card">
+        <span class="ic">📚</span>
+        <div>
+          <div class="mini-card-title">Integridad académica</div>
+          <div class="mini-card-body">Todas las fuentes deben citarse. La omisión o uso inapropiado de referencias se considera conducta improcedente según el IB.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enfoques -->
+    <div class="info-box azul" style="margin-top:16px">
+      💡 <strong>5 enfoques permitidos</strong> (pueden usarse por separado o de forma conjunta):
+    </div>
+    <div class="enfoques-grid">
+      <div class="enfoque-pill"><span class="ep-ic">🧪</span><span>Laboratorio</span><span class="ep-sub">Trabajo práctico de laboratorio</span></div>
+      <div class="enfoque-pill"><span class="ep-ic">🌿</span><span>Campo</span><span class="ep-sub">Trabajo de campo</span></div>
+      <div class="enfoque-pill"><span class="ep-ic">📊</span><span>Hoja de cálculo</span><span class="ep-sub">Análisis y creación de modelos</span></div>
+      <div class="enfoque-pill"><span class="ep-ic">🗃️</span><span>Base de datos</span><span class="ep-sub">Extracción y análisis de información externa</span></div>
+      <div class="enfoque-pill"><span class="ep-ic">💻</span><span>Simulación</span><span class="ep-sub">Uso de un simulador científico validado</span></div>
+    </div>
+
+    <!-- Colaboración -->
+    <div style="margin-top:18px">
+      <div style="font-size:13px;font-weight:700;color:var(--texto);margin-bottom:4px">¿Se puede trabajar en grupo?</div>
+      <div style="font-size:13px;color:var(--texto-suave);margin-bottom:10px">La colaboración es <strong>opcional</strong>. Los grupos son de máximo 3 personas.</div>
+      <div class="colab-grid">
+        <div class="colab-card si">
+          <div class="colab-card-hdr">✅ Permitido en grupo</div>
+          <div class="colab-item">Obtención conjunta de datos bajo protocolos estandarizados</div>
+          <div class="colab-item">Que dos alumnos usen la misma VI con diferente VD</div>
+          <div class="colab-item">Que cada alumno use datos distintos del mismo conjunto colaborativo</div>
+          <div class="colab-item">Discutir el planteamiento e interpretaciones con el profesorado</div>
+        </div>
+        <div class="colab-card no">
+          <div class="colab-card-hdr">❌ No permitido</div>
+          <div class="colab-item">Presentar el mismo conjunto de datos brutos que otro alumno/a</div>
+          <div class="colab-item">Informes escritos en grupo (toda la redacción debe ser individual)</div>
+          <div class="colab-item">Presentar el mismo trabajo para la IA y para la Monografía</div>
+          <div class="colab-item">Que el profesorado edite el borrador (solo puede asesorar oralmente o por escrito)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LÍMITE DE PALABRAS ══ -->
+  <div class="palabras-sec fade-up">
+    <div class="palabras-titulo">📏 Extensión del informe <span class="badge-fuente">Fuente: Guía IB 2025</span></div>
+    <div class="palabras-grid">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="palabras-col cuenta">
+          <div class="palabras-col-hdr">❌ Cuenta para el límite</div>
+          <div class="palabras-item">Texto principal del informe</div>
+          <div class="palabras-item">Pies de figura y de tabla</div>
+          <div class="palabras-item">Aclaraciones en el texto</div>
+        </div>
+        <div class="palabras-col no-cuenta">
+          <div class="palabras-col-hdr">✅ NO cuenta para el límite</div>
+          <div class="palabras-item">Gráficos y diagramas</div>
+          <div class="palabras-item">Tablas de datos</div>
+          <div class="palabras-item">Ecuaciones, fórmulas y cálculos</div>
+          <div class="palabras-item">Citas y referencias (entre paréntesis, numeradas, notas a pie de página)</div>
+          <div class="palabras-item">Bibliografía</div>
+          <div class="palabras-item">Encabezados</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="palabras-numero">
+          <span class="num">3.000</span>
+          <span class="num-label">palabras máximo</span>
+        </div>
+        <div class="info-box ambar">
+          ⚠️ <strong>Información obligatoria al inicio del informe:</strong>
+          <ul style="list-style:none;margin-top:8px">
+            <li style="padding:2px 0 2px 14px;position:relative;font-size:13px"><span style="position:absolute;left:0;color:var(--ambar)">→</span>Título de la investigación</li>
+            <li style="padding:2px 0 2px 14px;position:relative;font-size:13px"><span style="position:absolute;left:0;color:var(--ambar)">→</span>Código de alumno/a del IB (ej. xyz123)</li>
+            <li style="padding:2px 0 2px 14px;position:relative;font-size:13px"><span style="position:absolute;left:0;color:var(--ambar)">→</span>Código de miembros del grupo (si aplica)</li>
+            <li style="padding:2px 0 2px 14px;position:relative;font-size:13px"><span style="position:absolute;left:0;color:var(--ambar)">→</span>Número de palabras</li>
+          </ul>
+          <div style="margin-top:8px;font-size:12.5px">No es obligatorio portada ni índice.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CRITERIOS RESUMEN ══ -->
+  <div class="sec fade-up">
+    <div class="sec-titulo">📊 Criterios de evaluación interna <span class="badge-fuente">Fuente: Guía IB 2025</span></div>
+    <p class="sec-sub">Los mismos 4 criterios para NM y NS. Puntuación máxima total: <strong>24 puntos</strong> = <strong>20 % de la nota final</strong>.</p>
+    <table class="crit-tabla">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Puntos</th>
+          <th>%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="crit-nombre"><span class="crit-num">1</span> Diseño de la investigación</div>
+            <div class="crit-desc">Comunica la metodología de forma reproducible: pregunta con contexto específico, consideraciones metodológicas explicadas y método reproducible.</div>
+          </td>
+          <td><div class="crit-pts">6</div></td>
+          <td style="font-weight:700;color:var(--texto-suave)">25%</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="crit-nombre"><span class="crit-num">2</span> Análisis de datos</div>
+            <div class="crit-desc">Registra, procesa y presenta datos de forma clara y precisa. Trata las incertidumbres de forma apropiada.</div>
+          </td>
+          <td><div class="crit-pts">6</div></td>
+          <td style="font-weight:700;color:var(--texto-suave)">25%</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="crit-nombre"><span class="crit-num">3</span> Conclusión</div>
+            <div class="crit-desc">Justifica una conclusión pertinente a la pregunta, coherente con el análisis y comparada con el contexto científico aceptado.</div>
+          </td>
+          <td><div class="crit-pts">6</div></td>
+          <td style="font-weight:700;color:var(--texto-suave)">25%</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="crit-nombre"><span class="crit-num">4</span> Evaluación</div>
+            <div class="crit-desc">Explica el impacto de limitaciones específicas y propone mejoras realistas y pertinentes a esas limitaciones.</div>
+          </td>
+          <td><div class="crit-pts">6</div></td>
+          <td style="font-weight:700;color:var(--texto-suave)">25%</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td style="text-align:center;font-size:17px;color:var(--verde-oscuro)">24</td>
+          <td style="text-align:center">100%</td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="info-box azul" style="margin-top:12px">
+      💡 Haz clic en cada criterio para ver los descriptores de nivel completos y qué se espera en cada rango de puntuación.
+    </div>
+  </div>
+
+  <!-- ══ CRITERIOS EXPANDIBLES ══ -->
+  <div class="sec fade-up">
+    <div class="sec-titulo">🔎 Descriptores de nivel detallados <span class="badge-fuente">Fuente: Guía IB 2025</span></div>
+    <p class="sec-sub">Exactamente lo que evalúa el examinador en cada criterio. Los descriptores del nivel más alto (5-6) son alcanzables y no implican un trabajo perfecto.</p>
+
+    <!-- Criterio 1: Diseño -->
+    <div class="crit-expandible">
+      <button class="crit-exp-hdr" onclick="toggleCrit(this)">
+        <div class="crit-exp-num">1</div>
+        <div class="crit-exp-title">Diseño de la investigación</div>
+        <div class="crit-exp-pts">6 pts · 25%</div>
+        <span class="crit-exp-arr">▼</span>
+      </button>
+      <div class="crit-exp-body">
+        <p style="font-size:13px;color:var(--texto-suave);margin-bottom:14px;font-style:italic">"Evalúa la medida en que el alumno comunica eficazmente la metodología (propósito y práctica) que utilizó para abordar la pregunta de investigación."</p>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n0">0 pts</span></div>
+          <ul class="nivel-bullets"><li>El informe no alcanza ninguno de los niveles especificados.</li></ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n12">1–2 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>La pregunta de investigación se <strong>indica</strong> sin contexto.</li>
+            <li>Se <strong>indican</strong> consideraciones metodológicas relacionadas con la obtención de datos pertinentes.</li>
+            <li>La descripción de la metodología <strong>carece de información suficientemente detallada</strong> como para permitir reproducir la investigación.</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n34">3–4 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>La pregunta se <strong>resume</strong> en el marco de un contexto amplio.</li>
+            <li>Se <strong>describen</strong> consideraciones metodológicas pertinentes y suficientes para responder la pregunta.</li>
+            <li>La descripción de la metodología permite reproducir la investigación <strong>con pocas ambigüedades u omisiones</strong>.</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n56">5–6 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>La pregunta se <strong>describe</strong> en el marco de un contexto <strong>específico y apropiado</strong>.</li>
+            <li>Se <strong>explican</strong> consideraciones metodológicas pertinentes y suficientes para responder la pregunta.</li>
+            <li>La descripción de la metodología permite <strong>reproducir la investigación completamente</strong>.</li>
+          </ul>
+        </div>
+        <div class="crit-aclaraciones">
+          <div class="crit-acl-titulo">🔑 Aclaraciones clave (Guía IB)</div>
+          <div class="crit-acl-body">
+            <strong>Una pregunta con contexto debe incluir:</strong>
+            <ul>
+              <li>Referencias a la VI y VD (o dos variables correlacionadas)</li>
+              <li>Descripción concisa del sistema biológico al que pertenece la pregunta</li>
+              <li>Teoría de referencia directamente pertinente</li>
+            </ul>
+            <strong style="display:block;margin-top:8px">Las consideraciones metodológicas incluyen:</strong>
+            <ul>
+              <li>Selección de métodos para medir VI y VD</li>
+              <li>Selección de bases de datos, modelo y muestreo</li>
+              <li>Rango, intervalo o frecuencia de la VI; repetición y precisión</li>
+              <li>Identificación de variables controladas y método de control</li>
+              <li>Reconocimiento de cuestiones de seguridad, éticas y ambientales</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Criterio 2: Análisis -->
+    <div class="crit-expandible">
+      <button class="crit-exp-hdr" onclick="toggleCrit(this)">
+        <div class="crit-exp-num">2</div>
+        <div class="crit-exp-title">Análisis de datos</div>
+        <div class="crit-exp-pts">6 pts · 25%</div>
+        <span class="crit-exp-arr">▼</span>
+      </button>
+      <div class="crit-exp-body">
+        <p style="font-size:13px;color:var(--texto-suave);margin-bottom:14px;font-style:italic">"Evalúa la medida en que el informe aporta pruebas de que el alumno ha registrado, procesado y presentado los datos de maneras pertinentes a la pregunta de investigación."</p>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n0">0 pts</span></div>
+          <ul class="nivel-bullets"><li>El informe no alcanza ninguno de los niveles especificados.</li></ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n12">1–2 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>El registro y procesamiento se comunica, pero <strong>no de forma clara ni precisa</strong>.</li>
+            <li>El procesamiento muestra <strong>escasos indicios</strong> de haber considerado las incertidumbres.</li>
+            <li>Se lleva a cabo cierto procesamiento pertinente, pero con <strong>omisiones, imprecisiones o incoherencias graves</strong> (que impiden extraer una conclusión válida).</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n34">3–4 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>La comunicación del registro y procesamiento es <strong>clara o precisa</strong> (no necesariamente las dos).</li>
+            <li>El procesamiento muestra indicios de haber considerado las incertidumbres, <strong>con algunas omisiones o imprecisiones significativas</strong>.</li>
+            <li>El procesamiento de datos es pertinente, pero con <strong>algunas omisiones, imprecisiones o incoherencias significativas</strong> (permiten una conclusión con validez o detalle limitados).</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n56">5–6 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>La comunicación es <strong>clara Y precisa</strong> a la vez.</li>
+            <li>El procesamiento muestra indicios de haber considerado las incertidumbres <strong>de forma apropiada</strong>.</li>
+            <li>El procesamiento de datos es <strong>pertinente, apropiado y preciso</strong> para responder la pregunta.</li>
+          </ul>
+        </div>
+        <div class="crit-aclaraciones">
+          <div class="crit-acl-titulo">🔑 Aclaraciones clave (Guía IB)</div>
+          <div class="crit-acl-body">
+            <strong>Comunicación clara</strong> = el método de procesamiento puede entenderse con facilidad.<br>
+            <strong>Comunicación precisa</strong> = sigue correctamente las convenciones de anotación de gráficos y tablas, uso de unidades del SI, lugares decimales y cifras significativas.<br>
+            <strong>Incertidumbres:</strong> su tratamiento es específico de la asignatura. Consulta el Material de Ayuda al Profesor de Biología para orientación detallada.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Criterio 3: Conclusión -->
+    <div class="crit-expandible">
+      <button class="crit-exp-hdr" onclick="toggleCrit(this)">
+        <div class="crit-exp-num">3</div>
+        <div class="crit-exp-title">Conclusión</div>
+        <div class="crit-exp-pts">6 pts · 25%</div>
+        <span class="crit-exp-arr">▼</span>
+      </button>
+      <div class="crit-exp-body">
+        <p style="font-size:13px;color:var(--texto-suave);margin-bottom:14px;font-style:italic">"Evalúa la medida en que el alumno responde satisfactoriamente su pregunta de investigación en cuanto a su análisis y el contexto científico aceptado."</p>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n0">0 pts</span></div>
+          <ul class="nivel-bullets"><li>El informe no alcanza ninguno de los niveles especificados.</li></ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n12">1–2 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>Se <strong>indica</strong> una conclusión pertinente a la pregunta, pero <strong>no está respaldada</strong> por el análisis presentado.</li>
+            <li>La conclusión realiza una <strong>comparación superficial</strong> con el contexto científico aceptado.</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n34">3–4 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>Se <strong>describe</strong> una conclusión pertinente, pero <strong>no del todo coherente</strong> con el análisis presentado.</li>
+            <li>Se describe una conclusión que realiza <strong>cierta comparación pertinente</strong> con el contexto científico aceptado.</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n56">5–6 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>Se <strong>justifica</strong> una conclusión pertinente que es <strong>totalmente coherente</strong> con el análisis presentado.</li>
+            <li>Se justifica la conclusión mediante una <strong>comparación pertinente con el contexto científico aceptado</strong>.</li>
+          </ul>
+        </div>
+        <div class="crit-aclaraciones">
+          <div class="crit-acl-titulo">🔑 Aclaraciones clave (Guía IB)</div>
+          <div class="crit-acl-body">
+            <strong>Totalmente coherente</strong> = requiere interpretar los datos procesados, incluyendo las incertidumbres asociadas.<br><br>
+            <strong>Contexto científico</strong> = puede provenir de material publicado (impreso o en línea), valores publicados, apuntes de clase, libros de texto u otras fuentes externas. Las citas deben ser lo suficientemente detalladas para localizar las fuentes.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Criterio 4: Evaluación -->
+    <div class="crit-expandible">
+      <button class="crit-exp-hdr" onclick="toggleCrit(this)">
+        <div class="crit-exp-num">4</div>
+        <div class="crit-exp-title">Evaluación</div>
+        <div class="crit-exp-pts">6 pts · 25%</div>
+        <span class="crit-exp-arr">▼</span>
+      </button>
+      <div class="crit-exp-body">
+        <p style="font-size:13px;color:var(--texto-suave);margin-bottom:14px;font-style:italic">"Evalúa la medida en que el informe aporta pruebas de que el alumno ha evaluado la metodología de investigación y ha sugerido mejoras."</p>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n0">0 pts</span></div>
+          <ul class="nivel-bullets"><li>El informe no alcanza ninguno de los niveles especificados.</li></ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n12">1–2 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>El informe <strong>indica</strong> limitaciones o puntos débiles <strong>genéricos</strong> de la metodología.</li>
+            <li>Se <strong>indican</strong> mejoras realistas para la investigación.</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n34">3–4 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>El informe <strong>describe</strong> limitaciones o puntos débiles <strong>específicos</strong> de la metodología.</li>
+            <li>Se <strong>describen</strong> mejoras realistas pertinentes a las limitaciones identificadas.</li>
+          </ul>
+        </div>
+        <div class="nivel-row">
+          <div><span class="nivel-badge n56">5–6 pts</span></div>
+          <ul class="nivel-bullets">
+            <li>El informe <strong>explica el impacto relativo</strong> de las limitaciones o puntos débiles <strong>específicos</strong>.</li>
+            <li>Se <strong>explican</strong> mejoras realistas pertinentes a las limitaciones identificadas.</li>
+          </ul>
+        </div>
+        <div class="crit-aclaraciones">
+          <div class="crit-acl-titulo">🔑 Aclaraciones clave (Guía IB)</div>
+          <div class="crit-acl-body">
+            <strong>Genérico</strong> = atañe a varias metodologías y no es específicamente pertinente a la tuya. Ej: "el tamaño muestral fue pequeño" es genérico; "la variación entre rodajas de patata afectó a la precisión porque la concentración de catalasa no es homogénea" es específico.<br><br>
+            <strong>Puntos débiles</strong> = pueden referirse a control de variables, precisión de mediciones o variaciones en los datos.<br>
+            <strong>Limitaciones</strong> = pueden referirse a cómo la conclusión tiene alcance limitado por el rango de datos, los límites del sistema o la aplicabilidad de los supuestos realizados.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ÉTICA Y SEGURIDAD ══ -->
+  <div class="etica-sec fade-up">
+    <div class="etica-titulo">⚠️ Ética y seguridad en tu investigación</div>
+    <p class="etica-sub">Antes de comenzar cualquier experimento, ten en cuenta estas directrices del IB (Directrices sobre experimentación científica, actualización octubre 2023). El profesorado debe verificar que hayas considerado estos factores antes de pasar a la fase de acción.</p>
+    <div class="etica-lista">
+      <div class="etica-item">
+        <div class="etica-dot">🐾</div>
+        <div class="etica-txt"><strong>Animales:</strong> solo observación del comportamiento natural, sin causar estrés ni dolor. Los organismos extraídos de su hábitat deben devolverse ilesos en un plazo adecuado.</div>
+      </div>
+      <div class="etica-item">
+        <div class="etica-dot">⚗️</div>
+        <div class="etica-txt"><strong>Evaluación de riesgos:</strong> todo experimento debe ir precedido de una evaluación de riesgos que identifique los peligros, estime su nivel y establezca medidas de control. Usa siempre el equipo de protección adecuado.</div>
+      </div>
+      <div class="etica-item">
+        <div class="etica-dot">👥</div>
+        <div class="etica-txt"><strong>Personas:</strong> requieren formulario de consentimiento informado firmado. Sin menores de 16 años sin autorización escrita de padres o tutores. No se permiten experimentos con fluidos corporales ni sustancias (alcohol, medicamentos, cafeína, etc.).</div>
+      </div>
+      <div class="etica-item">
+        <div class="etica-dot">🦠</div>
+        <div class="etica-txt"><strong>Microbiología:</strong> solo cultivos no patógenos de proveedores especializados, a ≤ 25 °C con técnicas asépticas. Sin hisopados de superficies corporales ni pruebas de resistencia a antibióticos.</div>
+      </div>
+      <div class="etica-item">
+        <div class="etica-dot">🌿</div>
+        <div class="etica-txt"><strong>Campo:</strong> minimiza el impacto ambiental. No trabajes en zonas con especies protegidas. Devuelve todos los hábitats a su estado original. Realiza siempre una evaluación de riesgos antes de acceder al lugar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HERRAMIENTAS ══ -->
+  <div class="sec fade-up">
+    <div class="sec-titulo">🛠️ Tu ruta de trabajo</div>
+    <p class="sec-sub">Cinco recursos ordenados según el momento en que te encuentres. Puedes volver a cualquiera desde la barra superior.</p>
+    <div class="herr-grid">
+      <a class="herr-card azul" href="tema.html">
+        <div class="herr-ic">🔬</div>
+        <div class="herr-titulo">1 · Elegir el tema y la pregunta</div>
+        <div class="herr-desc">Tipos de investigación, explorador de temas por subtemas del programa 2025, bases de datos y simulaciones, constructor de la pregunta, plantillas de metodología y checklist.</div>
+        <div class="herr-tags"><span class="herr-tag a">Programa 2025</span><span class="herr-tag a">VI / VD</span><span class="herr-tag a">Checklist</span></div>
+        <span class="herr-btn ab">Abrir la guía →</span>
+      </a>
+      <a class="herr-card azul" href="catalogo.html">
+        <div class="herr-ic">🔎</div>
+        <div class="herr-titulo">2 · Buscar ideas en el catálogo</div>
+        <div class="herr-desc">Más de 360 investigaciones y protocolos con su pregunta de investigación a la vista. Busca por palabra clave, filtra por enfoque o tema y guarda los que te interesen.</div>
+        <div class="herr-tags"><span class="herr-tag a">Buscador</span><span class="herr-tag a">Filtros</span><span class="herr-tag a">Protocolos</span></div>
+        <span class="herr-btn ab">Abrir el catálogo →</span>
+      </a>
+      <a class="herr-card" href="ejemplos.html">
+        <div class="herr-ic">📄</div>
+        <div class="herr-titulo">3 · Aprender de ejemplos comentados</div>
+        <div class="herr-desc">17 investigaciones del material de ayuda al profesor del IB, 8 con anotaciones del examinador reorganizadas según los cuatro criterios actuales.</div>
+        <div class="herr-tags"><span class="herr-tag v">17 ejemplos</span><span class="herr-tag v">Comentarios</span><span class="herr-tag v">10 lecciones</span></div>
+        <span class="herr-btn vb">Ver los ejemplos →</span>
+      </a>
+      <a class="herr-card" href="estadistica.html">
+        <div class="herr-ic">📊</div>
+        <div class="herr-titulo">4 · Analizar los datos</div>
+        <div class="herr-desc">Árbol de decisión estadística, 13 fichas explicadas desde cero, práctica interactiva con escenarios y guía de Excel y Google Sheets en español.</div>
+        <div class="herr-tags"><span class="herr-tag v">Árbol</span><span class="herr-tag v">13 fichas</span><span class="herr-tag v">Excel &amp; Sheets</span></div>
+        <span class="herr-btn vb">Abrir las herramientas →</span>
+      </a>
+      <a class="herr-card" href="incertidumbre.html">
+        <div class="herr-ic">📏</div>
+        <div class="herr-titulo">5 · Tratar la incertidumbre</div>
+        <div class="herr-desc">Protocolo en 6 pasos para identificar, procesar e interpretar la incertidumbre en cada criterio, con ejemplo resuelto y calculadora.</div>
+        <div class="herr-tags"><span class="herr-tag v">6 pasos</span><span class="herr-tag v">Calculadora</span><span class="herr-tag v">Checklist</span></div>
+        <span class="herr-btn vb">Abrir el protocolo →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer fade-up">
+    <div class="footer-main">🧬 Biología IB 2025 · IES Celia Viñas · Almería</div>
+    <div class="footer-nota">
+      Basado en la <em>Guía de Biología del IB</em> (primera evaluación 2025, actualización agosto 2023)<br>
+      y las <em>Directrices del IB sobre experimentación científica</em> (actualización octubre 2023).<br>
+      Los descriptores de nivel son citas textuales de la fuente oficial. © IB Organization 2023.
+    </div>
+
+    <div class="footer-autora">
+      Elaborado por <span>María Dolores Gámez Ortiz</span> · Profesora de Biología IB · IES Celia Viñas, Almería
+    </div>
+
+    <div>
+      <div class="cc-box">
+        <div class="cc-icons">
+          <span class="cc-icon cc">CC</span>
+          <span class="cc-icon by">BY</span>
+          <span class="cc-icon nc">NC</span>
+          <span class="cc-icon sa">SA</span>
+        </div>
+        <div class="cc-text">
+          <span class="cc-title">CC BY-NC-SA 4.0 — Atribución · No comercial · Compartir igual</span>
+          <span class="cc-detail">Puedes compartir y adaptar este material siempre que cites a la autora,<br>no lo uses con fines comerciales y distribuyas bajo la misma licencia.</span>
+          <a class="cc-link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">
+            creativecommons.org/licenses/by-nc-sa/4.0 →
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /page -->
+
+<script>
+
+  /* ── CRITERIOS EXPANDIBLES ── */
+  function toggleCrit(btn) {
+    const body = btn.nextElementSibling;
+    const arr  = btn.querySelector('.crit-exp-arr');
+    const open = body.classList.contains('open');
+    body.classList.toggle('open', !open);
+    arr.classList.toggle('open', !open);
+  }
+</script>
+
+
+<script>
+/* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
+(function(){
+  function mark(root){(root.querySelectorAll?root:document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select)').forEach(function(el){if(!el.hasAttribute('role')){el.setAttribute('role','button');el.setAttribute('tabindex','0');}});}
+  document.addEventListener('keydown',function(e){var el=e.target.closest&&e.target.closest('[role="button"]');if(el&&el.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();el.click();}});
+  function init(){mark(document);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)mark(n.parentNode||n);});});}).observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.querySelectorAll('a[target="_blank"]').forEach(function(a){a.rel='noopener';});
+})();
+</script>
+</body>
+</html>

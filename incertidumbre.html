@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incertidumbre en la IA — Biología IB · IES Celia Viñas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #2d7a45; --verde-claro: #e6f4eb; --verde-oscuro: #1e5c32;
+    --azul: #1a6fa8; --azul-claro: #e8f3fc; --azul-bd: #b3d4f0;
+    --ambar: #b86800; --ambar-claro: #fff8ed; --ambar-bd: #f0c878;
+    --rojo: #c0392b; --rojo-claro: #fdf0ee; --rojo-bd: #f0b8b0;
+    --morado: #6b3fa0; --morado-claro: #f2edf9;
+    --fondo: #f4f7f4; --superficie: #ffffff; --borde: #d6e5d8; --borde-sutil: #eaf0ea;
+    --texto: #1c2e1f; --texto-suave: #4d6e54; --texto-dim: #8aab8e;
+    --sombra: 0 2px 12px rgba(45,122,69,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; }
+  body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.6; font-size: 15px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 0 16px 60px; }
+  .hero { background: linear-gradient(135deg, #1e5c32 0%, #2d7a45 55%, #3d9458 100%); color: #fff; padding: 40px 32px 34px; border-radius: 0 0 20px 20px; margin-bottom: 22px; }
+  .hero h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(22px, 4vw, 30px); line-height: 1.25; margin-bottom: 8px; }
+  .hero p { opacity: .9; max-width: 640px; }
+  nav.indice { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+  nav.indice a { background: rgba(255,255,255,.15); color: #fff; text-decoration: none; border-radius: 8px; padding: 5px 11px; font-size: 12.5px; font-weight: 600; }
+  .sec { background: var(--superficie); border: 1px solid var(--borde); border-radius: 16px; padding: 24px 26px; margin-bottom: 18px; box-shadow: var(--sombra); }
+  h2 { font-family: 'Source Serif 4', serif; font-size: 20px; margin-bottom: 6px; display: flex; gap: 10px; align-items: center; }
+  h3 { font-size: 15px; margin: 16px 0 6px; }
+  .sub { color: var(--texto-suave); font-size: 13.5px; margin-bottom: 14px; }
+  p + p { margin-top: 8px; }
+  ul, ol { padding-left: 20px; margin: 6px 0; }
+  li { margin: 3px 0; }
+  .paso { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .crit { display: inline-block; font-size: 11.5px; font-weight: 700; border-radius: 6px; padding: 2px 8px; margin-left: 4px; vertical-align: middle; }
+  .c1 { background: var(--azul-claro); color: var(--azul); } .c2 { background: var(--verde-claro); color: var(--verde-oscuro); }
+  .c3 { background: var(--morado-claro); color: var(--morado); } .c4 { background: var(--ambar-claro); color: var(--ambar); }
+  .box { border-radius: 10px; padding: 12px 15px; font-size: 14px; margin: 12px 0; }
+  .box.azul { background: var(--azul-claro); border: 1px solid var(--azul-bd); color: #1a3a5a; }
+  .box.ambar { background: var(--ambar-claro); border: 1px solid var(--ambar-bd); color: #6b4500; }
+  .box.rojo { background: var(--rojo-claro); border: 1px solid var(--rojo-bd); color: #7a1a1a; }
+  .box.verde { background: var(--verde-claro); border: 1px solid #b3d9c0; color: #1a4a2a; }
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mal, .bien { border-radius: 10px; padding: 11px 13px; font-size: 13.5px; }
+  .mal { background: var(--rojo-claro); border: 1px solid var(--rojo-bd); }
+  .bien { background: var(--verde-claro); border: 1px solid #b3d9c0; }
+  .mal b, .bien b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; }
+  .tabla { overflow-x: auto; margin: 10px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { border: 1px solid var(--borde); padding: 6px 8px; text-align: center; }
+  th { background: var(--verde-claro); color: var(--verde-oscuro); }
+  caption { caption-side: top; text-align: left; font-weight: 700; font-size: 13px; padding-bottom: 6px; }
+  .formula { font-family: 'Source Serif 4', serif; background: var(--fondo); border: 1px dashed var(--borde); border-radius: 8px; padding: 8px 12px; margin: 8px 0; font-size: 15px; }
+  .frase { background: var(--fondo); border-left: 4px solid var(--verde); border-radius: 0 8px 8px 0; padding: 9px 12px; margin: 8px 0; font-size: 14px; font-style: italic; }
+  /* calculadora */
+  .calc label { font-weight: 600; font-size: 13.5px; display: block; margin: 10px 0 4px; }
+  .calc input, .calc textarea { width: 100%; font: inherit; font-size: 15px; padding: 9px 11px; border: 1.5px solid var(--borde); border-radius: 9px; }
+  .calc textarea { min-height: 64px; resize: vertical; }
+  .calc .fila { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px; }
+  .btn { margin-top: 14px; background: var(--verde); color: #fff; border: none; border-radius: 9px; padding: 10px 20px; font: inherit; font-weight: 700; cursor: pointer; }
+  .res { margin-top: 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr)); gap: 8px; }
+  .kpi { background: var(--fondo); border: 1px solid var(--borde-sutil); border-radius: 10px; padding: 9px 11px; }
+  .kpi small { color: var(--texto-suave); font-size: 12px; display: block; }
+  .kpi b { font-size: 17px; }
+  .chk { list-style: none; padding-left: 0; }
+  .chk li { padding: 6px 0 6px 30px; position: relative; border-bottom: 1px solid var(--borde-sutil); cursor: pointer; }
+  .chk li::before { content: ''; position: absolute; left: 2px; top: 8px; width: 18px; height: 18px; border: 2px solid var(--borde); border-radius: 5px; }
+  .chk li.ok::before { background: var(--verde); border-color: var(--verde); }
+  .chk li.ok { color: var(--texto-suave); }
+  footer { text-align: center; font-size: 12.5px; color: var(--texto-dim); margin-top: 30px; }
+  @media (max-width: 620px) { .dos { grid-template-columns: 1fr; } .sec { padding: 18px 16px; } .hero { padding: 28px 18px; } }
+</style>
+<meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
+<meta name="theme-color" content="#1e5c32">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<script>
+/* Si el navegador bloquea el almacenamiento (p. ej. dentro de un iframe de Google Sites), usar memoria para que la página no se rompa */
+(function(){try{var k='__p';localStorage.setItem(k,k);localStorage.removeItem(k);}catch(e){var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}});}catch(_){}}})();
+</script>
+<style>
+.sitenav{background:#143f23;font-family:'DM Sans',system-ui,sans-serif;position:relative;z-index:200}
+.sitenav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto;scrollbar-width:none}
+.sitenav-in::-webkit-scrollbar{display:none}
+.sitenav a{color:#d9eedf;text-decoration:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:7px;white-space:nowrap;line-height:1.2}
+.sitenav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sitenav a[aria-current=page]{background:#fff;color:#143f23}
+.sitenav .brand{font-weight:800;color:#fff;margin-right:6px;white-space:nowrap;font-size:14px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#143f23;padding:8px 12px;z-index:999;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><span class="brand">🧬 IA Biología IB</span><a href="index.html">🏠 Inicio</a><a href="tema.html">🔬 Elegir tema</a><a href="ejemplos.html">📄 Ejemplos</a><a href="catalogo.html">🔎 Catálogo</a><a href="estadistica.html">📊 Estadística</a><a href="incertidumbre.html" aria-current="page">📏 Incertidumbre</a></div></nav>
+<div id="contenido"></div>
+
+<div class="page">
+<header class="hero">
+  <h1>📏 La incertidumbre en tu investigación: no basta con ponerla</h1>
+  <p>Protocolo en 6 pasos para identificar, registrar, procesar, representar e <b>interpretar</b> la incertidumbre, y usarla en la conclusión y la evaluación. Cada paso indica el criterio del IB en el que suma puntos.</p>
+  <nav class="indice">
+    <a href="#idea">0 · La idea clave</a><a href="#p1">1 · Diseño</a><a href="#p2">2 · Registro</a><a href="#p3">3 · Procesamiento</a>
+    <a href="#p4">4 · Gráficos</a><a href="#p5">5 · Conclusión</a><a href="#p6">6 · Evaluación</a><a href="#calc">🧮 Calculadora</a><a href="#check">✅ Checklist</a>
+  </nav>
+</header>
+
+<section class="sec" id="idea">
+  <h2>💡 La idea clave: dos tipos de incertidumbre</h2>
+  <p class="sub">Los descriptores del IB piden que el procesamiento muestre que «se han considerado las incertidumbres <b>de forma apropiada</b>» (Análisis de datos, 5-6) y que la conclusión sea «totalmente coherente», lo que <b>requiere interpretar los datos procesados, incluidas las incertidumbres asociadas</b> (Conclusión, aclaraciones).</p>
+  <div class="dos">
+    <div class="box azul" style="margin:0"><b>① Incertidumbre de medida</b><br>La del instrumento y el método: cuánto puede «fallar» <i>cada</i> lectura. Ej.: probeta ± 0,5 mL, cronómetro manual ± 0,3 s (tiempo de reacción), baño maría ± 1 °C.</div>
+    <div class="box verde" style="margin:0"><b>② Variabilidad de los datos</b><br>Cuánto varían las réplicas entre sí: diferencias biológicas entre individuos + errores aleatorios. Se cuantifica con la desviación típica (s), el CV, el SEM o el IC 95 %.</div>
+  </div>
+  <div class="box ambar">🔑 <b>En Biología, la variabilidad ② suele ser mucho mayor que la incertidumbre del instrumento ①.</b> Por eso un informe de nivel alto no se limita a escribir «± 0,1 mL» en la tabla: <b>compara</b> ambas, decide cuál domina y explica cómo afectan a la confianza en la conclusión. Además, los <b>errores sistemáticos</b> (siempre en el mismo sentido) no aparecen en ningún «±»: hay que detectarlos y discutirlos en la evaluación.</div>
+</section>
+
+<section class="sec" id="p1">
+  <h2><span class="paso">1</span> Antes de medir: identifica y reduce <span class="crit c1">Criterio 1 · Diseño</span></h2>
+  <p class="sub">Las «consideraciones metodológicas» incluyen la repetición y la precisión de las mediciones. Aquí se gana el Diseño y se prepara el resto.</p>
+  <ol>
+    <li><b>Haz una lista de todos los instrumentos</b> que usarás para la VI, la VD y las variables controladas, con su incertidumbre:
+      <ul>
+        <li>Analógico (probeta, regla, jeringa): <b>± la mitad de la división más pequeña</b> (probeta graduada de 1 en 1 mL → ± 0,5 mL).</li>
+        <li>Digital (balanza, sensor, termómetro digital): <b>± 1 en la última cifra</b> (balanza 0,01 g → ± 0,01 g) o el valor del fabricante (ficha del sensor Vernier).</li>
+        <li>Cronómetro manual: la incertidumbre real es el tiempo de reacción humano (≈ ± 0,2–0,5 s), no la resolución del aparato (0,01 s). Estímala y justifícala.</li>
+        <li>Recuentos (burbujas, estomas, semillas germinadas): incertidumbre del método (ej. ± 1 burbuja si es difícil distinguirlas; en % si se cuentan semillas: 1/25 = ± 4 %).</li>
+        <li>Condiciones controladas (temperatura del baño, intensidad luminosa): mide su <b>fluctuación real</b> durante el ensayo, no solo la resolución del termómetro.</li>
+      </ul></li>
+    <li><b>Calcula la incertidumbre porcentual</b> de cada medida con un valor típico y elige el instrumento o el rango que la mantengan baja (idealmente &lt; 5 %).
+      <div class="formula">% incertidumbre = (incertidumbre absoluta ÷ valor medido) × 100</div>
+      Ej.: medir 2,5 mL con una probeta de 10 mL (± 0,1 mL) → 4 %; con una de 50 mL (± 0,5 mL) → 20 %. ¡La elección del material es una decisión metodológica que debes explicar!</li>
+    <li><b>Haz un ensayo piloto</b> (3-5 medidas en un nivel de la VI): te dice cuánto varían las réplicas y, por tanto, cuántas necesitas. Si la variabilidad es grande, aumenta las réplicas o mejora el control.</li>
+    <li><b>Justifica el número de réplicas y de niveles de la VI</b> con lo que observaste en el piloto. (Lo de «5 niveles × 5 réplicas» es una orientación habitual, no una norma del IB: lo que se valora es que los datos sean <b>suficientes</b> y lo argumentes).</li>
+  </ol>
+  <div class="dos">
+    <div class="mal"><b>❌ Nivel bajo</b>«Se usó una probeta para medir el volumen de O₂.»</div>
+    <div class="bien"><b>✅ Nivel alto</b>«El volumen de O₂ se midió con una probeta invertida de 10 mL (± 0,1 mL) en lugar de la de 50 mL (± 0,5 mL), porque en el piloto los volúmenes fueron de 1-5 mL y la incertidumbre porcentual con la de 50 mL habría llegado al 50 %.»</div>
+  </div>
+</section>
+
+<section class="sec" id="p2">
+  <h2><span class="paso">2</span> Registra los datos brutos con su incertidumbre <span class="crit c2">Criterio 2 · Análisis</span></h2>
+  <ul>
+    <li>La incertidumbre va en el <b>encabezado</b> de la columna, con las unidades: <b>Volumen de O₂ / mL ± 0,1 mL</b>.</li>
+    <li>Todos los valores con el <b>mismo número de decimales que la precisión del instrumento</b> (si mide a 0,1 mL, escribe 2,0 y no 2).</li>
+    <li>Anota <b>observaciones cualitativas</b> que puedan explicar variaciones (burbujas atrapadas, espuma, cambio de color, un ensayo interrumpido…). Serán tu materia prima en la conclusión y la evaluación.</li>
+    <li>No borres datos «raros»: márcalos y decide en el paso 3 con un criterio explícito.</li>
+  </ul>
+  <div class="tabla"><table>
+    <caption>Tabla 1. Volumen de O₂ liberado por 1,0 g de tejido de patata en 5 min a cinco temperaturas</caption>
+    <tr><th rowspan="2">Temperatura / °C ± 1 °C</th><th colspan="5">Volumen de O₂ / mL ± 0,1 mL</th></tr>
+    <tr><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th></tr>
+    <tr><td>10</td><td>1,2</td><td>1,4</td><td>1,0</td><td>1,3</td><td>1,1</td></tr>
+    <tr><td>20</td><td>2,4</td><td>2,6</td><td>2,2</td><td>2,5</td><td>2,8</td></tr>
+    <tr><td>30</td><td>4,8</td><td>5,1</td><td>4,9</td><td>5,3</td><td>4,6</td></tr>
+    <tr><td>40</td><td>3,1</td><td>2,9</td><td>3,6</td><td>2,6</td><td>3,3</td></tr>
+    <tr><td>50</td><td>1,0</td><td>0,9</td><td>1,4</td><td>0,6</td><td>1,1</td></tr>
+  </table></div>
+  <p style="font-size:13px;color:var(--texto-suave)">La incertidumbre de la temperatura (± 1 °C) es la fluctuación observada del baño maría, no la resolución del termómetro digital (± 0,1 °C).</p>
+</section>
+
+<section class="sec" id="p3">
+  <h2><span class="paso">3</span> Procesa: cuantifica la variabilidad y compárala <span class="crit c2">Criterio 2 · Análisis</span></h2>
+  <p class="sub">Aquí es donde la mayoría «pone la incertidumbre y ya». El salto de nivel está en el punto 3: <b>comparar</b>.</p>
+  <ol>
+    <li><b>Calcula para cada nivel de la VI</b>: media, desviación típica muestral s (=DESVEST, divide entre n−1) y n. Si quieres expresar la incertidumbre de la <i>media</i>, añade el SEM (s/√n) o el IC 95 %.</li>
+    <li><b>Calcula el coeficiente de variación</b>, que permite comparar la variabilidad entre niveles con medias distintas:
+      <div class="formula">CV (%) = (s ÷ media) × 100</div></li>
+    <li><b>Compara la incertidumbre del instrumento con la variabilidad</b>, nivel por nivel:
+      <ul>
+        <li>Si s ≫ incertidumbre del instrumento → la variabilidad viene del <b>material biológico o del procedimiento</b>: cambiar de instrumento no mejoraría los datos; hay que controlar mejor o aumentar n.</li>
+        <li>Si s ≈ incertidumbre del instrumento → el instrumento <b>limita</b> la precisión: la mejora es un instrumento más preciso.</li>
+      </ul></li>
+    <li><b>Propaga la incertidumbre de medida en los cálculos sencillos</b> cuando la VD procesada salga directamente de medidas (recomendado):
+      <ul>
+        <li>Suma o resta → se suman las incertidumbres absolutas. Cambio de masa = m<sub>final</sub> − m<sub>inicial</sub> → ± (0,01 + 0,01) = ± 0,02 g.</li>
+        <li>Multiplicación o división → se suman las incertidumbres porcentuales. Tasa = 2,5 mL (± 4 %) ÷ 300 s (± 0,1 %) → ± 4,1 %.</li>
+      </ul></li>
+    <li><b>Valores atípicos</b>: aplica un criterio declarado (por ejemplo, alejarse más de 2 s de la media, o 1,5 × el rango intercuartílico), busca una causa en tus observaciones y explica si lo excluyes. Si lo excluyes, muestra el resultado con y sin él.</li>
+    <li><b>Redondeo coherente</b>: la media con los mismos decimales que los datos brutos; la s con, como mucho, un decimal más. Mantén el mismo criterio en todas las tablas.</li>
+  </ol>
+  <div class="tabla"><table>
+    <caption>Tabla 2. Datos procesados (n = 5 por temperatura)</caption>
+    <tr><th>T / °C</th><th>Media / mL</th><th>s / mL</th><th>CV / %</th><th>Incert. instrumento / %</th><th>¿Qué domina?</th></tr>
+    <tr><td>10</td><td>1,2</td><td>0,16</td><td>13</td><td>8</td><td>Ambas son importantes</td></tr>
+    <tr><td>20</td><td>2,5</td><td>0,22</td><td>9</td><td>4</td><td>Variabilidad</td></tr>
+    <tr><td>30</td><td>4,9</td><td>0,27</td><td>5</td><td>2</td><td>Variabilidad (baja)</td></tr>
+    <tr><td>40</td><td>3,1</td><td>0,38</td><td>12</td><td>3</td><td>Variabilidad (alta)</td></tr>
+    <tr><td>50</td><td>1,0</td><td>0,29</td><td>29</td><td>10</td><td>Variabilidad (muy alta)</td></tr>
+  </table></div>
+  <div class="frase">«En todos los niveles la desviación típica (0,16–0,38 mL) fue entre 1,6 y 3,8 veces mayor que la incertidumbre de la probeta (± 0,1 mL), por lo que la variabilidad procede principalmente del tejido y del procedimiento, no del instrumento. La variabilidad relativa fue máxima a 50 °C (CV = 29 %), donde además la incertidumbre del instrumento alcanza el 10 % del valor medido.»</div>
+</section>
+
+<section class="sec" id="p4">
+  <h2><span class="paso">4</span> Representa: barras de error que se puedan leer <span class="crit c2">Criterio 2 · Análisis</span></h2>
+  <ul>
+    <li>Decide <b>qué representan</b> las barras: ± s (variabilidad de los datos), ± SEM o IC 95 % (incertidumbre de la media). Escríbelo en el pie: <i>«Las barras de error representan ± 1 s; n = 5.»</i></li>
+    <li>Usa barras <b>personalizadas</b> con tus valores de s, no las automáticas de Excel (que usan un porcentaje fijo o el error típico de toda la serie).</li>
+    <li>En gráficos de dispersión, añade barras de error y la línea de tendencia con R² si tiene sentido biológico.</li>
+    <li>Las barras que no se solapan son una pista visual, <b>no una prueba</b> de significación: para eso usa la prueba estadística (ver <a href="estadistica.html">Herramientas estadísticas</a>).</li>
+  </ul>
+</section>
+
+<section class="sec" id="p5">
+  <h2><span class="paso">5</span> Concluye teniendo en cuenta la incertidumbre <span class="crit c3">Criterio 3 · Conclusión</span></h2>
+  <p class="sub">Pregúntate: ¿mis diferencias o mi tendencia son mayores que la incertidumbre? ¿En qué parte del rango puedo confiar más y en cuál menos?</p>
+  <ol>
+    <li><b>Compara la diferencia entre medias con su variabilidad</b>: ¿la diferencia supera claramente las s o los IC?</li>
+    <li><b>Señala en qué niveles la conclusión es más sólida</b> (CV bajo, barras sin solapar) <b>y en cuáles es débil</b> (CV alto, solapamiento).</li>
+    <li><b>Une el resultado estadístico con la incertidumbre</b>: valor p, y también tamaño de la diferencia frente a s.</li>
+    <li><b>Compara con la bibliografía teniendo en cuenta tu incertidumbre</b>: ¿el valor publicado (por ejemplo, el óptimo de la enzima) cae dentro de tu resolución? Si tus niveles van de 10 en 10 °C, tu óptimo solo está localizado entre 30 y 40 °C, no «a 30 °C exactos».</li>
+  </ol>
+  <div class="dos">
+    <div class="mal"><b>❌ Pone la incertidumbre y ya</b>«La catalasa funciona mejor a 30 °C (4,9 ± 0,27 mL). Esto coincide con la bibliografía.»</div>
+    <div class="bien"><b>✅ La interpreta</b>«El máximo volumen se obtuvo a 30 °C (4,9 mL; s = 0,27 mL), y la diferencia con 40 °C (1,8 mL) es entre 4,8 y 6,8 veces la s de cada grupo (t de Student, p &lt; 0,001). Sin embargo, con intervalos de 10 °C el óptimo solo puede situarse entre 20 y 40 °C. La conclusión es menos fiable a 50 °C (CV = 29 %), probablemente porque la desnaturalización depende de pequeñas diferencias de temperatura dentro del margen de ± 1 °C del baño.»</div>
+  </div>
+</section>
+
+<section class="sec" id="p6">
+  <h2><span class="paso">6</span> Evalúa: ordena las limitaciones por su impacto <span class="crit c4">Criterio 4 · Evaluación</span></h2>
+  <p class="sub">Para 5-6 hay que «explicar el <b>impacto relativo</b> de las limitaciones». La incertidumbre te da los números para ordenarlas.</p>
+  <ol>
+    <li>Haz una tabla: <b>limitación → tipo (aleatoria / sistemática) → pruebas en tus datos (CV, % incertidumbre, atípicos, observaciones) → impacto en la conclusión (alto / medio / bajo) → mejora concreta</b>.</li>
+    <li><b>Aleatoria</b> (aumenta s, se ve en el CV): se reduce con más réplicas o mejor control. <b>Sistemática</b> (desplaza todos los valores en un sentido, no se ve en s): requiere cambiar el método o calibrar.</li>
+    <li>La mejora debe atacar la fuente que domina según el paso 3: si s ≫ incertidumbre del instrumento, un instrumento mejor <b>no</b> es la mejora principal.</li>
+  </ol>
+  <div class="tabla"><table>
+    <tr><th>Limitación</th><th>Tipo</th><th>Prueba en los datos</th><th>Impacto</th><th>Mejora</th></tr>
+    <tr><td>Fluctuación del baño (± 1 °C)</td><td>Aleatoria</td><td>CV máximo a 50 °C (29 %), donde la desnaturalización es más sensible</td><td>Alto en 40-50 °C</td><td>Baño termostático con agitación; registrar T con sensor cada 30 s</td></tr>
+    <tr><td>Discos de patata de tubérculos distintos</td><td>Aleatoria</td><td>s 1,6–3,8 veces mayor que la incertidumbre de la probeta en todos los niveles</td><td>Medio en todo el rango</td><td>Cortar todos los discos de un mismo tubérculo con sacabocados y pesarlos (± 0,01 g)</td></tr>
+    <tr><td>O₂ disuelto en el agua y no recogido</td><td>Sistemática</td><td>Todos los volúmenes estarían por debajo del real; no se ve en s</td><td>Bajo para la tendencia, alto para valores absolutos</td><td>Medir con sensor de O₂ o de presión en recipiente cerrado</td></tr>
+    <tr><td>Resolución de la probeta (± 0,1 mL)</td><td>Aleatoria</td><td>8-10 % del valor a 10 y 50 °C; 2 % a 30 °C</td><td>Medio en los extremos</td><td>Jeringa de gas de 5 mL (± 0,05 mL) o tiempo de reacción más largo</td></tr>
+  </table></div>
+  <div class="frase">«La limitación más importante fue la fluctuación de temperatura del baño, ya que coincide con el nivel de mayor variabilidad (50 °C, CV = 29 %). La resolución de la probeta tuvo un impacto menor: en todos los niveles la s superó a esta incertidumbre, por lo que un instrumento más preciso no reduciría por sí solo la dispersión.»</div>
+</section>
+
+<section class="sec calc" id="calc">
+  <h2>🧮 Calculadora de incertidumbre</h2>
+  <p class="sub">Pega las réplicas de <b>un nivel</b> de tu VI (separadas por espacios, punto y coma o saltos de línea; usa coma decimal) y la incertidumbre de tu instrumento. Opcional: un segundo nivel para compararlos.</p>
+  <div class="fila">
+    <div><label for="g1">Réplicas del nivel A</label><textarea id="g1">4,8 5,1 4,9 5,3 4,6</textarea></div>
+    <div><label for="g2">Réplicas del nivel B (opcional)</label><textarea id="g2">3,1 2,9 3,6 2,6 3,3</textarea></div>
+  </div>
+  <div class="fila">
+    <div><label for="u">Incertidumbre del instrumento (±)</label><input id="u" value="0,1"></div>
+    <div><label for="ud">Unidades</label><input id="ud" value="mL"></div>
+  </div>
+  <button class="btn" id="calcular">Calcular e interpretar</button>
+  <div class="res" id="res"></div>
+</section>
+
+<section class="sec" id="check">
+  <h2>✅ Checklist de incertidumbre</h2>
+  <p class="sub">Marca cada punto cuando esté en tu informe. Se guarda en este navegador.</p>
+  <ul class="chk" id="chk"></ul>
+</section>
+
+<footer>
+  🧬 Biología IB · IES Celia Viñas · Almería — Basado en los criterios de evaluación interna de la Guía de Biología del IB (primera evaluación 2025).<br>
+  Elaborado por María Dolores Gámez Ortiz · CC BY-NC-SA 4.0
+</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const T95 = [12.706, 4.303, 3.182, 2.776, 2.571, 2.447, 2.365, 2.306, 2.262, 2.228, 2.201, 2.179, 2.160, 2.145, 2.131, 2.120, 2.110, 2.101, 2.093, 2.086, 2.080, 2.074, 2.069, 2.064, 2.060, 2.056, 2.052, 2.048, 2.045, 2.042];
+const num = s => s.trim().split(/[\s;]+/).filter(Boolean).map(x => parseFloat(x.replace(',', '.'))).filter(x => !isNaN(x));
+const f = (x, d = 2) => x.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d });
+function stats(v) {
+  const n = v.length, m = v.reduce((a, b) => a + b, 0) / n;
+  const s = n > 1 ? Math.sqrt(v.reduce((a, b) => a + (b - m) ** 2, 0) / (n - 1)) : 0;
+  const sem = s / Math.sqrt(n), t = n > 1 ? (T95[n - 2] || 1.96) : 0;
+  return { n, m, s, sem, ic: t * sem, cv: 100 * s / m, min: Math.min(...v), max: Math.max(...v), out: v.filter(x => s > 0 && Math.abs(x - m) > 2 * s) };
+}
+function bloque(nom, st, u, ud) {
+  const ratio = u > 0 ? st.s / u : Infinity, pu = 100 * u / Math.abs(st.m);
+  let dom;
+  if (ratio >= 2) dom = `La desviación típica es ${f(ratio, 1)} veces la incertidumbre del instrumento: <b>domina la variabilidad</b> (material biológico o procedimiento). Un instrumento más preciso no reduciría mucho la dispersión; mejora el control de variables o aumenta n.`;
+  else if (ratio >= 1) dom = `La desviación típica y la incertidumbre del instrumento son <b>del mismo orden</b> (s = ${f(ratio, 1)} × incertidumbre). Ambas fuentes contribuyen: coméntalas las dos.`;
+  else dom = `La desviación típica es <b>menor</b> que la incertidumbre del instrumento: <b>el instrumento limita la precisión</b>. Considera un instrumento con mejor resolución o medir cantidades mayores.`;
+  const cvTxt = st.cv < 10 ? 'baja' : st.cv < 20 ? 'moderada' : 'alta';
+  return `<h3>${nom}</h3>
+  <div class="kpis">
+    <div class="kpi"><small>n</small><b>${st.n}</b></div>
+    <div class="kpi"><small>Media</small><b>${f(st.m)} ${ud}</b></div>
+    <div class="kpi"><small>s (DESVEST)</small><b>${f(st.s)} ${ud}</b></div>
+    <div class="kpi"><small>CV</small><b>${f(st.cv, 1)} %</b></div>
+    <div class="kpi"><small>Incert. instrumento</small><b>${f(pu, 1)} %</b></div>
+    <div class="kpi"><small>IC 95 % de la media</small><b>± ${f(st.ic)} ${ud}</b></div>
+  </div>
+  <div class="box verde">📌 ${dom}<br>📌 Variabilidad relativa <b>${cvTxt}</b> (CV = ${f(st.cv, 1)} %).${pu > 5 ? ` ⚠️ La incertidumbre del instrumento supera el 5 % del valor medido: menciónalo en el diseño o la evaluación.` : ''}${st.out.length ? `<br>⚠️ Posibles atípicos (a más de 2 s de la media): <b>${st.out.map(x => f(x, 2)).join('; ')}</b>. Busca una causa en tus observaciones antes de decidir.` : ''}</div>`;
+}
+$('calcular').addEventListener('click', () => {
+  const u = parseFloat(($('u').value || '0').replace(',', '.')) || 0, ud = $('ud').value.trim();
+  const a = num($('g1').value), b = num($('g2').value);
+  if (a.length < 2) { $('res').innerHTML = '<div class="box rojo">Introduce al menos 2 valores en el nivel A.</div>'; return; }
+  const A = stats(a); let html = bloque('Nivel A', A, u, ud);
+  if (b.length >= 2) {
+    const B = stats(b); html += bloque('Nivel B', B, u, ud);
+    const dif = Math.abs(A.m - B.m), smax = Math.max(A.s, B.s);
+    const solapa = (A.m - A.ic <= B.m + B.ic) && (B.m - B.ic <= A.m + A.ic);
+    html += `<h3>Comparación A–B</h3><div class="box azul">La diferencia entre medias es <b>${f(dif)} ${ud}</b>, ${f(dif / smax, 1)} veces la mayor s. Los IC 95 % ${solapa ? '<b>se solapan</b>: la diferencia podría no ser concluyente' : '<b>no se solapan</b>: la diferencia parece mayor que la incertidumbre'}. Confírmalo con la prueba estadística adecuada (t de Student, Mann-Whitney…) y redacta algo como:</div>
+    <div class="frase">«La diferencia entre las medias (${f(dif)} ${ud}) es ${f(dif / smax, 1)} veces la desviación típica mayor (${f(smax)} ${ud}) ${solapa ? 'y los intervalos de confianza se solapan, por lo que la diferencia debe interpretarse con cautela' : 'y los intervalos de confianza no se solapan, lo que apoya que la diferencia supera la incertidumbre de las medidas'}.»</div>`;
+  }
+  $('res').innerHTML = html;
+});
+const CHK = [
+  'He listado todos los instrumentos con su incertidumbre y he justificado cómo la estimé (Diseño)',
+  'He elegido instrumentos y rangos para que la incertidumbre porcentual sea baja y lo explico (Diseño)',
+  'He justificado el número de réplicas con un ensayo piloto o con la variabilidad esperada (Diseño)',
+  'Las tablas de datos brutos llevan unidades e incertidumbre en el encabezado y decimales coherentes',
+  'He registrado observaciones cualitativas que pueden explicar la variabilidad',
+  'He calculado media, s (n−1) y n para cada nivel; CV o IC cuando aportan información',
+  'He comparado la s con la incertidumbre del instrumento y digo qué fuente domina',
+  'He propagado la incertidumbre en los cálculos derivados (diferencias, tasas, porcentajes)',
+  'He aplicado un criterio explícito para los valores atípicos',
+  'Las barras de error son personalizadas y el pie indica qué representan y la n',
+  'La conclusión dice en qué niveles los resultados son más y menos fiables y por qué',
+  'La comparación con la bibliografía tiene en cuenta la resolución y la incertidumbre de mis datos',
+  'En la evaluación ordeno las limitaciones por su impacto usando CV, % de incertidumbre y atípicos',
+  'Distingo errores aleatorios y sistemáticos, y cada mejora ataca la fuente que domina'
+];
+let marcados = [];
+try { marcados = JSON.parse(localStorage.getItem('incert-chk') || '[]'); } catch (e) {}
+function pintar() {
+  $('chk').innerHTML = CHK.map((t, i) => `<li data-i="${i}" class="${marcados.includes(i) ? 'ok' : ''}">${t}</li>`).join('');
+}
+$('chk').addEventListener('click', e => {
+  const li = e.target.closest('li'); if (!li) return;
+  const i = +li.dataset.i; marcados = marcados.includes(i) ? marcados.filter(x => x !== i) : [...marcados, i];
+  try { localStorage.setItem('incert-chk', JSON.stringify(marcados)); } catch (e) {}
+  pintar();
+});
+pintar();
+$('calcular').click();
+</script>
+
+<script>
+/* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
+(function(){
+  function mark(root){(root.querySelectorAll?root:document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select)').forEach(function(el){if(!el.hasAttribute('role')){el.setAttribute('role','button');el.setAttribute('tabindex','0');}});}
+  document.addEventListener('keydown',function(e){var el=e.target.closest&&e.target.closest('[role="button"]');if(el&&el.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();el.click();}});
+  function init(){mark(document);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)mark(n.parentNode||n);});});}).observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.querySelectorAll('a[target="_blank"]').forEach(function(a){a.rel='noopener';});
+})();
+</script>
+</body>
+</html>

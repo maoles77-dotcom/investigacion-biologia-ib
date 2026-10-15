@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estadística para el IA — Biología IB 2025</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#f2f5f2;color:#1c2e1f;min-height:100vh;}
+:root{
+  --green:#2d7a45;--glight:#e6f4eb;--gmid:#4caf6e;
+  --text:#1c2e1f;--muted:#4d6e54;--dim:#8aab8e;
+  --border:#d6e5d8;--border2:#e8f0e8;--surface:#fff;--card2:#f7faf7;
+  --blue:#1a6fa8;--bluebg:#e8f3fc;--bluebd:#b3d4f0;
+  --amber:#b86800;--amberbg:#fff4e0;--amberbd:#f0c878;
+  --red:#c0392b;--redbg:#fdf0ee;--redbd:#f0b8b0;
+  --purple:#6b3fa0;--purplebg:#f2edf9;--purplebd:#cdb8e8;
+  --excel:#217346;--excelbg:#e8f5ee;--excelbd:#a8d8b8;
+  --sheets:#0f9d58;--sheetsbg:#e8f8f0;--sheetsbd:#90d4b0;
+}
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:13px 22px 0;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.hdr-top{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+.hdr-logo{width:36px;height:36px;border-radius:9px;background:var(--glight);border:1.5px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.hdr-title{font-size:14px;font-weight:800;color:var(--text);}
+.hdr-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.tabs{display:flex;overflow-x:auto;gap:0;}
+.tab{flex-shrink:0;padding:8px 13px;font-size:12px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .18s;font-family:inherit;white-space:nowrap;display:flex;align-items:center;gap:5px;}
+.tab.active{color:var(--green);border-bottom-color:var(--green);}
+.tab:hover:not(.active){color:var(--text);}
+.main{padding:22px 18px;max-width:900px;margin:0 auto;}
+.panel{display:none;}.panel.active{display:block;}
+.sec-title{font-family:'Source Serif 4',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.sec-sub{color:var(--muted);font-size:13px;margin-bottom:16px;line-height:1.5;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:19px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.info-bar{background:var(--bluebg);border:1px solid var(--bluebd);border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:13px;color:var(--blue);line-height:1.5;}
+.warn-bar{background:var(--amberbg);border:1px solid var(--amberbd);border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:13px;color:var(--amber);line-height:1.5;}
+.btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--muted);font-size:13px;cursor:pointer;transition:all .15s;font-family:inherit;}
+.btn:hover{border-color:var(--green);color:var(--green);}
+.btn-primary{background:var(--green);border:none;border-radius:9px;padding:9px 16px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;margin-top:14px;}
+.btn-primary:hover{opacity:.85;}
+.btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.badge{font-size:10px;font-weight:700;padding:3px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px;}
+.ib-tag{display:inline-flex;align-items:center;gap:4px;background:#fff3e0;color:#b86800;border:1px solid #f0c878;border-radius:5px;padding:2px 6px;font-size:10px;font-weight:700;text-transform:uppercase;}
+/* FLUJO GUIA */
+.flujo-banner{background:linear-gradient(135deg,#e6f4eb,#e8f3fc);border:1.5px solid var(--border);border-radius:13px;padding:14px 16px;margin-bottom:18px;}
+.flujo-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px;}
+.flujo-steps{display:flex;gap:0;align-items:center;flex-wrap:wrap;}
+.flujo-step{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;cursor:pointer;transition:background .15s;font-size:12px;font-weight:600;color:var(--muted);}
+.flujo-step:hover{background:rgba(45,122,69,.08);color:var(--green);}
+.flujo-step.active{background:var(--green);color:white;}
+.flujo-arr{color:var(--dim);font-size:12px;padding:0 2px;}
+.flujo-num{width:20px;height:20px;border-radius:50%;background:rgba(45,122,69,.15);color:var(--green);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.flujo-step.active .flujo-num{background:rgba(255,255,255,.3);color:white;}
+.flujo-prep{margin:12px 0 0;padding:10px 12px;border-radius:9px;background:rgba(255,255,255,.72);font-size:12px;line-height:1.55;color:var(--text);}
+.flujo-objectives{margin-top:10px;}
+.flujo-objectives summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--green);}
+.flujo-objectives ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px 18px;margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:12px;line-height:1.5;}
+/* ÁRBOL */
+.breadcrumb{display:flex;align-items:center;gap:5px;margin-bottom:13px;flex-wrap:wrap;}
+.breadcrumb span{font-size:12px;color:var(--dim);}
+.breadcrumb span.cur{color:var(--green);font-weight:700;}
+.q-text{font-family:'Source Serif 4',serif;font-size:16px;font-weight:600;line-height:1.45;margin-bottom:15px;color:var(--text);}
+.opts{display:flex;flex-direction:column;gap:7px;}
+.opt-btn{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;padding:11px 15px;color:var(--text);font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:all .18s;display:flex;justify-content:space-between;align-items:center;font-family:inherit;line-height:1.4;}
+.opt-btn:hover{border-color:var(--green);background:var(--glight);color:var(--green);}
+.result-card{background:var(--glight);border:2px solid var(--green);border-radius:13px;padding:19px;margin-bottom:11px;}
+.r-label{font-size:10px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.r-name{font-family:'Source Serif 4',serif;font-size:19px;font-weight:700;color:var(--text);}
+.r-why{color:var(--muted);font-size:13px;line-height:1.65;margin:10px 0;}
+.r-steps{border-top:1px solid var(--border);padding-top:10px;}
+.r-step-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;}
+.r-step{display:flex;gap:7px;margin-bottom:4px;align-items:flex-start;}
+.r-step .dot{color:var(--green);font-size:11px;margin-top:3px;flex-shrink:0;}
+.r-step span{color:var(--muted);font-size:13px;line-height:1.5;}
+/* NOTA IB H0 */
+.h0-nota{background:var(--amberbg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:8px 12px;margin:10px 0;font-size:12px;color:#6b4500;line-height:1.55;}
+/* NEXT STEP */
+.next-step-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;padding-top:11px;border-top:1px solid var(--border);}
+.next-btn-ficha{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1.5px solid var(--green);color:var(--green);border-radius:9px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;}
+.next-btn-ficha:hover{background:var(--glight);}
+.next-btn-excel{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1.5px solid var(--excel);color:var(--excel);border-radius:9px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s;}
+.next-btn-excel:hover{background:var(--excelbg);}
+/* FICHAS */
+.filter-row{display:flex;gap:7px;margin-bottom:13px;flex-wrap:wrap;}
+.f-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:4px 11px;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
+.f-btn.active{background:var(--glight);border-color:var(--green);color:var(--green);}
+.ficha-row{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:all .18s;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.f-icon{width:41px;height:41px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-family:monospace;flex-shrink:0;line-height:1.2;text-align:center;}
+.f-name{font-size:13px;font-weight:700;margin-bottom:2px;color:var(--text);}
+.f-prev{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;}
+.fd-section{background:var(--card2);border-radius:10px;padding:11px 13px;margin-top:8px;border-left:3px solid transparent;}
+.fd-lbl{font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:6px;}
+.fd-body{color:var(--muted);font-size:13px;line-height:1.65;}
+.fd-quote{font-style:italic;color:var(--text);background:#f9f9f9;border-radius:7px;padding:9px 11px;font-size:13px;line-height:1.6;}
+.fd-grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px;}
+.fd-tip{background:var(--surface);border-radius:10px;padding:11px;border:1px solid var(--border);}
+.fd-tip-lbl{font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:6px;}
+.fd-tip-body{color:var(--muted);font-size:13px;line-height:1.5;}
+.formula-box{background:#f8f4ff;border:1px solid #d4bcf0;border-radius:8px;padding:8px 11px;margin-top:7px;font-family:'Courier New',monospace;font-size:12px;color:#5a3090;text-align:center;line-height:1.6;}
+.excel-box{background:#e8f5e9;border:1px solid #a8d5a8;border-radius:8px;padding:9px 12px;margin-top:8px;}
+.excel-box .ex-lbl{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;color:#2d7a45;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.excel-box code{display:block;font-family:'Courier New',monospace;font-size:11.5px;color:#2d5a2d;line-height:1.7;}
+.example-box{background:var(--bluebg);border:1px solid var(--bluebd);border-radius:8px;padding:10px 12px;margin-top:8px;}
+.example-box .ex-title{font-size:10px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.fd-intro{background:linear-gradient(135deg,#e8f5f4 0%,#e6f4eb 100%);border:1.5px solid #a8d8d4;border-radius:12px;padding:14px 15px;margin-bottom:13px;}
+.fd-intro-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#1a7a72;margin-bottom:7px;}
+.fd-intro-txt{font-size:13.5px;color:#1a3030;line-height:1.7;}
+.fd-intro-analogy{background:rgba(255,255,255,.65);border-radius:8px;padding:9px 12px;margin-top:9px;font-size:13px;color:#1a4a42;line-height:1.6;border-left:3px solid #1a7a72;}
+.fd-intro-analogy strong{color:#1a7a72;}
+.fd-blk{border-radius:10px;padding:12px 14px;margin-bottom:9px;border-left:3px solid transparent;}
+.fd-blk-lbl{font-size:10px;font-weight:800;letter-spacing:.8px;margin-bottom:7px;text-transform:uppercase;}
+.fd-blk-body{color:var(--muted);font-size:13px;line-height:1.7;}
+.fd-concept{background:rgba(255,255,255,.7);border-radius:8px;padding:9px 11px;margin-top:8px;font-size:13px;line-height:1.6;}
+.fd-cr{display:flex;gap:8px;margin-bottom:5px;align-items:flex-start;}
+.fd-cr .lbl{font-weight:700;min-width:55px;flex-shrink:0;color:var(--text);}
+.fd-cr .val{color:var(--muted);}
+.step-lst{margin-top:8px;}
+.step-it{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start;}
+.step-n{width:21px;height:21px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px;}
+.step-t{font-size:13px;color:var(--text);line-height:1.55;flex:1;}
+.step-t code{font-family:'Courier New',monospace;background:#f0f4f0;padding:1px 4px;border-radius:3px;font-size:11.5px;}
+.normal-curve{text-align:center;margin:9px 0;padding:9px;background:rgba(255,255,255,.6);border-radius:8px;}
+.curve-row{display:flex;align-items:flex-end;justify-content:center;gap:2px;height:56px;}
+.curve-bar{border-radius:3px 3px 0 0;}
+.sd-ruler{display:flex;margin:9px 0;overflow-x:auto;}
+.sd-seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;padding:5px 3px;min-width:44px;flex:1;}
+.irules{background:var(--glight);border:1.5px solid var(--green);border-radius:10px;padding:11px 13px;margin-top:8px;}
+.irules-t{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:7px;}
+.irule{display:flex;gap:7px;margin-bottom:5px;font-size:13px;align-items:flex-start;}
+.irule .dot{color:var(--green);flex-shrink:0;margin-top:2px;}
+.ctable{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+.ctable th{background:#e6f4eb;color:var(--green);padding:6px 9px;text-align:left;font-weight:700;font-size:11px;text-transform:uppercase;}
+.ctable td{border-bottom:1px solid var(--border2);padding:6px 9px;color:var(--text);vertical-align:top;}
+.ctable tr:last-child td{border-bottom:none;}
+.ialert{background:var(--redbg);border:1px solid var(--redbd);border-radius:7px;padding:7px 10px;font-size:12px;color:#5a1a1a;margin-top:7px;line-height:1.5;}
+.itip{background:var(--amberbg);border:1px solid var(--amberbd);border-radius:7px;padding:7px 10px;font-size:12px;color:#6b4500;margin-top:7px;line-height:1.5;}
+.iok{background:var(--glight);border:1px solid #b3d9c0;border-radius:7px;padding:7px 10px;font-size:12px;color:#1a4a2a;margin-top:7px;line-height:1.5;}
+.ex-data{font-family:'Courier New',monospace;font-size:11.5px;background:rgba(255,255,255,.75);border-radius:6px;padding:7px 9px;margin:6px 0;color:#1a3a5a;line-height:1.7;}
+/* ERROR ALERTS — fixed var names */
+.err-alert-wrap{margin-top:10px;border-radius:11px;overflow:hidden;border:1.5px solid var(--amberbd);}
+.err-alert-hdr{display:flex;align-items:center;gap:8px;padding:10px 13px;background:var(--amberbg);cursor:pointer;font-size:12.5px;font-weight:700;color:#6b4500;user-select:none;}
+.err-alert-hdr .ea-badge{background:var(--amber);color:#fff;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0;}
+.err-alert-hdr .ea-sev{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700;flex-shrink:0;}
+/* FIXED: was --rojo/--rbd/--ambar/--ambd (undefined) */
+.ea-critico{background:var(--redbg);color:var(--red);border:1px solid var(--redbd);}
+.ea-importante{background:var(--amberbg);color:var(--amber);border:1px solid var(--amberbd);}
+.err-alert-body{display:none;background:#fff;padding:13px 14px;}
+.err-alert-body.open{display:block;}
+.ea-ejemplos{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.ea-ej{border-radius:8px;padding:10px 12px;}
+.ea-ej.mal{background:var(--redbg);border:1px solid var(--redbd);}
+.ea-ej.bien{background:var(--glight);border:1px solid #b3d9c0;}
+.ea-ej-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;}
+/* FIXED: was --rojo/--verde (undefined) */
+.ea-ej-lbl.m{color:var(--red);}
+.ea-ej-lbl.b{color:var(--green);}
+.ea-ej-txt{font-size:12px;color:var(--text);line-height:1.55;font-style:italic;}
+.ea-ej-nota{font-size:11px;color:var(--muted);margin-top:5px;font-style:normal;line-height:1.4;}
+.ea-accion{background:linear-gradient(135deg,var(--amberbg),#fff9f0);border:1px solid var(--amberbd);border-radius:8px;padding:8px 11px;font-size:12.5px;color:#6b4500;line-height:1.5;}
+/* CHECKLIST EXPANDIBLE */
+.cl-item-exp{cursor:default;}
+.cl-expand-btn{display:inline-flex;align-items:center;gap:4px;margin-top:4px;font-size:11px;font-weight:700;color:var(--amber);background:var(--amberbg);border:1px solid var(--amberbd);border-radius:5px;padding:2px 8px;cursor:pointer;font-family:inherit;transition:all .15s;user-select:none;}
+.cl-expand-btn:hover{background:#ffe8b0;}
+.cl-ejemplo-wrap{display:none;margin-top:9px;border-radius:9px;overflow:hidden;border:1px solid var(--amberbd);}
+.cl-ejemplo-wrap.open{display:block;}
+.cl-ej-hdr{background:var(--amberbg);padding:7px 11px;font-size:11px;font-weight:700;color:#6b4500;}
+.cl-ej-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:9px;background:#fff;}
+.cl-ej-box{border-radius:7px;padding:9px 11px;}
+.cl-ej-box.m{background:var(--redbg);border:1px solid var(--redbd);}
+.cl-ej-box.b{background:var(--glight);border:1px solid #b3d9c0;}
+.cl-ej-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;margin-bottom:5px;}
+/* FIXED: was --rojo/--verde (undefined) */
+.cl-ej-lbl.m{color:var(--red);}
+.cl-ej-lbl.b{color:var(--green);}
+.cl-ej-txt{font-size:12px;color:var(--text);line-height:1.5;font-style:italic;}
+.cl-ej-accion{background:#fef9f0;border-top:1px solid var(--amberbd);padding:8px 11px;font-size:12px;color:#6b4500;line-height:1.5;}
+@media(max-width:600px){.ea-ejemplos,.cl-ej-grid{grid-template-columns:1fr;}}
+/* CHECKLIST */
+.prog-card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px 19px;margin-bottom:15px;display:flex;align-items:center;gap:15px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.prog-bar-bg{height:7px;background:var(--border2);border-radius:4px;overflow:hidden;margin-top:6px;}
+.prog-bar{height:100%;border-radius:4px;transition:width .4s;}
+.prog-circle{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;border-width:3px;border-style:solid;}
+.cl-sec{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.cl-sec-hdr{width:100%;background:transparent;border:none;padding:12px 15px;display:flex;align-items:center;gap:9px;cursor:pointer;text-align:left;font-family:inherit;}
+.cl-sec-title{font-size:13px;font-weight:700;color:var(--text);}
+.cl-sec-sub{font-size:12px;color:var(--muted);margin-top:1px;}
+.cl-items{padding:0 15px 11px;border-top:1px solid var(--border2);}
+.cl-item{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--border2);cursor:pointer;}
+.cl-item:last-child{border-bottom:none;}
+.chk{width:18px;height:18px;border-radius:5px;flex-shrink:0;border:2px solid var(--border);background:transparent;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.chk.on{background:var(--green);border-color:var(--green);}
+.cl-txt{font-size:13px;line-height:1.5;color:var(--text);}
+.cl-txt.done{text-decoration:line-through;color:var(--dim);}
+/* PRÁCTICA */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:11px;margin-bottom:20px;}
+.sc-card{background:var(--surface);border:1.5px solid var(--border);border-radius:13px;padding:16px;cursor:pointer;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.sc-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.1);}
+.sc-type-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:9px;text-transform:uppercase;letter-spacing:.4px;}
+.sc-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.35;}
+.sc-desc{font-size:12px;color:var(--muted);line-height:1.45;}
+.sc-meta{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:11px;color:var(--dim);}
+.sc-context{font-size:13px;color:var(--text);line-height:1.65;background:var(--card2);border-radius:9px;padding:12px 13px;border-left:3px solid var(--green);}
+.sc-progress{display:flex;align-items:center;gap:9px;margin-bottom:14px;}
+.sc-prog-dots{display:flex;gap:4px;}
+.sc-prog-dot{width:9px;height:9px;border-radius:50%;background:var(--border2);border:1.5px solid var(--border);transition:all .2s;}
+.sc-prog-dot.current{background:var(--green);border-color:var(--green);}
+.sc-prog-dot.correct{background:var(--green);border-color:var(--green);opacity:.4;}
+.sc-prog-dot.wrong{background:var(--red);border-color:var(--red);opacity:.4;}
+.sc-prog-label{font-size:12px;color:var(--muted);font-weight:600;}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px;margin-bottom:11px;}
+.q-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:20px;margin-bottom:9px;}
+.q-question{font-size:14px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:13px;}
+.q-opts{display:flex;flex-direction:column;gap:6px;}
+.q-opt{background:var(--card2);border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;cursor:pointer;font-size:13px;color:var(--text);transition:all .18s;text-align:left;font-family:inherit;display:flex;align-items:center;gap:9px;}
+.q-opt:hover:not(.answered){border-color:var(--green);background:var(--glight);}
+.q-opt.correct{background:#e6f4eb;border-color:var(--green);color:#1a4a2a;}
+.q-opt.wrong{background:var(--redbg);border-color:var(--red);color:#7a1a1a;}
+.q-opt.neutral{opacity:.5;}
+.q-opt .opt-icon{width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;background:var(--border2);}
+.q-opt.correct .opt-icon{background:var(--green);color:#fff;}
+.q-opt.wrong .opt-icon{background:var(--red);color:#fff;}
+.feedback-box{border-radius:10px;padding:12px 14px;margin-top:10px;font-size:13px;line-height:1.6;}
+.feedback-box.ok{background:#e6f4eb;border:1px solid #b3d9c0;color:#1a4a2a;}
+.feedback-box.fail{background:var(--redbg);border:1px solid var(--redbd);color:#7a1a1a;}
+.feedback-box .fb-title{font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.next-btn{background:var(--green);border:none;border-radius:9px;padding:9px 18px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:10px;}
+.sc-score{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:22px;text-align:center;}
+.sc-score-emoji{font-size:44px;margin-bottom:10px;}
+.sc-score-title{font-family:'Source Serif 4',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.sc-score-sub{font-size:13px;color:var(--muted);margin-bottom:16px;}
+.sc-score-bar{background:var(--border2);border-radius:8px;height:11px;overflow:hidden;margin:12px 0;}
+.sc-score-fill{height:100%;border-radius:8px;transition:width .6s;}
+.sc-score-pct{font-size:30px;font-weight:800;margin:7px 0;}
+/* GUÍA EXCEL */
+.tut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:11px;margin-bottom:18px;}
+.tut-card{background:var(--surface);border:1.5px solid var(--border);border-radius:13px;padding:15px;cursor:pointer;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.tut-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.1);}
+.tut-icon{font-size:26px;margin-bottom:7px;}
+.tut-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.tut-desc{font-size:12px;color:var(--muted);line-height:1.45;}
+.tut-meta{display:flex;gap:6px;align-items:center;margin-top:9px;flex-wrap:wrap;}
+.tut-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:12px;text-transform:uppercase;}
+.tool-sw{display:flex;gap:7px;margin-bottom:15px;}
+.tool-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;border:2px solid var(--border);background:var(--surface);font-size:12px;font-weight:700;cursor:pointer;transition:all .18s;font-family:inherit;}
+.tool-btn.excel.active{border-color:var(--excel);background:var(--excelbg);color:var(--excel);}
+.tool-btn.sheets.active{border-color:var(--sheets);background:var(--sheetsbg);color:var(--sheets);}
+.tool-btn:not(.active){color:var(--muted);}
+.tut-panel{display:none;}
+.tut-panel.open{display:block;}
+.tut-header{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;margin-bottom:14px;}
+.tut-header-icon{font-size:28px;margin-bottom:7px;}
+.tut-header-title{font-family:'Source Serif 4',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.tut-header-bio{font-size:13px;color:var(--muted);line-height:1.55;background:var(--card2);padding:10px 12px;border-radius:8px;border-left:3px solid var(--green);}
+.steps-container{display:flex;flex-direction:column;gap:12px;}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.step-header{display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer;}
+.step-num{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;color:#fff;}
+.step-title{font-size:13px;font-weight:700;color:var(--text);flex:1;}
+.step-arrow{color:var(--dim);font-size:11px;transition:transform .2s;}
+.step-arrow.open{transform:rotate(180deg);}
+.step-body{border-top:1px solid var(--border2);padding:14px 15px;display:none;}
+.step-body.open{display:block;}
+.step-why{background:var(--amberbg);border:1px solid var(--amberbd);border-radius:8px;padding:9px 12px;margin-bottom:11px;font-size:13px;color:#6b4500;line-height:1.55;}
+.step-why strong{color:var(--amber);}
+.ss-wrap{overflow-x:auto;margin:11px 0;}
+.ss{border-collapse:collapse;font-size:11.5px;font-family:'Courier New',monospace;min-width:360px;}
+.ss th{background:#f0f4f0;border:1px solid #c8d8c8;padding:4px 9px;font-weight:700;text-align:center;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;}
+.ss td{border:1px solid #d8e8d8;padding:4px 9px;background:#fff;white-space:nowrap;}
+.ss td.row-h{background:#f0f4f0;font-weight:700;color:var(--muted);text-align:center;font-family:'DM Sans',sans-serif;font-size:11px;}
+.ss td.hd{background:#e6f4eb;font-weight:700;color:var(--green);font-family:'DM Sans',sans-serif;}
+.ss td.fm{background:#fff8e0;color:#7a4500;font-style:italic;}
+.ss td.fm.hl{background:#fff3c0;font-weight:700;}
+.ss td.res{background:#e6f4eb;color:var(--green);font-weight:700;}
+.ss td.nt{background:var(--bluebg);color:var(--blue);font-style:italic;font-family:'DM Sans',sans-serif;font-size:11px;}
+.ss tr.hl-row td{background:#fffbe6;}
+.formula-block{background:var(--card2);border-radius:9px;padding:11px 13px;margin:9px 0;}
+.formula-block-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;}
+.diff-box{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0;}
+.diff-col{border-radius:9px;padding:11px;}
+.diff-col.excel-col{background:var(--excelbg);border:1px solid var(--excelbd);}
+.diff-col.sheets-col{background:var(--sheetsbg);border:1px solid var(--sheetsbd);}
+.diff-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px;display:flex;align-items:center;gap:4px;}
+.diff-item{font-size:12px;color:var(--text);margin-bottom:4px;line-height:1.5;}
+.diff-item code{font-family:'Courier New',monospace;background:rgba(255,255,255,.7);padding:1px 4px;border-radius:3px;font-size:11.5px;}
+.interp-box{background:var(--glight);border:1.5px solid var(--green);border-radius:10px;padding:12px 14px;margin-top:11px;}
+.interp-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:7px;}
+.interp-rule{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:13px;}
+.interp-rule .dot{color:var(--green);flex-shrink:0;margin-top:2px;}
+.tip-box{background:var(--bluebg);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:9px 12px;margin:9px 0;font-size:13px;color:#1a3a5a;line-height:1.55;}
+.tip-box strong{color:var(--blue);}
+.alert-box{background:var(--redbg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:9px 12px;margin:9px 0;font-size:13px;color:#5a1a1a;line-height:1.55;}
+.alert-box strong{color:var(--red);}
+.success-box{background:var(--glight);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:9px 12px;margin:9px 0;font-size:13px;color:#1a3a20;line-height:1.55;}
+.chart-preview{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:13px;margin:9px 0;}
+.chart-preview-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:9px;}
+.chart-bars{display:flex;align-items:flex-end;gap:14px;height:110px;padding:0 8px;}
+.chart-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
+.chart-bar{width:100%;border-radius:4px 4px 0 0;position:relative;}
+.chart-bar-err{position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:2px;background:#555;height:9px;}
+.chart-bar-err::before,.chart-bar-err::after{content:'';position:absolute;width:7px;height:2px;background:#555;left:-2.5px;}
+.chart-bar-err::before{top:0;}.chart-bar-err::after{bottom:0;}
+.chart-bar-lbl{font-size:10px;color:var(--muted);text-align:center;}
+.chart-bar-val{font-size:10px;font-weight:700;color:var(--text);}
+.chart-axis{border-top:2px solid var(--border);margin-top:3px;text-align:center;font-size:10px;color:var(--muted);padding-top:3px;}
+.si-badge{display:inline-block;background:#f0f4f0;border:1px solid var(--border);border-radius:5px;padding:1px 6px;font-size:11px;font-family:'Courier New',monospace;color:var(--muted);}
+@media(max-width:600px){
+  .fd-grid2,.diff-box{grid-template-columns:1fr;}
+  .f-prev{max-width:160px;}
+  .main{padding:14px 11px;}
+  .tab{padding:7px 9px;font-size:11px;}
+  .tut-grid,.sc-grid{grid-template-columns:1fr;}
+  .chart-bars{height:80px;}
+  .flujo-steps{gap:2px;}
+  .flujo-step{padding:4px 7px;font-size:11px;}
+}
+</style>
+<meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
+<meta name="theme-color" content="#1e5c32">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<script>
+/* Si el navegador bloquea el almacenamiento (p. ej. dentro de un iframe de Google Sites), usar memoria para que la página no se rompa */
+(function(){try{var k='__p';localStorage.setItem(k,k);localStorage.removeItem(k);}catch(e){var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}});}catch(_){}}})();
+</script>
+<style>
+.sitenav{background:#143f23;font-family:'DM Sans',system-ui,sans-serif;position:relative;z-index:200}
+.sitenav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto;scrollbar-width:none}
+.sitenav-in::-webkit-scrollbar{display:none}
+.sitenav a{color:#d9eedf;text-decoration:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:7px;white-space:nowrap;line-height:1.2}
+.sitenav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sitenav a[aria-current=page]{background:#fff;color:#143f23}
+.sitenav .brand{font-weight:800;color:#fff;margin-right:6px;white-space:nowrap;font-size:14px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#143f23;padding:8px 12px;z-index:999;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><span class="brand">🧬 IA Biología IB</span><a href="index.html">🏠 Inicio</a><a href="tema.html">🔬 Elegir tema</a><a href="ejemplos.html">📄 Ejemplos</a><a href="catalogo.html">🔎 Catálogo</a><a href="estadistica.html" aria-current="page">📊 Estadística</a><a href="incertidumbre.html">📏 Incertidumbre</a></div></nav>
+<div id="contenido"></div>
+
+
+<div class="hdr">
+  <div class="hdr-top">
+    <div class="hdr-logo">🧬</div>
+    <div>
+      <div class="hdr-title">Estadística para la Investigación Científica — Biología IB 2025</div>
+      <div class="hdr-sub">Árbol de decisión · Fichas · Práctica · Guía Excel &amp; Sheets · Checklist</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showPanel('arbol',this)">🌳 Árbol</button>
+    <button class="tab" onclick="showPanel('fichas',this)">📋 Fichas</button>
+    <button class="tab" onclick="showPanel('practica',this)">🔬 Práctica</button>
+    <button class="tab" onclick="showPanel('guia',this)">📊 Excel &amp; Sheets</button>
+    <button class="tab" onclick="showPanel('checklist',this)">✅ Checklist</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- FLUJO GUIA (visible en todos los paneles) -->
+<div class="flujo-banner" id="flujo-banner">
+  <div class="flujo-title">Ruta de aprendizaje · del dato a la conclusión</div>
+  <div class="flujo-steps">
+    <div class="flujo-step" id="fs1" onclick="showPanel('fichas',document.querySelectorAll('.tab')[1])">
+  <span class="flujo-num">1</span>Identificar y resumir los datos
+    </div>
+    <span class="flujo-arr">→</span>
+    <div class="flujo-step active" id="fs2" onclick="showPanel('arbol',document.querySelector('.tab'))">
+  <span class="flujo-num">2</span>Elegir y justificar el análisis
+    </div>
+    <span class="flujo-arr">→</span>
+    <div class="flujo-step" id="fs3" onclick="showPanel('practica',document.querySelectorAll('.tab')[2])">
+      <span class="flujo-num">3</span>Practicar
+    </div>
+    <span class="flujo-arr">→</span>
+    <div class="flujo-step" id="fs4" onclick="showPanel('guia',document.querySelectorAll('.tab')[3])">
+      <span class="flujo-num">4</span>Aplicar en Excel
+    </div>
+    <span class="flujo-arr">→</span>
+    <div class="flujo-step" id="fs5" onclick="showPanel('checklist',document.querySelectorAll('.tab')[4])">
+      <span class="flujo-num">5</span>Verificar antes de entregar
+    </div>
+  </div>
+  <div class="flujo-prep"><strong>Antes de empezar:</strong> vuelve a tu pregunta de investigación; identifica la variable independiente, la dependiente (con unidades) y qué constituye una réplica independiente. Varias mediciones del mismo organismo no siempre son varias réplicas.</div>
+  <details class="flujo-objectives">
+    <summary>¿Qué aprenderé al completar esta ruta?</summary>
+    <ul>
+      <li><strong>Diseño:</strong> definir pregunta, variables, unidad experimental, réplicas y datos que se recogerán.</li>
+      <li><strong>Análisis:</strong> procesar y representar datos; justificar medidas descriptivas y prueba según diseño y supuestos.</li>
+      <li><strong>Conclusión:</strong> interpretar el resultado estadístico y su relevancia biológica con datos y contexto científico.</li>
+      <li><strong>Evaluación:</strong> explicar cómo limitaciones concretas afectan a los resultados y proponer mejoras viables.</li>
+    </ul>
+  </details>
+</div>
+
+<!-- ══ ÁRBOL ══ -->
+<div id="panel-arbol" class="panel active">
+  <div class="sec-title">🌳 Árbol de Decisión Estadística</div>
+  <div class="sec-sub">Responde las preguntas sobre tu investigación y el árbol te dirá qué herramienta usar. Sigue la lógica habitual de elección de pruebas en Biología; contrástalo con el Material de Ayuda al Profesor y con tu profesora.</div>
+  <div class="info-bar">💡 <strong>Antes de elegir:</strong> identifica el tipo de dato (medición, recuento o categoría), la pregunta y el diseño (grupos independientes o medidas pareadas). En los ejemplos de esta guía se usa <strong>α = 0,05</strong>; indica y justifica el nivel fijado antes de analizar.</div>
+  <div id="breadcrumb" class="breadcrumb"><span class="cur">Inicio</span></div>
+  <div class="card" id="tree-card"></div>
+  <div class="btn-row" id="tree-btns"></div>
+</div>
+
+<!-- ══ FICHAS ══ -->
+<div id="panel-fichas" class="panel">
+  <div id="fichas-list">
+    <div class="sec-title">📋 Fichas Estadísticas</div>
+    <div class="sec-sub">13 fichas con analogías, fórmulas, funciones Excel/Sheets en español, ejemplos biológicos resueltos paso a paso y consejos IB 2025. Para estudiar cada herramienta en profundidad.</div>
+    <div class="filter-row" id="filter-row"></div>
+    <div id="fichas-grid"></div>
+  </div>
+  <div id="ficha-detail" style="display:none"></div>
+</div>
+
+<!-- ══ PRÁCTICA ══ -->
+<div id="panel-practica" class="panel">
+  <div id="practica-home">
+    <div class="sec-title">🔬 Práctica Interactiva</div>
+    <div class="sec-sub">6 escenarios reales del IB. Identifica variables, clasifica datos, elige la prueba, redacta hipótesis e interpreta resultados. Corrección inmediata con explicación detallada.</div>
+    <div class="info-bar">📌 Los tres tipos de investigación IB: experimentos de laboratorio, simuladores y bases de datos. <strong>Tu puntuación se guarda mientras navegas por las pestañas.</strong></div>
+    <div class="sc-grid" id="sc-grid"></div>
+  </div>
+  <div id="practica-scenario" style="display:none"></div>
+</div>
+
+<!-- ══ GUÍA EXCEL ══ -->
+<div id="panel-guia" class="panel">
+  <div id="guia-home">
+    <div class="sec-title">📊 Guía Excel &amp; Google Sheets</div>
+    <div class="sec-sub">Tutoriales paso a paso con datos biológicos reales. Instrucciones en español, funciones en español y unidades del Sistema Internacional (SI).</div>
+    <div class="info-bar">💡 <strong>¿Por qué aprender la hoja de cálculo?</strong> El IB no exige calcular las pruebas a mano. Evalúan que entiendas qué hace cada prueba, por qué la eliges y cómo interpretas el resultado. La hoja de cálculo es la herramienta para obtener el número.</div>
+    <div class="warn-bar">📐 <strong>Unidades del SI en este tutorial:</strong> volumen → <span class="si-badge">mL</span> · masa → <span class="si-badge">g</span> · longitud → <span class="si-badge">m / cm / mm</span> · temperatura → <span class="si-badge">°C</span> · tiempo → <span class="si-badge">s / min</span> · concentración → <span class="si-badge">mg·mL⁻¹</span></div>
+    <div class="tut-grid">
+      <div class="tut-card" onclick="showGuia('datos')" style="border-color:var(--blue)">
+        <div class="tut-icon">📋</div>
+        <div class="tut-title">1. Introducir datos correctamente</div>
+        <div class="tut-desc">Estructura de la hoja, encabezados con unidades SI, datos brutos vs procesados.</div>
+        <div class="tut-meta"><span class="tut-tag" style="background:var(--bluebg);color:var(--blue)">Fundamentos</span><span style="font-size:11px;color:var(--dim)">~5 min</span></div>
+      </div>
+      <div class="tut-card" onclick="showGuia('descriptiva')" style="border-color:#1a7a72">
+        <div class="tut-icon">🧮</div>
+        <div class="tut-title">2. Estadística descriptiva</div>
+        <div class="tut-desc">PROMEDIO, DESVEST, MEDIANA, SEM e IC 95 %. Cuándo usar cada una y cómo redactarla en el IA.</div>
+        <div class="tut-meta"><span class="tut-tag" style="background:#e8f5f4;color:#1a7a72">Descriptiva</span><span style="font-size:11px;color:var(--dim)">~8 min</span></div>
+      </div>
+      <div class="tut-card" onclick="showGuia('pruebas')" style="border-color:var(--green)">
+        <div class="tut-icon">🔬</div>
+        <div class="tut-title">3. Pruebas estadísticas</div>
+        <div class="tut-desc">PRUEBA.T, ANOVA, PRUEBA.CHI2 y PEARSON. Paso a paso con datos reales.</div>
+        <div class="tut-meta"><span class="tut-tag" style="background:var(--glight);color:var(--green)">Inferencial</span><span style="font-size:11px;color:var(--dim)">~12 min</span></div>
+      </div>
+      <div class="tut-card" onclick="showGuia('graficos')" style="border-color:var(--amber)">
+        <div class="tut-icon">📈</div>
+        <div class="tut-title">4. Gráficos con barras de error</div>
+        <div class="tut-desc">Tipo correcto, barras de error personalizadas, unidades SI en los ejes.</div>
+        <div class="tut-meta"><span class="tut-tag" style="background:var(--amberbg);color:var(--amber)">Presentación</span><span style="font-size:11px;color:var(--dim)">~10 min</span></div>
+      </div>
+    </div>
+    <div class="warn-bar">⚠️ <strong>Excel en español:</strong> Los argumentos se separan con <strong>punto y coma (;)</strong>. Los rangos usan dos puntos: <code>=PROMEDIO(B2:B9)</code> es correcto. <code>=PROMEDIO(B2;B9)</code> daría solo 2 valores.</div>
+  </div>
+  <div id="guia-datos" class="tut-panel">
+    <button class="btn" style="margin-bottom:14px" onclick="showGuia('home')">← Volver a tutoriales</button>
+    <div class="tut-header"><div class="tut-header-icon">📋</div><div class="tut-header-title">Tutorial 1: Introducir datos correctamente</div><div class="tut-header-bio"><strong>Experimento:</strong> Efecto de la temperatura sobre la actividad de la catalasa en tejido de patata. Volumen de O₂ producido <span class="si-badge">mL</span> en 5 min a 5 temperaturas (10, 20, 30, 40, 50 °C), n = 8 por temperatura.</div></div>
+    <div class="tool-sw"><button class="tool-btn excel active" onclick="setTool('datos','excel',this)">🟢 Excel (español)</button><button class="tool-btn sheets" onclick="setTool('datos','sheets',this)">🔵 Google Sheets</button></div>
+    <div class="steps-container">
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--blue)">1</div><div class="step-title">Estructura correcta: una columna = una variable</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="step-why"><strong>Por qué importa:</strong> Sin estructura correcta las fórmulas dan error. El IB evalúa tablas con encabezados claros y unidades.</div><div class="alert-box"><strong>❌ Error frecuente:</strong> Escribir las unidades dentro de la celda junto al número ("4,8 mL"). Las celdas deben contener solo el número; las unidades van en el encabezado.</div><div class="ss-wrap"><table class="ss"><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr><tr><td class="row-h">1</td><td class="hd">Repetición</td><td class="hd">10 °C (mL)</td><td class="hd">20 °C (mL)</td><td class="hd">30 °C (mL)</td><td class="hd">40 °C (mL)</td><td class="hd">50 °C (mL)</td></tr><tr><td class="row-h">2</td><td>1</td><td>1,2</td><td>2,4</td><td>4,8</td><td>3,1</td><td>1,0</td></tr><tr><td class="row-h">3</td><td>2</td><td>1,4</td><td>2,6</td><td>5,1</td><td>2,9</td><td>0,9</td></tr><tr><td class="row-h">9</td><td>8</td><td>1,6</td><td>2,4</td><td>5,3</td><td>3,1</td><td>1,1</td></tr></table></div><div class="tip-box">📌 Separador decimal en Excel en español: <strong>coma (,)</strong>. Encabezados = nombre + unidades SI entre paréntesis.</div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--blue)">2</div><div class="step-title">Crear hoja "Análisis" separada de los datos brutos</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="step-why"><strong>Por qué:</strong> Diferenciar datos brutos y procesados hace que el procesamiento se entienda con facilidad (comunicación clara, criterio Análisis de datos). Mantener el análisis en otra hoja evita errores al modificar datos.</div><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 Excel (español)</div><div class="diff-item">1. Clic derecho sobre la pestaña → <strong>"Insertar"</strong></div><div class="diff-item">2. Doble clic en la pestaña → escribe <strong>"Análisis"</strong></div><div class="diff-item">3. Referenciar: <code>='Datos brutos'!B2:B9</code></div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Google Sheets</div><div class="diff-item">1. Clic en <strong>"+"</strong> (esquina inferior izquierda)</div><div class="diff-item">2. Doble clic en la pestaña → escribe <strong>"Análisis"</strong></div><div class="diff-item">3. Referenciar: <code>='Datos brutos'!B2:B9</code></div></div></div></div></div>
+    </div>
+  </div>
+  <div id="guia-descriptiva" class="tut-panel">
+    <button class="btn" style="margin-bottom:14px" onclick="showGuia('home')">← Volver a tutoriales</button>
+    <div class="tut-header"><div class="tut-header-icon">🧮</div><div class="tut-header-title">Tutorial 2: Estadística descriptiva</div><div class="tut-header-bio"><strong>Datos:</strong> Volumen de O₂ <span class="si-badge">mL</span> por la catalasa a 30 °C (8 rep.): 4,8 — 5,1 — 4,9 — 5,0 — 4,7 — 5,2 — 4,6 — 5,3. Están en D2:D9.</div></div>
+    <div class="tool-sw"><button class="tool-btn excel active" onclick="setTool('descriptiva','excel',this)">🟢 Excel (español)</button><button class="tool-btn sheets" onclick="setTool('descriptiva','sheets',this)">🔵 Google Sheets</button></div>
+    <div class="steps-container">
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:#1a7a72">1</div><div class="step-title">Media aritmética (x̄) — PROMEDIO</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="step-why"><strong>Por qué:</strong> La media resume el centro y puede acompañarse de s cuando sea adecuada para el tipo y la distribución de los datos. No hay una única medida que sirva para todos los conjuntos.</div><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 Excel en español</div><div class="diff-item"><code>=PROMEDIO('Datos brutos'!D2:D9)</code></div><div class="diff-item">Resultado: <strong>4,95 mL</strong></div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Google Sheets</div><div class="diff-item"><code>=PROMEDIO('Datos brutos'!D2:D9)</code></div><div class="diff-item">Resultado: <strong>4,95 mL</strong></div></div></div><div class="interp-box"><div class="interp-title">¿Cómo lo redacto en el IA?</div><div style="font-style:italic;font-size:13px;color:#1a3a20;">"El volumen medio de O₂ liberado por la catalasa a 30 °C fue de 5,0 mL (n = 8)." (la hoja muestra 4,95; al presentarlo, redondea a la precisión de los datos)</div><div style="font-size:12px;color:var(--muted);margin-top:5px;">Incluye unidades y tamaño muestral n.</div></div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:#1a7a72">2</div><div class="step-title">Desviación típica (s) — DESVEST</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="step-why"><strong>Por qué:</strong> La s resume cuánto varían las observaciones alrededor de la media. Usa la desviación muestral para resumir una muestra y explica su significado en el contexto; un porcentaje fijo de s/media no determina si los datos son “precisos”.</div><div class="alert-box">⚠️ Comprueba si la hoja de cálculo calcula la desviación muestral (divide entre n−1) y rotula la estadística con las unidades de la variable.</div><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 Excel</div><div class="diff-item"><code>=DESVEST('Datos brutos'!D2:D9)</code></div><div class="diff-item">Resultado: <strong>0,245 mL</strong></div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Sheets</div><div class="diff-item"><code>=DESVEST('Datos brutos'!D2:D9)</code></div><div class="diff-item">Resultado: <strong>0,245 mL</strong></div></div></div><div class="interp-box"><div class="interp-title">Redacción de resultados</div><div style="font-style:italic;font-size:13px;color:#1a3a20;">"Media = 5,0 mL; s = 0,24 mL; n = 8." (la media con los decimales de los datos brutos; la s con, como mucho, un decimal más) Añade una frase que interprete la variabilidad respecto a la pregunta y al diseño.</div></div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:#1a7a72">3</div><div class="step-title">Error típico (SEM) e IC 95 %</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 SEM</div><div class="diff-item"><code>=DESVEST(r)/RAIZ(CONTAR(r))</code></div><div class="diff-item">O: <code>=B3/RAIZ(B4)</code> → <strong>0,087 mL</strong></div><div class="diff-item" style="margin-top:6px"><strong>Margen del IC 95 % t:</strong></div><div class="diff-item"><code>=INV.T.2C(0,05;B4-1)*B3/RAIZ(B4)</code></div><div class="diff-item">Con s = 0,245 y n = 8 → <strong>0,205 mL</strong></div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Sheets</div><div class="diff-item">Usa la función de cuantil t equivalente con n−1 grados de libertad; comprueba el nombre según el idioma de la hoja.</div></div></div><div class="tip-box">💡 <strong>s vs SEM:</strong> La s describe cuánto varían los datos individuales. El SEM estima la variación de la media entre muestras; el IC expresa incertidumbre sobre la media. Elige y etiqueta las barras de error según qué quieras comunicar.</div></div></div>
+    </div>
+  </div>
+  <div id="guia-pruebas" class="tut-panel">
+    <button class="btn" style="margin-bottom:14px" onclick="showGuia('home')">← Volver a tutoriales</button>
+    <div class="tut-header"><div class="tut-header-icon">🔬</div><div class="tut-header-title">Tutorial 3: Pruebas estadísticas</div><div class="tut-header-bio">Cuatro pruebas habituales en las investigaciones de Biología: <strong>ANOVA</strong> (catalasa, 5 temperaturas), <strong>PRUEBA.T</strong> (Daphnia, 2 grupos), <strong>PRUEBA.CHI2</strong> (genética mendeliana) y <strong>PEARSON</strong> (masa vs semillas).</div></div>
+    <div class="tool-sw"><button class="tool-btn excel active" onclick="setTool('pruebas','excel',this)">🟢 Excel (español)</button><button class="tool-btn sheets" onclick="setTool('pruebas','sheets',this)">🔵 Google Sheets</button></div>
+    <div class="steps-container">
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--green)">A</div><div class="step-title">ANOVA — Comparar 3 o más grupos</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="step-why"><strong>Por qué ANOVA y no varias pruebas t:</strong> al repetir comparaciones aumenta el riesgo de falsos positivos. Un ANOVA de un factor contrasta primero la hipótesis global para varios grupos.</div><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 Excel</div><div class="diff-item">1. Menú <strong>Datos → Análisis de datos</strong></div><div class="diff-item" style="color:var(--red);font-size:11px;">Si no aparece: Archivo → Opciones → Complementos → "Herramientas para análisis"</div><div class="diff-item">2. <strong>"Análisis de varianza de un factor"</strong></div><div class="diff-item">3. Rango: todos los datos (con encabezados)</div><div class="diff-item">4. Define e indica el α elegido → Aceptar</div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Sheets</div><div class="diff-item">Usa una herramienta aprobada por tu docente y verifica su configuración y salida.</div></div></div><div class="interp-box"><div class="interp-title">Interpretación</div><div class="interp-rule"><span class="dot">▸</span><span>Si p &lt; α, hay evidencia de que no todas las medias son iguales; el ANOVA no identifica por sí solo qué grupos difieren.</span></div><div class="interp-rule"><span class="dot">⚠️</span><span>Si necesitas comparaciones por pares, usa un procedimiento post-hoc adecuado que controle las comparaciones múltiples y justifica su elección.</span></div></div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--green)">B</div><div class="step-title">PRUEBA.T — Comparar 2 grupos</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 Excel</div><div class="diff-item"><code>=PRUEBA.T(A2:A11;B2:B11;2;2)</code></div><div class="diff-item" style="font-size:11px;">• 2 → bilateral &nbsp;•&nbsp; 2 → no pareada con varianzas iguales</div><div class="diff-item"><strong>Resultado: p = 0,0003</strong></div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Sheets</div><div class="diff-item"><code>=PRUEBA.T(A2:A11;B2:B11;2;2)</code></div></div></div><div class="interp-box"><div class="interp-title">Redacción de resultados</div><div style="font-style:italic;font-size:13px;color:#1a3a20;">"La prueba t aporta evidencia contra H₀ [p = 0,0003; gl = 18; α fijado = 0,05]. Describe la diferencia estimada y su importancia biológica; no concluyas causalidad solo por p."</div></div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--green)">C</div><div class="step-title">PRUEBA.CHI2 — Bondad de ajuste (Mendel 3:1)</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="ss-wrap"><table class="ss"><tr><th></th><th>A</th><th>B (Obs.)</th><th>C (Esp.)</th></tr><tr><td class="row-h">1</td><td class="hd">Fenotipo</td><td class="hd">Observado</td><td class="hd">Esperado</td></tr><tr><td class="row-h">2</td><td>Amarillo</td><td>737</td><td class="fm">=B5*(3/4) → 750</td></tr><tr><td class="row-h">3</td><td>Verde</td><td>263</td><td class="fm">=B5*(1/4) → 250</td></tr><tr><td class="row-h">5</td><td class="hd">Total</td><td class="fm">=SUMA(B2:B3)</td><td></td></tr><tr><td class="row-h">7</td><td class="hd">Valor p</td><td class="fm hl" colspan="2">=PRUEBA.CHI2(B2:B3;C2:C3) → 0,342</td></tr></table></div><div class="interp-box"><div class="interp-title">Interpretación</div><div class="interp-rule"><span class="dot">▸</span><span>p = 0,342 &gt; 0,05 → no se puede rechazar H₀: datos compatibles con la proporción 3:1</span></div></div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--green)">D</div><div class="step-title">PEARSON — Correlación entre dos variables continuas</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 Excel</div><div class="diff-item"><code>=PEARSON(A2:A11;B2:B11)</code> → r</div><div class="diff-item"><code>=PEARSON(...)^2</code> → R²</div><div class="diff-item">gl = n pares − 2</div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Sheets</div><div class="diff-item"><code>=COEF.DE.CORREL(A2:A11;B2:B11)</code></div></div></div><div class="interp-box"><div class="interp-title">Interpretación completa</div><div class="interp-rule"><span class="dot">▸</span><span>Describe el signo y la magnitud de r en el contexto; evita umbrales universales de “débil”, “moderada” o “fuerte”.</span></div><div class="interp-rule"><span class="dot">▸</span><span>Evalúa la incertidumbre con un contraste apropiado, informa el método y sus supuestos.</span></div><div class="interp-rule"><span class="dot">⚠️</span><span><strong>Correlación ≠ causalidad.</strong> Una asociación no identifica por sí sola el mecanismo ni descarta variables de confusión.</span></div></div></div></div>
+    </div>
+  </div>
+  <div id="guia-graficos" class="tut-panel">
+    <button class="btn" style="margin-bottom:14px" onclick="showGuia('home')">← Volver a tutoriales</button>
+    <div class="tut-header"><div class="tut-header-icon">📈</div><div class="tut-header-title">Tutorial 4: Gráficos correctos con barras de error</div><div class="tut-header-bio">Un tipo de gráfico inadecuado, sin unidades del SI o sin indicar qué son las barras de error resta claridad y precisión (criterio Análisis de datos).</div></div>
+    <div class="tool-sw"><button class="tool-btn excel active" onclick="setTool('graficos','excel',this)">🟢 Excel (español)</button><button class="tool-btn sheets" onclick="setTool('graficos','sheets',this)">🔵 Google Sheets</button></div>
+    <div class="steps-container">
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--amber)">1</div><div class="step-title">Guía rápida: ¿qué gráfico necesito?</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="ss-wrap"><table class="ss" style="min-width:280px"><tr><td class="hd">VI</td><td class="hd">VD</td><td class="hd">Gráfico</td></tr><tr><td>Categórica</td><td>Cuantitativa continua</td><td class="res">Barras + barras de error</td></tr><tr><td>Cuantitativa continua</td><td>Cuantitativa continua</td><td class="res">XY Dispersión + tendencia</td></tr><tr><td>Tiempo</td><td>Cuantitativa</td><td class="res">Líneas con puntos</td></tr><tr><td>Categórica</td><td>Frecuencias</td><td class="res">Barras (sin error bars)</td></tr></table></div><div class="alert-box">⚠️ <strong>Error muy frecuente en Excel:</strong> NUNCA uses "Gráfico de líneas" para dos variables cuantitativas continuas. Usa siempre <strong>"XY (Dispersión)"</strong>.</div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--amber)">2</div><div class="step-title">Barras de error personalizadas (SD o SEM)</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="step-why"><strong>Por qué añadir barras de error:</strong> pueden ayudar a mostrar variabilidad o incertidumbre, si son pertinentes para la pregunta. Decide primero si representan s, SEM o un IC y explícalo en la leyenda; las opciones automáticas del programa pueden no corresponder a la medida que necesitas.</div><div class="diff-box"><div class="diff-col excel-col"><div class="diff-title" style="color:var(--excel)">🟢 Excel</div><div class="diff-item">1. Insertar → gráfico adecuado al tipo de variables</div><div class="diff-item">2. Agregar barras de error desde los elementos del gráfico</div><div class="diff-item">3. Elegir valor personalizado si las barras deben representar una estadística calculada</div><div class="diff-item">4. Seleccionar el rango correspondiente a s, SEM o IC</div></div><div class="diff-col sheets-col"><div class="diff-title" style="color:var(--sheets)">🔵 Sheets</div><div class="diff-item">1. Editor de gráficos → Personalizar → Serie</div><div class="diff-item">2. Barras de error → elige la medida disponible o personalizada</div><div class="diff-item">3. Verifica que su significado coincide con el que indicas en la leyenda</div></div></div><div class="tip-box">📌 <strong>Si las incluyes:</strong> indica qué representan y el tamaño muestral; no infieras significación por el solapamiento visual.</div></div></div>
+      <div class="step"><div class="step-header" onclick="toggleStep(this)"><div class="step-num" style="background:var(--amber)">3</div><div class="step-title">Checklist del gráfico IB</div><div class="step-arrow">▼</div></div>
+      <div class="step-body"><div class="ss-wrap"><table class="ss" style="min-width:280px"><tr><td class="hd" colspan="2">Verificación del gráfico</td></tr><tr><td style="color:var(--green);font-weight:700;width:30px">✓</td><td>Título: "Efecto de X sobre Y"</td></tr><tr><td style="color:var(--green);font-weight:700">✓</td><td>Eje X: nombre VI + unidades SI</td></tr><tr><td style="color:var(--green);font-weight:700">✓</td><td>Eje Y: nombre VD + unidades SI</td></tr><tr><td style="color:var(--green);font-weight:700">✓</td><td>Barras de error personalizadas (no automáticas)</td></tr><tr><td style="color:var(--green);font-weight:700">✓</td><td>Leyenda: "Barras = ±1 s; n = X"</td></tr><tr><td style="color:var(--green);font-weight:700">✓</td><td>Si correlación: línea de tendencia + R²</td></tr><tr><td style="color:var(--red);font-weight:700">✗</td><td>Efectos 3D (evitar siempre)</td></tr><tr><td style="color:var(--red);font-weight:700">✗</td><td>"Gráfico de líneas" para correlaciones</td></tr></table></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHECKLIST ══ -->
+<div id="panel-checklist" class="panel">
+  <div class="sec-title">✅ Checklist de Validación — antes de entregar</div>
+  <div class="sec-sub">Complétalo antes de entregar tu investigación científica. Basado en los criterios de evaluación del IB y el Material de Ayuda al Profesor 2025.</div>
+  <div class="warn-bar">⚠️ <strong>Recordatorio clave IB 2025:</strong> p &gt; 0,05 NO prueba que H₀ sea verdadera. Solo indica que <em>no hay evidencia suficiente para rechazarla</em>. Usar "se acepta H₀" en lugar de "no se puede rechazar H₀" es una imprecisión conceptual.</div>
+  <div class="prog-card"><div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;font-weight:600;color:var(--text)">Progreso</span><span id="prog-txt" style="font-size:13px;font-weight:700">0/24 ítems</span></div><div class="prog-bar-bg"><div class="prog-bar" id="prog-fill" style="width:0%"></div></div><div id="prog-msg" style="margin-top:6px;font-size:12px;color:var(--muted)">Comienza marcando los ítems completados.</div></div><div class="prog-circle" id="prog-circle">0%</div></div>
+  <div id="cl-secs"></div>
+  <button class="btn" style="margin-top:4px" onclick="resetCL()">↺ Reiniciar</button>
+</div>
+
+</div><!-- /main -->
+<script>
+const CAT={
+  'Fundamentos':{c:'#1a6fa8',bg:'#e8f3fc',bd:'#b3d4f0'},
+  'Descriptiva':{c:'#1a7a72',bg:'#e8f5f4',bd:'#a8d8d4'},
+  'Comparación':{c:'#2d7a45',bg:'#e6f4eb',bd:'#b3d9c0'},
+  'Relación':{c:'#6b3fa0',bg:'#f2edf9',bd:'#cdb8e8'},
+  'Presentación':{c:'#b86800',bg:'#fff4e0',bd:'#f0c878'},
+};
+const cc=cat=>CAT[cat]||{c:'#555',bg:'#eee',bd:'#ccc'};
+let treePath=[null],treeRes=null,activeCat='Todas',checked={},collapsed={};
+let scState={id:null,qi:0,scores:[],answered:false},scScores={};
+
+// ══ LOAD SCORES FROM LOCALSTORAGE ══
+try{const s=localStorage.getItem('ib-sc-scores');if(s)scScores=JSON.parse(s);}catch(e){}
+try{const c=localStorage.getItem('ib-cl-checked');if(c)checked=JSON.parse(c);}catch(e){}
+
+// ══ TABS ══
+function showPanel(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  // Update flujo banner
+  const panelMap={fichas:1,arbol:2,practica:3,guia:4,checklist:5};
+  const n=panelMap[id]||1;
+  document.querySelectorAll('[id^="fs"]').forEach(el=>el.classList.remove('active'));
+  const fsel=document.getElementById('fs'+n);if(fsel)fsel.classList.add('active');
+}
+
+// ══ GUIA SUB-PANELS — FIXED: only use classList, no style.display conflict ══
+function showGuia(id){
+  const home=document.getElementById('guia-home');
+  document.querySelectorAll('.tut-panel').forEach(p=>p.classList.remove('open'));
+  if(id==='home'){
+    home.style.display='block';
+  } else {
+    home.style.display='none';
+    const p=document.getElementById('guia-'+id);
+    if(p) p.classList.add('open');
+  }
+}
+
+function setTool(panel,tool,btn){
+  const sw=btn.closest('.tool-sw');
+  sw.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ══ TOGGLE STEP — FIXED: only classList, no style.display conflict ══
+function toggleStep(hdr){
+  const body=hdr.nextElementSibling;
+  const arrow=hdr.querySelector('.step-arrow');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  arrow.classList.toggle('open',!isOpen);
+}
+
+// Open the first step in each tutorial on load
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.tut-panel').forEach(panel=>{
+    const firstStep=panel.querySelector('.step-body');
+    const firstArrow=panel.querySelector('.step-arrow');
+    if(firstStep){firstStep.classList.add('open');}
+    if(firstArrow){firstArrow.classList.add('open');}
+  });
+  renderTree();renderFichasList();renderCL();renderScHome();updateProgress();
+});
+
+// ══ TREE DATA ══
+const TREE={id:'root',q:'¿Cuál es tu objetivo principal en el análisis?',opts:[
+  {lbl:'📊 Describir mis datos',next:{id:'desc',q:'¿Qué tipo de datos has recogido?',opts:[
+    {lbl:'Mediciones numéricas (p. ej., longitud, masa o temperatura)',next:{id:'dnum',q:'¿Cómo se distribuyen tus datos?',opts:[
+      {lbl:'Aproximadamente simétricos y sin valores extremos importantes',res:{nom:'Media + desviación típica (s)',fid:'descriptiva',excelId:'descriptiva',why:'La media resume el centro y s describe la variabilidad entre observaciones. Comprueba la forma de la distribución y conserva visibles los datos individuales, especialmente con n pequeño.',steps:['Media: PROMEDIO(rango) | s muestral: DESVEST(rango)','Indica n, unidades y qué representa cada barra de error','Elige barras, puntos o caja y bigotes según el diseño; no hay un gráfico único para todas las mediciones','No uses un porcentaje fijo de s/media como prueba de precisión']}},
+      {lbl:'Asimétricos o con valores extremos',res:{nom:'Mediana + rango intercuartílico (IQR)',fid:'central',excelId:'descriptiva',why:'La mediana y el IQR son menos sensibles a valores extremos. Revisa si estos son errores o variación biológica real; no los elimines sin justificarlo.',steps:['MEDIANA(rango) y cuartiles para describir el centro y la dispersión','Muestra los datos individuales si el tamaño muestral es pequeño','Explica por qué esta descripción es adecuada para la distribución']}},
+    ]}},
+    {lbl:'Recuentos o categorías (p. ej., número de semillas o color)',res:{nom:'Frecuencias y proporciones',fid:'central',excelId:'descriptiva',why:'Las categorías se resumen con recuentos y proporciones; la mediana no es apropiada para categorías nominales. Para recuentos, conserva el total y la unidad de muestreo.',steps:['Tabla de frecuencias absolutas y relativas (%)','Indica el total n y cómo se definieron las categorías','Representa categorías con barras y recuentos con una escala/ejes claramente rotulados']}},
+  ]}},
+  {lbl:'🔄 Comparar grupos (¿hay diferencia significativa?)',next:{id:'comp',q:'¿Qué tipo de datos tienes?',opts:[
+    {lbl:'Cuantitativos continuos (longitud, masa, temperatura…)',next:{id:'cq',q:'¿Cuántos grupos comparas?',opts:[
+      {lbl:'2 grupos',next:{id:'t2',q:'¿Las muestras son independientes o del mismo individuo?',opts:[
+        {lbl:'Grupos distintos (independientes)',res:{nom:'t de dos muestras (Welch o Student)',fid:'ttest',excelId:'pruebas',why:'Para comparar dos grupos independientes con respuesta cuantitativa. Comprueba el diseño y la distribución; Welch no requiere asumir varianzas iguales y suele ser una opción prudente si no puedes justificarlas.',steps:['H₀: las medias poblacionales son iguales | H₁: son distintas (o la predicción direccional justificada)','En Excel/Sheets: =PRUEBA.T(grupo1;grupo2;2;3) para Welch; el tipo 2 asume varianzas iguales','Reporta la prueba elegida, p, α, grados de libertad que correspondan y una conclusión biológica','Si la distribución o el diseño no cumplen los supuestos, detente y consulta una alternativa apropiada']}},
+        {lbl:'Grupos independientes, pero datos claramente no normales, ordinales o con valores extremos',res:{nom:'U de Mann-Whitney',fid:'mannwhitney',excelId:'pruebas',why:'Compara dos grupos independientes a partir de los rangos, sin asumir normalidad. Es útil con muestras pequeñas asimétricas o con escalas ordinales.',steps:['H₀: las distribuciones de los dos grupos son iguales | H₁: uno tiende a dar valores mayores','Ordena todos los datos juntos y asigna rangos (Excel: JERARQUIA.MEDIA)','Calcula U y compáralo con el valor crítico de tablas o usa una herramienta aprobada por tu profesora','Informa de las medianas, U, n de cada grupo, p y una conclusión biológica']}},
+        {lbl:'Pares emparejados con diferencias no normales',res:{nom:'Prueba de rangos con signo de Wilcoxon',fid:'mannwhitney',excelId:'pruebas',why:'Alternativa no paramétrica a la t pareada: analiza los rangos de las diferencias dentro de cada par.',steps:['Calcula la diferencia de cada par y descarta las diferencias nulas','Asigna rangos a los valores absolutos de las diferencias y suma los rangos positivos y negativos','Compara el estadístico W con el valor crítico o usa una herramienta aprobada','Informa de la mediana de las diferencias, W, n, p y la conclusión biológica']}},
+        {lbl:'Mismos individuos o pares emparejados',res:{nom:'t pareada',fid:'tpareada',excelId:'pruebas',why:'Compara dos mediciones relacionadas; analiza las diferencias dentro de cada par, no como dos grupos independientes.',steps:['=PRUEBA.T(condición1;condición2;2;1) — el tipo 1 indica datos pareados','Verifica que cada observación de una condición tiene su pareja en la otra','gl = n.º de pares − 1; interpreta la media de las diferencias en contexto']}},
+      ]}},
+      {lbl:'3 o más grupos',res:{nom:'ANOVA de un factor',fid:'anova',excelId:'pruebas',why:'ANOVA compara 3+ medias evitando el error acumulado de múltiples t-tests.',steps:['Datos → Análisis de datos → "Análisis de varianza de un factor"','H₀: no hay diferencia entre ningún grupo','p < 0,05 → hay diferencia en algún lugar → aplica test post-hoc Tukey para saber entre cuáles grupos','⚠️ ANOVA solo detecta QUE hay diferencia, no ENTRE CUÁLES grupos']}},
+    ]}},
+    {lbl:'Frecuencias o recuentos categóricos',next:{id:'chi',q:'¿Qué tipo de chi-cuadrado necesitas?',opts:[
+      {lbl:'Comparar recuentos con una proporción teórica',res:{nom:'Chi-cuadrado — bondad de ajuste',fid:'chi2',excelId:'pruebas',why:'Contrasta si las frecuencias observadas son compatibles con una distribución teórica especificada antes del análisis.',steps:['Calcula E = n total × proporción esperada para cada categoría','=PRUEBA.CHI2(rango_observado;rango_esperado)','gl = número de categorías − 1; comprueba que las frecuencias esperadas permiten usar la aproximación chi-cuadrado','Si p < α, describe qué categorías contribuyen al patrón; no concluyas causalidad']}},
+      {lbl:'Explorar asociación entre dos variables categóricas',res:{nom:'Chi-cuadrado — independencia',fid:'chi2',excelId:'pruebas',why:'Contrasta si dos variables categóricas están asociadas; por sí sola la prueba no indica causalidad.',steps:['E = (total de fila × total de columna) / n total para cada celda','=PRUEBA.CHI2(observados;esperados)','gl = (filas−1)×(columnas−1); comprueba las frecuencias esperadas antes de interpretar el resultado','Si muchas frecuencias esperadas son pequeñas, consulta una alternativa o agrupa categorías solo si tiene sentido biológico']}},
+    ]}},
+  ]}},
+  {lbl:'🔗 Estudiar la relación entre dos variables',next:{id:'rel',q:'¿Qué tipo de relación buscas?',opts:[
+    {lbl:'Correlación: evaluar asociación lineal entre dos variables cuantitativas',res:{nom:'Pearson (r) o Spearman (ρ)',fid:'pearson',excelId:'pruebas',why:'Pearson resume asociación lineal; Spearman evalúa asociación monotónica a partir de rangos. La elección depende del patrón, escala y supuestos, no de una etiqueta automática de normalidad.',steps:['Haz primero un diagrama de dispersión y busca curvatura y valores influyentes','=PEARSON(X;Y) calcula r; Spearman requiere correlacionar los rangos','Informa el coeficiente, su dirección y magnitud en contexto; evita umbrales universales de “fuerte/débil”','Una asociación no demuestra causalidad']}},
+    {lbl:'Regresión: modelar una relación y cuantificar su tendencia',res:{nom:'Regresión lineal (ŷ = mx + c)',fid:'regresion',excelId:'graficos',why:'Describe una tendencia lineal y estima cambios esperados dentro del rango observado. Una regresión observacional no demuestra por sí sola una relación causal.',steps:['Gráfico XY → examina si una relación lineal es razonable antes de ajustar el modelo','Interpreta la pendiente m con unidades y en el rango estudiado; informa R² sin tratarlo como prueba de causalidad','No extrapoles fuera del rango experimental y comenta posibles variables de confusión']}},
+  ]}},
+  {lbl:'❓ No sé por dónde empezar',next:{id:'start',q:'¿Cómo obtienes los datos?',opts:[
+    {lbl:'Midiendo con instrumentos (balanza, termómetro, espectrofotómetro…)',res:{nom:'Datos cuantitativos → empieza por describir y representar',fid:'descriptiva',excelId:'descriptiva',why:'Las mediciones producen datos cuantitativos con unidades. El análisis posterior depende de la pregunta y del diseño.',steps:['Describe la distribución y conserva visibles los datos individuales','Elige media/s o mediana/IQR según el patrón y la pregunta','No existe un único umbral de n que garantice que una prueba sea válida']}},
+    {lbl:'Contando individuos, eventos o categorías',res:{nom:'Recuentos y categorías → frecuencias; compara solo si la pregunta lo requiere',fid:'chi2',excelId:'pruebas',why:'Los recuentos pueden ser variables cuantitativas discretas o frecuencias categóricas; no se resumen todos de la misma manera.',steps:['Resume las categorías con frecuencias y proporciones','Para recuentos discretos, considera su escala y distribución; no apliques automáticamente mediana/rango','Para comparar frecuencias, revisa el diseño y las frecuencias esperadas antes de elegir una prueba']}},
+  ]}},
+]};
+const TREE_ROOT=TREE;
+treePath=[TREE_ROOT];
+
+function renderTree(){
+  const bc=document.getElementById('breadcrumb');
+  bc.innerHTML=treePath.map((n,i)=>{
+    const lbl=i===0?'Inicio':'Paso '+i;const cur=i===treePath.length-1&&!treeRes;
+    return (i>0?'<span>→</span>':'')+`<span class="${cur?'cur':''}">${lbl}</span>`;
+  }).join('')+(treeRes?'<span>→</span><span class="cur">Resultado</span>':'');
+  const card=document.getElementById('tree-card'),btns=document.getElementById('tree-btns');
+  if(treeRes){
+    const r=treeRes;
+    card.innerHTML=`<div class="result-card">
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:10px">
+        <span style="font-size:24px">✅</span>
+        <div><div class="r-label">Opción orientativa · ejemplos de esta guía: α = 0,05</div><div class="r-name">${r.nom}</div></div>
+      </div>
+      <div class="r-why"><strong style="color:var(--text)">¿Por qué esta prueba?</strong><br>${r.why}</div>
+      <div class="r-steps"><div class="r-step-lbl">Pasos en Excel / Sheets:</div>
+        ${r.steps.map(s=>`<div class="r-step"><span class="dot">▸</span><span>${s}</span></div>`).join('')}
+      </div>
+      <div class="h0-nota">⚠️ <strong>Interpreta con cuidado:</strong> compara p con α. Si p ≥ α, no hay evidencia suficiente para rechazar H₀; no significa que H₀ esté demostrada o sea verdadera. Si p &lt; α, describe la evidencia contra H₀ y explica qué significa biológicamente.</div>
+      ${r.fid||r.excelId?`<div class="next-step-bar">
+        <span style="font-size:11px;font-weight:700;color:var(--muted);align-self:center;">¿Siguiente paso?</span>
+        ${r.fid?`<button class="next-btn-ficha" onclick="goToFicha('${r.fid}')">📋 Ver ficha completa →</button>`:''}
+        ${r.excelId?`<button class="next-btn-excel" onclick="goToExcel('${r.excelId}')">📊 Tutorial Excel / Sheets →</button>`:''}
+        <button class="next-btn-ficha" onclick="showPanel('practica',document.querySelectorAll('.tab')[2])" style="border-color:var(--purple);color:var(--purple)">🔬 Ir a práctica →</button>
+      </div>`:''}
+    </div>`;
+  } else {
+    const cur=treePath[treePath.length-1];
+    card.innerHTML=`<div class="q-text">${cur.q}</div><div class="opts">
+      ${cur.opts.map((o,i)=>`<button class="opt-btn" onclick="pickOpt(${i})">${o.lbl}<span style="color:var(--dim);font-size:14px">→</span></button>`).join('')}
+    </div>`;
+  }
+  btns.innerHTML=`${(treePath.length>1||treeRes)?'<button class="btn" onclick="treeBack()">← Atrás</button>':''}
+    <button class="btn" onclick="treeReset()">↺ Empezar de nuevo</button>`;
+}
+function pickOpt(i){const o=treePath[treePath.length-1].opts[i];if(o.res){treeRes=o.res;}else if(o.next){treePath.push(o.next);}renderTree();}
+function treeBack(){if(treeRes){treeRes=null;}else if(treePath.length>1){treePath.pop();}renderTree();}
+function treeReset(){treePath=[TREE_ROOT];treeRes=null;renderTree();}
+function goToExcel(tutId){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab')[3].classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-guia').classList.add('active');
+  document.querySelectorAll('[id^="fs"]').forEach(el=>el.classList.remove('active'));
+  document.getElementById('fs4').classList.add('active');
+  showGuia(tutId);
+  document.getElementById('panel-guia').scrollIntoView({behavior:'smooth'});
+}
+
+// ══ ERRORES MAP ══
+const ERRORES_MAP={
+  1:{titulo:'Incertidumbres no integradas en el análisis',sev:'crítico',
+     malo:{txt:'"La balanza tiene una incertidumbre de ±0,01 g."',nota:'Solo se menciona. No se evalúa su impacto.'},
+     bien:{txt:'"La diferencia entre grupos (38,78 g) supera ampliamente la incertidumbre instrumental (±0,01 g), por lo que no puede atribuirse al error del instrumento."',nota:'Se compara con la magnitud del efecto.'},
+     accion:'Compara la incertidumbre con la magnitud del efecto. Si el efecto es del mismo orden que la incertidumbre, discútelo como limitación.'},
+  2:{titulo:'Metodología no completamente reproducible',sev:'crítico',
+     malo:{txt:'"Se preparó NaCl al 5 % y se añadió a las plantas."',nota:'Sin volumen, sin instrumento, sin frecuencia.'},
+     bien:{txt:'"Se preparó NaCl (5,00 g/100 mL) disolviendo 5,00 ±0,01 g en 95,0 mL de agua destilada. Se añadieron 50,0 mL (pipeta, ±0,5 mL) cada 48 h durante 6 días."',nota:'Cantidades exactas, instrumento, pasos.'},
+     accion:'Otra persona debe poder repetir tu experimento sin preguntarte nada. Cantidades exactas, instrumentos y pasos numerados.'},
+  3:{titulo:'Variables mal definidas o sin justificación biológica',sev:'importante',
+     malo:{txt:'"Variables controladas: temperatura, luz, pH, volumen de agua."',nota:'Solo se listan.'},
+     bien:{txt:'"Temperatura (22 ±1 °C, termostato): variaciones >2 °C alterarían la velocidad enzimática e introducirían variabilidad sistemática entre réplicas."',nota:'Valor + método de control + mecanismo biológico.'},
+     accion:'Cada variable controlada: valor numérico + cómo se controla + por qué afectaría a los resultados si no se controlara.'},
+  4:{titulo:'Solo medias sin tendencias ni cambios relativos',sev:'importante',
+     malo:{txt:'"La media del grupo A es 45,3 g y la del grupo B es 38,7 g."',nota:'Solo se comparan medias.'},
+     bien:{txt:'"La biomasa fue 12,4 ±1,8 g (A) vs 3,1 ±2,2 g (B), diferencia relativa del 300 %. El efecto fue acumulativo: días 0–7 +18 %, días 7–14 +67 %."',nota:'Cambios absolutos, relativos y tendencia temporal.'},
+     accion:'Calcula cambios (Δ), porcentajes y tendencias. Identifica patrones que respondan directamente a la pregunta de investigación.'},
+  5:{titulo:'Prueba estadística sin justificación ni conclusión biológica',sev:'crítico',
+     malo:{txt:'"Se realizó una prueba t (p = 0,03 < 0,05). Es estadísticamente significativo."',nota:'No se justifica la elección ni se conecta con la biología.'},
+     bien:{txt:'"PRUEBA.T no pareada: dos grupos independientes con datos continuos y normalidad. [p = 0,009; gl = 18; α = 0,05]. No se puede mantener H₀: el NaCl reduce el crecimiento, probablemente por reducción del potencial hídrico."',nota:'Justificación, parámetros y mecanismo biológico.'},
+     accion:'Después del valor p, explica el mecanismo biológico. "p < 0,05" es el punto de partida, no la conclusión.'},
+  6:{titulo:'Conclusiones demasiado rotundas — afirma causalidad',sev:'importante',
+     malo:{txt:'"El experimento demuestra que el NaCl reduce el crecimiento."',nota:'Usa "demuestra". Ningún experimento escolar demuestra nada definitivamente.'},
+     bien:{txt:'"Los resultados son consistentes con la hipótesis de que el NaCl afecta negativamente al crecimiento, aunque no se puede establecer causalidad definitiva ya que no se midieron variables fisiológicas directas (potencial hídrico). Coherente con González et al. (2021)."',nota:'Lenguaje prudente, limitaciones, bibliografía.'},
+     accion:'Sustituye "demuestra/prueba/confirma" por "sugiere/indica/es consistente con". Menciona al menos una limitación.'},
+  7:{titulo:'Evaluación superficial — limitaciones genéricas',sev:'crítico',
+     malo:{txt:'"Una limitación fue que el tamaño muestral fue pequeño."',nota:'Genérica y sin impacto cuantificado.'},
+     bien:{txt:'"La posición variable de las macetas (15–23 cm de la fuente de luz) introdujo variabilidad sistemática. Explica la s del control (±4,2 g vs ±1,8 g esperado). Mejora: cámara con iluminación homogénea verificada con luxómetro."',nota:'Limitación específica + impacto con datos + mejora concreta.'},
+     accion:'Estructura: Qué falló → Cómo afectó (con tus datos) → Cómo mejorar. Jerarquiza por impacto.'},
+  8:{titulo:'Sin mecanismo biológico — explicaciones genéricas',sev:'importante',
+     malo:{txt:'"La sal reduce el crecimiento porque es perjudicial para las plantas."',nota:'"Es perjudicial" no es un mecanismo biológico.'},
+     bien:{txt:'"El NaCl reduce el potencial hídrico del suelo, invirtiendo el gradiente osmótico. El agua sale de las células radiculares por ósmosis, reduciendo la turgencia y limitando la expansión celular necesaria para el crecimiento (Flowers & Colmer, 2008)."',nota:'Mecanismo osmótico, proceso celular y cita.'},
+     accion:'¿Por qué ocurre a nivel celular/molecular? Usa vocabulario biológico preciso y conecta con bibliografía.'},
+  9:{titulo:'Pocos valores de la VI — no se ve la tendencia completa',sev:'importante',
+     malo:{txt:'"Se compararon dos concentraciones: 0 g/L y 10 g/L."',nota:'Con 2 valores no se puede ver la relación dosis-respuesta.'},
+     bien:{txt:'"Se usaron 5 concentraciones (0, 2, 5, 10 y 20 g/L) para explorar la relación dosis-respuesta en el rango relevante para suelos salinos (Munns & Tester, 2008)."',nota:'5 valores con justificación del rango.'},
+     accion:'Usa ≥ 5 valores de VI bien espaciados. Justifica el rango con valores biológicamente relevantes o bibliografía.'},
+  10:{titulo:'Inconsistencias internas — números distintos en tabla y texto',sev:'crítico',
+      malo:{txt:'Tabla: "Media = 45,3 g" / Texto: "La media (45,8 g) es superior…"',nota:'Dos versiones del mismo dato.'},
+      bien:{txt:'"La media de biomasa del grupo A (45,3 ±3,2 g; n=8; Tabla 2) fue superior (Figura 3)."',nota:'El mismo valor citado con referencia explícita.'},
+      accion:'Antes de entregar: busca cada número en el texto y verifica que coincide exactamente con su tabla y gráfica.'}
+};
+
+// ══ FICHAS DATA ══
+const FICHAS=[
+  {id:'tipos',cat:'Fundamentos',nom:'Tipos de Datos y Variables',sym:'ABC\n/123',ib:true,
+   intro:`Antes de cualquier cálculo estadístico, lo primero es saber <strong>qué tipo de dato tienes</strong>. Esto determina completamente qué operaciones puedes hacer y qué prueba usar.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Algunos datos puedes medirlos con una regla (cuantitativos) y otros solo etiquetarlos (cualitativos). No tiene sentido calcular la "media del color de ojos", pero sí la "media de la altura".</div>`,
+   cuando:'<strong>SIEMPRE.</strong> Es el paso 0 antes de cualquier análisis.',
+   queDice:`<table class="ctable"><tr><th>Tipo</th><th>Qué es</th><th>Ejemplos biológicos (SI)</th><th>Prueba adecuada</th></tr>
+   <tr><td>Cuantitativa continua</td><td>Números con decimales</td><td>Masa (g), temperatura (°C), concentración (mg·mL⁻¹)</td><td>PROMEDIO, DESVEST, PRUEBA.T, ANOVA, PEARSON</td></tr>
+   <tr><td>Cuantitativa discreta</td><td>Enteros, de conteo</td><td>N.º hojas, n.º individuos, n.º burbujas·min⁻¹</td><td>Media o mediana según la distribución; t o ANOVA si es aproximadamente normal; Mann-Whitney si no</td></tr>
+   <tr><td>Cualitativa nominal</td><td>Categorías sin orden</td><td>Color de flor, tipo sanguíneo, presencia/ausencia</td><td>Frecuencias, PRUEBA.CHI2</td></tr>
+   <tr><td>Cualitativa ordinal</td><td>Categorías con orden</td><td>Daño foliar (leve/moderado/grave)</td><td>MEDIANA, frecuencias</td></tr></table>
+   <div class="ialert">⚠️ El n.º de burbujas·min⁻¹ es <strong>discreto</strong> porque siempre es un entero de burbujas. Fíjate en si el valor puede o no tener decimales.</div>`,
+   presenta:'"La VI es la concentración de sustrato (mg·mL⁻¹), cuantitativa continua. La VD es la tasa de reacción (mL O₂·min⁻¹), cuantitativa continua."',
+   formula:null,
+   excel:'=PROMEDIO(rango)  → media (datos continuos)\n=MEDIANA(rango)   → mediana (datos discretos o con outliers)\n=CONTAR(rango)    → n',
+   ejemplo:`<div class="ex-data">Catalasa: concentración H₂O₂ (mg·mL⁻¹) vs volumen O₂ producido (mL)</div>
+   <div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">VI: concentración H₂O₂ → continua → puede ser 0,5; 1,2; 3,7 mg·mL⁻¹</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">VD: volumen O₂ (mL) → continua → ambas continuas → XY Dispersión + PEARSON</div></div></div>`,
+   noUsar:'No uses media o mediana para categorías nominales. No elimines valores extremos sin comprobar y justificar su origen.',
+   ibTip:'Distinguir variables continuas y discretas determina el gráfico y la prueba adecuados. VI categórica → gráfico de barras; VI continua → dispersión XY.',
+   errLinks:[3]},
+
+  {id:'errores',cat:'Fundamentos',nom:'Errores: aleatorios, sistemáticos, precisión y exactitud',sym:'⚠️\nerr',ib:true,
+   intro:`Las medidas nunca son perfectas. Entender los tipos de error es esencial para la sección de evaluación del IA.
+   <div class="fd-intro-analogy"><strong>Analogía de la diana:</strong> Flechas agrupadas pero lejos del centro = <strong>precisos pero inexactos</strong> (error sistemático). Flechas dispersas alrededor del centro = <strong>exactos pero imprecisos</strong> (error aleatorio).</div>`,
+   cuando:'Al <strong>diseñar</strong> (anticipar errores) y en la <strong>evaluación</strong> (identificarlos con impacto en los datos + proponer mejoras concretas).',
+   queDice:`<table class="ctable"><tr><th>Error</th><th>Qué produce</th><th>Cómo afecta</th><th>Cómo se reduce</th></tr>
+   <tr><td>Aleatorio</td><td>Variaciones impredecibles</td><td>s grande. Fluctúan alrededor de la media.</td><td>Aumentando n.</td></tr>
+   <tr><td>Sistemático</td><td>Sesgo constante</td><td>Desplaza TODAS las medidas igual. NO mejora con mayor n.</td><td>Calibrando instrumentos. Mejorando el protocolo.</td></tr></table>
+   <div class="fd-concept"><div class="fd-cr"><span class="lbl">Precisión:</span><span class="val">Datos muy juntos entre sí (s pequeña). Se mide con la desviación típica.</span></div>
+   <div class="fd-cr"><span class="lbl">Exactitud:</span><span class="val">Datos cerca del valor real. Se mide comparando con un valor de referencia conocido.</span></div></div>`,
+   presenta:'"Error aleatorio: variación en el contenido de catalasa entre patatas → tejido homogeneizado. Error sistemático: posible descalibración de la balanza → verificada con masa de referencia de 50,00 g antes de cada sesión."',
+   formula:'Precisión ↑ = s ↓   |   Exactitud ↑ = valor medido → valor real',
+   excel:null,
+   ejemplo:`<div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t"><strong>Error aleatorio:</strong> Tiempo de reacción varía entre ensayos (28 s, 35 s, 31 s…). Solución: aumentar n de 5 a 15.</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t"><strong>Error sistemático:</strong> Cronómetro empieza 0,3 s tarde en cada ensayo. Todos los valores son 0,3 s más cortos. Aumentar n no lo soluciona. Solución: calibrar el cronómetro.</div></div></div>`,
+   noUsar:'Nunca escribas solo "error humano". Especifica qué medición y en qué magnitud se vio afectada.',
+   ibTip:'Una buena limitación: (1) qué ocurrió, (2) cómo afectó a los datos (con números), (3) qué harías diferente.',
+   errLinks:[1,2]},
+
+  {id:'central',cat:'Descriptiva',nom:'Media, Mediana y Moda',sym:'x̄\nMe',ib:true,
+   intro:`Cuando tienes un conjunto de datos, necesitas un número que los represente a todos.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> 7 alumnos: 160, 162, 165, 165, 167, 170, 210 cm. La media (171,3 cm) está distorsionada por el gigante de 210 cm. La <strong>mediana (165 cm)</strong> representa mejor al grupo.</div>`,
+   cuando:'Media y desviación típica describen datos cuantitativos aproximadamente simétricos; mediana e IQR son más resistentes a asimetría y valores extremos. Considera el diseño y el tamaño muestral.',
+   queDice:`<div class="fd-concept"><div class="fd-cr"><span class="lbl">Media (x̄):</span><span class="val">Promedio aritmético; puede verse afectado por asimetría y valores extremos.</span></div>
+   <div class="fd-cr"><span class="lbl">Mediana:</span><span class="val">Valor central ordenado. No se ve afectada por outliers.</span></div>
+   <div class="fd-cr"><span class="lbl">Moda:</span><span class="val">El valor o categoría más frecuente. La coincidencia aproximada entre media, mediana y moda no demuestra normalidad.</span></div></div>
+   <div class="normal-curve"><div style="font-size:11px;color:var(--muted);margin-bottom:5px;">Distribución normal: media = mediana = moda</div><div class="curve-row"><div class="curve-bar" style="height:8px;width:12px;background:#a8d8d4"></div><div class="curve-bar" style="height:18px;width:14px;background:#a8d8d4"></div><div class="curve-bar" style="height:34px;width:16px;background:#4caf6e"></div><div class="curve-bar" style="height:52px;width:18px;background:#4caf6e"></div><div class="curve-bar" style="height:58px;width:20px;background:#2d7a45"></div><div class="curve-bar" style="height:52px;width:18px;background:#4caf6e"></div><div class="curve-bar" style="height:34px;width:16px;background:#4caf6e"></div><div class="curve-bar" style="height:18px;width:14px;background:#a8d8d4"></div><div class="curve-bar" style="height:8px;width:12px;background:#a8d8d4"></div></div></div>
+   <div class="ialert">⚠️ Especifica qué medida presentas y usa una terminología coherente; si el informe está en español, nómbrala como media.</div>`,
+   presenta:'"La longitud media del tallo fue 10,7 cm (n = 7). La similitud de la media y la mediana no basta para afirmar que la distribución sea normal."',
+   formula:'x̄ = Σxᵢ / n\nMediana (n impar): posición (n+1)/2\nMediana (n par): media de los dos centrales',
+   excel:'=PROMEDIO(rango)  → media\n=MEDIANA(rango)   → mediana\n=MODA(rango)      → moda',
+   ejemplo:`<div class="ex-data">Longitud de tallo (cm): 10, 11, 12, 12, 9, 8, 13 (n=7)</div>
+   <div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">Media: (10+11+12+12+9+8+13)/7 = <strong>10,7 cm</strong></div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">Ordenamos: 8,9,10,<u>11</u>,12,12,13 → Mediana = <strong>11 cm</strong></div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">Moda = 12 cm (aparece 2 veces)</div></div>
+   <div class="step-it"><div class="step-n">4</div><div class="step-t">Que las medidas de centro sean parecidas no demuestra normalidad. Examina la distribución y los supuestos antes de elegir una prueba.</div></div></div>`,
+   noUsar:'No uses media con outliers. La moda no es fiable con n pequeño.',
+   ibTip:'Compara medidas de centro como una pista descriptiva, no como prueba de normalidad. Examina la distribución y los supuestos de la prueba elegida; ningún resumen aislado los demuestra.',
+   errLinks:[4]},
+
+  {id:'dispersion',cat:'Descriptiva',nom:'Desviación típica (s) y Rango',sym:'±s\nR',ib:true,
+   intro:`La media no basta. Necesitas saber cuánto varían los datos.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Dos grupos de plantas con la misma media (15 cm). Grupo A: 14–16 cm. Grupo B: 5–25 cm. La desviación típica los diferencia.</div>`,
+   cuando:'La desviación típica resume la variabilidad de observaciones cuantitativas; el rango intercuartílico resume la dispersión central y es resistente a valores extremos. Con muestras pequeñas, muestra también los datos individuales.',
+   queDice:`<div class="fd-concept"><div class="fd-cr"><span class="lbl">s (Desv. típica):</span><span class="val">Resume la dispersión de las observaciones respecto a la media, en las mismas unidades que la variable. Interprétala según el contexto y junto a los datos; no hay un umbral universal s/media que defina precisión.</span></div>
+   <div class="fd-cr"><span class="lbl">Rango:</span><span class="val">Diferencia entre máximo y mínimo. Un outlier puede distorsionarlo.</span></div></div>
+   <div class="normal-curve"><div style="font-size:11px;color:var(--muted);margin-bottom:4px;">% de datos dentro de cada intervalo</div><div class="sd-ruler"><div class="sd-seg" style="background:#c0392b;font-size:10px">2,1%</div><div class="sd-seg" style="background:#e07020">13,6%</div><div class="sd-seg" style="background:#4caf6e">34,1%</div><div class="sd-seg" style="background:#2d7a45">34,1%</div><div class="sd-seg" style="background:#4caf6e">13,6%</div><div class="sd-seg" style="background:#e07020;font-size:10px">2,1%</div></div><div style="display:flex;font-size:10px;color:var(--muted);justify-content:space-around;margin-top:2px"><span>−2s</span><span>−1s</span><span>x̄</span><span>+1s</span><span>+2s</span></div><div style="font-size:11px;color:var(--green);text-align:center;margin-top:4px">68,3 % dentro de ±1s &nbsp;|&nbsp; 95,4 % dentro de ±2s</div></div>
+   <div class="ialert">⚠️ Usa siempre <strong>DESVEST</strong> (divide entre n−1, muestral). <strong>NUNCA DESVESTP</strong>.</div>`,
+   presenta:'"Media = 5,0 mL; s = 0,24 mL; n = 8. Interpreto la dispersión en relación con el patrón y el diseño de la investigación."',
+   formula:'s = √[ Σ(xᵢ – x̄)² / (n–1) ]\nRango = MAX(datos) − MIN(datos)',
+   excel:'=DESVEST(rango)    → desviación típica muestral (÷n−1)\n=DESVESTP(rango)   → desviación típica poblacional (÷n)\nElige según si tus datos son una muestra o la población completa definida.\n=MAX(r)−MIN(r)     → rango',
+   ejemplo:`<div class="ex-data">10, 11, 12, 12, 9, 8, 13 (x̄ = 10,7 cm)</div>
+   <div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">Suma de diferencias al cuadrado = 19,43</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">19,43 / (7−1) = 3,24 (varianza)</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">s = √3,24 = <strong>1,8 cm</strong> | Rango = 13−8 = <strong>5 cm</strong></div></div>
+   <div class="step-it"><div class="step-n">4</div><div class="step-t">s = 1,8 en las unidades de la variable: interpreta esta dispersión comparándola con el patrón biológico y el diseño, no con un corte porcentual fijo.</div></div></div>`,
+   noUsar:'No confundas la desviación típica muestral con la poblacional. No la presentes como incertidumbre de la media.',
+   ibTip:'Indica qué medida de dispersión reportas, n y las unidades. Justifica por qué representa tus datos y relaciona su variabilidad con las limitaciones del diseño.',
+   errLinks:[1]},
+
+  {id:'sem',cat:'Descriptiva',nom:'Error típico (SEM) e IC 95 %',sym:'SEM\nIC',ib:true,
+   intro:`La desviación típica describe la variación de los datos individuales. El SEM estima la variabilidad de la media entre muestras repetidas y un intervalo de confianza cuantifica su incertidumbre bajo los supuestos del método.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Mides 10 Daphnia: x̄ = 1,2 mm. Si cogieras otras 10, obtendrías quizás 1,15 mm. El SEM te dice cuánto varía esa media de muestra en muestra.</div>`,
+   cuando:'Usa un intervalo de confianza para expresar la incertidumbre de una estimación. El solapamiento de intervalos no sustituye una comparación estadística directa entre grupos.',
+   queDice:`<div class="fd-concept">   <div class="fd-cr"><span class="lbl">SEM:</span><span class="val">Error estándar de la media; estima cuánto variaría la media muestral entre muestras bajo el modelo.</span></div>
+   <div class="fd-cr"><span class="lbl">IC 95 %:</span><span class="val">Intervalo calculado con un método que, si se repitiera muchas veces bajo sus supuestos, contendría la media poblacional en aproximadamente el 95 % de las muestras.</span></div></div>
+   <div class="itip">💡 La s describe variabilidad de datos individuales; SEM e IC describen incertidumbre de la media. Elige y etiqueta las barras de error según qué quieras comunicar; no hay una opción automáticamente correcta para todo gráfico.</div>`,
+   presenta:'"SEM = 0,245/√8 = 0,087 mL. Margen del IC 95 % (t con 7 gl) = 0,20 mL. Media = 5,0 mL; IC 95 % ≈ [4,7; 5,2] mL (n = 8)."',
+   formula:'SEM = s / √n\nIC 95 % t = x̄ ± t* × s / √n\n(t*: cuantil t con n−1 grados de libertad)',
+   excel:'=DESVEST(r)/RAIZ(CONTAR(r))                         → SEM\n=INV.T.2C(0,05;CONTAR(r)-1)*DESVEST(r)/RAIZ(CONTAR(r)) → margen IC 95 % t\n\nO si ya tienes s en B3 y n en B4:\n=B3/RAIZ(B4)                                      → SEM\n=INV.T.2C(0,05;B4-1)*B3/RAIZ(B4)                  → margen IC 95 % t',
+   ejemplo:`<div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">Grupo A: x̄ = 9,6 mm; s = 4,20 mm; n = 10 → SEM = 4,20/√10 = <strong>1,33 mm</strong> → margen t (gl = 9) ≈ <strong>3,00 mm</strong> → IC 95 % [6,60; 12,60 mm]</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">Grupo B: x̄ = 18,4 mm; s = 3,32 mm; n = 10 → SEM ≈ 1,05 mm → margen t (gl = 9) ≈ 2,38 mm → IC 95 % [16,02; 20,78 mm]</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">Los intervalos describen incertidumbre de cada media. Para evaluar diferencias entre grupos, aplica la prueba adecuada al diseño y sus supuestos; no decidas por el solapamiento visual.</div></div></div>`,
+   noUsar:'No confundas SEM con s en la leyenda ni uses el solapamiento de IC como prueba de hipótesis.',
+   ibTip:'Si incluyes barras de error, especifica en la leyenda qué representan (s, SEM o IC), el tamaño muestral y las unidades pertinentes.',
+   errLinks:[1]},
+
+  {id:'graficas',cat:'Presentación',nom:'Tipos de Gráficos y Barras de Error',sym:'📊\ngraf',ib:true,
+   intro:`Elegir el tipo incorrecto resta claridad y precisión al análisis.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Usar un gráfico de líneas para comparar la altura media en tres grupos es como usar un mapa de carreteras para navegar por el mar.</div>`,
+   cuando:'VI categórica → barras. Ambas continuas → XY Dispersión. VI tiempo → líneas.',
+   queDice:`<table class="ctable"><tr><th>VI</th><th>VD</th><th>Gráfico</th></tr>
+   <tr><td>Categórica</td><td>Continua</td><td>Barras + barras de error</td></tr>
+   <tr><td>Continua</td><td>Continua</td><td>XY Dispersión + tendencia</td></tr>
+   <tr><td>Tiempo</td><td>Continua</td><td>Líneas con puntos</td></tr>
+   <tr><td>Categórica</td><td>Frecuencias</td><td>Barras (sin error bars)</td></tr></table>
+   <div class="ialert">⚠️ NUNCA uses "Gráfico de líneas" del menú para correlaciones entre variables continuas. Excel las conecta por orden de fila, no por valor. Usa siempre <strong>"XY (Dispersión)"</strong>.</div>`,
+   presenta:'"Gráfico de barras con barras de error (±1 s; n = 8). Eje X: temperatura (°C); Eje Y: volumen de O₂ (mL)."',
+   formula:null,
+   excel:'XY Dispersión: Insertar → XY (Dispersión) → Solo marcadores\nBarras personalizadas: "+" → Barras de error → Personalizada → selecciona rango de s\nLínea de tendencia: clic derecho → Agregar → Lineal → activar ecuación y R²',
+   ejemplo:`<div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">VI = temperatura (°C) con 5 niveles → gráfico de barras + barras de error ±s</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">VI = concentración H₂O₂ (continua), VD = velocidad (continua) → XY Dispersión + tendencia</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">Leyenda al pie: "Barras de error = ±1 s; n = 8"</div></div></div>`,
+   noUsar:'No uses 3D ni fondos con gradiente. No omitas unidades en los ejes.',
+   ibTip:'Checklist: ① título ② eje X+unidades ③ eje Y+unidades ④ barras de error ⑤ leyenda ⑥ si correlación: tendencia + R².',
+   errLinks:[10]},
+
+  {id:'ttest',cat:'Comparación',nom:'PRUEBA.T — t de Student (no pareada)',sym:'t-test',ib:true,
+   intro:`Tienes dos grupos y sus medias parecen diferentes. ¿Es esa diferencia real o podría deberse al azar?
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Lanzas una moneda 10 veces y obtienes 7 caras. ¿Está trucada o fue suerte? PRUEBA.T hace ese razonamiento con medias biológicas.</div>`,
+   cuando:'Dos grupos independientes con respuesta cuantitativa. Comprueba independencia, valores extremos y si la distribución es razonable para el tamaño muestral; no existe un umbral universal de n que valide por sí solo la prueba.',
+   queDice:`<div class="fd-concept"><div class="fd-cr"><span class="lbl">Valor p:</span><span class="val">Suponiendo H₀, probabilidad de observar un resultado tan extremo como el obtenido o más.</span></div>
+   <div class="fd-cr"><span class="lbl">α:</span><span class="val">Nivel de significación fijado antes del análisis. Si p &lt; α, hay evidencia contra H₀ al nivel elegido; no equivale a importancia biológica.</span></div>
+   <div class="fd-cr"><span class="lbl">gl:</span><span class="val">Dependen de la variante: para Student con varianzas iguales, n₁ + n₂ − 2; Welch estima los grados de libertad y la hoja de cálculo puede devolverlos.</span></div></div>
+   <div class="irules"><div class="irules-t">5 pasos del análisis estadístico IB</div>
+   <div class="irule"><span class="dot">1.</span><span>Enuncia H₀: "No existe diferencia significativa entre los grupos"</span></div>
+   <div class="irule"><span class="dot">2.</span><span>Enuncia H₁: "Existe diferencia significativa entre los grupos"</span></div>
+   <div class="irule"><span class="dot">3.</span><span>Justifica el diseño, la independencia y los supuestos; si no justificas varianzas iguales, considera Welch</span></div>
+   <div class="irule"><span class="dot">4.</span><span>=PRUEBA.T(grupo1;grupo2;2;3) → p para Welch; usa tipo 2 solo si justificas varianzas iguales</span></div>
+   <div class="irule"><span class="dot">5.</span><span>Compara p con el α elegido. Si p ≥ α, no hay evidencia suficiente para rechazar H₀; no significa que H₀ esté demostrada.</span></div>
+   </div>`,
+   presenta:'"PRUEBA.T no reveló diferencia significativa en la longitud [p = 0,079; gl = 18; α = 0,05]. No hay evidencia suficiente para rechazar H₀."',
+   formula:'Welch: t = (x̄₁ – x̄₂) / √(s₁²/n₁ + s₂²/n₂)\nLos grados de libertad se estiman (Welch–Satterthwaite); informa la variante utilizada.',
+   excel:'=PRUEBA.T(rango1;rango2;2;3)  → Welch (bilateral, independiente)\nUsa tipo 2 únicamente si justificas varianzas iguales.\nResultado: valor p; consulta la salida para los grados de libertad.',
+   ejemplo:`<div class="ex-data">Grupo A: 27,20,16,18,22,19,23,21,17,19 cm (x̄=20,2) | Grupo B: 28,19,18,21,24,25,20,27,21,29 cm (x̄=23,2)</div>
+   <div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">H₀: No existe diferencia significativa entre grupos A y B.</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">=PRUEBA.T(A2:A11;B2:B11;2;2) → <strong>p = 0,079</strong></div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">p = 0,079 ≥ α = 0,05 → no hay evidencia suficiente para rechazar H₀. Esto no prueba que las medias sean iguales ni permite atribuir la diferencia al azar.</div></div></div>`,
+   noUsar:'Con 3+ grupos → ANOVA. Con mismo individuo → versión pareada. VD no continua → PRUEBA.CHI2.',
+   ibTip:'Explicita H₀ y H₁, justifica el tipo de prueba y comunica p, α, grados de libertad según el método y una conclusión biológica. Nunca presentes un resultado no significativo como prueba de igualdad.',
+   errLinks:[5,9]},
+
+  {id:'tpareada',cat:'Comparación',nom:'PRUEBA.T (pareada)',sym:'t-par',ib:false,
+   intro:`Para cuando las dos mediciones provienen del <strong>mismo individuo</strong> en dos condiciones. Al comparar el mismo individuo consigo mismo, eliminamos la variabilidad entre individuos.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Para saber si un medicamento reduce la presión, es más informativo medir al MISMO paciente antes y después que comparar dos grupos distintos.</div>`,
+   cuando:'El <strong>mismo individuo</strong> está medido en dos condiciones (antes/después, izquierda/derecha) y el emparejamiento tiene justificación biológica.',
+   queDice:`<table class="ctable"><tr><th>Situación</th><th>Versión</th></tr>
+   <tr><td>Ala izquierda vs derecha del MISMO pinzón</td><td>Pareada (parámetro 1)</td></tr>
+   <tr><td>Glucemia MISMO paciente antes/después del tratamiento</td><td>Pareada (parámetro 1)</td></tr>
+   <tr><td>Daphnia en tanques CON vs SIN plantas (distintos tanques)</td><td>No pareada (parámetro 2)</td></tr></table>`,
+   presenta:'"PRUEBA.T pareada [p = 0,003; gl = 14; α = 0,05]. No se puede mantener H₀."',
+   formula:'t = d̄ / (sd / √n)   donde d = diferencia por par\ngl = n − 1',
+   excel:'=PRUEBA.T(rango1;rango2;2;1)\n                      ↑\n              1 = pareada',
+   ejemplo:`<div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">Longitud ala izquierda y derecha del MISMO pinzón → pareada.</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">=PRUEBA.T(A2:A9;B2:B9;2;1) → <strong>p = 0,04</strong> &lt; 0,05 → no se puede mantener H₀.</div></div></div>`,
+   noUsar:'No uses t pareada con grupos independientes.',
+   ibTip:'Justifica explícitamente por qué usas la versión pareada. El último parámetro: 1 = pareada, 2 = no pareada.',
+   errLinks:[5]},
+
+  {id:'mannwhitney',cat:'Comparación',nom:'U de Mann-Whitney (y Wilcoxon)',sym:'U',ib:true,
+   intro:`Cuando quieres comparar <strong>dos grupos</strong> pero tus datos no se parecen a una distribución normal (muy asimétricos, con valores extremos u ordinales), la t de Student puede dar resultados engañosos. La U de Mann-Whitney compara los grupos usando el <strong>orden (rango)</strong> de los datos, no sus valores exactos.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> en lugar de comparar las notas medias de dos clases, pones a todos los alumnos en una sola fila ordenada y miras si los de una clase tienden a quedar delante.</div>`,
+   cuando:'Dos grupos <strong>independientes</strong> con datos no normales, ordinales o con valores extremos, sobre todo con muestras pequeñas. Para dos medidas <strong>emparejadas</strong>, usa su equivalente: la prueba de rangos con signo de Wilcoxon.',
+   queDice:`<table class="ctable"><tr><th>Resultado</th><th>Interpretación</th></tr>
+   <tr><td>p &lt; α</td><td>Hay evidencia de que los valores de un grupo tienden a ser mayores que los del otro.</td></tr>
+   <tr><td>p ≥ α</td><td>No hay evidencia suficiente para rechazar H₀ (no demuestra que los grupos sean iguales).</td></tr></table>
+   <div class="ialert">⚠️ Describe los grupos con <strong>mediana y rango intercuartílico</strong>, no con media y s.</div>`,
+   presenta:'"La longitud de la raíz fue mayor con 0 mmol·dm⁻³ de NaCl (mediana = 42 mm; RIC = 8 mm; n = 8) que con 100 mmol·dm⁻³ (mediana = 25 mm; RIC = 11 mm; n = 8) [U de Mann-Whitney, U = 6; p &lt; 0,01; α = 0,05]."',
+   formula:'U₁ = n₁·n₂ + n₁(n₁+1)/2 − R₁\nU = mín(U₁, U₂)\n(R₁: suma de rangos del grupo 1)',
+   excel:'=JERARQUIA.MEDIA(valor;rango_total;1) → rango de cada dato\n=SUMAR.SI(rango_grupo;"A";rango_rangos) → R₁\nExcel no trae la prueba U: compara U con la tabla de valores críticos\no usa una herramienta estadística aprobada.',
+   ejemplo:`<div class="ex-data">Longitud de la raíz (mm) de plántulas regadas con agua (A) o con NaCl 100 mmol·dm⁻³ (B), n = 4 por grupo.<br>A: 40, 44, 38, 47 · B: 26, 21, 30, 39</div>
+   <div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">Rangos de todos juntos (de menor a mayor): 21→1, 26→2, 30→3, 38→4, 39→5, 40→6, 44→7, 47→8</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">R(A) = 4 + 6 + 7 + 8 = 25 → U(A) = 4·4 + 4·5/2 − 25 = 1; U(B) = 16 − 1 = 15 → U = 1</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">Valor crítico bilateral para n₁ = n₂ = 4 y α = 0,05: U = 0. Como 1 &gt; 0, no se rechaza H₀: con solo 4 datos por grupo la prueba tiene muy poca potencia.</div></div></div>`,
+   noUsar:'No la uses para más de dos grupos (usa Kruskal-Wallis) ni con medidas emparejadas (usa Wilcoxon). No la elijas solo por obtener un p menor que con la t.',
+   ibTip:'Justifica la elección por el tipo de dato y la forma de la distribución (histograma o diagrama de caja), no solo por una prueba de normalidad.'},
+  {id:'anova',cat:'Comparación',nom:'ANOVA — Análisis de Varianza',sym:'ANOVA',ib:true,
+   intro:`Con más de 2 grupos, múltiples pruebas t elevan el riesgo de falsos positivos. Por ejemplo, 10 contrastes independientes con α = 0,05 tendrían una probabilidad conjunta de al menos un falso positivo de aproximadamente el 40 %.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Repetir contrastes sin controlar las comparaciones múltiples aumenta el riesgo de declarar una diferencia que no existe en la población.</div>`,
+   cuando:'Tres o más grupos independientes con respuesta cuantitativa. Comprueba si el diseño, la distribución y la variabilidad permiten aplicar ANOVA; no hay un número mínimo universal que garantice por sí solo sus supuestos.',
+   queDice:`<div class="fd-concept"><div class="fd-cr"><span class="lbl">F:</span><span class="val">Varianza entre grupos / varianza dentro de grupos. F grande → diferencias entre grupos mayores que la variabilidad natural.</span></div>
+   <div class="fd-cr"><span class="lbl">Limitación:</span><span class="val">ANOVA detecta QUE existe diferencia, pero NO entre cuáles grupos. Para eso: test post-hoc <strong>Tukey</strong>.</span></div></div>
+   <div class="ialert">⚠️ ANOVA en Excel requiere: Archivo → Opciones → Complementos → "Herramientas para análisis" → Aceptar. En Sheets: instala "XLMiner Analysis ToolPak" o usa vassarstats.net.</div>`,
+   presenta:'"ANOVA de un factor: diferencias significativas en el área de musgo [F(3,56) = 13,43; p = 0,0001; α = 0,05]. No se puede mantener H₀."',
+   formula:'F = varianza entre grupos / varianza dentro de grupos\ngl entre = k − 1 (k = n.º grupos)\ngl dentro = N − k (N = total datos)',
+   excel:'Datos → Análisis de datos → "Análisis de varianza de un factor"\n• Rango de entrada: todos los datos con encabezados\n• Rótulos en la primera fila: ✓\n• Alfa: 0,05 → Aceptar\nResultado: F, Probabilidad (=p) y F crítico',
+   ejemplo:`<div class="ex-data">Musgo (cm²) en 4 orientaciones: Norte x̄=1713 | Sur x̄=1333 | Este x̄=1091 | Oeste x̄=930</div>
+   <div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">H₀: No hay diferencia significativa en el crecimiento entre las cuatro orientaciones.</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">ANOVA → F(3,56) = 13,43; <strong>p = 0,0001</strong> &lt;&lt; 0,05 → no se puede mantener H₀.</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">ANOVA no indica entre cuáles orientaciones. → Test Tukey post-hoc.</div></div></div>`,
+   noUsar:'No hagas múltiples PRUEBA.T en lugar de ANOVA con 3+ grupos.',
+   ibTip:'Justifica: "Para evitar error acumulado de tipo I al hacer múltiples comparaciones, se aplicó ANOVA de un factor."',
+   errLinks:[5,9]},
+
+  {id:'chi2',cat:'Comparación',nom:'PRUEBA.CHI2 — Chi-cuadrado (χ²)',sym:'χ²',ib:true,
+   intro:`Las pruebas anteriores son para datos cuantitativos. Para recuentos de categorías usamos chi-cuadrado.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Lanzas una moneda 100 veces: 60 caras, 40 cruces. Esperabas 50 y 50. ¿Es significativa esa desviación? Chi-cuadrado responde exactamente eso.</div>`,
+   cuando:'Datos de <strong>frecuencias o recuentos de categorías</strong>. ① Bondad de ajuste: comparar con una proporción teórica. ② Independencia: dos variables categóricas. Antes de usar la aproximación, comprueba las frecuencias esperadas; si son pequeñas, consulta una alternativa adecuada.',
+   queDice:`<div class="fd-concept"><div class="fd-cr"><span class="lbl">Observados (O):</span><span class="val">Los recuentos reales de tu experimento.</span></div>
+   <div class="fd-cr"><span class="lbl">Esperados (E):</span><span class="val">Bondad: E = n total × proporción. Independencia: E = (Σfila × Σcol) / n total.</span></div></div>`,
+   presenta:'"Datos compatibles con la proporción 3:1 [χ²(1) = 0,90; p = 0,342; α = 0,05]. No hay evidencia suficiente para rechazar H₀."',
+   formula:'χ² = Σ[ (O − E)² / E ]\ngl (bondad) = n.º categorías − 1\ngl (independencia) = (filas−1) × (columnas−1)',
+   excel:'Paso 1 — Esperados: =TOTAL*PROPORCION (p.ej. =B5*(3/4))\nPaso 2 — p valor: =PRUEBA.CHI2(rango_obs;rango_esp)',
+   ejemplo:`<div class="ex-data">737 amarillas y 263 verdes (n=1000). Esperado 3:1 → 750 y 250.</div>
+   <div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">H₀: No hay diferencia entre observados y esperados 3:1.</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">χ² = (737−750)²/750 + (263−250)²/250 = 0,225 + 0,676 = 0,90</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">=PRUEBA.CHI2(B2:B3;C2:C3) → <strong>p = 0,342</strong> &gt; 0,05 → no se puede rechazar H₀ → datos compatibles con 3:1 ✓</div></div></div>`,
+   noUsar:'No usar con mediciones continuas. Calcula a partir de frecuencias absolutas; no agrupes categorías solo para elevar los valores esperados si el agrupamiento no tiene justificación biológica.',
+   ibTip:'Distingue bondad de ajuste (comparación con una distribución teórica) de independencia (asociación entre dos variables categóricas) e informa cómo comprobaste la validez de la aproximación.',
+   errLinks:[5]},
+
+  {id:'pearson',cat:'Relación',nom:'PEARSON — Correlación (r) y R²',sym:'r/R²',ib:true,
+   intro:`¿Los tomates más pesados tienden a tener más semillas? ¿Hay una asociación entre temperatura y velocidad enzimática?
+   <div class="fd-intro-analogy"><strong>Analogía visual:</strong> Dibuja puntos en una gráfica XY. Si suben de izquierda a derecha, la asociación lineal es positiva; si bajan, negativa. Busca curvatura y puntos influyentes antes de resumir la relación con Pearson.</div>`,
+   cuando:'Dos variables cuantitativas emparejadas para cada unidad de muestreo y una relación aproximadamente lineal sin puntos influyentes dominantes. Spearman puede ser adecuado para una asociación monotónica basada en rangos. El tamaño muestral afecta la incertidumbre; no hay un corte universal de n que garantice validez.',
+   queDice:`<div class="fd-concept"><div class="fd-cr"><span class="lbl">r:</span><span class="val">Va de −1 a +1 y resume dirección y fuerza de la asociación lineal en la muestra. r = 0 indica ausencia de asociación lineal, pero puede haber una relación no lineal.</span></div>
+   <div class="fd-cr"><span class="lbl">Magnitud:</span><span class="val">Describe el coeficiente en el contexto y con cautela; no hay umbrales universales de “débil”, “moderada” o “fuerte”.</span></div>
+   <div class="fd-cr"><span class="lbl">R²:</span><span class="val">En una regresión lineal simple, proporción de variación observada de Y asociada al ajuste lineal con X; no es porcentaje de causalidad.</span></div></div>
+   <div class="irules"><div class="irules-t">¿Cómo saber si r es significativo?</div>
+   <div class="irule"><span class="dot">1.</span><span>gl = n pares − 2</span></div>
+   <div class="irule"><span class="dot">2.</span><span>Evalúa r con el contraste o intervalo apropiado y comunica el método y sus supuestos</span></div>
+   <div class="irule"><span class="dot">3.</span><span>Si p &lt; α, hay evidencia de asociación en la población bajo los supuestos del contraste; esto no establece causalidad</span></div>
+   <div class="irule"><span class="dot">Ej.</span><span>Para r = 0,904 y gl = 8, comunica el coeficiente y la inferencia del contraste junto con sus supuestos; interpreta también el contexto y la causalidad con cautela.</span></div></div>
+   <div class="ialert">⚠️ <strong>Correlación ≠ causalidad.</strong> r = 0,90 entre consumo de helados y ahogamientos no implica que los helados causen ahogamientos (ambos suben en verano).</div>`,
+   presenta:'"Se observó una asociación lineal positiva [r = 0,904; gl = 8; R² = 0,817; p &lt; 0,05]. Describe su relevancia biológica y recuerda que la correlación no demuestra causalidad."',
+   formula:'r = PEARSON(X;Y)\nR² = r² → =PEARSON(...)^2\ngl = n pares − 2',
+   excel:'=PEARSON(rango_X;rango_Y)      → r\n=PEARSON(rX;rY)^2              → R²\nSheets: =COEF.DE.CORREL(rX;rY)\n\nGráfico: Insertar XY Dispersión → clic derecho → Tendencia → Lineal → activar ecuación y R²',
+   ejemplo:`<div class="ex-data">Masa tomate (g): 77,5|81,2|75,9|78,1|77,1|76,3|75,7|82,3|78,9|77,3<br>N.º semillas:    20 | 26 | 22 | 22 | 18 | 20 | 18 | 30 | 24 | 20</div>
+   <div class="step-lst">   <div class="step-it"><div class="step-n">1</div><div class="step-t">H₀: la correlación lineal poblacional es cero (ρ = 0); esto no descarta una asociación no lineal.</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">=PEARSON(A2:A11;B2:B11) → <strong>r = 0,904</strong> | R² = 0,817</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">Evalúa la incertidumbre de r con el contraste adecuado y reporta su resultado; no concluyas causalidad a partir de la asociación.</div></div>
+   <div class="step-it"><div class="step-n">4</div><div class="step-t">R² = 0,817 → en estos datos, el ajuste lineal se asocia con el 81,7 % de la variación observada en el número de semillas; no implica que la masa cause ese porcentaje.</div></div></div>`,
+   noUsar:'No elijas Spearman solo por una prueba de normalidad: examina primero la forma de la relación, los rangos y los valores influyentes. Nunca afirmes causalidad basándote solo en r o R².',
+   ibTip:'Acompaña la asociación con un gráfico XY. Interpreta r, R² y sus límites en lenguaje biológico y con unidades SI; evita umbrales universales de magnitud.',
+   errLinks:[5,6]},
+
+  {id:'regresion',cat:'Relación',nom:'Recta de Regresión Lineal (ŷ = mx + c)',sym:'ŷ=mx+c',ib:true,
+   intro:`La regresión describe matemáticamente una tendencia entre variables y puede apoyar predicciones dentro del rango estudiado; no requiere presentar primero una prueba de correlación como “confirmación”.
+   <div class="fd-intro-analogy"><strong>Analogía:</strong> Si temperatura y velocidad enzimática correlacionan, la recta de regresión predice: "a 35 °C, la velocidad será aproximadamente X mL·min⁻¹".</div>`,
+   cuando:'La pregunta requiere describir o modelar una tendencia entre variables y el patrón observado es aproximadamente lineal. Para interpretar causalidad se necesita además un diseño que la sustente.',
+   queDice:`<div class="fd-concept"><div class="fd-cr"><span class="lbl">m (pendiente):</span><span class="val">Cuánto cambia Y por cada unidad de X. m = −0,85 cm/°C → por cada °C que sube la T, el tallo disminuye 0,85 cm.</span></div>
+   <div class="fd-cr"><span class="lbl">R²:</span><span class="val">Proporción de variación observada que recoge el ajuste lineal en estos datos; no es porcentaje de causalidad.</span></div></div>
+   <div class="iok">✅ En Excel/Sheets: XY Dispersión → clic derecho → Agregar tendencia → Lineal → activar "Presentar ecuación" y "Presentar R²".</div>`,
+   presenta:'"ŷ = −0,85x + 19,5 (R² = 0,93): en el rango estudiado, el modelo lineal recoge el 93 % de la variación observada en la longitud. La pendiente describe una asociación, no establece por sí sola causalidad."',
+   formula:'ŷ = mx + c\n=PENDIENTE(Y;X)         → m\n=INTERSECCION.EJE(Y;X)  → c',
+   excel:'Método recomendado (gráfico):\n1. XY Dispersión → Solo marcadores\n2. Clic derecho → Agregar tendencia → Lineal\n3. ✓ "Presentar ecuación" y ✓ "Presentar R²"\n→ ŷ = mx + c y R² aparecen automáticamente',
+   ejemplo:`<div class="step-lst"><div class="step-it"><div class="step-n">1</div><div class="step-t">m = −0,85 cm·°C⁻¹: relación inversa. Por cada °C ↑, longitud ↓ 0,85 cm.</div></div>
+   <div class="step-it"><div class="step-n">2</div><div class="step-t">R² = 0,93: el ajuste lineal recoge el 93 % de la variación observada en este conjunto, bajo el modelo.</div></div>
+   <div class="step-it"><div class="step-n">3</div><div class="step-t">Predicción a 15 °C: ŷ = (−0,85×15) + 19,5 = <strong>6,75 cm</strong>. Solo válido dentro del rango experimental.</div></div></div>`,
+   noUsar:'No uses la recta para predecir fuera del rango (extrapolación no fiable). R² alto no confirma causalidad.',
+   ibTip:'Interpreta SIEMPRE la pendiente con unidades SI: "por cada °C de aumento, Y disminuye 0,85 cm". Nunca "la pendiente es negativa".',
+   errLinks:[6,8]},
+];
+// ══ FICHAS RENDER ══
+function renderFichasList(){
+  const cats=['Todas',...Object.keys(CAT)];
+  document.getElementById('filter-row').innerHTML=cats.map(c=>{
+    const a=c===activeCat;const st=a&&CAT[c]?`style="background:${CAT[c].bg};border-color:${CAT[c].c};color:${CAT[c].c}"`:'';
+    return `<button class="f-btn ${a?'active':''}" onclick="setCat('${c}')" ${st}>${c}</button>`;
+  }).join('');
+  const list=activeCat==='Todas'?FICHAS:FICHAS.filter(f=>f.cat===activeCat);
+  document.getElementById('fichas-grid').innerHTML=list.map(f=>{
+    const c=cc(f.cat);
+    return `<div class="ficha-row" onclick="showFicha('${f.id}')"
+      onmouseover="this.style.borderColor='${c.c}';this.style.background='${c.bg}'"
+      onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--surface)'">
+      <div class="f-icon" style="background:${c.bg};border:1px solid ${c.bd};color:${c.c};white-space:pre-line">${f.sym}</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:2px">
+          <span class="f-name">${f.nom}</span>
+          ${f.ib?'<span class="ib-tag">⭐ IB 2025</span>':''}
+          <span class="badge" style="background:${c.bg};color:${c.c};border:1px solid ${c.bd}">${f.cat}</span>
+        </div>
+        <div class="f-prev">${f.cuando.replace(/<[^>]+>/g,'').substring(0,82)}…</div>
+      </div>
+      <span style="color:var(--dim);font-size:14px">→</span>
+    </div>`;
+  }).join('');
+}
+function setCat(c){activeCat=c;renderFichasList();}
+
+function showFicha(id){
+  const f=FICHAS.find(x=>x.id===id);const c=cc(f.cat);
+  document.getElementById('fichas-list').style.display='none';
+  const d=document.getElementById('ficha-detail');d.style.display='block';
+  d.innerHTML=`<button class="btn" style="margin-bottom:14px" onclick="hideFicha()">← Volver a fichas</button>
+  <div style="background:var(--surface);border:1.5px solid ${c.bd};border-radius:13px;padding:17px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
+    <div style="display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:13px">
+      <div class="f-icon" style="width:46px;height:46px;background:${c.bg};border:1px solid ${c.bd};color:${c.c};font-size:11px;white-space:pre-line">${f.sym}</div>
+      <div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px">
+          <span class="badge" style="background:${c.bg};color:${c.c};border:1px solid ${c.bd}">${f.cat}</span>
+          ${f.ib?'<span class="ib-tag">⭐ Obligatorio IB 2025</span>':''}
+        </div>
+        <div style="font-family:'Source Serif 4',serif;font-size:17px;font-weight:700;color:var(--text)">${f.nom}</div>
+      </div>
+    </div>
+    ${f.intro?`<div class="fd-intro"><div class="fd-intro-lbl">🧠 ¿Qué es y para qué sirve?</div><div class="fd-intro-txt">${f.intro}</div></div>`:''}
+    <div class="fd-blk" style="background:#f0f8ff;border-left-color:var(--blue)">
+      <div class="fd-blk-lbl" style="color:var(--blue)">🕐 ¿CUÁNDO LA USO?</div>
+      <div class="fd-blk-body">${f.cuando}</div>
+    </div>
+    <div class="fd-blk" style="background:var(--amberbg);border-left-color:var(--amber)">
+      <div class="fd-blk-lbl" style="color:var(--amber)">💡 ¿QUÉ CALCULA Y CÓMO SE INTERPRETA?</div>
+      <div class="fd-blk-body">${f.queDice}</div>
+      ${f.formula?`<div class="formula-box">${f.formula.replace(/\n/g,'<br>')}</div>`:''}
+      ${f.excel?`<div class="excel-box"><div class="ex-lbl">📊 Funciones Excel / Sheets en español</div><code>${f.excel.replace(/\n/g,'<br>')}</code></div>`:''}
+    </div>
+    ${f.ejemplo?`<div class="fd-blk" style="background:var(--bluebg);border-left-color:var(--blue)">
+      <div class="fd-blk-lbl" style="color:var(--blue)">📌 EJEMPLO RESUELTO PASO A PASO</div>
+      <div class="fd-blk-body">${f.ejemplo}</div>
+    </div>`:''}
+    <div class="fd-blk" style="background:var(--glight);border-left-color:var(--green)">
+      <div class="fd-blk-lbl" style="color:var(--green)">✍️ ¿CÓMO LO REDACTO EN EL IA?</div>
+      <div class="fd-blk-body"><div class="fd-quote">${f.presenta||'Ver el ejemplo resuelto arriba.'}</div></div>
+    </div>
+  </div>
+  <div class="fd-grid2">
+    <div class="fd-tip" style="border-color:var(--redbd)"><div class="fd-tip-lbl" style="color:var(--red)">⛔ ERRORES / CUÁNDO NO USAR</div><div class="fd-tip-body">${f.noUsar}</div></div>
+    <div class="fd-tip" style="border-color:var(--amberbd)"><div class="fd-tip-lbl" style="color:var(--amber)">🎯 TIP ESPECÍFICO IB 2025</div><div class="fd-tip-body">${f.ibTip}</div></div>
+  </div>
+  ${(f.errLinks&&f.errLinks.length)?`
+  <div style="margin-top:12px">
+    <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:7px;">⚠️ ERRORES FRECUENTES AL USAR ESTA HERRAMIENTA</div>
+    ${f.errLinks.map(eid=>{const e=ERRORES_MAP[eid];if(!e)return '';const uid='ea_'+f.id+'_'+eid;return `
+    <div class="err-alert-wrap">
+      <div class="err-alert-hdr" onclick="toggleEA('${uid}')">
+        <span class="ea-badge">Error ${eid}</span>
+        <span style="flex:1">${e.titulo}</span>
+        <span class="ea-sev ${e.sev==='crítico'?'ea-critico':'ea-importante'}">${e.sev==='crítico'?'🔴 Crítico':'🟡 Importante'}</span>
+        <span style="font-size:11px;margin-left:6px" id="${uid}_arr">▼</span>
+      </div>
+      <div class="err-alert-body" id="${uid}">
+        <div class="ea-ejemplos">
+          <div class="ea-ej mal"><div class="ea-ej-lbl m">❌ Nivel bajo</div><div class="ea-ej-txt">${e.malo.txt}</div><div class="ea-ej-nota">${e.malo.nota}</div></div>
+          <div class="ea-ej bien"><div class="ea-ej-lbl b">✅ Nivel 5–6</div><div class="ea-ej-txt">${e.bien.txt}</div><div class="ea-ej-nota">${e.bien.nota}</div></div>
+        </div>
+        <div class="ea-accion">🎯 <strong>Acción:</strong> ${e.accion}</div>
+      </div>
+    </div>`}).join('')}
+  </div>` : ''}
+  ${f.excelId?`<div style="margin-top:12px">
+    <button class="next-btn-excel" onclick="goToExcel('${f.excelId}')">📊 Ver tutorial Excel / Sheets para esta prueba →</button>
+  </div>`:''}
+  `;
+}
+function hideFicha(){document.getElementById('fichas-list').style.display='block';document.getElementById('ficha-detail').style.display='none';}
+function goToFicha(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab')[1].classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-fichas').classList.add('active');
+  document.querySelectorAll('[id^="fs"]').forEach(el=>el.classList.remove('active'));
+  document.getElementById('fs2').classList.add('active');
+  renderFichasList();showFicha(id);
+  document.getElementById('panel-fichas').scrollIntoView({behavior:'smooth'});
+}
+function toggleEA(uid){
+  const body=document.getElementById(uid);const arr=document.getElementById(uid+'_arr');
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  if(arr)arr.textContent=open?'▼':'▲';
+}
+// ══ CHECKLIST DATA ══
+const CHECKLIST=[
+  {id:'var',title:'1. Variables e Hipótesis',icon:'🔬',items:[
+    {id:'c1',t:'He identificado la VI y la VD con sus unidades del SI'},
+    {id:'c2',t:'He clasificado las variables: continua / discreta / nominal / ordinal'},
+    {id:'c3',t:'He identificado y justificado el control de variables controladas (valor + cómo + por qué)',errId:3},
+    {id:'c4',t:'Mi hipótesis experimental predice la dirección del efecto'},
+    {id:'c5',t:'He formulado H₀ y H₁ estadísticas explícitas antes del análisis',errId:5},
+  ]},
+  {id:'rec',title:'2. Recogida y Presentación de Datos',icon:'📊',items:[
+    {id:'c6',t:'Tabla de datos brutos: encabezados con nombre, símbolo y unidades SI',errId:2},
+    {id:'c7',t:'He elegido medidas de centro y dispersión acordes con el tipo de dato y su distribución; indico n y unidades',errId:4},
+    {id:'c8',t:'Incluyo n junto a todas las estadísticas descriptivas'},
+    {id:'c9',t:'Tipo de gráfico correcto (barras / XY dispersión / líneas) según tipo de variables',errId:10},
+    {id:'c10',t:'Gráficas con título, ejes y unidades SI; si incluyo barras de error, indico qué representan',errId:10},
+  ]},
+  {id:'ana',title:'3. Análisis Estadístico (IB 2025)',icon:'🧮',items:[
+    {id:'c11',t:'Justificada la elección de la prueba según pregunta, tipo de dato, unidad de muestreo, diseño y supuestos',errId:5},
+    {id:'c12',t:'Incluida la función Excel/Sheets usada con sus parámetros'},
+    {id:'c13',t:'Grados de libertad (gl) calculados e indicados'},
+    {id:'c14',t:'He comparado p con el α fijado antes del análisis y explicado qué significa, sin decir que demuestra causalidad'},
+    {id:'c15',t:'No digo "acepta H₀" — uso "no hay evidencia suficiente para rechazar H₀"',errId:5},
+  ]},
+  {id:'int',title:'4. Interpretación Biológica',icon:'🧬',items:[
+    {id:'c16',t:'Resultado estadístico interpretado en términos biológicos con unidades SI',errId:8},
+    {id:'c17',t:'Si uso PEARSON/R², NO afirmo causalidad basándome solo en estos valores',errId:6},
+    {id:'c18',t:'Conclusión comparada con valores bibliográficos publicados',errId:6},
+    {id:'c19',t:'Si uso regresión, interpreto la pendiente con unidades SI (cm·°C⁻¹)',errId:6},
+  ]},
+  {id:'lim',title:'5. Limitaciones y Mejoras',icon:'⚠️',items:[
+    {id:'c20',t:'≥2 limitaciones específicas con impacto en los datos — no "error humano" genérico',errId:7},
+    {id:'c21',t:'Distingo errores aleatorios (reducibles con mayor n) de sistemáticos (cambio de diseño)',errId:1},
+    {id:'c22',t:'Para cada limitación propongo una mejora concreta y realista con justificación',errId:7},
+    {id:'c23',t:'He evaluado si el tamaño muestral y la unidad de muestreo permiten sostener mis conclusiones'},
+    {id:'c24',t:'He verificado que todos los números del texto coinciden con tablas y gráficas',errId:10},
+  ]},
+];
+
+function saveChecked(){try{localStorage.setItem('ib-cl-checked',JSON.stringify(checked));}catch(e){}}
+
+function renderCL(){
+  document.getElementById('cl-secs').innerHTML=CHECKLIST.map(sec=>{
+    const done=sec.items.filter(i=>checked[i.id]).length;const full=done===sec.items.length;const coll=collapsed[sec.id];
+    return `<div class="cl-sec" style="border-color:${full?'var(--green)':'var(--border)'}">
+      <button class="cl-sec-hdr" onclick="toggleSec('${sec.id}')">
+        <span style="font-size:16px">${sec.icon}</span>
+        <div style="flex:1"><div class="cl-sec-title">${sec.title}</div>
+          <div class="cl-sec-sub" style="color:${full?'var(--green)':'var(--muted)'}">${done}/${sec.items.length} completados${full?' ✓':''}</div></div>
+        <span style="color:var(--dim);font-size:11px">${coll?'▼':'▲'}</span>
+      </button>
+      ${!coll?`<div class="cl-items">${sec.items.map(it=>{
+        const e=it.errId?ERRORES_MAP[it.errId]:null;
+        const uid='cl_'+it.id;
+        return `<div class="cl-item cl-item-exp">
+          <div style="display:flex;align-items:flex-start;gap:9px;width:100%;cursor:pointer" onclick="toggleIt('${it.id}')">
+            <div class="chk ${checked[it.id]?'on':''}">
+              ${checked[it.id]?'<svg width="10" height="8" viewBox="0 0 10 8"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}
+            </div>
+            <div style="flex:1">
+              <span class="cl-txt ${checked[it.id]?'done':''}">${it.t}</span>
+              ${e?`<div><button class="cl-expand-btn" onclick="event.stopPropagation();toggleCLej('${uid}')" id="${uid}_btn">⚠️ Ver error frecuente ${e.sev==='crítico'?'🔴':'🟡'}</button></div>`:''}
+            </div>
+          </div>
+          ${e?`<div class="cl-ejemplo-wrap" id="${uid}">
+            <div class="cl-ej-hdr">⚠️ Error ${it.errId}: ${e.titulo}</div>
+            <div class="cl-ej-grid">
+              <div class="cl-ej-box m"><div class="cl-ej-lbl m">❌ Nivel bajo</div><div class="cl-ej-txt">${e.malo.txt}</div></div>
+              <div class="cl-ej-box b"><div class="cl-ej-lbl b">✅ Nivel 5–6</div><div class="cl-ej-txt">${e.bien.txt}</div></div>
+            </div>
+            <div class="cl-ej-accion">🎯 <strong>Acción:</strong> ${e.accion}</div>
+          </div>`:''}
+        </div>`;
+      }).join('')}</div>`:''}
+    </div>`;
+  }).join('');
+  updateProgress();
+}
+function toggleIt(id){checked[id]=!checked[id];saveChecked();renderCL();}
+function toggleCLej(uid){
+  const w=document.getElementById(uid);const btn=document.getElementById(uid+'_btn');
+  if(!w)return;
+  const open=w.classList.contains('open');
+  w.classList.toggle('open',!open);
+  if(btn)btn.textContent=open?'⚠️ Ver error frecuente':'▲ Ocultar ejemplo';
+}
+function toggleSec(id){collapsed[id]=!collapsed[id];renderCL();}
+function resetCL(){checked={};saveChecked();renderCL();}
+
+function updateProgress(){
+  const all=CHECKLIST.flatMap(s=>s.items);const tot=all.length;
+  const dn=all.filter(i=>checked[i.id]).length;
+  const pct=Math.round(dn/tot*100);
+  const hex=pct<40?'#c0392b':pct<75?'#b86800':'#2d7a45';
+  const bg=pct<40?'var(--redbg)':pct<75?'var(--amberbg)':'var(--glight)';
+  const col=pct<40?'var(--red)':pct<75?'var(--amber)':'var(--green)';
+  const errCrit=all.filter(i=>i.errId&&ERRORES_MAP[i.errId]&&ERRORES_MAP[i.errId].sev==='crítico'&&!checked[i.id]).length;
+  const msg=pct===0?'Comienza marcando los ítems completados.':pct<40?`Queda mucho por revisar.${errCrit>0?' '+errCrit+' error(es) crítico(s) pendiente(s).':''}`:pct<75?'Buen progreso. Revisa los ítems con ⚠️ antes de entregar.':pct<100?'¡Casi listo! Verifica los últimos puntos.':'🎉 ¡Tu investigación científica cumple todos los requisitos del IB!';
+  document.getElementById('prog-txt').style.color=hex;
+  document.getElementById('prog-txt').textContent=`${dn}/${tot} ítems`;
+  document.getElementById('prog-fill').style.cssText=`width:${pct}%;background:${col}`;
+  const pc=document.getElementById('prog-circle');
+  pc.textContent=pct+'%';
+  pc.style.cssText=`color:${hex};border-color:${hex};background:${bg};width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;border-width:3px;border-style:solid;`;
+  document.getElementById('prog-msg').textContent=msg;
+}
+// ══ PRACTICE DATA ══
+const SC_TYPES={
+  lab:{label:'🧪 Experimento de laboratorio',c:'#1a7a72',bg:'#e8f5f4',bd:'#a8d8d4'},
+  sim:{label:'💻 Simulador',c:'#6b3fa0',bg:'#f2edf9',bd:'#cdb8e8'},
+  db:{label:'🗃️ Base de datos',c:'#b86800',bg:'#fff4e0',bd:'#f0c878'},
+};
+const QTAGS={
+  variables:{lbl:'Identificar variables',c:'#1a6fa8',bg:'#e8f3fc'},
+  tipo_dato:{lbl:'Tipo de dato',c:'#1a7a72',bg:'#e8f5f4'},
+  prueba:{lbl:'Elegir prueba estadística',c:'#2d7a45',bg:'#e6f4eb'},
+  hipotesis:{lbl:'Hipótesis H₀ y H₁',c:'#6b3fa0',bg:'#f2edf9'},
+  interpretar:{lbl:'Interpretar resultado',c:'#b86800',bg:'#fff4e0'},
+};
+// NOTE: feedback text uses IB-correct "no se puede rechazar H₀" language throughout
+const SCENARIOS=[
+  {id:'catalasa',type:'lab',title:'Efecto de la temperatura sobre la catalasa',desc:'¿Cómo influye la temperatura (°C) en la velocidad enzimática (mL·min⁻¹)?',
+   context:'Investigas el efecto de la <strong>temperatura</strong> (10, 20, 30, 40 y 50 °C) sobre la actividad de la catalasa en rodajas de patata, midiendo el <strong>volumen de O₂ producido (mL)</strong> en 5 min. Se realizan 10 repeticiones por temperatura. Concentración de H₂O₂, pH y tamaño de rodaja se mantienen constantes.',
+   questions:[
+    {tag:'variables',q:'¿Cuál es la variable independiente (VI) de esta investigación?',opts:['Volumen de O₂ producido (mL)','Temperatura del baño de agua (°C) ★','Concentración de H₂O₂ (mg·mL⁻¹)','pH de la solución'],correct:1,
+     fb_ok:'✅ Correcto. La VI es lo que el investigador manipula deliberadamente. Aquí controlamos la temperatura (°C) para ver cómo afecta a la enzima.',
+     fb_fail:'❌ La VI es lo que manipulamos. El volumen de O₂ es lo que medimos (VD). La temperatura es la variable que cambiamos intencionadamente.'},
+    {tag:'variables',q:'¿Cuál es la variable dependiente (VD) y sus unidades SI?',opts:['Temperatura del baño (°C)','Concentración de H₂O₂ (mg·mL⁻¹)','Volumen de O₂ producido (mL) ★','Tipo de tejido vegetal'],correct:2,
+     fb_ok:'✅ Correcto. El volumen de O₂ (mL) es lo que medimos como respuesta a los cambios en temperatura.',
+     fb_fail:'❌ La VD es lo que medimos para ver el efecto de la VI. Medimos el volumen de O₂ en mL como indicador de la actividad de la catalasa.'},
+    {tag:'tipo_dato',q:'¿Qué tipo de dato es la VD (volumen de O₂ en mL)?',opts:['Cualitativa nominal','Cuantitativa discreta','Cuantitativa continua ★','Cualitativa ordinal'],correct:2,
+     fb_ok:'✅ Correcto. El volumen en mL puede tomar cualquier valor decimal → cuantitativa continua. Esto determina que usaremos PROMEDIO, DESVEST y ANOVA.',
+     fb_fail:'❌ Los volúmenes en mL pueden tener decimales → cuantitativa continua. Esto determina la prueba estadística.'},
+    {tag:'prueba',q:'Tienes 5 grupos (una temperatura por grupo). ¿Qué función Excel usarías para comparar los volúmenes medios de O₂?',opts:['PRUEBA.CHI2, porque hay 5 categorías','PRUEBA.T, porque comparo medias','PEARSON, para ver la relación lineal','ANOVA de un factor (Datos → Análisis de datos) ★'],correct:3,
+     fb_ok:'✅ Correcto. ANOVA compara medias de más de 2 grupos con datos continuos. Hacer múltiples PRUEBA.T inflaría el error tipo I al ~40 %.',
+     fb_fail:'❌ Con 5 grupos no puedes usar PRUEBA.T (solo para 2). ANOVA de un factor está diseñado para comparar 3 o más grupos.'},
+    {tag:'hipotesis',q:'¿Cuál es la hipótesis nula (H₀) correcta?',opts:['La temperatura afecta significativamente al volumen de O₂ (mL)','No existe diferencia significativa en el volumen de O₂ (mL) entre las distintas temperaturas (°C) ★','La catalasa produce más O₂ a 30 °C','La temperatura y el volumen de O₂ tienen correlación negativa'],correct:1,
+     fb_ok:'✅ Correcto. La H₀ siempre afirma que NO hay efecto ni diferencia.',
+     fb_fail:'❌ La H₀ debe afirmar que NO hay diferencia. Las opciones que predicen un efecto son H₁.'},
+    {tag:'interpretar',q:'ANOVA: F(4,45) = 18,3; p = 0,0001. ¿Qué concluyes?',opts:['No hay evidencia suficiente para rechazar H₀: la temperatura no afecta','p > 0,05, no hay diferencia significativa','No se puede mantener H₀: diferencia significativa en el volumen de O₂ (mL) entre al menos dos temperaturas ★','Se necesitan más datos'],correct:2,
+     fb_ok:'✅ Excelente. p = 0,0001 << 0,05 → no se puede mantener H₀. ANOVA no indica cuáles temperaturas difieren: para eso necesitarías un test post-hoc (Tukey).',
+     fb_fail:'❌ p = 0,0001 << 0,05 → hay diferencia significativa. Nótese que no se "acepta" H₁ ni se "prueba" la alternativa: simplemente "no se puede mantener H₀".'},
+   ]},
+  {id:'elodea',type:'lab',title:'Fotosíntesis en Elodea: intensidad luminosa vs tasa fotosintética',desc:'Relación entre intensidad luminosa (%) y tasa fotosintética (burbujas·min⁻¹).',
+   context:'Usas plantas de <em>Elodea canadensis</em> para medir la tasa de fotosíntesis contando el <strong>n.º de burbujas de O₂ por minuto</strong> a diferentes intensidades de luz: 10, 25, 50, 75 y 100 % (n = 8 por nivel). Temperatura (25 °C), pH (7,0) y concentración de CO₂ se mantienen constantes.',
+   questions:[
+    {tag:'variables',q:'¿Cuál es la variable independiente (VI)?',opts:['N.º de burbujas por minuto','Temperatura del agua (°C)','Intensidad luminosa (%) ★','pH del medio'],correct:2,
+     fb_ok:'✅ Correcto. La intensidad luminosa (%) es lo que controlamos y variamos deliberadamente.',
+     fb_fail:'❌ La VI es lo que manipulamos. El n.º de burbujas es la VD. La intensidad luminosa es lo que controlamos.'},
+    {tag:'tipo_dato',q:'¿Qué tipo de dato es la VD (n.º de burbujas por minuto)?',opts:['Cuantitativa continua','Cualitativa ordinal','Cuantitativa discreta ★','Cualitativa nominal'],correct:2,
+     fb_ok:'✅ Correcto. Las burbujas se cuentan en números enteros (no puede haber 3,7 burbujas) → cuantitativa discreta.',
+     fb_fail:'❌ Las burbujas se cuentan en números enteros → cuantitativa discreta, no continua.'},
+    {tag:'prueba',q:'Quieres estudiar la relación entre intensidad luminosa (%) y tasa fotosintética. ¿Qué función usarías?',opts:['ANOVA, porque tengo 5 niveles','PRUEBA.T, para comparar dos grupos','=PEARSON(intensidad;tasa) ★','PRUEBA.CHI2, porque cuento burbujas'],correct:2,
+     fb_ok:'✅ Correcto. PEARSON estudia la correlación entre dos variables cuantitativas. El objetivo es ver si varían juntas, no si difieren.',
+     fb_fail:'❌ PEARSON estudia correlaciones. ANOVA compara grupos. El objetivo aquí es ver si las variables varían juntas.'},
+    {tag:'hipotesis',q:'¿Cuál es la H₀ correcta para la correlación?',opts:['Mayor intensidad produce más fotosíntesis','No existe asociación lineal entre la intensidad luminosa (%) y la tasa fotosintética (burbujas·min⁻¹) en la población estudiada ★','La Elodea no fotosintentiza en la oscuridad','La intensidad y la temperatura están relacionadas'],correct:1,
+     fb_ok:'✅ Correcto. Para el contraste lineal de Pearson, H₀ suele expresar que la correlación poblacional es cero. Una relación no lineal aún podría existir.',
+     fb_fail:'❌ H₀ se refiere a ausencia de asociación lineal en la población; no demuestra que no exista ningún patrón ni relación no lineal.'},
+    {tag:'interpretar',q:'r = 0,94; gl = 6; r crítico (p = 0,05) = 0,707. ¿Qué concluyes?',opts:['No hay evidencia suficiente para rechazar H₀','r < 1, luego no es significativa','Hay evidencia de asociación lineal positiva al nivel indicado; no demuestra causalidad ★','El r es demasiado alto, probablemente hay un error'],correct:2,
+     fb_ok:'✅ Correcto. |r| supera el valor crítico indicado: hay evidencia de asociación lineal positiva bajo los supuestos del contraste. La significación no mide la importancia biológica ni demuestra causalidad.',
+     fb_fail:'❌ Interpreta el signo como dirección y el contraste como evidencia sobre asociación. No conviertas r en una afirmación causal.'},
+    {tag:'interpretar',q:'R² = 0,88 en un ajuste lineal. ¿Cómo lo interpretas?',opts:['El 12 % de la variación en fotosíntesis lo explica la intensidad','En estos datos, el ajuste lineal recoge el 88 % de la variación observada en la tasa fotosintética; no es una probabilidad ni prueba causal ★','Hay 88 % de probabilidad de que los resultados sean correctos','R² > 0,70 indica correlación perfecta'],correct:1,
+     fb_ok:'✅ Correcto. R² resume la proporción de variación observada que recoge el modelo lineal en estos datos; el residuo no puede atribuirse automáticamente a factores concretos.',
+     fb_fail:'❌ R² no es la probabilidad de que el modelo sea correcto ni demuestra causalidad. Interprétalo respecto al ajuste y los datos observados.'},
+   ]},
+  {id:'mendel',type:'sim',title:'Simulador de genética: proporciones mendelianas',desc:'¿Se ajustan los resultados a la proporción 3:1 de Mendel?',
+   context:'Usas un simulador de genética para cruzar dos plantas de guisante <strong>heterocigotas para el color de semilla</strong> (Aa × Aa). Tras 1000 cruces simulados, obtienes: <strong>737 semillas amarillas y 263 verdes</strong>. Según la proporción mendeliana 3:1, esperarías 750 amarillas y 250 verdes.',
+   questions:[
+    {tag:'tipo_dato',q:'¿Qué tipo de dato son los resultados (737 amarillas, 263 verdes)?',opts:['Cuantitativa continua','Cuantitativa discreta','Frecuencias de una variable cualitativa nominal ★','Cualitativa ordinal'],correct:2,
+     fb_ok:'✅ Correcto. El color de la semilla es cualitativa nominal y los resultados son frecuencias de cada categoría → PRUEBA.CHI2.',
+     fb_fail:'❌ El color de la semilla es cualitativa. Los valores son recuentos (frecuencias) de cada categoría → PRUEBA.CHI2.'},
+    {tag:'prueba',q:'¿Qué función Excel usarías para comparar los recuentos observados con los esperados por Mendel?',opts:['=PRUEBA.T(obs;esp;2;2)','=ANOVA de un factor','=PRUEBA.CHI2(rango_obs;rango_esp) ★','=PEARSON(obs;esp)'],correct:2,
+     fb_ok:'✅ Correcto. PRUEBA.CHI2 de bondad de ajuste compara frecuencias observadas con las esperadas por una teoría (aquí la proporción 3:1 de Mendel).',
+     fb_fail:'❌ No tenemos medias continuas: tenemos recuentos categóricos. PRUEBA.CHI2 bondad de ajuste es la herramienta específica.'},
+    {tag:'hipotesis',q:'¿Cuál es la H₀ correcta?',opts:['La proporción observada es exactamente 3:1','No existe diferencia significativa entre las frecuencias observadas y las esperadas según la proporción mendeliana 3:1 ★','El gen del color no sigue las leyes de Mendel','Las proporciones 3:1 son incorrectas'],correct:1,
+     fb_ok:'✅ Correcto. La H₀ establece que los datos SÍ son compatibles con la proporción teórica.',
+     fb_fail:'❌ La H₀ establece que NO hay diferencia significativa entre observados y esperados.'},
+    {tag:'variables',q:'¿Cuáles son los valores esperados (E) correctos según la proporción 3:1?',opts:['500 amarillas y 500 verdes','750 amarillas y 250 verdes ★','737 amarillas y 263 verdes','300 amarillas y 700 verdes'],correct:1,
+     fb_ok:'✅ Correcto. E amarillas = 1000 × 3/4 = 750; E verdes = 1000 × 1/4 = 250.',
+     fb_fail:'❌ La proporción mendeliana es 3:1. E = 1000 × (3/4) = 750 amarillas y 250 verdes.'},
+    {tag:'interpretar',q:'=PRUEBA.CHI2(...) → p = 0,342; gl = 1. ¿Qué concluyes?',opts:['Los datos NO siguen la proporción 3:1','No hay evidencia suficiente para rechazar H₀: resultados compatibles con la proporción mendeliana 3:1 ★','χ² es demasiado pequeño para ser válido','El simulador tiene errores'],correct:1,
+     fb_ok:'✅ p = 0,342 > 0,05 → no hay evidencia para rechazar H₀. Los datos SON compatibles con la proporción 3:1. Las pequeñas desviaciones (737 vs 750) son normales.',
+     fb_fail:'❌ p = 0,342 > 0,05 → no hay evidencia para rechazar H₀. Los datos son compatibles con la teoría.'},
+    {tag:'tipo_dato',q:'¿Cuáles son los grados de libertad (gl) para esta PRUEBA.CHI2 de bondad de ajuste?',opts:['gl = n total – 1 = 999','gl = 2 (número de categorías)','gl = n.º categorías – 1 = 1 ★','gl = 2 – 2 = 0'],correct:2,
+     fb_ok:'✅ Correcto. Para bondad de ajuste: gl = n.º categorías – 1 = 2 – 1 = 1. Con gl = 1, χ² crítico (p = 0,05) = 3,84.',
+     fb_fail:'❌ Para bondad de ajuste: gl = n.º categorías – 1. Tenemos 2 categorías → gl = 1.'},
+   ]},
+  {id:'depredador',type:'sim',title:'Simulador de poblaciones: lobos y alces',desc:'¿Existe correlación entre la población de lobos (n) y la de alces (n)?',
+   context:'Usas el simulador <em>NetLogo</em> para modelar una dinámica depredador-presa. Registras el <strong>tamaño de la población de lobos (n.º individuos)</strong> y el <strong>tamaño de la población de alces (n.º individuos)</strong> cada año durante <strong>25 años</strong> (n = 25 pares de datos). Quieres determinar si existe relación entre ambas poblaciones.',
+   questions:[
+    {tag:'variables',q:'¿Qué variable tiene sentido biológico como predictora (VI)?',opts:['Tamaño de la población de alces (n)','Tamaño de la población de lobos (n), porque depredan sobre los alces ★','El año','La temperatura del ecosistema (°C)'],correct:1,
+     fb_ok:'✅ Correcto. Los lobos (depredadores) afectan a los alces (presas). En el gráfico XY: lobos en eje X, alces en eje Y.',
+     fb_fail:'❌ El conocimiento biológico indica que los lobos afectan a los alces. Esto determina la orientación del gráfico XY.'},
+    {tag:'tipo_dato',q:'¿Qué tipo de dato son los tamaños poblacionales?',opts:['Cuantitativa continua','Cuantitativa discreta (número entero de individuos) ★','Cualitativa nominal','Cualitativa ordinal'],correct:1,
+     fb_ok:'✅ Correcto. Los individuos se cuentan en números enteros → cuantitativa discreta.',
+     fb_fail:'❌ Los individuos se cuentan en números enteros → cuantitativa discreta, no continua.'},
+    {tag:'prueba',q:'¿Qué función usarías para estudiar la relación entre las dos poblaciones (n = 25 años)?',opts:['ANOVA, para comparar los años','PRUEBA.T, para comparar las medias','PRUEBA.CHI2, porque son recuentos','=PEARSON(lobos;alces) o Spearman si no normales ★'],correct:3,
+     fb_ok:'✅ Correcto. Pearson resume asociación lineal; Spearman puede ser adecuado para rangos o asociaciones monotónicas. Decide tras examinar el gráfico, el diseño y los supuestos.',
+     fb_fail:'❌ PRUEBA.CHI2 es para frecuencias categóricas. Para estudiar si dos variables cuantitativas varían juntas → PEARSON.'},
+    {tag:'hipotesis',q:'¿Cuál es la H₀ correcta?',opts:['A mayor n.º de lobos, menor n.º de alces','Los lobos causan la extinción de los alces','No existe asociación lineal entre el n.º de lobos y el n.º de alces en la población estudiada ★','Lobos y alces siempre mantienen la misma proporción'],correct:2,
+     fb_ok:'✅ Correcto. Para el contraste de Pearson, H₀ suele expresar que la correlación lineal poblacional es cero. No descarta por sí sola un patrón no lineal.',
+     fb_fail:'❌ H₀ se refiere a ausencia de asociación lineal en la población; no demuestra que no exista ningún patrón ni relación no lineal.'},
+    {tag:'interpretar',q:'r = −0,78; gl = 23; r crítico = 0,396. ¿Qué significa?',opts:['Sin correlación: r negativo significa ausencia de relación','Asociación positiva','Hay evidencia de asociación negativa; no demuestra causalidad ★','No válido porque los datos vienen de un simulador'],correct:2,
+     fb_ok:'✅ El signo negativo indica dirección inversa; el contraste aporta evidencia de asociación. Describe el patrón en contexto y no concluyas causalidad.',
+     fb_fail:'❌ El signo negativo indica dirección inversa. Compara |r| con el valor crítico, describe la asociación en contexto y evita concluir causalidad.'},
+    {tag:'interpretar',q:'¿Qué limitación tiene esta correlación al basarse en datos de un simulador?',opts:['Los simuladores no producen datos estadísticos válidos','Los datos del simulador pueden no reflejar la complejidad del ecosistema real (enfermedades, migración, clima…) ★','PEARSON no se puede aplicar a datos de simuladores','No hay limitaciones: los simuladores son exactos'],correct:1,
+     fb_ok:'✅ Muy bien. Los simuladores simplifican la realidad omitiendo variables (enfermedades, migración, competencia interespecífica…). Válidos para el modelo, pero pueden no reflejar el sistema real.',
+     fb_fail:'❌ La limitación es que los simuladores simplifican la realidad. El modelo omite variables que existen en el ecosistema real.'},
+   ]},
+  {id:'biodiversidad',type:'db',title:'GBIF: riqueza de mariposas en tres hábitats',desc:'¿Difiere la riqueza de especies (n) entre bosque, pradera y humedal?',
+   context:'Usas <strong>GBIF</strong> para analizar la riqueza de especies de mariposas (n.º de especies por parcela de 1 ha) en tres hábitats: bosque, pradera y humedal. 15 parcelas por hábitat (n = 15 por grupo). Shapiro-Wilk da p &gt; 0,05; esto no demuestra normalidad: inspecciona también los datos y los residuos.',
+   questions:[
+    {tag:'variables',q:'¿Cuál es la variable independiente (VI)?',opts:['N.º de especies de mariposas por parcela','Tipo de hábitat (bosque, pradera, humedal) ★','Tamaño de las parcelas (1 ha)','Temperatura media (°C)'],correct:1,
+     fb_ok:'✅ Correcto. El tipo de hábitat es la variable categórica que define los grupos.',
+     fb_fail:'❌ El n.º de especies es lo que medimos (VD). El tipo de hábitat es la VI.'},
+    {tag:'variables',q:'¿Cuál es la VD y su tipo de dato?',opts:['Tipo de hábitat — cualitativa nominal','Temperatura (°C) — continua','N.º de especies de mariposas por parcela — cuantitativa discreta ★','Superficie (ha) — continua'],correct:2,
+     fb_ok:'✅ Correcto. El n.º de especies es un recuento entero → cuantitativa discreta.',
+     fb_fail:'❌ Contamos el n.º de especies en números enteros → cuantitativa discreta.'},
+    {tag:'prueba',q:'Tienes 3 grupos con datos de riqueza que siguen distribución normal. ¿Qué función usarías?',opts:['PRUEBA.CHI2, porque trabajamos con una base de datos','PRUEBA.T, para comparar dos hábitats','ANOVA de un factor (Datos → Análisis de datos) ★','=PEARSON(riqueza;hábitat)'],correct:2,
+     fb_ok:'✅ Correcto. ANOVA compara medias de 3 grupos cuantitativos normales.',
+     fb_fail:'❌ Con 3 grupos cuantitativos normales → ANOVA. PRUEBA.CHI2 es para frecuencias categóricas.'},
+    {tag:'hipotesis',q:'¿Cuál es la H₀ correcta?',opts:['El bosque tiene mayor diversidad','Los tres hábitats tienen la misma temperatura media (°C)','No existe diferencia significativa en la riqueza de especies (n) entre los tres hábitats ★','Las mariposas prefieren los hábitats con más flores'],correct:2,
+     fb_ok:'✅ Correcto. La H₀ del ANOVA establece que TODAS las medias son iguales.',
+     fb_fail:'❌ La H₀ establece que NO hay diferencia entre ninguno de los grupos.'},
+    {tag:'interpretar',q:'ANOVA: F(2,42) = 8,7; p = 0,0007. ¿Qué concluyes?',opts:['No hay evidencia para rechazar H₀','p = 0,0007 > 0,05','No se puede mantener H₀: diferencia significativa en riqueza (n) entre al menos dos hábitats ★','No válido porque los datos provienen de una base de datos'],correct:2,
+     fb_ok:'✅ Excelente. p = 0,0007 << 0,05 → no se puede mantener H₀. La riqueza difiere significativamente.',
+     fb_fail:'❌ p = 0,0007 es MENOR que 0,05 → no se puede mantener H₀.'},
+    {tag:'interpretar',q:'ANOVA indica diferencias, pero ¿qué necesitas para saber ENTRE QUÉ hábitats específicamente?',opts:['Repetir el ANOVA con más datos','Comparar visualmente las medias en la gráfica','Test post-hoc Tukey (disponible en el complemento "Análisis de datos" de Excel) ★','Calcular la desviación típica (s) de cada grupo'],correct:2,
+     fb_ok:'✅ Perfecto. ANOVA detecta que existe diferencia, pero no entre cuáles pares. El test Tukey hace comparaciones controlando el error tipo I.',
+     fb_fail:'❌ Para saber entre cuáles grupos específicos → test post-hoc Tukey.'},
+   ]},
+  {id:'epidemiologia',type:'db',title:'OMS: IMC (kg·m⁻²) y prevalencia de diabetes tipo 2 (%)',desc:'¿Existe correlación entre IMC (kg·m⁻²) y prevalencia de diabetes (%)?',
+   context:'Utilizas datos de la <strong>OMS</strong> para 50 países: <strong>IMC medio (kg·m⁻²)</strong> y <strong>prevalencia de diabetes tipo 2 (%)</strong>. n = 50 países. Shapiro-Wilk da p &gt; 0,05; esto no demuestra normalidad. Examina además el diagrama de dispersión, la linealidad y los valores influyentes.',
+   questions:[
+    {tag:'variables',q:'¿Qué variable tiene sentido biológico como predictora (VI)?',opts:['Prevalencia de diabetes (%)','IMC medio nacional (kg·m⁻²), porque el sobrepeso es factor de riesgo de diabetes tipo 2 ★','El país','Actividad física media (min·semana⁻¹)'],correct:1,
+     fb_ok:'✅ Correcto. El IMC (kg·m⁻²) es el factor de riesgo conocido → eje X. Prevalencia (%) → eje Y.',
+     fb_fail:'❌ El IMC (kg·m⁻²) es el factor de riesgo: el sobrepeso puede contribuir a la diabetes, no al revés.'},
+    {tag:'tipo_dato',q:'¿Qué tipo de dato es el IMC (kg·m⁻²)?',opts:['Cuantitativa discreta','Cualitativa ordinal','Cuantitativa continua ★','Cualitativa nominal'],correct:2,
+     fb_ok:'✅ Correcto. IMC = masa (kg) / talla² (m²): produce valores con decimales → cuantitativa continua. Unidad SI: kg·m⁻².',
+     fb_fail:'❌ IMC = masa / talla²: valores con decimales → cuantitativa continua, unidad SI kg·m⁻².'},
+    {tag:'prueba',q:'¿Qué función Excel usarías para la correlación entre IMC (kg·m⁻²) y prevalencia (%), n = 50?',opts:['PRUEBA.CHI2','ANOVA','PRUEBA.T','=PEARSON(IMC;prevalencia) ★'],correct:3,
+     fb_ok:'✅ Correcto si la relación es aproximadamente lineal y los supuestos del análisis son razonables. La normalidad no se demuestra simplemente porque Shapiro-Wilk dé p &gt; 0,05.',
+     fb_fail:'❌ Para estudiar si dos variables cuantitativas varían juntas → =PEARSON(IMC;prevalencia).'},
+    {tag:'hipotesis',q:'¿Cuál es la H₀ correcta?',opts:['A mayor IMC, mayor prevalencia de diabetes','El IMC causa directamente la diabetes tipo 2','No existe correlación significativa entre el IMC (kg·m⁻²) y la prevalencia de diabetes (%) ★','Todos los países tienen la misma prevalencia de diabetes'],correct:2,
+     fb_ok:'✅ Para el contraste de Pearson, H₀ suele expresar que la correlación lineal poblacional es cero; no descarta patrones no lineales.',
+     fb_fail:'❌ H₀ se refiere a ausencia de asociación lineal en la población; no demuestra que no exista ningún patrón ni relación no lineal.'},
+    {tag:'interpretar',q:'r = 0,72; gl = 48; r crítico = 0,279. ¿Qué concluyes?',opts:['Correlación débil: r < 1','No hay evidencia para rechazar H₀','Hay evidencia de asociación positiva entre países; no se infiere el patrón de cada individuo ★','No aplicable a individuos'],correct:2,
+     fb_ok:'✅ Correcto. Existe evidencia de asociación en estos datos agregados. No extrapoles la relación entre países a las personas individuales ni infieras causalidad.',
+     fb_fail:'❌ Distingue la unidad de análisis: una asociación entre países no permite concluir lo mismo sobre individuos.'},
+    {tag:'interpretar',q:'¿Qué limitación fundamental tiene esta correlación entre países?',opts:['n = 50 es demasiado pequeño para PEARSON','No se puede aplicar PEARSON a datos de la OMS','Correlación ≠ causalidad; pueden existir variables de confusión (nivel socioeconómico, dieta, actividad física en min·semana⁻¹…) ★','r = 0,72 es demasiado alto para ser real'],correct:2,
+     fb_ok:'✅ Perfecto. La correlación no implica causalidad. Variables de confusión (riqueza del país, cultura alimentaria, acceso sanitario…) pueden explicar parte de la correlación.',
+     fb_fail:'❌ La limitación es que correlación ≠ causalidad. Factores de confusión pueden explicar el r sin relación causal directa.'},
+   ]},
+];
+
+// ══ PRACTICE RENDER — save scores to localStorage ══
+function saveScores(){try{localStorage.setItem('ib-sc-scores',JSON.stringify(scScores));}catch(e){}}
+
+function renderScHome(){
+  const grid=document.getElementById('sc-grid');
+  grid.innerHTML=SCENARIOS.map(sc=>{
+    const t=SC_TYPES[sc.type];const prev=scScores[sc.id];const nq=sc.questions.length;
+    return `<div class="sc-card" onclick="startScenario('${sc.id}')"
+      style="border-color:${prev===nq?t.c:'var(--border)'}"
+      onmouseover="this.style.borderColor='${t.c}'"
+      onmouseout="this.style.borderColor='${prev===nq?t.c:'var(--border)'}'">
+      <div class="sc-type-badge" style="background:${t.bg};color:${t.c};border:1px solid ${t.bd}">${t.label}</div>
+      <div class="sc-title">${sc.title}</div><div class="sc-desc">${sc.desc}</div>
+      <div class="sc-meta"><span>${nq} preguntas</span>
+        ${prev!==undefined?`<span>·</span><span style="color:${t.c};font-weight:700">${prev}/${nq} correctas</span>`:''}
+        ${prev===nq?`<span>·</span><span style="color:${t.c}">✓ Completado</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startScenario(id){
+  const sc=SCENARIOS.find(s=>s.id===id);
+  scState={id,qi:0,scores:[],answered:false};
+  document.getElementById('practica-home').style.display='none';
+  const div=document.getElementById('practica-scenario');div.style.display='block';
+  div.innerHTML=`<button class="btn" style="margin-bottom:14px" onclick="backToScHome()">← Volver a escenarios</button>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${SC_TYPES[sc.type].c};margin-bottom:5px">${SC_TYPES[sc.type].label}</div>
+      <div style="font-family:'Source Serif 4',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">${sc.title}</div>
+      <div class="sc-context">${sc.context}</div>
+    </div>
+    <div class="sc-progress"><div class="sc-prog-dots" id="prog-dots"></div><span class="sc-prog-label" id="prog-label"></span></div>
+    <div id="q-container"></div>`;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const sc=SCENARIOS.find(s=>s.id===scState.id);const qi=scState.qi;const q=sc.questions[qi];const nq=sc.questions.length;
+  const tag=QTAGS[q.tag]||{lbl:q.tag,c:'#555',bg:'#eee'};
+  let dots='';for(let i=0;i<nq;i++){let cls='sc-prog-dot';if(i<scState.scores.length)cls+=(scState.scores[i]?' correct':' wrong');else if(i===qi)cls+=' current';dots+=`<div class="${cls}"></div>`;}
+  document.getElementById('prog-dots').innerHTML=dots;
+  document.getElementById('prog-label').textContent=`Pregunta ${qi+1} de ${nq}`;
+  const letters=['A','B','C','D'];
+  document.getElementById('q-container').innerHTML=`<div class="q-card">
+    <div class="q-tag" style="background:${tag.bg};color:${tag.c}">${tag.lbl}</div>
+    <div class="q-question">${q.q}</div>
+    <div class="q-opts">${q.opts.map((o,i)=>`<button class="q-opt" id="opt-${i}" onclick="answerQ(${i})">
+      <div class="opt-icon">${letters[i]}</div><span>${o.replace(' ★','')}</span></button>`).join('')}
+    </div><div id="feedback-area"></div></div>`;
+  scState.answered=false;
+}
+
+function answerQ(chosen){
+  if(scState.answered)return;scState.answered=true;
+  const sc=SCENARIOS.find(s=>s.id===scState.id);const q=sc.questions[scState.qi];const correct=q.correct;const isOk=chosen===correct;
+  scState.scores.push(isOk);
+  document.querySelectorAll('.q-opt').forEach((btn,i)=>{
+    btn.classList.add('answered');
+    if(i===correct)btn.classList.add('correct');
+    else if(i===chosen&&!isOk)btn.classList.add('wrong');
+    else btn.classList.add('neutral');
+    btn.querySelector('.opt-icon').textContent=i===correct?'✓':(i===chosen?'✗':'ABCD'[i]);
+  });
+  const fb=document.getElementById('feedback-area');
+  fb.innerHTML=`<div class="feedback-box ${isOk?'ok':'fail'}">
+    <div class="fb-title">${isOk?'✅ Respuesta correcta':'❌ Respuesta incorrecta'}</div>
+    <div>${isOk?q.fb_ok:q.fb_fail}</div>
+  </div>
+  <button class="next-btn" onclick="nextQ()">${scState.qi+1<sc.questions.length?'Siguiente pregunta →':'Ver resultados'}</button>`;
+}
+
+function nextQ(){
+  const sc=SCENARIOS.find(s=>s.id===scState.id);
+  if(scState.qi+1<sc.questions.length){scState.qi++;renderQuestion();}else{showScore();}
+}
+
+function showScore(){
+  const sc=SCENARIOS.find(s=>s.id===scState.id);const t=SC_TYPES[sc.type];
+  const total=sc.questions.length;const corr=scState.scores.filter(Boolean).length;const pct=Math.round(corr/total*100);
+  scScores[sc.id]=corr;saveScores();
+  const emoji=pct>=80?'🎉':pct>=60?'👍':pct>=40?'🤔':'📚';
+  const msg=pct>=80?'¡Excelente! Dominas este tipo de análisis.':pct>=60?'Bien, pero repasa los errores antes de aplicar en tu investigación científica.':pct>=40?'Repasa las fichas y el árbol e inténtalo de nuevo.':'Revisa las fichas, el árbol y la guía Excel/Sheets antes de repetir.';
+  const fillColor=pct>=80?'var(--green)':pct>=60?'var(--gmid)':pct>=40?'var(--amber)':'var(--red)';
+  document.getElementById('q-container').innerHTML=`<div class="sc-score">
+    <div class="sc-score-emoji">${emoji}</div>
+    <div class="sc-score-title">${corr}/${total} respuestas correctas</div>
+    <div class="sc-score-sub">${msg}</div>
+    <div class="sc-score-bar"><div class="sc-score-fill" style="width:${pct}%;background:${fillColor}"></div></div>
+    <div class="sc-score-pct" style="color:${fillColor}">${pct} %</div>
+    <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:14px">
+      <button class="btn-primary" onclick="startScenario('${sc.id}')">↺ Repetir escenario</button>
+      <button class="btn" onclick="backToScHome()">← Elegir otro escenario</button>
+    </div>
+    <div style="margin-top:18px;text-align:left">
+      ${scState.scores.map((ok,i)=>`<div style="display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--border2);font-size:12px">
+        <span style="color:${ok?'var(--green)':'var(--red)'};font-size:15px">${ok?'✓':'✗'}</span>
+        <span style="color:var(--muted)">P.${i+1}: ${sc.questions[i].q.substring(0,60)}…</span></div>`).join('')}
+    </div>
+  </div>`;
+  document.getElementById('prog-label').textContent=`Completado: ${corr}/${total}`;
+}
+
+function backToScHome(){
+  document.getElementById('practica-scenario').style.display='none';
+  document.getElementById('practica-home').style.display='block';
+  renderScHome();
+}
+</script>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:20px 2rem 4px;border-top:1.5px solid var(--border);margin-top:3rem;background:var(--surface)">
+  <div style="font-weight:700;color:var(--green);font-size:13px;margin-bottom:4px">🧬 Biología IB 2025 · IES Celia Viñas · Almería</div>
+  <div style="font-size:11.5px;color:var(--dim);line-height:1.6;margin-bottom:12px">Herramienta de apoyo a la Investigación Científica IB.<br>Funciones Excel/Sheets en español · Sistema Internacional de Unidades (SI) · En los ejemplos se usa α = 0,05.</div>
+  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:11px">Elaborado por <strong style="color:var(--green)">María Dolores Gámez Ortiz</strong> · Profesora de Biología IB · IES Celia Viñas, Almería</div>
+  <div style="display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--border);border-radius:9px;padding:8px 14px;margin-bottom:7px">
+    <div style="display:flex;align-items:center">
+      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-right:2px">CC</span>
+      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-right:2px">BY</span>
+      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-right:2px">NC</span>
+      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center">SA</span>
+    </div>
+    <div style="text-align:left">
+      <span style="font-size:11px;font-weight:700;color:var(--text);display:block">CC BY-NC-SA 4.0</span>
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener" style="font-size:10px;color:var(--green)">creativecommons.org/licenses/by-nc-sa/4.0 →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
+(function(){
+  function mark(root){(root.querySelectorAll?root:document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select)').forEach(function(el){if(!el.hasAttribute('role')){el.setAttribute('role','button');el.setAttribute('tabindex','0');}});}
+  document.addEventListener('keydown',function(e){var el=e.target.closest&&e.target.closest('[role="button"]');if(el&&el.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();el.click();}});
+  function init(){mark(document);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)mark(n.parentNode||n);});});}).observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.querySelectorAll('a[target="_blank"]').forEach(function(a){a.rel='noopener';});
+})();
+</script>
+</body>
+</html>
