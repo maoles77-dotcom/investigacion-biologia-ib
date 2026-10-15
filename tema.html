@@ -1036,7 +1036,7 @@ table th{font-weight:700}
 <section class="section" id="pregunta">
   <div class="sec-hdr">
     <div class="sec-ic">❓</div>
-    <div><h2 class="sec-title">Constructor de Pregunta de Investigación</h2><p class="sec-sub">Construye tu pregunta paso a paso — debe incluir VI, VD y contexto biológico</p></div>
+    <div><h2 class="sec-title">Constructor de Pregunta de Investigación</h2><p class="sec-sub">Construye tu pregunta paso a paso y compruébala con el comprobador automático de abajo</p></div>
   </div>
   <div class="builder-wrap">
     <div class="builder-hdr"><h3>Constructor de Pregunta</h3><p>Tu pregunta debe incluir claramente una variable independiente, una variable dependiente y el sistema biológico</p></div>
@@ -1068,6 +1068,128 @@ table th{font-weight:700}
       </div>
     </div>
   </div>
+  <!-- ═══ COMPROBADOR DE LA PREGUNTA ═══ -->
+  <div class="rqc" id="comprobador">
+    <div class="rqc-hdr">
+      <h3>🔍 Comprobador de tu pregunta de investigación</h3>
+      <p>Escribe o pega tu pregunta (o usa la del constructor). Se revisa mientras escribes: forma, unidades, rango de la VI, organismo, términos ambiguos y cuestiones éticas. Es una ayuda automática: no sustituye la revisión de tu profesora.</p>
+    </div>
+    <textarea id="rqcText" rows="3" placeholder="¿Cómo afecta la temperatura (10, 20, 30, 40 y 50 °C) al volumen de O₂ (cm³) liberado en 5 min por la catalasa de discos de patata (Solanum tuberosum)?"></textarea>
+    <div class="rqc-btns">
+      <button type="button" class="rqc-btn" id="rqcFromBuilder">⬆ Usar la pregunta del constructor</button>
+      <button type="button" class="rqc-btn ghost" id="rqcExample">Ver un ejemplo de nivel alto</button>
+    </div>
+    <div id="rqcScore" class="rqc-score" aria-live="polite"></div>
+    <ul id="rqcList" class="rqc-list"></ul>
+  </div>
+  <style>
+    .rqc{margin-top:1.5rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.5rem;box-shadow:var(--shadow-md)}
+    .rqc-hdr h3{font-size:1.15rem;margin-bottom:.3rem}
+    .rqc-hdr p{font-size:.88rem;color:var(--text-l);margin-bottom:1rem}
+    .rqc textarea{width:100%;font:inherit;font-size:1rem;line-height:1.5;padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-md);resize:vertical;box-sizing:border-box}
+    .rqc textarea:focus{outline:none;border-color:var(--primary)}
+    .rqc-btns{display:flex;flex-wrap:wrap;gap:.5rem;margin:.7rem 0 1rem}
+    .rqc-btn{font:inherit;font-size:.85rem;font-weight:700;padding:.5rem .9rem;border-radius:var(--r-sm);border:1.5px solid var(--primary);background:var(--primary);color:#fff;cursor:pointer}
+    .rqc-btn.ghost{background:#fff;color:var(--primary)}
+    .rqc-score{font-weight:700;margin-bottom:.6rem}
+    .rqc-bar{height:8px;background:var(--border-l);border-radius:99px;overflow:hidden;margin-top:.35rem}
+    .rqc-bar span{display:block;height:100%;background:var(--primary);transition:width .3s}
+    .rqc-list{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
+    .rqc-list li{display:flex;gap:.7rem;align-items:flex-start;padding:.65rem .85rem;border-radius:var(--r-md);font-size:.9rem;border:1px solid var(--border-l)}
+    .rqc-list li b{display:block}
+    .rqc-list li small{display:block;color:var(--text-l);margin-top:.15rem}
+    .rqc-list .ok{background:var(--success-pale)} .rqc-list .warn{background:var(--accent-pale)} .rqc-list .bad{background:var(--danger-pale)} .rqc-list .info{background:var(--secondary-pale)}
+    .rqc-ic{font-size:1.1rem;line-height:1.2}
+  </style>
+  <script>
+  (function(){
+    const $=id=>document.getElementById(id);
+    const EJEMPLO='¿Cómo afecta la temperatura (10, 20, 30, 40 y 50 °C) al volumen de O₂ (cm³) liberado en 5 min por la catalasa de discos de patata (Solanum tuberosum)?';
+    const UNIT=/(°C|\bK\b|\b[mµk]?g\b|\bcm³|\bdm³|\bcm3\b|\bmL\b|\bml\b|\bL\b|mol\s?·?\s?dm|\bmol\b|mmol|%|\blx\b|\blux\b|\bnm\b|\bµm\b|\bmm²?|\bcm²?|\bm²?\b|\bms\b|\bs\b|\bmin\b|\bh\b|\bdías?\b|\bkPa\b|\bppm\b|\bdB\b|\bmmHg\b|\bkJ\b|\bJ\b|\bkcal\b|\brpm\b|\bpH\b|·min⁻¹|·s⁻¹|·h⁻¹|⁻¹)/;
+    const NUMRANGE=/(\d+([,.]\d+)?\s*(–|-|a|y|,)\s*\d+)|entre\s+\d|(\d+\s*niveles?)|\b(19|20)\d{2}\b/i;
+    const RELACION=/(afecta|afectan|influye|influyen|efecto de|efecto del|efecto de la|impacto de|relación entre|correlación entre|correlaci[oó]n|depende|varía|varían|difiere|diferencia(s)? entre|compara)/i;
+    const BINOMIAL=/\b([A-Z][a-z]{2,})\s([a-z]{3,})\b/g;
+    const NOLAT=new Set(['Cómo','Cuál','Qué','Existe','Hay','Afecta','Influye','Es','En','La','El','Los','Las','De','Del','Por','Para','Entre','Con','Sin']);
+    const CONTEXTO=/\b(tejido|hojas?|raíz|raíces|semillas?|plántulas?|células|levadura|algas?|bacterias?|población|poblaciones|personas|estudiantes|alumnos|países|especies?|ecosistema|cuadrantes?|transecto|enzima|catalasa|amilasa|lactasa|patata|cebolla|remolacha|espinaca|elodea|frutas?|zumos?|plantas?|árboles?|animales?|insectos?|microorganismos?)\b/i;
+    const HUMANOS=/\b(personas|estudiantes|alumn[oa]s|adolescentes|adultos|sujetos|humanos|participantes|Homo sapiens)\b/i;
+    const SISTEMA=/(atmósfera|atmosf|global|mundial|países|país|océano|oceán|lago|río|suelo|bosque|ecosistema|región|regiones|comunidad|población humana|poblaciones humanas)/i;
+    const AMBIG=[
+      [/\bcantidad(es)?\b/i,'«cantidad» es ambiguo','Di qué magnitud mides: masa (g), volumen (cm³), concentración (mol·dm⁻³), número de individuos…'],
+      [/(?<!\d\s)\bniveles? de\b(?!\s*(la VI|confianza|significaci))/i,'«nivel de» suele ser ambiguo','Usa la magnitud concreta: concentración, intensidad luminosa (lx), temperatura (°C)…'],
+      [/\b(efectividad|eficacia|eficiencia)\b/i,'«eficacia/efectividad» no es una magnitud','Explica cómo la mides: diámetro del halo de inhibición (mm), tasa de reacción (cm³·min⁻¹)…'],
+      [/\b(mejor|peor|más rápido|más lento|bueno|malo)\b/i,'Comparativos vagos («mejor», «más rápido»)','Sustitúyelos por la variable que mides y su unidad.'],
+      [/\bcrecimiento\b/i,'«crecimiento» puede medirse de muchas formas','Especifica: altura (mm), masa seca (g), número de hojas, longitud de la raíz (mm)…'],
+      [/\b(velocidad|tasa|ritmo)\b(?![^?]*(⁻¹|por minuto|por segundo|·min|·s|\/min|\/s))/i,'Falta cómo se calcula la tasa','Indica la unidad de la tasa: cm³·min⁻¹, burbujas·min⁻¹, % de cambio de masa·h⁻¹…'],
+      [/\b(salud|calidad|bienestar)\b/i,'«salud/calidad» son conceptos amplios','Concrétalo en un indicador medible (frecuencia cardíaca, pH, O₂ disuelto…).'],
+    ];
+    const ETICA=[
+      [/(cafeína|café|bebida[s]? energética|alcohol|etanol.*(beber|ingerir)|medicamento|fármaco|suplemento|azúcar.*(ingerir|consumir))/i,'bad','Administrar sustancias a personas no está permitido','Las Directrices del IB no permiten experimentos que administren sustancias (incluidas bebidas con cafeína).'],
+      [/(sangre|saliva|sudor|orina|lágrima|fluido corporal)/i,'bad','Fluidos corporales: no permitido','Las Directrices del IB no permiten experimentos con fluidos corporales.'],
+      [/resistencia\s+(a|de)\s+(los\s+)?antibi|antibi[oó]ticos?\s+resistencia/i,'bad','Pruebas de resistencia a antibióticos: no permitidas','Puedes estudiarlo con bases de datos o simulaciones (p. ej., Darkow), no en el laboratorio.'],
+      [/\b(personas|estudiantes|alumn[oa]s|sujetos|humanos|compañer[oa]s|Homo sapiens|frecuencia cardíaca|tiempo de reacción|ventilación)\b/i,'warn','Investigación con personas','Necesitas consentimiento informado firmado (y de las familias si hay menores de 16 años). La variabilidad entre personas es alta: planifica una muestra amplia.'],
+      [/\b(bacteria|bacterias|E\.\s?coli|hongos?|moho|microorganismos?|cultivo)\b/i,'warn','Microorganismos','Solo cepas no patógenas de proveedores, incubación ≤ 25 °C, técnica aséptica y sin muestras del cuerpo.'],
+      [/\b(ratón|ratones|pez|peces|lombriz|lombrices|insectos?|caracoles?|cochinillas?|Daphnia|grillos?|animal(es)?)\b/i,'warn','Animales','Solo observación o medición del comportamiento natural, sin estrés ni daño; devuélvelos a su hábitat.'],
+    ];
+    function analizar(q){
+      const res=[]; const s=q.trim(); if(!s) return null;
+      const words=s.replace(/[¿?]/g,'').split(/\s+/).filter(Boolean).length;
+      let core=0;
+      // 1. Forma
+      if(/^¿/.test(s)&&/\?$/.test(s)){res.push(['ok','Está formulada como pregunta','']);core++;}
+      else res.push(['bad','No está formulada como pregunta','Empieza con «¿» y termina con «?».']);
+      // 2. VI y VD distinguibles
+      if(RELACION.test(s)){res.push(['ok','Se distingue una relación entre variables (VI → VD)','']);core++;}
+      else res.push(['warn','No se ve claramente la VI y la VD','Usa una estructura como «¿Cómo afecta [VI] a [VD] en [organismo]?» o «¿Cuál es la relación entre X e Y?».']);
+      // 3. Unidades
+      const nUnits=(s.match(new RegExp(UNIT.source,'g'))||[]).length;
+      if(nUnits>=2){res.push(['ok','Incluye unidades','Comprueba que la VD lleva la suya (y la VI si es cuantitativa).']);core++;}
+      else if(nUnits===1){res.push(['warn','Solo aparece una unidad','Normalmente deben llevar unidad tanto la VD como la VI cuantitativa: «pH (de 4 a 8)» y «tasa de liberación de O₂ (cm³·min⁻¹)».']);core+=0.5;}
+      else res.push(['bad','No aparecen unidades','Añade la unidad de la VD (y de la VI si es cuantitativa): «volumen de O₂ (cm³)», «temperatura (°C)».']);
+      // 4. Rango o niveles
+      if(NUMRANGE.test(s)){res.push(['ok','Indica el rango, los niveles o el periodo','']);core++;}
+      else res.push(['warn','Falta el rango o los niveles de la VI','Por ejemplo: «(10, 20, 30, 40 y 50 °C)», «entre 0,0 y 1,0 mol·dm⁻³» o, con bases de datos, «entre 2000 y 2020».']);
+      // 5. Organismo o sistema
+      let bin=null,m; BINOMIAL.lastIndex=0;
+      while((m=BINOMIAL.exec(s))){ if(!NOLAT.has(m[1])&&m.index>2){bin=m[0];break;} }
+      if(bin){res.push(['ok','Nombra el organismo ('+bin+')','Escríbelo en cursiva en tu informe.']);core++;}
+      else if(HUMANOS.test(s)){res.push(['ok','Se identifica la población estudiada','Describe la muestra: edad, sexo, nivel de actividad física… (no hace falta el nombre científico).']);core++;}
+      else if(SISTEMA.test(s)&&!CONTEXTO.test(s)){res.push(['ok','Se identifica el sistema estudiado','Si incluye organismos concretos, nómbralos con su nombre científico.']);core++;}
+      else if(CONTEXTO.test(s)){res.push(['warn','Hay un sistema biológico, pero falta el nombre científico','Añade el nombre científico entre paréntesis, p. ej., «patata (Solanum tuberosum)».']);core+=0.5;}
+      else res.push(['bad','No se identifica el organismo o sistema biológico','Indica en qué organismo, tejido o población lo estudias.']);
+      // 6. Términos ambiguos
+      const amb=AMBIG.filter(a=>a[0].test(s));
+      if(!amb.length){res.push(['ok','Sin términos ambiguos detectados','']);core++;}
+      else amb.forEach(a=>res.push(['warn',a[1],a[2]]));
+      // Longitud
+      if(words<10) res.push(['warn','Muy corta ('+words+' palabras)','Suele faltar contexto: organismo, unidades o rango.']);
+      else if(words>45) res.push(['warn','Muy larga ('+words+' palabras)','Una pregunta debe ser focalizada; el detalle del método va en la metodología.']);
+      // Pregunta de sí/no
+      if(/^¿\s*(Afecta|Influye|Hay|Es|Son|Puede)\b/i.test(s)) res.push(['info','Pregunta de sí o no','Mejor «¿Cómo afecta…?» o «¿Cuál es la relación…?»: invitan a una respuesta cuantitativa.']);
+      // Método de medida
+      if(/(medid[oa]s?\s+(como|mediante|con|por|a través)|mediante|determinad[oa]|usando|utilizando|con un (sensor|colorímetro|potómetro|respirómetro))/i.test(s)) res.push(['ok','Indica cómo se mide la VD','']);
+      else res.push(['info','Opcional: cómo mides la VD','Puede ayudar añadir «medido como…» o «mediante…» si la VD admite varias formas de medida.']);
+      // Correlación y causalidad
+      if(/(relación|correlación)/i.test(s)&&/\bcausa/i.test(s)) res.push(['warn','Mezcla correlación y causalidad','Una correlación no demuestra que una variable cause la otra.']);
+      // Ética
+      ETICA.forEach(e=>{ if(e[0].test(s)) res.push([e[1],e[2],e[3]]); });
+      return {res,core};
+    }
+    const IC={ok:'✅',warn:'⚠️',bad:'❌',info:'💡'};
+    function pintar(){
+      const r=analizar($('rqcText').value);
+      if(!r){$('rqcScore').innerHTML='';$('rqcList').innerHTML='';return;}
+      const pct=Math.round(r.core/6*100);
+      const prohibido=r.res.some(x=>x[0]==='bad'&&/no (está )?permitid/i.test(x[1]));
+      const nota=prohibido?'⛔ Este diseño no está permitido por las Directrices del IB: replantea la pregunta':r.core>=5.5?'Muy bien encaminada':r.core>=4.5?'Buena base: revisa los avisos':'Necesita trabajo: revisa los avisos en rojo y ámbar';
+      $('rqcScore').innerHTML=`Elementos clave: ${String(r.core).replace('.',',')} de 6 · ${nota}<div class="rqc-bar"><span style="width:${pct}%"></span></div>`;
+      const ord={bad:0,warn:1,info:3,ok:2};
+      $('rqcList').innerHTML=r.res.slice().sort((a,b)=>ord[a[0]]-ord[b[0]]).map(x=>`<li class="${x[0]}"><span class="rqc-ic">${IC[x[0]]}</span><span><b>${x[1]}</b>${x[2]?`<small>${x[2]}</small>`:''}</span></li>`).join('');
+    }
+    $('rqcText').addEventListener('input',pintar);
+    $('rqcFromBuilder').addEventListener('click',()=>{const p=$('bPreview');const t=p?p.textContent.trim():'';if(t&&!/^Completa/.test(t)){$('rqcText').value=t;pintar();}else{$('rqcScore').textContent='Primero completa el constructor de arriba.';$('rqcList').innerHTML='';}});
+    $('rqcExample').addEventListener('click',()=>{$('rqcText').value=EJEMPLO;pintar();});
+  })();
+  </script>
 </section>
 
 <!-- ═══ METODOLOGÍA ═══ -->

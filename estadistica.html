@@ -315,6 +315,51 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#f2f5f2;color:#1c2e1f
   .flujo-step{padding:4px 7px;font-size:11px;}
 }
 </style>
+<style id="tutoriales">.stut{background:#fff;border:1px solid var(--ds-line,#d6e5d8);border-radius:16px;padding:18px;margin:18px 0;box-shadow:0 1px 2px rgba(15,47,26,.05),0 4px 16px rgba(15,47,26,.06);font-family:var(--ds-sans,'DM Sans',sans-serif);color:#1c2e1f}
+.stut-hdr{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px}
+.stut-hdr h4{font-family:var(--ds-serif,Georgia,serif);font-size:19px;margin:0}
+.stut-badge{background:#e6f4eb;color:#1e5c32;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px}
+.stut-win{border:1px solid #c9d6cc;border-radius:10px;overflow:hidden;background:#f3f3f3}
+.stut-title{background:#217346;color:#fff;font-size:12.5px;font-weight:600;padding:6px 12px}
+.stut-tabs{display:flex;gap:2px;background:#f3f3f3;border-bottom:1px solid #ddd;padding:0 8px;overflow-x:auto}
+.stut-tabs span{font-size:12.5px;padding:7px 10px;color:#444;white-space:nowrap;border-bottom:3px solid transparent}
+.stut-tabs span.on{color:#217346;font-weight:700;border-bottom-color:#217346;background:#fff}
+.stut-fx{display:flex;align-items:center;gap:8px;background:#fff;border-bottom:1px solid #ddd;padding:5px 8px;font-family:Consolas,'Courier New',monospace;font-size:13.5px}
+.stut-name{min-width:52px;border:1px solid #ccc;padding:2px 6px;text-align:center;font-size:12.5px}
+.stut-fxi{color:#888;font-style:italic}
+.stut-fxt{flex:1;min-height:1.2em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stut-body{display:flex;flex-wrap:wrap;gap:12px;padding:10px;background:#fff;align-items:flex-start}
+.stut-grid{overflow-x:auto;flex:1 1 380px}
+.stut-grid table{border-collapse:collapse;font-size:13px}
+.stut-grid th{background:#efefef;color:#555;font-weight:600;border:1px solid #d4d4d4;padding:3px 8px;min-width:22px}
+.stut-grid td{border:1px solid #e1e1e1;padding:4px 8px;min-width:58px;height:22px;white-space:nowrap;transition:background .3s}
+.stut-grid td.hd{font-weight:700;background:#f7fbf8}
+.stut-grid td.sel{background:#d7ecdf;outline:1.5px solid #217346;outline-offset:-1.5px}
+.stut-grid td.new{background:#fff4d6;font-weight:700;animation:stutPop .6s ease}
+@keyframes stutPop{from{background:#ffe08a}to{background:#fff4d6}}
+.stut-side{flex:1 1 340px;display:grid;gap:10px}
+.stut-chart{border:1px solid #e1e1e1;border-radius:8px;padding:6px;background:#fff}
+.stut-chart svg{width:100%;height:auto;display:block}
+.stut-pie{font-size:12.5px;color:#4d6e54;padding:4px 6px}
+.stut-panel{border:1px solid #c9d6cc;border-radius:8px;background:#fbfdfb;box-shadow:0 4px 14px rgba(0,0,0,.08);overflow:hidden;animation:stutIn .35s ease}
+@keyframes stutIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.stut-ptitle{background:#e6f4eb;color:#1e5c32;font-weight:700;font-size:13px;padding:7px 10px}
+.stut-prow{display:flex;justify-content:space-between;gap:12px;padding:6px 10px;border-top:1px solid #eaf0ea;font-size:13px}
+.stut-prow b{font-family:Consolas,'Courier New',monospace;font-weight:600;color:#1a6fa8;text-align:right}
+.stut-out{border-collapse:collapse;width:100%;font-size:12.5px}
+.stut-out th{background:#e6f4eb;color:#1e5c32;padding:5px 7px;text-align:left}
+.stut-out td{padding:5px 7px;border-top:1px solid #eaf0ea}
+.stut-out td.hl{background:#fff4d6;font-weight:700}
+.stut-cap{margin:12px 2px 8px;font-size:16px;line-height:1.55;min-height:3.1em}
+.stut-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.stut-ctl>button{font:inherit;font-size:14px;font-weight:700;border:1.5px solid #2d7a45;background:#fff;color:#2d7a45;border-radius:9px;padding:6px 12px;cursor:pointer}
+.stut-ctl>button[data-a=play]{background:#2d7a45;color:#fff;min-width:130px}
+.stut-dots{display:flex;gap:6px;margin-left:6px}
+.stut-dots button{width:12px;height:12px;border-radius:50%;border:none;background:#cbe7d4;cursor:pointer;padding:0}
+.stut-dots button.on{background:#2d7a45;transform:scale(1.25)}
+.stut-nota{font-size:13px;color:#4d6e54;margin:10px 2px 0}
+@media (prefers-reduced-motion:reduce){.stut-grid td.new,.stut-panel{animation:none}}
+</style>
 <meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
 <meta name="theme-color" content="#1e5c32">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
@@ -583,6 +628,8 @@ table th{font-weight:700}
       </div>
     </div>
     <div class="warn-bar">⚠️ <strong>Excel en español:</strong> Los argumentos se separan con <strong>punto y coma (;)</strong>. Los rangos usan dos puntos: <code>=PROMEDIO(B2:B9)</code> es correcto. <code>=PROMEDIO(B2;B9)</code> daría solo 2 valores.</div>
+    <h3 style="margin:22px 0 4px">🎬 Tutoriales animados</h3><p style="margin:0 0 6px;color:var(--muted)">Mira cómo se hace paso a paso antes de probarlo con tus datos. Pulsa ▶ Reproducir o avanza con las flechas.</p><div class="stut" data-tut="barras"></div><div class="stut" data-tut="anova"></div><p style="margin:0 0 14px">📏 El tutorial de <a href="incertidumbre.html#p3">propagación de la incertidumbre</a> está en la página de incertidumbre.</p>
+
   </div>
   <div id="guia-datos" class="tut-panel">
     <button class="btn" style="margin-bottom:14px" onclick="showGuia('home')">← Volver a tutoriales</button>
@@ -1584,6 +1631,116 @@ function backToScHome(){
 </script>
 
 
+<script>/* Tutoriales animados: recreación paso a paso de una hoja de cálculo (Excel en español).
+   Uso: <div class="stut" data-tut="barras"></div> … y este script al final de la página. */
+(function () {
+  const COLS = 'ABCDEFGHI'.split('');
+  const TABS = ['Archivo', 'Inicio', 'Insertar', 'Disposición', 'Fórmulas', 'Datos', 'Revisar', 'Vista'];
+  const XY = [[10, 1.2, .16], [20, 2.5, .22], [30, 4.9, .27], [40, 3.1, .38], [50, 1.0, .29]];
+  const datosMedias = { A1: 'Temperatura / °C', B1: 'Volumen medio de O₂ / cm³', C1: 's / cm³' };
+  XY.forEach((r, i) => { datosMedias['A' + (i + 2)] = String(r[0]); datosMedias['B' + (i + 2)] = r[1].toFixed(1).replace('.', ','); datosMedias['C' + (i + 2)] = r[2].toFixed(2).replace('.', ','); });
+  const REP = [[1.2, 1.4, 1.0, 1.3, 1.1], [2.4, 2.6, 2.2, 2.5, 2.8], [4.8, 5.1, 4.9, 5.3, 4.6], [3.1, 2.9, 3.6, 2.6, 3.3], [1.0, 0.9, 1.4, 0.6, 1.1]];
+  const datosRep = {};
+  ['10 °C', '20 °C', '30 °C', '40 °C', '50 °C'].forEach((h, c) => { datosRep[COLS[c] + '1'] = h + ' (cm³)'; REP[c].forEach((v, r) => datosRep[COLS[c] + (r + 2)] = v.toFixed(1).replace('.', ',')); });
+
+  const TUT = {
+    barras: { titulo: 'Barras de error personalizadas en un gráfico XY', nota: 'Excel 365 en español. En Google Sheets: Editor de gráficos › Personalizar › Serie › Barras de error (solo admite valor constante o porcentaje; para valores distintos por punto, usa Excel o LibreOffice).',
+      pasos: [
+        { cap: 'Organiza en columnas la VI, la media y la desviación típica (calculadas antes con PROMEDIO y DESVEST). Encabezados con magnitud y unidad.', cells: datosMedias, sel: 'A1:C6', tab: 'Inicio' },
+        { cap: 'Selecciona solo la VI y la media (A1:B6) y ve a Insertar › Gráficos › Dispersión (X Y). No uses «Líneas»: trata la temperatura como categoría.', sel: 'A1:B6', tab: 'Insertar', panel: { t: 'Insertar › Gráficos', rows: [['📈 Dispersión (X Y)', '◀ elegir'], ['Líneas', '✗ no para dos variables continuas'], ['Columnas', 'para VI categórica']] }, chart: { pts: true } },
+        { cap: 'Haz clic en el gráfico, pulsa el botón «+» (Elementos de gráfico), marca «Barras de error» y elige «Más opciones…». Las barras automáticas (5 % o error típico de la serie) NO representan tus datos.', tab: 'Insertar', panel: { t: '＋ Elementos de gráfico', rows: [['☑ Ejes', ''], ['☐ Títulos de ejes', ''], ['☑ Barras de error ▸', 'Más opciones…']] }, chart: { pts: true, err: 'auto', xerr: true } },
+        { cap: 'En el panel «Formato de barras de error» (barras verticales): Dirección: Ambas · Estilo final: Remate · Cantidad de error: Personalizado › «Especificar valor».', panel: { t: 'Formato de barras de error', rows: [['Dirección', '● Ambas'], ['Estilo final', '● Remate'], ['Cantidad de error', '● Personalizado'], ['', '[ Especificar valor ]']] }, chart: { pts: true, err: 'auto', xerr: true } },
+        { cap: 'En «Valor de error positivo» y «negativo» selecciona el rango de las desviaciones típicas (C2:C6). Ahora cada punto tiene su propia barra.', sel: 'C2:C6', fx: '=Hoja1!$C$2:$C$6', panel: { t: 'Barras de error personalizadas', rows: [['Valor de error positivo', '=Hoja1!$C$2:$C$6'], ['Valor de error negativo', '=Hoja1!$C$2:$C$6']] }, chart: { pts: true, err: 'custom', xerr: true } },
+        { cap: 'En un gráfico XY Excel añade también barras horizontales. Haz clic sobre ellas y pulsa Supr: tu VI no tiene esa variabilidad.', chart: { pts: true, err: 'custom', xerr: false } },
+        { cap: 'Añade los títulos de los ejes con magnitud y unidad, y escribe en el pie qué representan las barras y la n.', chart: { pts: true, err: 'custom', xerr: false, ejes: true, pie: 'Figura 1. Volumen medio de O₂ liberado frente a la temperatura. Barras de error: ± 1 s (n = 5).' } },
+      ] },
+    anova: { titulo: 'ANOVA de un factor y prueba t en Excel', nota: 'Necesitas el complemento «Herramientas para análisis» (Excel de escritorio). En Google Sheets: =T.TEST(…) para la t; para el ANOVA, usa la plantilla de la asignatura o una herramienta aprobada por tu profesora.',
+      pasos: [
+        { cap: 'Una columna por nivel de la VI y las réplicas en filas. Encabezados con el nivel y la unidad de la VD.', cells: datosRep, sel: 'A1:E6', tab: 'Inicio' },
+        { cap: 'Activa el complemento una sola vez: Archivo › Opciones › Complementos › Administrar «Complementos de Excel» › Ir… › marca «Herramientas para análisis».', tab: 'Archivo', panel: { t: 'Complementos', rows: [['☑ Herramientas para análisis', '◀'], ['☐ Herramientas para análisis - VBA', ''], ['☐ Solver', '']] } },
+        { cap: 'Ve a Datos › Análisis de datos y elige «Análisis de varianza de un factor».', tab: 'Datos', panel: { t: 'Análisis de datos', rows: [['Análisis de varianza de un factor', '◀ elegir'], ['Prueba t para dos muestras suponiendo varianzas desiguales', ''], ['Estadística descriptiva', '']] } },
+        { cap: 'Rango de entrada: $A$1:$E$6 · Agrupado por: Columnas · ☑ Rótulos en la primera fila · Alfa: 0,05 · Rango de salida: una celda libre.', sel: 'A1:E6', tab: 'Datos', panel: { t: 'Análisis de varianza de un factor', rows: [['Rango de entrada', '$A$1:$E$6'], ['Agrupado por', '● Columnas'], ['Rótulos en la primera fila', '☑'], ['Alfa', '0,05'], ['Rango de salida', '$G$1']] } },
+        { cap: 'Lee la tabla de resultados: F, la «Probabilidad» (el valor p) y el valor crítico de F. Aquí p < 0,05 → se rechaza H₀: al menos una media es distinta.', tab: 'Datos', tabla: { cab: ['Origen', 'SC', 'gl', 'PM', 'F', 'Probabilidad', 'Valor crítico F'], filas: [['Entre grupos', '51,21', '4', '12,80', '169,35', '4,0E-15', '2,87'], ['Dentro de grupos', '1,51', '20', '0,076', '', '', ''], ['Total', '52,72', '24', '', '', '', '']], hl: [0, 4, 5] } },
+        { cap: 'Para comparar solo dos grupos (en un diseño de dos niveles): =PRUEBA.T(rango1;rango2;2;3). Colas = 2 (bilateral); tipo = 3 (Welch, sin suponer varianzas iguales). Devuelve el valor p, no el estadístico t.', sel: 'C2:D6', fx: '=PRUEBA.T(C2:C6;D2:D6;2;3)', out: { cell: 'G2', v: '4,1E-05' } },
+        { cap: 'Redáctalo con el estadístico, los grados de libertad, p y α, y conecta con la biología. Tras un ANOVA significativo, usa una prueba post hoc (p. ej., Tukey) para saber qué niveles difieren.', tabla: { cab: ['Cómo se escribe en el informe'], filas: [['«ANOVA de un factor: F(4, 20) = 169,35; p < 0,001; α = 0,05. Se rechaza H₀: la temperatura afecta al volumen medio de O₂ liberado.»']], hl: [] } },
+      ] },
+    propagacion: { titulo: 'Propagación de la incertidumbre en una hoja de cálculo', nota: 'Regla práctica: sumas y restas → se suman incertidumbres absolutas; productos y cocientes → se suman incertidumbres relativas (%). Funciona igual en Excel y en Google Sheets.',
+      pasos: [
+        { cap: 'Datos brutos de un experimento de ósmosis: la incertidumbre de la balanza (± 0,01 g) va en el encabezado.', cells: { A1: 'Sacarosa / mol·dm⁻³', B1: 'm inicial / g ± 0,01 g', C1: 'm final / g ± 0,01 g', A2: '0,0', B2: '1,96', C2: '2,48', A3: '0,2', B3: '2,01', C3: '2,21', A4: '0,4', B4: '1,98', C4: '1,90' }, sel: 'A1:C4', tab: 'Inicio' },
+        { cap: 'Cambio de masa = masa final − masa inicial.', cells: { D1: 'Δm / g' }, sel: 'D2', fx: '=C2-B2', out: { cell: 'D2', v: '0,52', also: { D3: '0,20', D4: '-0,08' } } },
+        { cap: 'En una resta se suman las incertidumbres absolutas: ± 0,01 g + 0,01 g = ± 0,02 g.', cells: { E1: '± Δm / g' }, sel: 'E2', fx: '=0,01+0,01', out: { cell: 'E2', v: '0,02', also: { E3: '0,02', E4: '0,02' } } },
+        { cap: 'Porcentaje de cambio de masa = Δm ÷ masa inicial × 100.', cells: { F1: 'Cambio / %' }, sel: 'F2', fx: '=D2/B2*100', out: { cell: 'F2', v: '26,5', also: { F3: '9,95', F4: '-4,04' } } },
+        { cap: 'En un cociente se suman las incertidumbres relativas y se multiplican por el resultado: (0,02/0,52 + 0,01/1,96) × 26,5 ≈ 1,2.', cells: { G1: '± cambio / %' }, sel: 'G2', fx: '=(E2/ABS(D2)+0,01/B2)*ABS(F2)', out: { cell: 'G2', v: '1,16', also: { G3: '1,04', G4: '1,03' } } },
+        { cap: 'Presenta la incertidumbre con 1 cifra significativa y el valor con los mismos decimales: 27 % ± 1 %; 10 % ± 1 %; −4 % ± 1 %. Fíjate: cuanto menor es Δm, mayor es su incertidumbre relativa (en la fila 4, ± 25 %).', cells: { H1: 'Resultado' }, sel: 'H2:H4', out: { cell: 'H2', v: '27 % ± 1 %', also: { H3: '10 % ± 1 %', H4: '−4 % ± 1 %' } } },
+        { cap: 'Compara con la variabilidad entre réplicas: si la desviación típica del % de cambio (p. ej., 2,3 %) supera la incertidumbre propagada (1 %), domina la variabilidad biológica. Explícalo en tu análisis y en tu evaluación.', tabla: { cab: ['Incertidumbre propagada', 's entre réplicas', 'Fuente dominante'], filas: [['± 1 %', '2,3 %', 'Variabilidad biológica']], hl: [0] } },
+      ] },
+  };
+
+  const parseRange = r => { const m = r.match(/^([A-I])(\d+)(?::([A-I])(\d+))?$/); if (!m) return []; const c1 = COLS.indexOf(m[1]), r1 = +m[2], c2 = m[3] ? COLS.indexOf(m[3]) : c1, r2 = m[4] ? +m[4] : r1; const out = []; for (let c = c1; c <= c2; c++) for (let rr = r1; rr <= r2; rr++) out.push(COLS[c] + rr); return out; };
+  const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function chartSVG(ch) {
+    const W = 360, H = 220, L = 52, B = 34, T = 14, R = 12, xmin = 0, xmax = 60, ymin = 0, ymax = 6;
+    const X = x => L + (x - xmin) / (xmax - xmin) * (W - L - R), Y = y => H - B - (y - ymin) / (ymax - ymin) * (H - B - T);
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de dispersión de ejemplo"><rect x="0" y="0" width="${W}" height="${H}" fill="#fff"/>`;
+    for (let y = 0; y <= 6; y++) s += `<line x1="${L}" x2="${W - R}" y1="${Y(y)}" y2="${Y(y)}" stroke="#eee"/><text x="${L - 6}" y="${Y(y) + 4}" font-size="10" text-anchor="end" fill="#666">${y}</text>`;
+    for (let x = 0; x <= 60; x += 10) s += `<text x="${X(x)}" y="${H - B + 14}" font-size="10" text-anchor="middle" fill="#666">${x}</text>`;
+    s += `<line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#444"/><line x1="${L}" x2="${L}" y1="${T}" y2="${H - B}" stroke="#444"/>`;
+    XY.forEach(([x, y, sd]) => {
+      if (ch.err) { const e = ch.err === 'auto' ? y * .05 : sd; const col = ch.err === 'auto' ? '#b0b0b0' : '#1e5c32';
+        s += `<line x1="${X(x)}" x2="${X(x)}" y1="${Y(y - e)}" y2="${Y(y + e)}" stroke="${col}" stroke-width="1.5"/><line x1="${X(x) - 5}" x2="${X(x) + 5}" y1="${Y(y - e)}" y2="${Y(y - e)}" stroke="${col}" stroke-width="1.5"/><line x1="${X(x) - 5}" x2="${X(x) + 5}" y1="${Y(y + e)}" y2="${Y(y + e)}" stroke="${col}" stroke-width="1.5"/>`; }
+      if (ch.xerr) s += `<line x1="${X(x - 2.5)}" x2="${X(x + 2.5)}" y1="${Y(y)}" y2="${Y(y)}" stroke="#d9534f" stroke-width="1.5" stroke-dasharray="3 2"/>`;
+      if (ch.pts) s += `<circle cx="${X(x)}" cy="${Y(y)}" r="4.5" fill="#2d7a45"/>`;
+    });
+    if (ch.ejes) s += `<text x="${(L + W - R) / 2}" y="${H - 4}" font-size="11" text-anchor="middle" fill="#1c2e1f" font-weight="700">Temperatura / °C</text><text x="14" y="${(T + H - B) / 2}" font-size="11" text-anchor="middle" fill="#1c2e1f" font-weight="700" transform="rotate(-90 14 ${(T + H - B) / 2})">Vol. medio de O₂ / cm³</text>`;
+    if (ch.xerr) s += `<text x="${W - R}" y="${T + 10}" font-size="10" text-anchor="end" fill="#d9534f">barras horizontales: eliminar</text>`;
+    if (ch.err === 'auto') s += `<text x="${W - R}" y="${T + 24}" font-size="10" text-anchor="end" fill="#888">automáticas (5 %) ✗</text>`;
+    return s + '</svg>';
+  }
+
+  function mount(root) {
+    const tut = TUT[root.dataset.tut]; if (!tut) return;
+    let i = 0, timer = null, typing = null;
+    root.innerHTML = `<div class="stut-hdr"><span class="stut-badge">🎬 Tutorial animado</span><h4>${esc(tut.titulo)}</h4></div>
+      <div class="stut-win"><div class="stut-title">Libro1 — Excel</div><div class="stut-tabs">${TABS.map(t => `<span data-t="${t}">${t}</span>`).join('')}</div>
+      <div class="stut-fx"><span class="stut-name">A1</span><span class="stut-fxi">fx</span><span class="stut-fxt"></span></div>
+      <div class="stut-body"><div class="stut-grid"></div><div class="stut-side"></div></div></div>
+      <div class="stut-cap" aria-live="polite"></div>
+      <div class="stut-ctl"><button type="button" data-a="prev" aria-label="Paso anterior">◀</button><button type="button" data-a="play" aria-label="Reproducir o pausar">▶ Reproducir</button><button type="button" data-a="next" aria-label="Paso siguiente">▶</button><span class="stut-dots">${tut.pasos.map((_, k) => `<button type="button" data-k="${k}" aria-label="Paso ${k + 1}"></button>`).join('')}</span></div>
+      <p class="stut-nota">ℹ️ ${esc(tut.nota)} Esta animación es una recreación simplificada de la interfaz.</p>`;
+    const $ = s => root.querySelector(s);
+    function render() {
+      const cells = {}; let tab = 'Inicio', ch = null, panel = null, tabla = null;
+      for (let k = 0; k <= i; k++) { const p = tut.pasos[k]; Object.assign(cells, p.cells || {}); if (p.out) { cells[p.out.cell] = p.out.v; Object.assign(cells, p.out.also || {}); } if (p.tab) tab = p.tab; if (p.chart) ch = p.chart; }
+      const p = tut.pasos[i]; panel = p.panel || null; tabla = p.tabla || null;
+      const sel = new Set(p.sel ? parseRange(p.sel) : []);
+      const usedCols = Math.max(3, ...Object.keys(cells).map(c => COLS.indexOf(c[0]) + 1));
+      const usedRows = Math.max(6, ...Object.keys(cells).map(c => +c.slice(1)));
+      let g = '<table><tr><th></th>' + COLS.slice(0, usedCols).map(c => `<th>${c}</th>`).join('') + '</tr>';
+      for (let r = 1; r <= usedRows; r++) { g += `<tr><th>${r}</th>`; COLS.slice(0, usedCols).forEach(c => { const id = c + r; const v = cells[id] || ''; const isNew = p.out && (id === p.out.cell || (p.out.also && id in p.out.also)); g += `<td class="${sel.has(id) ? 'sel' : ''}${r === 1 && v ? ' hd' : ''}${isNew ? ' new' : ''}">${esc(v)}</td>`; }); g += '</tr>'; }
+      $('.stut-grid').innerHTML = g + '</table>';
+      let side = '';
+      if (ch) side += `<div class="stut-chart">${chartSVG(ch)}${ch.pie ? `<div class="stut-pie">${esc(ch.pie)}</div>` : ''}</div>`;
+      if (panel) side += `<div class="stut-panel"><div class="stut-ptitle">${esc(panel.t)}</div>${panel.rows.map(r => `<div class="stut-prow"><span>${esc(r[0])}</span><b>${esc(r[1])}</b></div>`).join('')}</div>`;
+      if (tabla) side += `<div class="stut-panel"><table class="stut-out"><tr>${tabla.cab.map(c => `<th>${esc(c)}</th>`).join('')}</tr>${tabla.filas.map(f => `<tr>${f.map((c, k) => `<td class="${tabla.hl.includes(k) && f[k] ? 'hl' : ''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+      $('.stut-side').innerHTML = side; $('.stut-side').style.display = side ? '' : 'none';
+      root.querySelectorAll('.stut-tabs span').forEach(s => s.classList.toggle('on', s.dataset.t === tab));
+      $('.stut-name').textContent = p.sel ? p.sel.split(':')[0] : (p.out ? p.out.cell : 'A1');
+      clearInterval(typing); const fx = p.fx || (p.sel && cells[p.sel.split(':')[0]]) || '';
+      if (p.fx && !reduce) { let n = 0; $('.stut-fxt').textContent = ''; typing = setInterval(() => { n++; $('.stut-fxt').textContent = fx.slice(0, n); if (n >= fx.length) clearInterval(typing); }, 45); } else $('.stut-fxt').textContent = fx;
+      $('.stut-cap').innerHTML = `<b>Paso ${i + 1} de ${tut.pasos.length}.</b> ${esc(p.cap)}`;
+      root.querySelectorAll('.stut-dots button').forEach((d, k) => d.classList.toggle('on', k === i));
+    }
+    function go(k) { i = (k + tut.pasos.length) % tut.pasos.length; render(); }
+    function stop() { clearInterval(timer); timer = null; $('[data-a=play]').textContent = '▶ Reproducir'; }
+    function play() { if (timer) return stop(); $('[data-a=play]').textContent = '⏸ Pausa'; timer = setInterval(() => { if (i === tut.pasos.length - 1) { stop(); return; } go(i + 1); }, 5500); }
+    root.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.a === 'prev') { stop(); go(i - 1); } else if (b.dataset.a === 'next') { stop(); go(i + 1); } else if (b.dataset.a === 'play') { if (i === tut.pasos.length - 1 && !timer) go(0); play(); } else if (b.dataset.k) { stop(); go(+b.dataset.k); } });
+    render();
+  }
+  document.querySelectorAll('.stut').forEach(mount);
+})();
+</script>
 
 <footer class="ds-footer" role="contentinfo">
   <div class="ds-wrap">
