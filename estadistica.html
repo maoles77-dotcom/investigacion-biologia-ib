@@ -335,11 +335,124 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#f2f5f2;color:#1c2e1f
 :focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style id="design-system">
+/* ═══════════ Sistema de diseño · IA Biología IB ═══════════ */
+:root{
+  --ds-green-900:#0f2f1a; --ds-green-800:#143f23; --ds-green-700:#1e5c32; --ds-green-600:#2d7a45; --ds-green-500:#3d9458;
+  --ds-green-100:#e6f4eb; --ds-green-50:#f2f8f3;
+  --ds-ink:#1c2e1f; --ds-muted:#4d6e54; --ds-faint:#7f9a84; --ds-line:#d6e5d8; --ds-line-soft:#eaf0ea;
+  --ds-bg:#f4f7f4; --ds-surface:#fff; --ds-blue:#1a6fa8; --ds-amber:#b86800; --ds-red:#c0392b; --ds-purple:#6b3fa0;
+  --ds-radius:14px; --ds-radius-lg:18px; --ds-shadow:0 1px 2px rgba(15,47,26,.05),0 4px 16px rgba(15,47,26,.06);
+  --ds-shadow-hover:0 2px 4px rgba(15,47,26,.06),0 10px 28px rgba(15,47,26,.10);
+  --ds-serif:'Source Serif 4',Georgia,'Times New Roman',serif; --ds-sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ds-w:1120px; --ds-pad:24px;
+  /* variables de las páginas de tema/ejemplos, alineadas con la paleta */
+  --primary:#2d7a45; --primary-l:#3d9458; --primary-pale:#e6f4eb; --secondary:#1a6fa8; --secondary-pale:#e8f3fc;
+  --accent:#b86800; --accent-pale:#fff6e5; --danger:#c0392b; --danger-pale:#fdf0ee; --success:#2d7a45; --success-pale:#e6f4eb;
+  --purple:#6b3fa0; --purple-pale:#f2edf9; --orange:#a8551b; --orange-pale:#fdf3ea;
+  --text:#1c2e1f; --text-l:#4d6e54; --text-m:#7f9a84; --bg:#f4f7f4; --bg-card:#fff; --border:#d6e5d8; --border-l:#eaf0ea;
+  --shadow-sm:0 1px 2px rgba(15,47,26,.05); --shadow-md:var(--ds-shadow); --shadow-lg:var(--ds-shadow-hover);
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+}
+body.ds-read{--ds-w:960px}
+html{scroll-padding-top:64px}
+body{font-family:var(--ds-sans)!important;background:var(--ds-bg)!important;color:var(--ds-ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,.sec-title,.sec-titulo,.ds-hero h1{font-family:var(--ds-serif);letter-spacing:-.01em}
+a{color:var(--ds-blue);text-underline-offset:2px}
+::selection{background:#cbe7d4}
+
+/* Barra global */
+.sitenav{background:var(--ds-green-900)!important;border-bottom:1px solid rgba(255,255,255,.06)}
+.sitenav-in{max-width:calc(var(--ds-w) + 2*var(--ds-pad));padding:8px var(--ds-pad)!important;gap:2px!important}
+.sitenav .brand{display:flex;align-items:center;gap:8px;font-family:var(--ds-serif);font-size:15px!important;letter-spacing:-.01em;margin-right:14px!important}
+.sitenav .brand i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--ds-green-600);font-size:14px}
+.sitenav a{font-size:13px!important;padding:7px 11px!important;color:#cfe3d5!important}
+.sitenav a b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);font-size:10.5px;margin-right:5px}
+.sitenav a[aria-current=page]{background:#fff!important;color:var(--ds-green-800)!important}
+.sitenav a[aria-current=page] b{background:var(--ds-green-100);color:var(--ds-green-700)}
+
+/* Cabecera de página (idéntica en todas) */
+.ds-hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(120deg,var(--ds-green-800) 0%,var(--ds-green-700) 48%,var(--ds-green-600) 100%)}
+.ds-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(255,255,255,.10),transparent 70%),radial-gradient(420px 260px at 0% 120%,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
+.ds-hero .ds-wrap{position:relative;max-width:var(--ds-w);margin:0 auto;padding:44px var(--ds-pad) 40px;box-sizing:content-box}
+.ds-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#cfe8d6;margin:0 0 14px}
+.ds-eyebrow .ds-step{background:#fff;color:var(--ds-green-700);border-radius:999px;padding:3px 10px;letter-spacing:.04em}
+.ds-hero h1{font-size:clamp(28px,4.2vw,42px);line-height:1.12;font-weight:700;margin:0 0 12px;max-width:760px;color:#fff}
+.ds-lead{font-size:16.5px;line-height:1.6;color:rgba(255,255,255,.88);max-width:680px;margin:0}
+.ds-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.ds-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px}
+a.ds-chip:hover{background:rgba(255,255,255,.22)}
+.ds-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.ds-btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;text-decoration:none;padding:11px 18px;border-radius:10px;transition:transform .15s,background .15s}
+.ds-btn.primary{background:#fff;color:var(--ds-green-700)}
+.ds-btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
+.ds-btn:hover{transform:translateY(-1px)}
+.ds-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.ds-metric,.ds-metrics .stat{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 16px;min-width:108px;font-size:12.5px;color:rgba(255,255,255,.85)}
+.ds-metric b,.ds-metrics .stat b{display:block;font-family:var(--ds-serif);font-size:26px;line-height:1.1;color:#fff}
+
+/* Subnavegación de cada página (blanca y fija) */
+.header,.hdr{background:rgba(255,255,255,.96)!important;backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--ds-line)!important;box-shadow:0 1px 0 rgba(15,47,26,.03)!important;padding:0 var(--ds-pad)!important;position:sticky;top:0;z-index:100}
+.header .logo,.hdr-top{display:none!important}
+.header-inner{max-width:var(--ds-w)!important;padding:0!important;justify-content:flex-start!important}
+.header .nav,.hdr .tabs{display:flex;gap:4px!important;overflow-x:auto;flex-wrap:nowrap!important;scrollbar-width:none;max-width:var(--ds-w);margin:0 auto}
+.header .nav-a,.hdr .tab{color:var(--ds-muted)!important;background:none!important;border:none!important;border-bottom:2.5px solid transparent!important;border-radius:0!important;padding:14px 12px 12px!important;font-size:13.5px!important;font-weight:600!important;white-space:nowrap}
+.header .nav-a:hover,.hdr .tab:hover{color:var(--ds-ink)!important}
+.header .nav-a.active,.hdr .tab.active{color:var(--ds-green-700)!important;border-bottom-color:var(--ds-green-600)!important}
+
+/* Contenedores con anchos comunes */
+.main,.page{max-width:var(--ds-w)!important;padding-left:var(--ds-pad)!important;padding-right:var(--ds-pad)!important;box-sizing:content-box}
+.main{padding-top:32px!important}
+body.p-index .page,body.p-catalogo .page,body.p-incertidumbre .page{padding-top:28px!important}
+.prog-bar-wrap{padding:12px var(--ds-pad)!important}
+.prog-inner{max-width:var(--ds-w);margin:0 auto}
+
+/* Títulos de sección */
+.sec-title{font-size:clamp(22px,2.6vw,27px)!important;font-weight:700!important;color:var(--ds-ink)}
+.sec-sub{color:var(--ds-muted)!important}
+.sec-ic{width:44px!important;height:44px!important;border-radius:12px!important;background:var(--ds-green-100)!important;font-size:1.3rem!important}
+.sec-titulo{font-size:20px!important}
+
+/* Tarjetas y paneles */
+.sec,.card,.inv-card,.topic-card,.res-card,.comments-section,.lesson-card,.act-card,.err-card,.herr-card,.tool-card,.ficha,.ficha-row,.sc-card{border-radius:var(--ds-radius)!important;border-color:var(--ds-line)!important}
+.sec,.card,.inv-card,.comments-section,.herr-card,.act-card{box-shadow:var(--ds-shadow)!important}
+.card:hover,.inv-card:hover,.herr-card:hover{box-shadow:var(--ds-shadow-hover)!important}
+.btn-primary{background:var(--ds-green-600)!important;color:#fff!important}
+table th{font-weight:700}
+
+/* Pie común */
+.ds-footer{background:var(--ds-green-900)!important;color:#cfe3d5!important;margin:56px 0 0!important;padding:0!important;font-size:13.5px!important;text-align:left!important;max-width:none!important}
+.ds-footer .ds-wrap{max-width:var(--ds-w);margin:0 auto;padding:36px var(--ds-pad) 28px;display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:28px;box-sizing:content-box}
+.ds-footer h2{font-family:var(--ds-serif);color:#fff;font-size:17px;margin:0 0 8px}
+.ds-footer h3{font-family:var(--ds-sans);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9fc4aa;margin:0 0 10px}
+.ds-footer p{margin:0 0 6px;line-height:1.55}
+.ds-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ds-footer a{color:#e6f4eb;text-decoration:none}
+.ds-footer a:hover{text-decoration:underline}
+.ds-footer .ds-cc{display:inline-flex;gap:3px;margin:4px 0 8px}
+.ds-footer .ds-cc span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid #9fc4aa;color:#e6f4eb;font-size:9.5px;font-weight:800}
+.ds-footer .ds-base{border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:14px var(--ds-pad);font-size:12px;color:#8fb39a}
+
+@media (max-width:760px){
+  :root{--ds-pad:16px}
+  .ds-hero .ds-wrap{padding:30px var(--ds-pad) 28px}
+  .ds-lead{font-size:15.5px}
+  .ds-footer .ds-wrap{grid-template-columns:1fr;gap:20px}
+  .ds-metrics{gap:6px}
+  .ds-metric,.ds-metrics .stat{min-width:0;padding:7px 11px;font-size:11.5px}
+  .ds-metric b,.ds-metrics .stat b{font-size:19px}
+  .ds-hero h1{font-size:27px}
+}
+@media print{.sitenav,.header,.hdr,.ds-footer,.skip{display:none!important}.ds-hero{background:none!important;color:var(--ds-ink)}.ds-hero h1,.ds-lead,.ds-eyebrow{color:var(--ds-ink)!important}}
+</style>
 </head>
-<body>
+<body class="p-estadistica ds-read">
 <a class="skip" href="#contenido">Saltar al contenido</a>
-<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><span class="brand">🧬 IA Biología IB</span><a href="index.html">🏠 Inicio</a><a href="tema.html">🔬 Elegir tema</a><a href="ejemplos.html">📄 Ejemplos</a><a href="catalogo.html">🔎 Catálogo</a><a href="estadistica.html" aria-current="page">📊 Estadística</a><a href="incertidumbre.html">📏 Incertidumbre</a></div></nav>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><a class="brand" href="index.html"><i>🧬</i>IA · Biología IB</a><a href="index.html">Inicio</a><a href="tema.html"><b>1</b>Tema</a><a href="catalogo.html"><b>2</b>Catálogo</a><a href="ejemplos.html"><b>3</b>Ejemplos</a><a href="estadistica.html" aria-current="page"><b>4</b>Estadística</a><a href="incertidumbre.html"><b>5</b>Incertidumbre</a></div></nav>
 <div id="contenido"></div>
+<header class="ds-hero"><div class="ds-wrap"><p class="ds-eyebrow"><span class="ds-step">Paso 4</span>Analizar los datos</p><h1>Estadística para tu investigación</h1><p class="ds-lead">Elige la prueba adecuada con el árbol de decisión, estudia cada herramienta en sus fichas, practica con escenarios reales y aplícalo en Excel o Google Sheets.</p><div class="ds-chips"><span class="ds-chip">🌳 Árbol de decisión</span><span class="ds-chip">📋 13 fichas</span><span class="ds-chip">🔬 Práctica</span><span class="ds-chip">📊 Excel y Sheets</span><span class="ds-chip">✅ Checklist</span></div></div></header>
+
 
 
 <div class="hdr">
@@ -1454,25 +1567,32 @@ function backToScHome(){
 }
 </script>
 
-<!-- FOOTER -->
-<div style="text-align:center;padding:20px 2rem 4px;border-top:1.5px solid var(--border);margin-top:3rem;background:var(--surface)">
-  <div style="font-weight:700;color:var(--green);font-size:13px;margin-bottom:4px">🧬 Biología IB 2025 · IES Celia Viñas · Almería</div>
-  <div style="font-size:11.5px;color:var(--dim);line-height:1.6;margin-bottom:12px">Herramienta de apoyo a la Investigación Científica IB.<br>Funciones Excel/Sheets en español · Sistema Internacional de Unidades (SI) · En los ejemplos se usa α = 0,05.</div>
-  <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:11px">Elaborado por <strong style="color:var(--green)">María Dolores Gámez Ortiz</strong> · Profesora de Biología IB · IES Celia Viñas, Almería</div>
-  <div style="display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--border);border-radius:9px;padding:8px 14px;margin-bottom:7px">
-    <div style="display:flex;align-items:center">
-      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-right:2px">CC</span>
-      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-right:2px">BY</span>
-      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;margin-right:2px">NC</span>
-      <span style="width:22px;height:22px;border-radius:50%;background:#04a635;color:white;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center">SA</span>
+
+
+<footer class="ds-footer" role="contentinfo">
+  <div class="ds-wrap">
+    <div>
+      <h2>🧬 Investigación científica · Biología IB</h2>
+      <p>Guía para la evaluación interna del Programa del Diploma (primera evaluación 2025).</p>
+      <p>Elaborada por <strong style="color:#fff">María Dolores Gámez Ortiz</strong>, profesora de Biología IB · IES Celia Viñas, Almería.</p>
     </div>
-    <div style="text-align:left">
-      <span style="font-size:11px;font-weight:700;color:var(--text);display:block">CC BY-NC-SA 4.0</span>
-      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener" style="font-size:10px;color:var(--green)">creativecommons.org/licenses/by-nc-sa/4.0 →</a>
+    <div>
+      <h3>Secciones</h3>
+      <ul>
+        <li><a href="index.html">Inicio y criterios</a></li><li><a href="tema.html">1 · Elegir el tema</a></li>
+        <li><a href="catalogo.html">2 · Catálogo de ideas</a></li><li><a href="ejemplos.html">3 · Ejemplos comentados</a></li>
+        <li><a href="estadistica.html">4 · Estadística</a></li><li><a href="incertidumbre.html">5 · Incertidumbre</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Fuentes y licencia</h3>
+      <p>Basado en la <i>Guía de Biología del IB</i> (primera evaluación 2025) y las <i>Directrices del IB sobre experimentación científica</i> (2023). Los descriptores de nivel son citas de la fuente oficial © IB Organization.</p>
+      <div class="ds-cc" aria-hidden="true"><span>CC</span><span>BY</span><span>NC</span><span>SA</span></div>
+      <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> · Atribución · No comercial · Compartir igual</p>
     </div>
   </div>
-</div>
-
+  <div class="ds-base">IES Celia Viñas · Almería · Material de apoyo para el alumnado de Biología del Programa del Diploma</div>
+</footer>
 <script>
 /* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
 (function(){
