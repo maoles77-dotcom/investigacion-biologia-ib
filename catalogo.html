@@ -319,7 +319,13 @@ $('chips').addEventListener('click', e => { const b = e.target.closest('.chip');
 $('grid').addEventListener('click', e => {
   const t = e.target.closest('.kw button');
   if (t) { tagOn = t.dataset.t; reset(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  const a = e.target.closest('a.abrir');
+  if (a && window.goatcounter && window.goatcounter.count) {
+    const d = DATA.find(x => x.id === a.closest('.card').querySelector('.fav').dataset.id);
+    window.goatcounter.count({ path: 'catalogo-abrir-' + (d ? d.id : 'idea'), title: d ? d.title : '', event: true });
+  }
   const f = e.target.closest('.fav');
+  if (f && !favs.has(f.dataset.id) && window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'catalogo-guardar', title: 'Me interesa', event: true });
   if (f) { favs.has(f.dataset.id) ? favs.delete(f.dataset.id) : favs.add(f.dataset.id); saveFavs(); render(); }
 });
 $('mas').addEventListener('click', () => { limit += 60; render(); });
