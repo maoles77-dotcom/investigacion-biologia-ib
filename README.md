@@ -7,9 +7,8 @@ Guía web para que el alumnado de Biología del Programa del Diploma del IB prep
 | Página | Para qué sirve |
 |---|---|
 | [Inicio](index.html) | Qué es la investigación, los 4 criterios con sus descriptores, extensión, ética y ruta de trabajo |
-| [Elegir tema](tema.html) | Tipos de investigación, ideas por subtemas del programa 2025, bases de datos, simulaciones, constructor de la pregunta y checklist |
+| [Elegir tema](tema.html) | Tipos de investigación, ideas por subtemas del programa 2025, bases de datos, simulaciones, constructor y comprobador de la pregunta, introducción y contexto (actividad, ejemplos de tres niveles, catalasa y autocomprobación) y checklist |
 | [Catálogo](catalogo.html) | Buscador de más de 360 investigaciones de ejemplo y protocolos de laboratorio, con su pregunta de investigación |
-| [Pregunta e introducción](introduccion.html) | Actividad para acotar la pregunta, pautas para el contexto con ejemplos de tres niveles, preguntas guía de la práctica de la catalasa, autocomprobación y uso responsable de la IA |
 | [Ejemplos](ejemplos.html) | 17 investigaciones del material de ayuda al profesor del IB y comentarios del examinador ordenados según los criterios actuales |
 | [Estadística](estadistica.html) | Árbol de decisión, 13 fichas, práctica interactiva y guía de Excel y Google Sheets |
 | [Incertidumbre](incertidumbre.html) | Protocolo en 6 pasos para tratar e interpretar la incertidumbre, con calculadora |
