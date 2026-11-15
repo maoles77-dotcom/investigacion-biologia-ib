@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pregunta e introducción — Biología IB · IES Celia Viñas</title>
+<style>
+:root{
+  --green:#2d7a45;--glight:#e6f4eb;--gmid:#4caf6e;--gdark:#1e5c32;
+  --text:#1c2e1f;--muted:#4d6e54;--dim:#8aab8e;
+  --border:#d6e5d8;--border2:#e8f0e8;--surface:#fff;--card2:#f7faf7;--bg:#f2f5f2;
+  --blue:#1a6fa8;--bluebg:#e8f3fc;--bluebd:#b3d4f0;
+  --amber:#b86800;--amberbg:#fff4e0;--amberbd:#f0c878;
+  --red:#c0392b;--redbg:#fdf0ee;--redbd:#f0b8b0;
+  --purple:#6b3fa0;--purplebg:#f2edf9;--purplebd:#cdb8e8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.55;font-size:15px;}
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 16px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.hdr .tabs{max-width:900px;margin:0 auto;}
+.hdr-top{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+.hdr-logo{width:36px;height:36px;border-radius:9px;background:var(--glight);border:1.5px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.hdr-title{font-size:14px;font-weight:800;}
+.hdr-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.tabs{display:flex;overflow-x:auto;}
+.tab{flex-shrink:0;padding:8px 13px;font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:2.5px solid transparent;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.tab.active{color:var(--green);border-bottom-color:var(--green);}
+.tab:hover:not(.active){color:var(--text);}
+.main{padding:22px 16px 60px;max-width:900px;margin:0 auto;}
+.panel{display:none;}.panel.active{display:block;}
+h2.sec-title{font-family:'Source Serif 4',serif;font-size:22px;font-weight:700;margin-bottom:4px;}
+.sec-sub{color:var(--muted);font-size:13.5px;margin-bottom:18px;}
+h3{font-family:'Source Serif 4',serif;font-size:17px;margin:22px 0 8px;}
+p{margin-bottom:10px;}
+ul,ol{margin:0 0 10px 22px;}li{margin-bottom:4px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.05);margin-bottom:14px;}
+.info{background:var(--bluebg);border:1px solid var(--bluebd);border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:13.5px;color:#124d75;}
+.warn{background:var(--amberbg);border:1px solid var(--amberbd);border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:13.5px;color:#7a4600;}
+.ok{background:var(--glight);border:1px solid #b5dcc1;border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:13.5px;color:var(--gdark);}
+.bad{background:var(--redbg);border:1px solid var(--redbd);border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:13.5px;color:#8a2a1f;}
+.tbl-wrap{overflow-x:auto;margin-bottom:14px;}
+table{border-collapse:collapse;width:100%;font-size:13.5px;background:var(--surface);}
+th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:var(--glight);color:var(--gdark);font-weight:700;}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;margin-right:4px;}
+.p-red{background:var(--redbg);color:var(--red);border:1px solid var(--redbd);}
+.p-amb{background:var(--amberbg);color:var(--amber);border:1px solid var(--amberbd);}
+.p-grn{background:var(--glight);color:var(--green);border:1px solid #b5dcc1;}
+em.sp{font-style:italic;}
+/* Embudo */
+.funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0 18px;}
+.f-step{background:var(--green);color:#fff;border-radius:8px;padding:9px 14px;text-align:center;font-size:13px;font-weight:600;}
+.f-step small{display:block;font-weight:400;opacity:.9;font-size:12px;}
+.f1{width:100%;opacity:.55}.f2{width:88%;opacity:.67}.f3{width:76%;opacity:.8}.f4{width:64%;opacity:.9}.f5{width:52%;background:var(--gdark)}
+/* Ejemplos */
+.ex{border-radius:12px;padding:16px;margin-bottom:6px;border:1px solid var(--border);background:var(--surface);}
+.ex-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.ex-txt{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.65;background:var(--card2);border-left:4px solid var(--border);padding:12px 14px;border-radius:6px;}
+.ex.l1 .ex-txt{border-left-color:var(--red)}.ex.l2 .ex-txt{border-left-color:var(--amber)}.ex.l3 .ex-txt{border-left-color:var(--green)}
+.ex-txt p{margin-bottom:9px}
+mark{padding:0 2px;border-radius:3px;}
+mark.m-ctx{background:#dbeafe}mark.m-sys{background:#dcfce7}mark.m-teo{background:#f3e8ff}mark.m-rq{background:#fef3c7}mark.m-cit{background:#fde2e2}
+.legend{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;margin:8px 0 14px;}
+.legend span{padding:2px 8px;border-radius:4px;}
+details.notes{margin:10px 0 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;}
+details.notes summary{cursor:pointer;font-weight:700;color:var(--green);font-size:13.5px;}
+details.notes[open] summary{margin-bottom:8px;}
+/* Formularios */
+textarea,input[type=text]{width:100%;font-family:inherit;font-size:14px;border:1px solid var(--border);border-radius:8px;padding:9px 10px;background:#fff;color:var(--text);resize:vertical;}
+textarea:focus,input:focus{outline:2px solid var(--gmid);border-color:transparent;}
+label.lb{display:block;font-weight:700;font-size:13.5px;margin:12px 0 4px;}
+.hint{font-size:12.5px;color:var(--muted);margin-bottom:5px;}
+.btn{background:var(--green);color:#fff;border:none;border-radius:8px;padding:9px 15px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;margin:6px 6px 0 0;}
+.btn.sec{background:#fff;color:var(--green);border:1px solid var(--green);}
+.btn:hover{filter:brightness(1.08);}
+.act-q{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px;background:var(--surface);}
+.act-q .orig{font-family:'Source Serif 4',serif;font-size:15px;background:var(--card2);padding:10px 12px;border-radius:8px;margin-bottom:8px;}
+.act-q .tag{font-size:11px;font-weight:700;color:var(--purple);background:var(--purplebg);border:1px solid var(--purplebd);padding:2px 8px;border-radius:20px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.res{list-style:none;margin:10px 0 0;}
+.res li{padding:7px 10px;border-radius:7px;margin-bottom:5px;font-size:13.5px;}
+.res li.y{background:var(--glight);color:var(--gdark)}.res li.n{background:var(--redbg);color:#8a2a1f}.res li.m{background:var(--amberbg);color:#7a4600}
+.ic-row{border-top:1px solid var(--border2);padding:12px 0;}
+.ic-row:first-of-type{border-top:none}
+.ic-q{font-weight:700;font-size:14px;}
+.ic-scale{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0;}
+.ic-scale label{font-size:12.5px;border:1px solid var(--border);border-radius:20px;padding:3px 10px;cursor:pointer;background:#fff;}
+.ic-scale input{margin-right:4px;}
+.progress{height:8px;background:var(--border2);border-radius:4px;overflow:hidden;margin:6px 0 4px;}
+.progress div{height:100%;background:var(--green);width:0;transition:width .3s;}
+.foot{text-align:center;font-size:12px;color:var(--muted);margin-top:40px;padding-top:18px;border-top:1px solid var(--border);}
+.foot a{color:var(--green);}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;padding:11px 16px;border-radius:9px;font-weight:600;font-size:13.5px;box-shadow:0 6px 20px rgba(0,0,0,.15);z-index:99;}
+@media print{.hdr,.btn,.no-print{display:none!important}.panel{margin-bottom:24px}.panel{display:block!important}body{background:#fff}}
+
+body.p-introduccion .main,body.p-introduccion .hdr{zoom:1.12}
+.foot{display:none}
+</style>
+<meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
+<meta name="theme-color" content="#1e5c32">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<script>
+/* Si el navegador bloquea el almacenamiento (p. ej. dentro de un iframe de Google Sites), usar memoria para que la página no se rompa */
+(function(){try{var k='__p';localStorage.setItem(k,k);localStorage.removeItem(k);}catch(e){var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}});}catch(_){}}})();
+</script>
+<style>
+.sitenav{background:#143f23;font-family:'DM Sans',system-ui,sans-serif;position:relative;z-index:200}
+.sitenav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto;scrollbar-width:none}
+.sitenav-in::-webkit-scrollbar{display:none}
+.sitenav a{color:#d9eedf;text-decoration:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:7px;white-space:nowrap;line-height:1.2}
+.sitenav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sitenav a[aria-current=page]{background:#fff;color:#143f23}
+.sitenav .brand{font-weight:800;color:#fff;margin-right:6px;white-space:nowrap;font-size:14px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#143f23;padding:8px 12px;z-index:999;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style id="design-system">
+/* ═══════════ Sistema de diseño · IA Biología IB ═══════════ */
+:root{
+  --ds-green-900:#0f2f1a; --ds-green-800:#143f23; --ds-green-700:#1e5c32; --ds-green-600:#2d7a45; --ds-green-500:#3d9458;
+  --ds-green-100:#e6f4eb; --ds-green-50:#f2f8f3;
+  --ds-ink:#1c2e1f; --ds-muted:#4d6e54; --ds-faint:#7f9a84; --ds-line:#d6e5d8; --ds-line-soft:#eaf0ea;
+  --ds-bg:#f4f7f4; --ds-surface:#fff; --ds-blue:#1a6fa8; --ds-amber:#b86800; --ds-red:#c0392b; --ds-purple:#6b3fa0;
+  --ds-radius:14px; --ds-radius-lg:18px; --ds-shadow:0 1px 2px rgba(15,47,26,.05),0 4px 16px rgba(15,47,26,.06);
+  --ds-shadow-hover:0 2px 4px rgba(15,47,26,.06),0 10px 28px rgba(15,47,26,.10);
+  --ds-serif:'Source Serif 4',Georgia,'Times New Roman',serif; --ds-sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ds-w:1680px; --ds-pad:clamp(16px,3.2vw,56px);
+  /* variables de las páginas de tema/ejemplos, alineadas con la paleta */
+  --primary:#2d7a45; --primary-l:#3d9458; --primary-pale:#e6f4eb; --secondary:#1a6fa8; --secondary-pale:#e8f3fc;
+  --accent:#b86800; --accent-pale:#fff6e5; --danger:#c0392b; --danger-pale:#fdf0ee; --success:#2d7a45; --success-pale:#e6f4eb;
+  --purple:#6b3fa0; --purple-pale:#f2edf9; --orange:#a8551b; --orange-pale:#fdf3ea;
+  --text:#1c2e1f; --text-l:#4d6e54; --text-m:#7f9a84; --bg:#f4f7f4; --bg-card:#fff; --border:#d6e5d8; --border-l:#eaf0ea;
+  --shadow-sm:0 1px 2px rgba(15,47,26,.05); --shadow-md:var(--ds-shadow); --shadow-lg:var(--ds-shadow-hover);
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+}
+body.ds-read{--ds-w:1680px}
+/* Tamaño de letra: páginas en rem crecen con html; las páginas en px se escalan con zoom */
+html{font-size:118.75%}
+body.p-index .page,body.p-estadistica .main,body.p-estadistica .hdr,body.p-catalogo .page,body.p-incertidumbre .page{zoom:1.2}
+body.p-index .page,body.p-catalogo .page,body.p-incertidumbre .page{max-width:calc(var(--ds-w)/1.2)!important;padding-left:calc(var(--ds-pad)/1.2)!important;padding-right:calc(var(--ds-pad)/1.2)!important}
+body.p-estadistica .main{max-width:calc(var(--ds-w)/1.2)!important;padding-left:calc(var(--ds-pad)/1.2)!important;padding-right:calc(var(--ds-pad)/1.2)!important}
+body.p-estadistica .hdr{padding:0 calc(var(--ds-pad)/1.2)!important}
+html{scroll-padding-top:64px}
+body{font-family:var(--ds-sans)!important;background:var(--ds-bg)!important;color:var(--ds-ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,.sec-title,.sec-titulo,.ds-hero h1{font-family:var(--ds-serif);letter-spacing:-.01em}
+a{color:var(--ds-blue);text-underline-offset:2px}
+::selection{background:#cbe7d4}
+
+/* Barra global */
+.sitenav{background:var(--ds-green-900)!important;border-bottom:1px solid rgba(255,255,255,.06)}
+.sitenav-in{max-width:calc(var(--ds-w) + 2*var(--ds-pad));padding:8px var(--ds-pad)!important;gap:2px!important}
+.sitenav .brand{display:flex;align-items:center;gap:8px;font-family:var(--ds-serif);font-size:17px!important;letter-spacing:-.01em;margin-right:14px!important}
+.sitenav .brand i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--ds-green-600);font-size:14px}
+.sitenav a{font-size:15px!important;padding:8px 13px!important;color:#cfe3d5!important}
+.sitenav a b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);font-size:10.5px;margin-right:5px}
+.sitenav a[aria-current=page]{background:#fff!important;color:var(--ds-green-800)!important}
+.sitenav a[aria-current=page] b{background:var(--ds-green-100);color:var(--ds-green-700)}
+
+/* Cabecera de página (idéntica en todas) */
+.ds-hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(120deg,var(--ds-green-800) 0%,var(--ds-green-700) 48%,var(--ds-green-600) 100%)}
+.ds-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(255,255,255,.10),transparent 70%),radial-gradient(420px 260px at 0% 120%,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
+.ds-hero .ds-wrap{position:relative;max-width:var(--ds-w);margin:0 auto;padding:44px var(--ds-pad) 40px;box-sizing:content-box}
+.ds-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#cfe8d6;margin:0 0 14px}
+.ds-eyebrow .ds-step{background:#fff;color:var(--ds-green-700);border-radius:999px;padding:3px 10px;letter-spacing:.04em}
+.ds-hero h1{font-size:clamp(30px,3.6vw,50px);line-height:1.1;font-weight:700;margin:0 0 14px;max-width:1000px;color:#fff}
+.ds-lead{font-size:clamp(17px,1.25vw,20px);line-height:1.6;color:rgba(255,255,255,.9);max-width:900px;margin:0}
+.ds-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.ds-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;font-size:15px;font-weight:600;padding:6px 12px;border-radius:999px}
+a.ds-chip:hover{background:rgba(255,255,255,.22)}
+.ds-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.ds-btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:16px;text-decoration:none;padding:11px 18px;border-radius:10px;transition:transform .15s,background .15s}
+.ds-btn.primary{background:#fff;color:var(--ds-green-700)}
+.ds-btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
+.ds-btn:hover{transform:translateY(-1px)}
+.ds-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.ds-metric,.ds-metrics .stat{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 16px;min-width:108px;font-size:12.5px;color:rgba(255,255,255,.85)}
+.ds-metric b,.ds-metrics .stat b{display:block;font-family:var(--ds-serif);font-size:26px;line-height:1.1;color:#fff}
+
+/* Subnavegación de cada página (blanca y fija) */
+.header,.hdr{background:rgba(255,255,255,.96)!important;backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--ds-line)!important;box-shadow:0 1px 0 rgba(15,47,26,.03)!important;padding:0 var(--ds-pad)!important;position:sticky;top:0;z-index:100}
+.header .logo,.hdr-top{display:none!important}
+.header-inner{max-width:var(--ds-w)!important;padding:0!important;justify-content:flex-start!important}
+.header .nav,.hdr .tabs{display:flex;gap:4px!important;overflow-x:auto;flex-wrap:nowrap!important;scrollbar-width:none;max-width:var(--ds-w);margin:0 auto}
+.header .nav-a,.hdr .tab{color:var(--ds-muted)!important;background:none!important;border:none!important;border-bottom:2.5px solid transparent!important;border-radius:0!important;padding:15px 14px 13px!important;font-size:15.5px!important;font-weight:600!important;white-space:nowrap}
+.header .nav-a:hover,.hdr .tab:hover{color:var(--ds-ink)!important}
+.header .nav-a.active,.hdr .tab.active{color:var(--ds-green-700)!important;border-bottom-color:var(--ds-green-600)!important}
+
+/* Contenedores con anchos comunes */
+.main,.page{max-width:var(--ds-w)!important;padding-left:var(--ds-pad)!important;padding-right:var(--ds-pad)!important;box-sizing:content-box}
+.main{padding-top:32px!important}
+body.p-index .page,body.p-catalogo .page,body.p-incertidumbre .page{padding-top:28px!important}
+.prog-bar-wrap{padding:12px var(--ds-pad)!important}
+.prog-inner{max-width:var(--ds-w);margin:0 auto}
+
+/* Títulos de sección */
+.sec-title{font-size:clamp(22px,2.6vw,27px)!important;font-weight:700!important;color:var(--ds-ink)}
+.sec-sub{color:var(--ds-muted)!important}
+.sec-ic{width:44px!important;height:44px!important;border-radius:12px!important;background:var(--ds-green-100)!important;font-size:1.3rem!important}
+.sec-titulo{font-size:20px!important}
+
+/* Tarjetas y paneles */
+.sec,.card,.inv-card,.topic-card,.res-card,.comments-section,.lesson-card,.act-card,.err-card,.herr-card,.tool-card,.ficha,.ficha-row,.sc-card{border-radius:var(--ds-radius)!important;border-color:var(--ds-line)!important}
+.sec,.card,.inv-card,.comments-section,.herr-card,.act-card{box-shadow:var(--ds-shadow)!important}
+.card:hover,.inv-card:hover,.herr-card:hover{box-shadow:var(--ds-shadow-hover)!important}
+.btn-primary{background:var(--ds-green-600)!important;color:#fff!important}
+table th{font-weight:700}
+
+/* Pie común */
+.ds-footer{background:var(--ds-green-900)!important;color:#cfe3d5!important;margin:56px 0 0!important;padding:0!important;font-size:15px!important;text-align:left!important;max-width:none!important}
+.ds-footer .ds-wrap{max-width:var(--ds-w);margin:0 auto;padding:36px var(--ds-pad) 28px;display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:28px;box-sizing:content-box}
+.ds-footer h2{font-family:var(--ds-serif);color:#fff;font-size:17px;margin:0 0 8px}
+.ds-footer h3{font-family:var(--ds-sans);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9fc4aa;margin:0 0 10px}
+.ds-footer p{margin:0 0 6px;line-height:1.55}
+.ds-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ds-footer a{color:#e6f4eb;text-decoration:none}
+.ds-footer a:hover{text-decoration:underline}
+.ds-footer .ds-cc{display:inline-flex;gap:3px;margin:4px 0 8px}
+.ds-footer .ds-cc span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid #9fc4aa;color:#e6f4eb;font-size:9.5px;font-weight:800}
+.ds-footer .ds-base{border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:14px var(--ds-pad);font-size:12px;color:#8fb39a}
+
+@media (max-width:760px){
+  :root{--ds-pad:16px}
+  body.p-index .page,body.p-estadistica .main,body.p-estadistica .hdr,body.p-catalogo .page,body.p-incertidumbre .page{zoom:1.06}
+  .ds-hero .ds-wrap{padding:30px var(--ds-pad) 28px}
+  .ds-lead{font-size:15.5px}
+  .ds-footer .ds-wrap{grid-template-columns:1fr;gap:20px}
+  .ds-metrics{gap:6px}
+  .ds-metric,.ds-metrics .stat{min-width:0;padding:7px 11px;font-size:11.5px}
+  .ds-metric b,.ds-metrics .stat b{font-size:19px}
+  .ds-hero h1{font-size:27px}
+}
+@media print{.sitenav,.header,.hdr,.ds-footer,.skip{display:none!important}.ds-hero{background:none!important;color:var(--ds-ink)}.ds-hero h1,.ds-lead,.ds-eyebrow{color:var(--ds-ink)!important}}
+</style>
+</head>
+<body class="p-introduccion ds-read">
+<a class="skip" href="#principal">Saltar al contenido</a>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><a class="brand" href="index.html"><i>🧬</i>IA · Biología IB</a><a href="index.html">Inicio</a><a href="tema.html"><b>1</b>Tema</a><a href="catalogo.html"><b>2</b>Catálogo</a><a href="introduccion.html" aria-current="page"><b>3</b>Introducción</a><a href="ejemplos.html"><b>4</b>Ejemplos</a><a href="estadistica.html"><b>5</b>Estadística</a><a href="incertidumbre.html"><b>6</b>Incertidumbre</a></div></nav>
+<header class="ds-hero"><div class="ds-wrap"><p class="ds-eyebrow"><span class="ds-step">Paso 3</span>Pregunta e introducción</p><h1>La pregunta de investigación y su contexto</h1><p class="ds-lead">Cómo acotar la pregunta y escribir una introducción con un contexto específico y apropiado (criterio Diseño de la investigación). Incluye actividad, ejemplos comentados de tres niveles, preguntas guía para la práctica de la catalasa y una autocomprobación.</p><div class="ds-chips"><span class="ds-chip">🎯 Criterio Diseño</span><span class="ds-chip">✏️ Actividad</span><span class="ds-chip">🔍 Ejemplos 1–2 · 3–4 · 5–6</span><span class="ds-chip">✅ Autocomprobación</span></div></div></header>
+<div class="hdr">
+  <div class="tabs">
+    <button class="tab active" data-p="ib">🎯 Qué pide el IB</button>
+    <button class="tab" data-p="pregunta">❓ La pregunta</button>
+    <button class="tab" data-p="actividad">✏️ Actividad</button>
+    <button class="tab" data-p="intro">📖 Introducción</button>
+    <button class="tab" data-p="ejemplos">🔍 Ejemplos</button>
+    <button class="tab" data-p="catalasa">🥔 Catalasa</button>
+    <button class="tab" data-p="check">✅ Autocomprobación</button>
+    <button class="tab" data-p="ia">🤖 Uso de la IA</button>
+  </div>
+</div>
+<main class="main" id="principal">
+
+<!-- ============ 1. QUÉ PIDE EL IB ============ -->
+<section class="panel active" id="ib">
+  <h2 class="sec-title">¿Qué pide el IB en la introducción?</h2>
+  <p class="sec-sub">La pregunta de investigación y su contexto se evalúan en el criterio <b>Diseño de la investigación</b> (6 puntos, 25 % de la nota de la investigación).</p>
+
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:80px">Nivel</th><th>Lo que dice el descriptor sobre la pregunta</th><th>En la práctica significa…</th></tr>
+    <tr><td><span class="pill p-red">1–2</span></td><td>La pregunta de investigación se indica <b>sin contexto</b>.</td><td>Aparece la pregunta y poco más. El lector no sabe por qué importa ni qué teoría la explica.</td></tr>
+    <tr><td><span class="pill p-amb">3–4</span></td><td>La pregunta se resume en el marco de un <b>contexto amplio</b>.</td><td>Hay información de fondo, pero es general («las enzimas son proteínas…»). No se ve cómo la teoría explica <i>esta</i> relación entre <i>estas</i> variables.</td></tr>
+    <tr><td><span class="pill p-grn">5–6</span></td><td>La pregunta se describe en el marco de un <b>contexto específico y apropiado</b>.</td><td>El sistema concreto está descrito, la teoría explica <b>por qué</b> la VI debería afectar a la VD, y todo lo escrito sirve para entender la pregunta.</td></tr>
+  </table></div>
+
+  <div class="ok"><b>Aclaración oficial de la guía:</b> una pregunta con contexto debe incluir referencias a la <b>variable dependiente e independiente</b> (o a dos variables correlacionadas), una <b>descripción concisa del sistema</b> al que pertenece la pregunta y una <b>teoría de referencia directamente pertinente</b>.</div>
+
+  <h3>Las tres piezas que el examinador busca</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Pieza</th><th>Pregúntate</th></tr>
+    <tr><td><b>1. Variables</b></td><td>¿Se entiende qué cambio yo (VI) y qué mido (VD)? ¿O, si es un estudio de correlación, qué dos variables relaciono?</td></tr>
+    <tr><td><b>2. Sistema</b></td><td>¿He descrito el organismo, el tejido, la molécula o el ecosistema concreto con el que trabajo? ¿Por qué ese y no otro?</td></tr>
+    <tr><td><b>3. Teoría de referencia</b></td><td>¿Qué teoría científica explica por qué mi VI debería afectar a mi VD? ¿La he explicado de forma que <i>prediga</i> algo?</td></tr>
+  </table></div>
+
+  <h3>Lo que va después de la introducción (y también cuenta en Diseño)</h3>
+  <p>El mismo criterio evalúa las <b>consideraciones metodológicas</b>, que van a continuación de la introducción:</p>
+  <ul>
+    <li>Cómo se mide la VI y la VD, y por qué con ese método.</li>
+    <li>El rango, el intervalo y el número de repeticiones, y por qué.</li>
+    <li>Las variables de control y <b>cómo</b> se controla cada una.</li>
+    <li>Las cuestiones de seguridad, éticas y ambientales.</li>
+    <li>Un método descrito con detalle suficiente para que otra persona pueda repetirlo.</li>
+  </ul>
+
+  <div class="info"><b>¿Y la hipótesis?</b> Los criterios de 2025 no exigen expresamente una hipótesis. Aun así, una <b>predicción justificada con la teoría</b> es muy recomendable: une la introducción con la conclusión, donde tendrás que comparar tus resultados con el contexto científico aceptado.</div>
+
+  <div class="warn"><b>Cambios respecto a materiales antiguos:</b> el informe tiene un máximo de <b>3000 palabras</b> (ya no «12 páginas»). Los criterios actuales son cuatro: Diseño, Análisis de datos, Conclusión y Evaluación. Ya no existen «Compromiso personal» ni «Comunicación» como criterios separados. Además, la investigación puede basarse en <b>bases de datos o simulaciones</b>, por lo que también son válidas las preguntas de correlación.</div>
+</section>
+
+<!-- ============ 2. LA PREGUNTA ============ -->
+<section class="panel" id="pregunta">
+  <h2 class="sec-title">La pregunta de investigación</h2>
+  <p class="sec-sub">Directrices actualizadas a la guía de Biología del IB (primera evaluación 2025).</p>
+
+  <h3>Características de una buena pregunta</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Característica</th><th>Qué significa</th></tr>
+    <tr><td><b>Centrada</b></td><td>Una sola VI y una sola VD (o dos variables correlacionadas). Sin ambigüedades.</td></tr>
+    <tr><td><b>Investigable</b></td><td>Se puede responder con <b>datos cuantitativos</b> que tú puedes obtener (laboratorio, campo, base de datos o simulación) en unas 10 horas de trabajo.</td></tr>
+    <tr><td><b>Acotada</b></td><td>Lo bastante concreta para responderla a fondo en <b>3000 palabras como máximo</b>.</td></tr>
+    <tr><td><b>Con fundamento biológico</b></td><td>Existe una teoría que permite predecir la relación entre las variables. Si no hay biología detrás, no hay contexto que escribir.</td></tr>
+    <tr><td><b>Ética y segura</b></td><td>Cumple la política del IB sobre experimentación con animales, personas y microorganismos.</td></tr>
+  </table></div>
+
+  <h3>Elementos de la estructura</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Elemento</th><th>Ejemplo</th></tr>
+    <tr><td>Base de la pregunta</td><td>¿Cómo afecta…? · ¿En qué medida…? · ¿Cuál es la relación entre…? (correlación)</td></tr>
+    <tr><td>Variable independiente <b>con su rango y unidades</b></td><td>concentración de lactosa (0; 2,5; 5,0; 7,5 y 10,0 mg/L)</td></tr>
+    <tr><td>Variable dependiente <b>y cómo se mide</b></td><td>crecimiento medido como absorbancia a 600 nm con espectrofotómetro</td></tr>
+    <tr><td>Sistema / organismo con <b>nombre científico</b></td><td><em class="sp">Escherichia coli</em> (en cursiva, género con mayúscula)</td></tr>
+    <tr><td>Condiciones fijas relevantes <i>(cuando aporten)</i></td><td>a 25 °C · después de 24 h</td></tr>
+    <tr><td>Fuente de datos <i>(si es base de datos o simulación)</i></td><td>según los datos de la OMS entre 2010 y 2020</td></tr>
+  </table></div>
+
+  <div class="card">
+    <b>Ejemplo resuelto</b>
+    <p style="margin-top:8px"><span class="pill p-red">Inicial</span> ¿Cómo afecta la cantidad de lactosa en el medio de cultivo al crecimiento bacteriano después de 24 h?</p>
+    <p><span class="pill p-grn">Acotada</span> ¿Cómo afecta la concentración de lactosa (0; 2,5; 5,0; 7,5 y 10,0 mg/L) en el medio de cultivo, a 25 °C, al crecimiento de <em class="sp">Escherichia coli</em>, medido como absorbancia a 600 nm con un espectrofotómetro, después de 24 h?</p>
+  </div>
+
+  <div class="warn"><b>Cuidado con alargarla demasiado.</b> La pregunta tiene que ser precisa, no un párrafo. Si no cabe con naturalidad, deja algún detalle (por ejemplo, el instrumento) para la metodología. Lo que nunca puede faltar es la VI, la VD y el sistema.</div>
+
+  <h3>Experimento o correlación</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Tipo</th><th>Plantilla</th><th>Cuándo</th></tr>
+    <tr><td>Experimental</td><td>¿Cómo afecta [VI con rango] a [VD y cómo se mide] en [organismo]?</td><td>Tú manipulas la VI (laboratorio, simulación).</td></tr>
+    <tr><td>Correlación</td><td>¿Cuál es la relación entre [variable 1] y [variable 2] en [población, lugar, periodo] según [fuente de datos]?</td><td>No puedes manipular la variable (campo, bases de datos).</td></tr>
+  </table></div>
+  <div class="info">En una correlación, la conclusión habla de <b>relación</b>, no de <b>causa</b>. Tenlo en cuenta desde la pregunta: «¿Cómo afecta…?» implica causa.</div>
+</section>
+
+<!-- ============ 3. ACTIVIDAD ============ -->
+<section class="panel" id="actividad">
+  <h2 class="sec-title">Actividad: acota la pregunta</h2>
+  <p class="sec-sub">Cada pregunta tiene problemas. Para cada una: <b>(1)</b> detecta qué le falta o qué es ambiguo, <b>(2)</b> reescríbela acotada y <b>(3)</b> identifica sus elementos. Tus respuestas se guardan en este navegador. <i>Actividad adaptada de Espacio Profesores.</i></p>
+  <div class="info">Puede haber más de una forma válida de acotar cada pregunta y más de un instrumento para medir la VD. Lo importante es que puedas <b>justificar</b> tus decisiones.</div>
+
+  <div id="act-list"></div>
+
+  <div class="act-q" style="border-color:var(--green)">
+    <span class="tag" style="color:var(--green);background:var(--glight);border-color:#b5dcc1">Nivel 2 · ¿Tiene contexto?</span>
+    <p style="margin-top:10px">Lee estas dos introducciones breves con la <b>misma</b> pregunta. ¿Qué nivel del criterio Diseño les darías (1–2, 3–4 o 5–6)? Justifica con las palabras del descriptor.</p>
+    <div class="orig"><b>A.</b> La levadura es un hongo unicelular que se usa para hacer pan y cerveza. Hace respiración celular y produce CO₂. La sacarosa es un azúcar formado por glucosa y fructosa. Por eso quiero estudiar cómo afecta la sacarosa a la levadura.</div>
+    <div class="orig"><b>B.</b> <em class="sp">Saccharomyces cerevisiae</em> puede hidrolizar la sacarosa extracelularmente mediante la invertasa, y la glucosa y la fructosa resultantes entran en la glucólisis. Si el transporte de hexosas y las enzimas glucolíticas no están saturados, un aumento de sacarosa debería aumentar la tasa de producción de CO₂ hasta que algún paso limitante alcance su máximo [cita]. Por eso se espera un aumento no lineal que tiende a estabilizarse.</div>
+    <textarea data-k="act-n2" rows="3" placeholder="A tendría nivel… porque… · B tendría nivel… porque…"></textarea>
+  </div>
+
+  <div class="act-q" style="border-color:var(--gdark)">
+    <span class="tag" style="color:#fff;background:var(--gdark);border-color:var(--gdark)">Nivel 3 · Tu práctica</span>
+    <p style="margin-top:10px">Escribe la pregunta de investigación de <b>tu</b> experimento con la catalasa. Después compruébala en la pestaña <b>✅ Autocomprobación</b>.</p>
+    <textarea data-k="act-cat" rows="3" placeholder="¿Cómo afecta…"></textarea>
+  </div>
+
+  <button class="btn" onclick="copyActivity()" data-goatcounter-click="intro-copiar-actividad">📋 Copiar mis respuestas</button>
+  <button class="btn sec" onclick="window.print()">🖨️ Imprimir</button>
+</section>
+
+<!-- ============ 4. INTRODUCCIÓN ============ -->
+<section class="panel" id="intro">
+  <h2 class="sec-title">Cómo escribir una buena introducción</h2>
+  <p class="sec-sub">La introducción es un embudo: empieza en lo general y termina, de forma lógica, en tu pregunta.</p>
+
+  <div class="funnel">
+    <div class="f-step f1">1 · ¿Por qué importa?<small>Contexto: un problema, una aplicación o una observación real</small></div>
+    <div class="f-step f2">2 · ¿Qué sistema estudio?<small>El organismo o la molécula, dónde actúa y por qué lo elijo</small></div>
+    <div class="f-step f3">3 · ¿Qué teoría lo explica?<small>El mecanismo que relaciona la VI con la VD</small></div>
+    <div class="f-step f4">4 · ¿Qué espero?<small>Predicción justificada con esa teoría</small></div>
+    <div class="f-step f5">5 · Mi pregunta de investigación</div>
+  </div>
+
+  <h3>Preguntas guía para cada parte</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th>Parte</th><th>Hazte estas preguntas</th><th>Señal de alarma</th></tr>
+    <tr><td><b>1. Contexto</b></td><td>¿Qué problema, uso o fenómeno real conecta con mi pregunta? ¿A quién le importaría la respuesta?</td><td>Empiezas con la historia de la biología o con definiciones de libro.</td></tr>
+    <tr><td><b>2. Sistema</b></td><td>¿Qué es exactamente lo que estudio? ¿Dónde está y qué función cumple? ¿Por qué este organismo y no otro?</td><td>No aparece el nombre científico, o el sistema podría ser cualquiera.</td></tr>
+    <tr><td><b>3. Teoría</b></td><td>¿Qué mecanismo explica que la VI afecte a la VD? ¿Qué le pasa a nivel molecular o celular cuando cambio la VI?</td><td>Explicas teoría que luego no usas, o tu teoría no menciona tu VI.</td></tr>
+    <tr><td><b>4. Predicción</b></td><td>Según esa teoría, ¿qué forma tendrá mi gráfica? ¿Habrá un máximo, una meseta o una relación lineal? ¿Qué dice la bibliografía?</td><td>«Creo que…» sin ningún porqué.</td></tr>
+    <tr><td><b>5. Pregunta</b></td><td>¿Se deduce de forma natural de lo anterior? ¿Incluye el rango, la medida y el organismo?</td><td>La pregunta parece pegada al final sin relación con el texto.</td></tr>
+  </table></div>
+
+  <h3>✅ Sí / ❌ No</h3>
+  <div class="grid2">
+    <div class="ok"><b>✅ Sí</b><ul style="margin-top:6px">
+      <li>Cada párrafo acerca al lector a tu pregunta.</li>
+      <li>Explicas el mecanismo con tus palabras y lo conectas con tus variables.</li>
+      <li>Citas los <b>datos específicos</b> (un valor óptimo, una cifra, un resultado previo).</li>
+      <li>Justificas el rango de la VI con la teoría o con la bibliografía.</li>
+      <li>Usas los nombres científicos en cursiva.</li>
+    </ul></div>
+    <div class="bad"><b>❌ No</b><ul style="margin-top:6px">
+      <li>Copiar definiciones generales («una enzima es un catalizador biológico…»).</li>
+      <li>Rellenar con datos curiosos que no se usan después.</li>
+      <li>Citar solo Wikipedia o no citar nada.</li>
+      <li>Usar el guion de la práctica como si fuera tu contexto.</li>
+      <li>Hacer una introducción más larga que el análisis.</li>
+    </ul></div>
+  </div>
+
+  <div class="info"><b>¿Qué hay que citar?</b> Los hechos ampliamente aceptados no necesitan cita (por ejemplo, que las enzimas tienen una temperatura óptima). Los datos específicos sí (por ejemplo, la temperatura óptima de <i>una</i> enzima concreta). Cada cita debe permitir encontrar la fuente: autor, año, título y URL con la fecha de consulta si es en línea.</div>
+  <div class="warn"><b>Extensión orientativa:</b> entre 300 y 500 palabras suelen ser suficientes para la introducción y el contexto. Recuerda que el informe completo tiene un máximo de 3000 palabras.</div>
+</section>
+
+<!-- ============ 5. EJEMPLOS ============ -->
+<section class="panel" id="ejemplos">
+  <h2 class="sec-title">Tres introducciones, tres niveles</h2>
+  <p class="sec-sub">Mismo tema, distinto nivel. Tema de ejemplo: <b>efecto de la salinidad en la germinación del berro</b>. Es un tema <b>distinto</b> al de tu práctica: fíjate en la estructura, no en el contenido.</p>
+
+  <div class="legend">
+    <span style="background:#dbeafe">Contexto</span><span style="background:#dcfce7">Sistema</span><span style="background:#f3e8ff">Teoría de referencia</span><span style="background:#fde2e2">Dato que necesita cita</span><span style="background:#fef3c7">Pregunta</span>
+  </div>
+
+  <div class="warn">Las referencias de los ejemplos aparecen como <b>[cita]</b> a propósito. En tu informe, cada una tiene que ser una fuente real que hayas leído.</div>
+
+  <!-- Nivel 1-2 -->
+  <div class="ex l1">
+    <div class="ex-hdr"><span class="pill p-red">Nivel 1–2</span><b>Pregunta sin contexto</b></div>
+    <div class="ex-txt">
+      <p>La sal es muy importante en nuestra vida y también para las plantas. Hay plantas que viven en sitios con mucha sal, como las del mar. Las semillas necesitan agua para germinar. En este experimento voy a ver qué pasa con las semillas si les pongo sal.</p>
+      <p><mark class="m-rq">Pregunta: ¿Cómo afecta la sal a las plantas?</mark></p>
+    </div>
+  </div>
+  <details class="notes"><summary>Ver comentarios del profesor</summary>
+    <ul>
+      <li>No hay sistema: ¿qué planta? ¿Qué parte de la planta?</li>
+      <li>No hay teoría: no explica <i>por qué</i> la sal afectaría a la germinación.</li>
+      <li>La pregunta no está acotada: falta el rango de la VI, qué se mide y cómo.</li>
+      <li>Hay frases que no aportan nada («la sal es muy importante en nuestra vida»).</li>
+    </ul>
+  </details>
+
+  <!-- Nivel 3-4 -->
+  <div class="ex l2">
+    <div class="ex-hdr"><span class="pill p-amb">Nivel 3–4</span><b>Contexto amplio</b></div>
+    <div class="ex-txt">
+      <p><mark class="m-ctx">La salinización de los suelos es un problema importante para la agricultura en muchas regiones del mundo, incluida Almería.</mark> Las plantas necesitan agua para vivir y el agua entra en las células por ósmosis, que es el paso de agua a través de una membrana semipermeable desde donde hay menos solutos hacia donde hay más.</p>
+      <p>La germinación es el proceso por el que una semilla da lugar a una plántula. <mark class="m-sys">En este experimento se usarán semillas de berro (<em class="sp">Lepidium sativum</em>)</mark> porque germinan rápido.</p>
+      <p><mark class="m-rq">¿Cómo afecta la concentración de NaCl (0, 25, 50, 75, 100 y 150 mmol/L) a la longitud de la radícula de <em class="sp">Lepidium sativum</em> después de 72 h?</mark></p>
+    </div>
+  </div>
+  <details class="notes"><summary>Ver comentarios del profesor</summary>
+    <ul>
+      <li>✔ Hay contexto real (salinización) y un sistema con nombre científico.</li>
+      <li>✔ La pregunta incluye la VI con su rango, la VD y el organismo.</li>
+      <li>✘ La teoría es <b>general</b>: define la ósmosis pero no la conecta con la radícula. ¿Por qué menos agua significaría una radícula más corta?</li>
+      <li>✘ No justifica el rango (¿por qué hasta 150 mmol/L?) ni hace ninguna predicción.</li>
+      <li>✘ No cita ninguna fuente, ni siquiera para afirmar que la salinización afecta a Almería.</li>
+      <li>✘ No dice cómo se mide la longitud.</li>
+    </ul>
+  </details>
+
+  <!-- Nivel 5-6 -->
+  <div class="ex l3">
+    <div class="ex-hdr"><span class="pill p-grn">Nivel 5–6</span><b>Contexto específico y apropiado</b></div>
+    <div class="ex-txt">
+      <p><mark class="m-ctx">En los regadíos del sureste peninsular, el uso de aguas subterráneas con alta conductividad ha aumentado la salinidad de muchos suelos agrícolas <mark class="m-cit">[cita]</mark>. La germinación es una de las fases más sensibles al estrés salino, por lo que conocer a partir de qué concentración se inhibe ayuda a decidir qué agua se puede usar para el riego.</mark></p>
+      <p><mark class="m-sys">El berro (<em class="sp">Lepidium sativum</em>) se usa habitualmente en bioensayos de fitotoxicidad porque germina en 2–3 días y su radícula responde de forma medible a contaminantes y sales <mark class="m-cit">[cita]</mark>.</mark> En las primeras horas, el crecimiento de la radícula depende sobre todo de la <b>elongación celular</b>, que requiere que las células absorban agua y mantengan la presión de turgencia.</p>
+      <p><mark class="m-teo">El NaCl disminuye el potencial hídrico del medio. Cuanto mayor es su concentración, menor es la diferencia de potencial hídrico entre el medio y las células de la semilla, por lo que se reduce la entrada de agua y la turgencia necesaria para la elongación (efecto osmótico). Además, la acumulación de Na⁺ en el citoplasma puede alterar la actividad de enzimas (efecto iónico) <mark class="m-cit">[cita]</mark>.</mark> Por eso se espera que la longitud media de la radícula disminuya al aumentar la concentración de NaCl. Esa disminución podría no ser lineal: por debajo de cierto umbral la semilla tolera la sal y, por encima, la inhibición es casi total. El rango de 0 a 150 mmol/L se eligió para incluir concentraciones que, según estudios previos, van desde sin efecto hasta una inhibición fuerte en esta especie <mark class="m-cit">[cita]</mark>.</p>
+      <p><mark class="m-rq">¿Cómo afecta la concentración de NaCl (0, 25, 50, 75, 100 y 150 mmol/L) a la longitud media de la radícula de <em class="sp">Lepidium sativum</em>, medida con un calibre digital (±0,01 mm), tras 72 h de germinación a 22 °C en oscuridad?</mark></p>
+    </div>
+  </div>
+  <details class="notes"><summary>Ver comentarios del profesor</summary>
+    <ul>
+      <li>✔ El contexto es <b>concreto</b> y está conectado con la pregunta: explica a quién le sirve la respuesta.</li>
+      <li>✔ El sistema está descrito y su elección justificada.</li>
+      <li>✔ La teoría explica el <b>mecanismo</b> que une la VI (NaCl) con la VD (longitud de la radícula), paso a paso.</li>
+      <li>✔ Hay una predicción con forma (no lineal, con umbral) que luego se podrá comparar en la conclusión.</li>
+      <li>✔ El rango de la VI está justificado y los datos específicos van citados.</li>
+      <li>✔ No hay frases de relleno: todo lo que se dice se usa.</li>
+    </ul>
+  </details>
+
+  <div class="info"><b>Haz la prueba:</b> tapa la pregunta del ejemplo 5–6 y lee solo los párrafos anteriores. ¿Podrías adivinar la pregunta? Si la respuesta es sí, el embudo funciona. Haz la misma prueba con tu introducción.</div>
+</section>
+
+<!-- ============ 6. CATALASA ============ -->
+<section class="panel" id="catalasa">
+  <h2 class="sec-title">Aplícalo a tu práctica de la catalasa</h2>
+  <p class="sec-sub">Aquí no hay respuestas, solo preguntas. Contéstalas con fuentes antes de escribir tu introducción.</p>
+
+  <div class="warn"><b>Antes de nada:</b> el apartado «Informe» del guion de la práctica habla de Análisis, Conclusión y Evaluación. En <b>esta</b> entrega trabajamos la parte de <b>Diseño</b>: introducción, contexto y pregunta.</div>
+
+  <h3>Para todos</h3>
+  <ul>
+    <li>¿Por qué una célula necesita deshacerse del H₂O₂? ¿De qué reacciones procede?</li>
+    <li>¿En qué orgánulo está la catalasa en una célula vegetal? ¿Qué te dice eso sobre su función?</li>
+    <li>¿Por qué se usa patata? ¿Cuál es su nombre científico?</li>
+    <li>¿Qué mide realmente la altura de la espuma? ¿Es lo mismo que medir la cantidad de O₂?</li>
+    <li>¿Para qué sirve la gota de lavavajillas?</li>
+    <li>¿Hay alguna aplicación real (industria, medicina, alimentación) que dé un contexto con interés?</li>
+  </ul>
+
+  <div class="card" style="border-color:var(--purplebd);background:var(--purplebg)">
+    <b>🔎 Reto del fundamento</b>
+    <p style="margin-top:6px">El «Fundamento» del guion de la práctica no es suficiente como contexto para el IB y contiene una afirmación <b>discutible</b>. Encuéntrala y contrástala con una fuente fiable. ¿Cómo la corregirías?</p>
+  </div>
+
+  <h3>Según tu factor</h3>
+  <div class="tbl-wrap"><table>
+    <tr><th style="width:150px">Factor</th><th>Preguntas para tu teoría de referencia</th><th>Preguntas para tu metodología</th></tr>
+    <tr><td><b>A. Temperatura</b></td>
+      <td>¿Qué les pasa a la energía cinética y a la frecuencia de las colisiones al subir la temperatura? ¿Qué le pasa a la estructura terciaria y al sitio activo por encima de cierta temperatura? ¿Hay datos publicados de la temperatura óptima de la catalasa <i>de patata</i>?</td>
+      <td>¿Qué está a la temperatura elegida, solo el peróxido o también la patata? ¿Cómo sabes que la temperatura se mantiene durante los 90 s? ¿Por qué elegiste esas cinco temperaturas?</td></tr>
+    <tr><td><b>B. Concentración de sustrato</b></td>
+      <td>¿Por qué la velocidad aumenta con la concentración de sustrato? ¿Por qué no puede aumentar sin límite? ¿Qué significa que los sitios activos estén saturados?</td>
+      <td>¿Cómo preparas las diluciones a partir del H₂O₂ al 6 %? ¿Con qué incertidumbre? ¿El rango incluye la zona en la que esperas que la curva se estabilice?</td></tr>
+    <tr><td><b>C. Morfología</b></td>
+      <td>¿Qué cambia realmente al cortar la patata en trozos distintos: la masa, el volumen o la superficie expuesta? ¿Por qué eso afectaría a la frecuencia de las colisiones entre la enzima y el sustrato?</td>
+      <td>¿Cómo conviertes «morfología» en una variable <b>cuantitativa</b>? ¿Puedes calcular el área superficial de cada forma? ¿Mantienes constante la masa o el volumen total?</td></tr>
+  </table></div>
+
+  <div class="info"><b>Para pensar (lo usarás en la Evaluación):</b> si al medir la espuma has encontrado algo raro (espuma que se sale, burbujas que se rompen, trozos que flotan), apúntalo ahora como observación cualitativa.</div>
+</section>
+
+<!-- ============ 7. AUTOCOMPROBACIÓN ============ -->
+<section class="panel" id="check">
+  <h2 class="sec-title">Autocomprobación: pregunta e introducción</h2>
+  <p class="sec-sub">No basta con marcar «sí». Para cada punto tienes que <b>copiar la parte de tu texto</b> que lo demuestra. Si no encuentras esa parte, es que falta. Todo se guarda en este navegador.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Parte A · Mi pregunta de investigación</h3>
+    <div class="info">Primero pasa tu pregunta por el <a href="tema.html#comprobador" style="color:inherit;font-weight:700" data-goatcounter-click="intro-ir-comprobador">comprobador automático de la página Tema</a>. Aquí das un paso más: <b>tú</b> identificas cada elemento dentro de tu pregunta.</div>
+    <label class="lb" for="rq">Pega aquí tu pregunta completa</label>
+    <textarea id="rq" data-k="ck-rq" rows="3" placeholder="¿Cómo afecta…?"></textarea>
+
+    <p class="hint" style="margin-top:12px">Ahora copia de tu pregunta el fragmento exacto que corresponde a cada elemento:</p>
+    <div class="grid2">
+      <div><label class="lb">Variable independiente</label><input type="text" data-k="ck-vi" placeholder="p. ej. la concentración de NaCl"></div>
+      <div><label class="lb">Rango y unidades de la VI</label><input type="text" data-k="ck-rango" placeholder="p. ej. 0, 25, 50, 75, 100 y 150 mmol/L"></div>
+      <div><label class="lb">Variable dependiente</label><input type="text" data-k="ck-vd" placeholder="p. ej. la longitud media de la radícula"></div>
+      <div><label class="lb">Cómo se mide la VD</label><input type="text" data-k="ck-medida" placeholder="p. ej. con un calibre digital (±0,01 mm)"></div>
+      <div><label class="lb">Organismo (nombre científico)</label><input type="text" data-k="ck-org" placeholder="p. ej. Lepidium sativum"></div>
+      <div><label class="lb">Condiciones fijas (opcional)</label><input type="text" data-k="ck-cond" placeholder="p. ej. a 22 °C, tras 72 h"></div>
+    </div>
+    <button class="btn" onclick="checkRQ()" data-goatcounter-click="intro-comprobar-elementos">Comprobar mi pregunta</button>
+    <ul class="res" id="rq-res"></ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Parte B · Mi introducción</h3>
+    <p class="hint">Para cada punto, copia la frase de tu introducción que lo demuestra y valora cómo lo has resuelto.</p>
+    <div class="progress"><div id="ib-bar"></div></div>
+    <p class="hint" id="ib-count"></p>
+    <div id="ic-list"></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Parte C · Mi valoración</h3>
+    <label class="lb">Según el descriptor, ¿qué nivel crees que tiene ahora tu introducción y por qué?</label>
+    <div class="ic-scale" id="nivel">
+      <label><input type="radio" name="nivel" value="1–2">1–2 · sin contexto</label>
+      <label><input type="radio" name="nivel" value="3–4">3–4 · contexto amplio</label>
+      <label><input type="radio" name="nivel" value="5–6">5–6 · contexto específico y apropiado</label>
+    </div>
+    <textarea data-k="ck-porque" rows="2" placeholder="Porque…"></textarea>
+    <label class="lb">Las dos cosas que voy a mejorar antes de entregar</label>
+    <textarea data-k="ck-mejora" rows="3" placeholder="1. …&#10;2. …"></textarea>
+    <label class="lb">Si alguien de clase ha revisado mi texto: ¿qué me ha dicho?</label>
+    <textarea data-k="ck-par" rows="2" placeholder="⭐ … ⭐ … 💡 …"></textarea>
+    <div class="no-print">
+      <button class="btn" onclick="copySummary()" data-goatcounter-click="intro-copiar-autocomprobacion">📋 Copiar resumen para entregar</button>
+      <button class="btn sec" onclick="window.print()">🖨️ Imprimir</button>
+      <button class="btn sec" onclick="resetCheck()">↺ Borrar todo</button>
+    </div>
+    <p class="hint" style="margin-top:8px">Adjunta el resumen al final de tu informe. Tu profesora lo usará para darte feedback.</p>
+  </div>
+</section>
+
+<!-- ============ 8. IA ============ -->
+<section class="panel" id="ia">
+  <h2 class="sec-title">Uso responsable de la IA</h2>
+  <p class="sec-sub">La IA puede ayudarte a pensar, pero el informe tiene que ser tuyo. El IB exige que todo el trabajo sea original y que cites cualquier herramienta que hayas usado.</p>
+
+  <div class="grid2">
+    <div class="ok"><b>✅ Usos que te ayudan a aprender</b><ul style="margin-top:6px">
+      <li>«Hazme preguntas sobre mi introducción para detectar qué falta.»</li>
+      <li>«¿Mi pregunta incluye VI con rango, VD con medida y organismo? No la reescribas, solo dime qué falta.»</li>
+      <li>«Explícame qué es la desnaturalización como si tuviera 16 años.»</li>
+      <li>«¿Qué tipos de fuentes debería buscar para justificar mi rango de temperaturas?»</li>
+    </ul></div>
+    <div class="bad"><b>❌ Usos que sustituyen tu trabajo</b><ul style="margin-top:6px">
+      <li>«Escríbeme la introducción sobre la catalasa.»</li>
+      <li>«Dame una pregunta de investigación.»</li>
+      <li>«Mejora este párrafo» y pegar el resultado.</li>
+      <li>Usar citas o datos que da la IA sin comprobar la fuente original (a veces <b>se las inventa</b>).</li>
+    </ul></div>
+  </div>
+
+  <div class="info"><b>Si usas IA:</b> indícalo en el texto o en la bibliografía (herramienta, fecha y para qué la usaste). Sus respuestas no son una fuente científica: busca siempre la fuente original y cita esa.</div>
+  <div class="warn"><b>Regla práctica:</b> si no puedes explicar con tus palabras, sin mirar, una frase de tu introducción, esa frase no debería estar en tu informe.</div>
+</section>
+
+</main>
+
+<footer class="ds-footer" role="contentinfo">
+  <div class="ds-wrap">
+    <div>
+      <h2>🧬 Investigación científica · Biología IB</h2>
+      <p>Guía para la evaluación interna del Programa del Diploma (primera evaluación 2025).</p>
+      <p>Elaborada por <strong style="color:#fff">María Dolores Gámez Ortiz</strong>, profesora de Biología IB · IES Celia Viñas, Almería.</p>
+    </div>
+    <div>
+      <h3>Secciones</h3>
+      <ul>
+        <li><a href="index.html">Inicio y criterios</a></li><li><a href="tema.html">1 · Elegir el tema</a></li>
+        <li><a href="catalogo.html">2 · Catálogo de ideas</a></li><li><a href="introduccion.html">3 · Pregunta e introducción</a></li>
+        <li><a href="ejemplos.html">4 · Ejemplos comentados</a></li><li><a href="estadistica.html">5 · Estadística</a></li><li><a href="incertidumbre.html">6 · Incertidumbre</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Fuentes y licencia</h3>
+      <p>Basado en la <i>Guía de Biología del IB</i> (primera evaluación 2025) y las <i>Directrices del IB sobre experimentación científica</i> (2023). Los descriptores de nivel son citas de la fuente oficial © IB Organization.</p>
+      <div class="ds-cc" aria-hidden="true"><span>CC</span><span>BY</span><span>NC</span><span>SA</span></div>
+      <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> · Atribución · No comercial · Compartir igual</p>
+    </div>
+  </div>
+  <div class="ds-base">IES Celia Viñas · Almería · Material de apoyo para el alumnado de Biología del Programa del Diploma<span class="aviso-visitas" style="display:block;margin-top:6px;opacity:.8">Esta web registra visitas de forma anónima, sin cookies ni datos personales.</span></div>
+</footer>
+<script>
+/* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
+(function(){
+  function mark(root){(root.querySelectorAll?root:document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select)').forEach(function(el){if(!el.hasAttribute('role')){el.setAttribute('role','button');el.setAttribute('tabindex','0');}});}
+  document.addEventListener('keydown',function(e){var el=e.target.closest&&e.target.closest('[role="button"]');if(el&&el.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();el.click();}});
+  function init(){mark(document);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)mark(n.parentNode||n);});});}).observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.querySelectorAll('a[target="_blank"]').forEach(function(a){a.rel='noopener';});
+})();
+</script>
+<style>@media print{.aviso-visitas{display:none!important}}</style>
+<script>
+/* ---------- almacenamiento seguro ---------- */
+const store={
+  get(k){try{return localStorage.getItem('ia-intro-'+k)}catch(e){return null}},
+  set(k,v){try{localStorage.setItem('ia-intro-'+k,v)}catch(e){}},
+  del(k){try{localStorage.removeItem('ia-intro-'+k)}catch(e){}}
+};
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+function copyText(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(()=>toast('Copiado al portapapeles'),()=>fallback(txt));}else fallback(txt);
+  function fallback(t){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');toast('Copiado al portapapeles')}catch(e){toast('No se pudo copiar')}a.remove();}
+}
+
+/* ---------- pestañas ---------- */
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');document.getElementById(b.dataset.p).classList.add('active');
+  store.set('tab',b.dataset.p);window.scrollTo({top:0});
+}));
+
+/* ---------- actividad ---------- */
+const actividades=[
+  {t:'Laboratorio',q:'¿Hasta qué punto diferentes masas de <i>Brassica oleracea</i>, <i>Phoenix dactylifera</i> y chocolate negro afectan a la actividad lipasa?',
+   p:'Pista: ¿la VI es la masa o el tipo de alimento? ¿Se pueden mezclar ambas cosas en una pregunta? ¿Cómo se mide la actividad lipasa?'},
+  {t:'Base de datos · correlación',q:'¿Cómo la edad media de jubilación en un país afecta a la prevalencia de la enfermedad de Alzheimer u otras formas de demencia en la población del país?',
+   p:'Pista: ¿puedes manipular la edad de jubilación? ¿Qué base de datos usarías? ¿Qué países y qué años? ¿«Alzheimer u otras demencias» es una variable o dos?'},
+  {t:'Laboratorio',q:'¿Cómo diferentes concentraciones de sacarosa afectan a la producción de dióxido de carbono producido en la respiración celular de la levadura?',
+   p:'Pista: ¿qué concentraciones exactamente? ¿Cómo mides el CO₂ (volumen, sensor, otro)? ¿Qué especie de levadura? ¿A qué temperatura?'},
+  {t:'Laboratorio / campo',q:'¿Cómo afecta el incremento en el tiempo de maduración al grosor de la cáscara de plátano mientras madura a temperatura ambiente?',
+   p:'Pista: ¿en qué días mides? ¿Con qué instrumento mides el grosor y dónde exactamente? ¿Qué es «temperatura ambiente»? ¿Qué especie y variedad?'}
+];
+const actList=document.getElementById('act-list');
+actividades.forEach((a,i)=>{
+  const d=document.createElement('div');d.className='act-q';
+  d.innerHTML=`<span class="tag">Nivel 1 · Pregunta ${i+1} · ${a.t}</span>
+  <div class="orig" style="margin-top:10px">${a.q}</div>
+  <details class="notes" style="margin:6px 0 10px"><summary>Necesito una pista</summary><p style="margin:0">${a.p}</p></details>
+  <label class="lb">¿Qué le falta o qué es ambiguo?</label><textarea rows="2" data-k="act${i}-prob"></textarea>
+  <label class="lb">Mi pregunta acotada</label><textarea rows="3" data-k="act${i}-new"></textarea>
+  <div class="grid2">
+    <div><label class="lb">VI y rango</label><input type="text" data-k="act${i}-vi"></div>
+    <div><label class="lb">VD y cómo se mide</label><input type="text" data-k="act${i}-vd"></div>
+    <div><label class="lb">Organismo / población</label><input type="text" data-k="act${i}-org"></div>
+    <div><label class="lb">Condiciones / fuente de datos</label><input type="text" data-k="act${i}-cond"></div>
+  </div>`;
+  actList.appendChild(d);
+});
+function copyActivity(){
+  const v=k=>(document.querySelector(`[data-k="${k}"]`)||{}).value||'—';
+  let out='ACTIVIDAD: ACOTA LA PREGUNTA DE INVESTIGACIÓN\n\n';
+  actividades.forEach((a,i)=>{
+    out+=`${i+1}. ${a.q.replace(/<[^>]+>/g,'')}\n  Problemas: ${v('act'+i+'-prob')}\n  Pregunta acotada: ${v('act'+i+'-new')}\n  VI y rango: ${v('act'+i+'-vi')} | VD y medida: ${v('act'+i+'-vd')} | Organismo: ${v('act'+i+'-org')} | Condiciones: ${v('act'+i+'-cond')}\n\n`;
+  });
+  out+=`¿Tiene contexto? (A/B): ${v('act-n2')}\n\nMi pregunta de la catalasa: ${v('act-cat')}\n`;
+  copyText(out);
+}
+
+/* ---------- autocomprobación: introducción ---------- */
+const icItems=[
+  {k:'ctx',q:'Explico por qué importa la pregunta (un problema, una aplicación o una observación real).'},
+  {k:'sis',q:'Describo el sistema: el organismo con su nombre científico, dónde actúa la enzima o el proceso y por qué lo elegí.'},
+  {k:'teo',q:'Explico la teoría que relaciona MI variable independiente con MI variable dependiente (el mecanismo, no solo definiciones).'},
+  {k:'pred',q:'Hago una predicción justificada con esa teoría (y, si puedo, digo qué forma esperaría en la gráfica).'},
+  {k:'rango',q:'Justifico el rango de la VI con la teoría o con la bibliografía.'},
+  {k:'cita',q:'Cito los datos específicos (valores, óptimos, resultados previos) con fuentes que se pueden localizar.'},
+  {k:'emb',q:'La pregunta aparece al final y se deduce de lo anterior (prueba: tapa la pregunta, ¿se adivina?).'},
+  {k:'rell',q:'He quitado todo lo que no uso después: definiciones de libro, historia o datos curiosos.'}
+];
+const scale=['No está','Está, pero es general','Está y es específico'];
+const icList=document.getElementById('ic-list');
+icItems.forEach((it,i)=>{
+  const d=document.createElement('div');d.className='ic-row';
+  d.innerHTML=`<div class="ic-q">${i+1}. ${it.q}</div>
+  <div class="ic-scale">${scale.map((s,j)=>`<label><input type="radio" name="ic-${it.k}" value="${j}">${s}</label>`).join('')}</div>
+  <textarea rows="2" data-k="ic-${it.k}-ev" placeholder="Copia aquí la frase de tu introducción que lo demuestra"></textarea>`;
+  icList.appendChild(d);
+});
+function updateBar(){
+  let done=0;
+  icItems.forEach(it=>{const r=document.querySelector(`input[name="ic-${it.k}"]:checked`);const ev=(document.querySelector(`[data-k="ic-${it.k}-ev"]`).value||'').trim();if(r&&r.value==='2'&&ev.length>10)done++;});
+  document.getElementById('ib-bar').style.width=(done/icItems.length*100)+'%';
+  document.getElementById('ib-count').textContent=`${done} de ${icItems.length} puntos resueltos de forma específica y con evidencia copiada de tu texto.`;
+}
+
+/* ---------- autocomprobación: pregunta ---------- */
+function checkRQ(){
+  const g=k=>((document.querySelector(`[data-k="${k}"]`)||{}).value||'').trim();
+  const rq=g('ck-rq'),norm=s=>s.toLowerCase().replace(/\s+/g,' ');
+  const res=[];const add=(c,t)=>res.push([c,t]);
+  if(!rq){add('n','Primero pega tu pregunta en el cuadro de arriba.');return render(res);}
+  const inRQ=f=>f&&norm(rq).includes(norm(f));
+  const fields=[['ck-vi','la variable independiente'],['ck-rango','el rango de la VI'],['ck-vd','la variable dependiente'],['ck-medida','cómo se mide la VD'],['ck-org','el organismo']];
+  fields.forEach(([k,n])=>{
+    const f=g(k);
+    if(!f) add('n',`Falta ${n}. Si no lo encuentras en tu pregunta, es que no está.`);
+    else if(!inRQ(f)) add('m',`«${f}» no aparece literalmente en tu pregunta. ¿Está escrito de otra forma o falta en ella ${n}?`);
+    else add('y',`Has identificado ${n}: «${f}».`);
+  });
+  const nums=(g('ck-rango').match(/\d+([.,]\d+)?/g)||[]).length;
+  if(g('ck-rango')){
+    if(nums<5) add('m',`En el rango hay ${nums} valor(es). Para un análisis estadístico sólido se recomiendan al menos 5 niveles de la VI.`);
+    else add('y',`El rango tiene ${nums} valores.`);
+    if(!/(°|ºC|%|mol|mmol|mg|g\/|g |cm|mm|m²|cm²|cm2|cm3|ml|mL|L\b|s\b|min|h\b|lux|ppm|kPa|µ)/i.test(g('ck-rango'))) add('m','No veo unidades en el rango. ¿En qué unidades está la VI?');
+  }
+  if(g('ck-medida') && !/(±|cm|mm|mL|ml|s\b|min|nm|ppm|%|mm\/s|cm\/s|regla|cron|sensor|probeta|jeringa|espectro|calibre|balanza|termómetro)/i.test(g('ck-medida')))
+    add('m','¿Has indicado el instrumento o las unidades con las que mides la VD?');
+  const org=g('ck-org');
+  if(org && !/\b[A-Z][a-z]+ [a-z]{3,}\b/.test(org)) add('m','El organismo no parece un nombre científico (Género especie). Recuerda: género con mayúscula, especie en minúscula y en cursiva en el informe.');
+  const w=rq.split(/\s+/).length;
+  if(w>60) add('m',`Tu pregunta tiene ${w} palabras. ¿Puedes pasar algún detalle a la metodología sin perder precisión?`);
+  if(!/^¿/.test(rq)||!/\?$/.test(rq)) add('m','Revisa los signos de interrogación de apertura y cierre.');
+  if(/qu[eé] pasa|influye la/i.test(rq)) add('m','«Qué pasa» o «influye» es vago. ¿Puedes decir exactamente qué cambia y cómo lo mides?');
+  render(res);
+  function render(r){document.getElementById('rq-res').innerHTML=r.map(([c,t])=>`<li class="${c}">${c==='y'?'✔':c==='n'?'✘':'⚠'} ${t}</li>`).join('');}
+}
+
+function copySummary(){
+  const g=k=>((document.querySelector(`[data-k="${k}"]`)||{}).value||'').trim()||'—';
+  let o='AUTOCOMPROBACIÓN · PREGUNTA E INTRODUCCIÓN\n\n';
+  o+=`Pregunta: ${g('ck-rq')}\n  VI: ${g('ck-vi')} | Rango: ${g('ck-rango')}\n  VD: ${g('ck-vd')} | Medida: ${g('ck-medida')}\n  Organismo: ${g('ck-org')} | Condiciones: ${g('ck-cond')}\n\nIntroducción:\n`;
+  icItems.forEach((it,i)=>{const r=document.querySelector(`input[name="ic-${it.k}"]:checked`);o+=`${i+1}. ${it.q}\n   Valoración: ${r?scale[r.value]:'sin valorar'}\n   Evidencia: ${g('ic-'+it.k+'-ev')}\n`;});
+  const n=document.querySelector('input[name="nivel"]:checked');
+  o+=`\nNivel estimado: ${n?n.value:'—'} · ${g('ck-porque')}\nVoy a mejorar: ${g('ck-mejora')}\nFeedback de un compañero/a: ${g('ck-par')}\n`;
+  copyText(o);
+}
+function resetCheck(){
+  if(!confirm('¿Seguro que quieres borrar la autocomprobación?'))return;
+  document.querySelectorAll('#check [data-k]').forEach(el=>{el.value='';store.del(el.dataset.k);});
+  document.querySelectorAll('#check input[type=radio]').forEach(el=>{el.checked=false;store.del('r-'+el.name);});
+  document.getElementById('rq-res').innerHTML='';updateBar();
+}
+
+/* ---------- guardar / restaurar ---------- */
+document.querySelectorAll('[data-k]').forEach(el=>{
+  const v=store.get(el.dataset.k);if(v!==null)el.value=v;
+  el.addEventListener('input',()=>{store.set(el.dataset.k,el.value);updateBar();});
+});
+document.querySelectorAll('input[type=radio]').forEach(el=>{
+  if(store.get('r-'+el.name)===el.value)el.checked=true;
+  el.addEventListener('change',()=>{store.set('r-'+el.name,el.value);updateBar();});
+});
+updateBar();
+const t0=store.get('tab');if(t0){const b=document.querySelector(`.tab[data-p="${t0}"]`);if(b)b.click();}
+</script>
+<script data-goatcounter="https://investigacion-bio.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
