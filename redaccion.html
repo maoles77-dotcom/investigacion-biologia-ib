@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redacción del informe — Biología IB · IES Celia Viñas</title>
+
+
+<style>
+  :root {
+    --verde: #2d7a45; --verde-claro: #e6f4eb; --verde-oscuro: #1e5c32;
+    --azul: #1a6fa8; --azul-claro: #e8f3fc; --azul-bd: #b3d4f0;
+    --ambar: #b86800; --ambar-claro: #fff8ed; --ambar-bd: #f0c878;
+    --rojo: #c0392b; --rojo-claro: #fdf0ee; --rojo-bd: #f0b8b0;
+    --morado: #6b3fa0; --morado-claro: #f2edf9;
+    --fondo: #f4f7f4; --superficie: #ffffff; --borde: #d6e5d8; --borde-sutil: #eaf0ea;
+    --texto: #1c2e1f; --texto-suave: #4d6e54; --texto-dim: #8aab8e;
+    --sombra: 0 2px 12px rgba(45,122,69,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; }
+  body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.6; font-size: 15px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 0 16px 60px; }
+  .hero { background: linear-gradient(135deg, #1e5c32 0%, #2d7a45 55%, #3d9458 100%); color: #fff; padding: 40px 32px 34px; border-radius: 0 0 20px 20px; margin-bottom: 22px; }
+  .hero h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(22px, 4vw, 30px); line-height: 1.25; margin-bottom: 8px; }
+  .hero p { opacity: .9; max-width: 640px; }
+  nav.indice { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+  nav.indice a { background: rgba(255,255,255,.15); color: #fff; text-decoration: none; border-radius: 8px; padding: 5px 11px; font-size: 12.5px; font-weight: 600; }
+  .sec { background: var(--superficie); border: 1px solid var(--borde); border-radius: 16px; padding: 24px 26px; margin-bottom: 18px; box-shadow: var(--sombra); }
+  h2 { font-family: 'Source Serif 4', serif; font-size: 20px; margin-bottom: 6px; display: flex; gap: 10px; align-items: center; }
+  h3 { font-size: 15px; margin: 16px 0 6px; }
+  .sub { color: var(--texto-suave); font-size: 13.5px; margin-bottom: 14px; }
+  p + p { margin-top: 8px; }
+  ul, ol { padding-left: 20px; margin: 6px 0; }
+  li { margin: 3px 0; }
+  .paso { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--verde); color: #fff; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .crit { display: inline-block; font-size: 11.5px; font-weight: 700; border-radius: 6px; padding: 2px 8px; margin-left: 4px; vertical-align: middle; }
+  .c1 { background: var(--azul-claro); color: var(--azul); } .c2 { background: var(--verde-claro); color: var(--verde-oscuro); }
+  .c3 { background: var(--morado-claro); color: var(--morado); } .c4 { background: var(--ambar-claro); color: var(--ambar); }
+  .box { border-radius: 10px; padding: 12px 15px; font-size: 14px; margin: 12px 0; }
+  .box.azul { background: var(--azul-claro); border: 1px solid var(--azul-bd); color: #1a3a5a; }
+  .box.ambar { background: var(--ambar-claro); border: 1px solid var(--ambar-bd); color: #6b4500; }
+  .box.rojo { background: var(--rojo-claro); border: 1px solid var(--rojo-bd); color: #7a1a1a; }
+  .box.verde { background: var(--verde-claro); border: 1px solid #b3d9c0; color: #1a4a2a; }
+  .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mal, .bien { border-radius: 10px; padding: 11px 13px; font-size: 13.5px; }
+  .mal { background: var(--rojo-claro); border: 1px solid var(--rojo-bd); }
+  .bien { background: var(--verde-claro); border: 1px solid #b3d9c0; }
+  .mal b, .bien b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; }
+  .tabla { overflow-x: auto; margin: 10px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { border: 1px solid var(--borde); padding: 6px 8px; text-align: center; }
+  th { background: var(--verde-claro); color: var(--verde-oscuro); }
+  caption { caption-side: top; text-align: left; font-weight: 700; font-size: 13px; padding-bottom: 6px; }
+  .formula { font-family: 'Source Serif 4', serif; background: var(--fondo); border: 1px dashed var(--borde); border-radius: 8px; padding: 8px 12px; margin: 8px 0; font-size: 15px; }
+  .frase { background: var(--fondo); border-left: 4px solid var(--verde); border-radius: 0 8px 8px 0; padding: 9px 12px; margin: 8px 0; font-size: 14px; font-style: italic; }
+  /* calculadora */
+  .calc label { font-weight: 600; font-size: 13.5px; display: block; margin: 10px 0 4px; }
+  .calc input, .calc textarea { width: 100%; font: inherit; font-size: 15px; padding: 9px 11px; border: 1.5px solid var(--borde); border-radius: 9px; }
+  .calc textarea { min-height: 64px; resize: vertical; }
+  .calc .fila { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px; }
+  .btn { margin-top: 14px; background: var(--verde); color: #fff; border: none; border-radius: 9px; padding: 10px 20px; font: inherit; font-weight: 700; cursor: pointer; }
+  .res { margin-top: 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr)); gap: 8px; }
+  .kpi { background: var(--fondo); border: 1px solid var(--borde-sutil); border-radius: 10px; padding: 9px 11px; }
+  .kpi small { color: var(--texto-suave); font-size: 12px; display: block; }
+  .kpi b { font-size: 17px; }
+  .chk { list-style: none; padding-left: 0; }
+  .chk li { padding: 6px 0 6px 30px; position: relative; border-bottom: 1px solid var(--borde-sutil); cursor: pointer; }
+  .chk li::before { content: ''; position: absolute; left: 2px; top: 8px; width: 18px; height: 18px; border: 2px solid var(--borde); border-radius: 5px; }
+  .chk li.ok::before { background: var(--verde); border-color: var(--verde); }
+  .chk li.ok { color: var(--texto-suave); }
+  footer { text-align: center; font-size: 12.5px; color: var(--texto-dim); margin-top: 30px; }
+  @media (max-width: 620px) { .dos { grid-template-columns: 1fr; } .sec { padding: 18px 16px; } .hero { padding: 28px 18px; } }
+</style>
+<meta name="description" content="Guía para la investigación científica (evaluación interna) de Biología IB, programa 2025 · IES Celia Viñas">
+<meta name="theme-color" content="#1e5c32">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+<script>
+/* Si el navegador bloquea el almacenamiento (p. ej. dentro de un iframe de Google Sites), usar memoria para que la página no se rompa */
+(function(){try{var k='__p';localStorage.setItem(k,k);localStorage.removeItem(k);}catch(e){var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}});}catch(_){}}})();
+</script>
+<style>
+.sitenav{background:#143f23;font-family:'DM Sans',system-ui,sans-serif;position:relative;z-index:200}
+.sitenav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:6px 12px;overflow-x:auto;scrollbar-width:none}
+.sitenav-in::-webkit-scrollbar{display:none}
+.sitenav a{color:#d9eedf;text-decoration:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:7px;white-space:nowrap;line-height:1.2}
+.sitenav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sitenav a[aria-current=page]{background:#fff;color:#143f23}
+.sitenav .brand{font-weight:800;color:#fff;margin-right:6px;white-space:nowrap;font-size:14px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#143f23;padding:8px 12px;z-index:999;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid #1a6fa8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style id="design-system">
+/* ═══════════ Sistema de diseño · IA Biología IB ═══════════ */
+:root{
+  --ds-green-900:#0f2f1a; --ds-green-800:#143f23; --ds-green-700:#1e5c32; --ds-green-600:#2d7a45; --ds-green-500:#3d9458;
+  --ds-green-100:#e6f4eb; --ds-green-50:#f2f8f3;
+  --ds-ink:#1c2e1f; --ds-muted:#4d6e54; --ds-faint:#7f9a84; --ds-line:#d6e5d8; --ds-line-soft:#eaf0ea;
+  --ds-bg:#f4f7f4; --ds-surface:#fff; --ds-blue:#1a6fa8; --ds-amber:#b86800; --ds-red:#c0392b; --ds-purple:#6b3fa0;
+  --ds-radius:14px; --ds-radius-lg:18px; --ds-shadow:0 1px 2px rgba(15,47,26,.05),0 4px 16px rgba(15,47,26,.06);
+  --ds-shadow-hover:0 2px 4px rgba(15,47,26,.06),0 10px 28px rgba(15,47,26,.10);
+  --ds-serif:'Source Serif 4',Georgia,'Times New Roman',serif; --ds-sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ds-w:1680px; --ds-pad:clamp(16px,3.2vw,56px);
+  /* variables de las páginas de tema/ejemplos, alineadas con la paleta */
+  --primary:#2d7a45; --primary-l:#3d9458; --primary-pale:#e6f4eb; --secondary:#1a6fa8; --secondary-pale:#e8f3fc;
+  --accent:#b86800; --accent-pale:#fff6e5; --danger:#c0392b; --danger-pale:#fdf0ee; --success:#2d7a45; --success-pale:#e6f4eb;
+  --purple:#6b3fa0; --purple-pale:#f2edf9; --orange:#a8551b; --orange-pale:#fdf3ea;
+  --text:#1c2e1f; --text-l:#4d6e54; --text-m:#7f9a84; --bg:#f4f7f4; --bg-card:#fff; --border:#d6e5d8; --border-l:#eaf0ea;
+  --shadow-sm:0 1px 2px rgba(15,47,26,.05); --shadow-md:var(--ds-shadow); --shadow-lg:var(--ds-shadow-hover);
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+}
+body.ds-read{--ds-w:1680px}
+/* Tamaño de letra: páginas en rem crecen con html; las páginas en px se escalan con zoom */
+html{font-size:118.75%}
+body.p-index .page,body.p-estadistica .main,body.p-estadistica .hdr,body.p-catalogo .page,body.p-incertidumbre .page,body.p-redaccion .page{zoom:1.2}
+body.p-index .page,body.p-catalogo .page,body.p-incertidumbre .page,body.p-redaccion .page{max-width:calc(var(--ds-w)/1.2)!important;padding-left:calc(var(--ds-pad)/1.2)!important;padding-right:calc(var(--ds-pad)/1.2)!important}
+body.p-estadistica .main{max-width:calc(var(--ds-w)/1.2)!important;padding-left:calc(var(--ds-pad)/1.2)!important;padding-right:calc(var(--ds-pad)/1.2)!important}
+body.p-estadistica .hdr{padding:0 calc(var(--ds-pad)/1.2)!important}
+html{scroll-padding-top:64px}
+body{font-family:var(--ds-sans)!important;background:var(--ds-bg)!important;color:var(--ds-ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,.sec-title,.sec-titulo,.ds-hero h1{font-family:var(--ds-serif);letter-spacing:-.01em}
+a{color:var(--ds-blue);text-underline-offset:2px}
+::selection{background:#cbe7d4}
+
+/* Barra global */
+.sitenav{background:var(--ds-green-900)!important;border-bottom:1px solid rgba(255,255,255,.06)}
+.sitenav-in{max-width:calc(var(--ds-w) + 2*var(--ds-pad));padding:8px var(--ds-pad)!important;gap:2px!important}
+.sitenav .brand{display:flex;align-items:center;gap:8px;font-family:var(--ds-serif);font-size:17px!important;letter-spacing:-.01em;margin-right:14px!important}
+.sitenav .brand i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--ds-green-600);font-size:14px}
+.sitenav a{font-size:15px!important;padding:8px 13px!important;color:#cfe3d5!important}
+.sitenav a b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);font-size:10.5px;margin-right:5px}
+.sitenav a[aria-current=page]{background:#fff!important;color:var(--ds-green-800)!important}
+.sitenav a[aria-current=page] b{background:var(--ds-green-100);color:var(--ds-green-700)}
+
+/* Cabecera de página (idéntica en todas) */
+.ds-hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(120deg,var(--ds-green-800) 0%,var(--ds-green-700) 48%,var(--ds-green-600) 100%)}
+.ds-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 90% -10%,rgba(255,255,255,.10),transparent 70%),radial-gradient(420px 260px at 0% 120%,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
+.ds-hero .ds-wrap{position:relative;max-width:var(--ds-w);margin:0 auto;padding:44px var(--ds-pad) 40px;box-sizing:content-box}
+.ds-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#cfe8d6;margin:0 0 14px}
+.ds-eyebrow .ds-step{background:#fff;color:var(--ds-green-700);border-radius:999px;padding:3px 10px;letter-spacing:.04em}
+.ds-hero h1{font-size:clamp(30px,3.6vw,50px);line-height:1.1;font-weight:700;margin:0 0 14px;max-width:1000px;color:#fff}
+.ds-lead{font-size:clamp(17px,1.25vw,20px);line-height:1.6;color:rgba(255,255,255,.9);max-width:900px;margin:0}
+.ds-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.ds-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;font-size:15px;font-weight:600;padding:6px 12px;border-radius:999px}
+a.ds-chip:hover{background:rgba(255,255,255,.22)}
+.ds-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.ds-btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:16px;text-decoration:none;padding:11px 18px;border-radius:10px;transition:transform .15s,background .15s}
+.ds-btn.primary{background:#fff;color:var(--ds-green-700)}
+.ds-btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45)}
+.ds-btn:hover{transform:translateY(-1px)}
+.ds-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.ds-metric,.ds-metrics .stat{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 16px;min-width:108px;font-size:12.5px;color:rgba(255,255,255,.85)}
+.ds-metric b,.ds-metrics .stat b{display:block;font-family:var(--ds-serif);font-size:26px;line-height:1.1;color:#fff}
+
+/* Subnavegación de cada página (blanca y fija) */
+.header,.hdr{background:rgba(255,255,255,.96)!important;backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--ds-line)!important;box-shadow:0 1px 0 rgba(15,47,26,.03)!important;padding:0 var(--ds-pad)!important;position:sticky;top:0;z-index:100}
+.header .logo,.hdr-top{display:none!important}
+.header-inner{max-width:var(--ds-w)!important;padding:0!important;justify-content:flex-start!important}
+.header .nav,.hdr .tabs{display:flex;gap:4px!important;overflow-x:auto;flex-wrap:nowrap!important;scrollbar-width:none;max-width:var(--ds-w);margin:0 auto}
+.header .nav-a,.hdr .tab{color:var(--ds-muted)!important;background:none!important;border:none!important;border-bottom:2.5px solid transparent!important;border-radius:0!important;padding:15px 14px 13px!important;font-size:15.5px!important;font-weight:600!important;white-space:nowrap}
+.header .nav-a:hover,.hdr .tab:hover{color:var(--ds-ink)!important}
+.header .nav-a.active,.hdr .tab.active{color:var(--ds-green-700)!important;border-bottom-color:var(--ds-green-600)!important}
+
+/* Contenedores con anchos comunes */
+.main,.page{max-width:var(--ds-w)!important;padding-left:var(--ds-pad)!important;padding-right:var(--ds-pad)!important;box-sizing:content-box}
+.main{padding-top:32px!important}
+body.p-index .page,body.p-catalogo .page,body.p-incertidumbre .page,body.p-redaccion .page{padding-top:28px!important}
+.prog-bar-wrap{padding:12px var(--ds-pad)!important}
+.prog-inner{max-width:var(--ds-w);margin:0 auto}
+
+/* Títulos de sección */
+.sec-title{font-size:clamp(22px,2.6vw,27px)!important;font-weight:700!important;color:var(--ds-ink)}
+.sec-sub{color:var(--ds-muted)!important}
+.sec-ic{width:44px!important;height:44px!important;border-radius:12px!important;background:var(--ds-green-100)!important;font-size:1.3rem!important}
+.sec-titulo{font-size:20px!important}
+
+/* Tarjetas y paneles */
+.sec,.card,.inv-card,.topic-card,.res-card,.comments-section,.lesson-card,.act-card,.err-card,.herr-card,.tool-card,.ficha,.ficha-row,.sc-card{border-radius:var(--ds-radius)!important;border-color:var(--ds-line)!important}
+.sec,.card,.inv-card,.comments-section,.herr-card,.act-card{box-shadow:var(--ds-shadow)!important}
+.card:hover,.inv-card:hover,.herr-card:hover{box-shadow:var(--ds-shadow-hover)!important}
+.btn-primary{background:var(--ds-green-600)!important;color:#fff!important}
+table th{font-weight:700}
+
+/* Pie común */
+.ds-footer{background:var(--ds-green-900)!important;color:#cfe3d5!important;margin:56px 0 0!important;padding:0!important;font-size:15px!important;text-align:left!important;max-width:none!important}
+.ds-footer .ds-wrap{max-width:var(--ds-w);margin:0 auto;padding:36px var(--ds-pad) 28px;display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:28px;box-sizing:content-box}
+.ds-footer h2{font-family:var(--ds-serif);color:#fff;font-size:17px;margin:0 0 8px}
+.ds-footer h3{font-family:var(--ds-sans);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9fc4aa;margin:0 0 10px}
+.ds-footer p{margin:0 0 6px;line-height:1.55}
+.ds-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ds-footer a{color:#e6f4eb;text-decoration:none}
+.ds-footer a:hover{text-decoration:underline}
+.ds-footer .ds-cc{display:inline-flex;gap:3px;margin:4px 0 8px}
+.ds-footer .ds-cc span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid #9fc4aa;color:#e6f4eb;font-size:9.5px;font-weight:800}
+.ds-footer .ds-base{border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:14px var(--ds-pad);font-size:12px;color:#8fb39a}
+
+@media (max-width:760px){
+  :root{--ds-pad:16px}
+  body.p-index .page,body.p-estadistica .main,body.p-estadistica .hdr,body.p-catalogo .page,body.p-incertidumbre .page,body.p-redaccion .page{zoom:1.06}
+  .ds-hero .ds-wrap{padding:30px var(--ds-pad) 28px}
+  .ds-lead{font-size:15.5px}
+  .ds-footer .ds-wrap{grid-template-columns:1fr;gap:20px}
+  .ds-metrics{gap:6px}
+  .ds-metric,.ds-metrics .stat{min-width:0;padding:7px 11px;font-size:11.5px}
+  .ds-metric b,.ds-metrics .stat b{font-size:19px}
+  .ds-hero h1{font-size:27px}
+}
+@media print{.sitenav,.header,.hdr,.ds-footer,.skip{display:none!important}.ds-hero{background:none!important;color:var(--ds-ink)}.ds-hero h1,.ds-lead,.ds-eyebrow{color:var(--ds-ink)!important}}
+</style>
+</head>
+<body class="p-redaccion ds-read">
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<nav class="sitenav" aria-label="Secciones de la guía"><div class="sitenav-in"><a class="brand" href="index.html"><i>🧬</i>IA · Biología IB</a><a href="index.html">Inicio</a><a href="tema.html"><b>1</b>Tema</a><a href="catalogo.html"><b>2</b>Catálogo</a><a href="ejemplos.html"><b>3</b>Ejemplos</a><a href="estadistica.html"><b>4</b>Estadística</a><a href="incertidumbre.html"><b>5</b>Incertidumbre</a><a href="redaccion.html" aria-current="page"><b>6</b>Redacción</a></div></nav>
+<div id="contenido"></div>
+<header class="ds-hero"><div class="ds-wrap"><p class="ds-eyebrow"><span class="ds-step">Paso 6</span>Redactar y revisar el informe</p><h1>Redacta sin perder puntos</h1><p class="ds-lead">Cómo justificar el método, escribir la conclusión y la evaluación, y revisar el informe antes de entregarlo. Todo está pensado a partir de los fallos que más se repiten en las investigaciones corregidas. Cada apartado indica el criterio en el que suma.</p><div class="ds-chips"><a class="ds-chip" href="#estructura">0 · Estructura</a><a class="ds-chip" href="#palabras">✂️ Ajustar palabras</a><a class="ds-chip" href="#promocion">⚠️ Lo que más resta</a><a class="ds-chip" href="#decisiones">1 · Decisiones</a><a class="ds-chip" href="#seguridad">2 · Seguridad y ética</a><a class="ds-chip" href="#datos">3 · Antes de concluir</a><a class="ds-chip" href="#conclusion">4 · Conclusión</a><a class="ds-chip" href="#contradice">5 · Si no sale lo esperado</a><a class="ds-chip" href="#evaluacion">6 · Evaluación</a><a class="ds-chip" href="#check">✅ Antes de entregar</a></div></div></header>
+
+
+<div class="page">
+
+<!-- ════════ 0 · ESTRUCTURA ════════ -->
+<section class="sec" id="estructura">
+  <h2>🗂️ Estructura del informe y criterio de cada parte</h2>
+  <p class="sub">El IB no impone apartados fijos, pero el examinador busca cada cosa en un sitio. Si la conclusión está mezclada con la evaluación, o la justificación del método aparece al final, cuesta encontrarla y se valora peor.</p>
+  <div class="tabla"><table>
+    <tr><th>Apartado</th><th>Criterio</th><th style="text-align:left">Qué debe contener</th></tr>
+    <tr><td>Título y pregunta de investigación</td><td><span class="crit c1">Diseño</span></td><td style="text-align:left">Un título que diga qué se compara y qué se mide. La pregunta, <b>idéntica</b> en todo el documento.</td></tr>
+    <tr><td>Introducción y contexto</td><td><span class="crit c1">Diseño</span></td><td style="text-align:left">Sistema, variables y la teoría que explica por qué la VI debería afectar a la VD. Ver <a href="tema.html">Elegir el tema → Introducción y contexto</a>.</td></tr>
+    <tr><td>Metodología</td><td><span class="crit c1">Diseño</span></td><td style="text-align:left">Variables (con su control y registro), decisiones justificadas, materiales con incertidumbre, procedimiento reproducible, seguridad, ética y medio ambiente.</td></tr>
+    <tr><td>Datos y análisis</td><td><span class="crit c2">Análisis</span></td><td style="text-align:left">Datos brutos, procesamiento, estadística justificada, gráficos e interpretación. Ver <a href="estadistica.html">Estadística</a> e <a href="incertidumbre.html">Incertidumbre</a>.</td></tr>
+    <tr><td><b>Conclusión</b> (apartado propio)</td><td><span class="crit c3">Conclusión</span></td><td style="text-align:left">Respuesta a la pregunta con tus datos procesados y comparación con la bibliografía.</td></tr>
+    <tr><td><b>Evaluación</b> (apartado propio)</td><td><span class="crit c4">Evaluación</span></td><td style="text-align:left">Fortalezas, limitaciones con su impacto relativo, mejoras y extensiones.</td></tr>
+    <tr><td>Bibliografía</td><td>Todos</td><td style="text-align:left">Fuentes fiables, un único formato, y todo lo citado en el texto aparece en la lista (y al revés).</td></tr>
+  </table></div>
+  <div class="box azul">📝 Máximo <b>3000 palabras</b>. Las tablas de datos, los gráficos, los cálculos, las citas y la bibliografía no cuentan (detalle en <a href="index.html">Inicio</a>). Las palabras que ahorres quitando relleno teórico rinden más en la conclusión y la evaluación, que son las partes que más se quedan cortas. Reparto orientativo y ejemplos para recortar en <a href="#palabras">Cómo repartir y ajustar las 3000 palabras</a>.</div>
+</section>
+
+<!-- ════════ PALABRAS ════════ -->
+<section class="sec" id="palabras">
+  <h2>✂️ Cómo repartir y ajustar las 3000 palabras</h2>
+  <p class="sub">Pasarse del límite obliga a recortar a última hora, y entonces se suele cortar lo que más puntúa. Planifica el reparto desde el principio y recorta lo que no suma.</p>
+
+  <h3>Reparto orientativo</h3>
+  <p>Depende de cada investigación, pero estos rangos ayudan a detectar un apartado desproporcionado. Se refieren solo al texto que cuenta.</p>
+  <div class="tabla"><table>
+    <tr><th>Apartado</th><th>Palabras orientativas</th><th>% del total</th><th style="text-align:left">Señal de que te pasas</th></tr>
+    <tr><td>Título, pregunta y datos iniciales</td><td>30-60</td><td>≈ 2 %</td><td style="text-align:left">La pregunta ocupa más de 3 líneas.</td></tr>
+    <tr><td>Introducción y contexto (con la hipótesis)</td><td>400-600</td><td>15-20 %</td><td style="text-align:left">Hay historia, definiciones de libro o teoría que no vuelves a usar.</td></tr>
+    <tr><td>Metodología (variables, decisiones, seguridad, procedimiento)</td><td>700-900</td><td>25-30 %</td><td style="text-align:left">Repites en el texto lo que ya está en una tabla, o el procedimiento no va en pasos.</td></tr>
+    <tr><td>Análisis de datos (procesamiento, estadística, interpretación)</td><td>400-550</td><td>15-18 %</td><td style="text-align:left">Copias en el texto los valores de cada tabla.</td></tr>
+    <tr><td>Conclusión</td><td>400-550</td><td>15-18 %</td><td style="text-align:left">Rara vez te pasas: si tiene menos de 300, probablemente le falta comparación con la bibliografía.</td></tr>
+    <tr><td>Evaluación</td><td>450-600</td><td>15-20 %</td><td style="text-align:left">Limitaciones genéricas o repetidas. Si le faltan palabras, quítalas de la introducción.</td></tr>
+  </table></div>
+  <div class="box ambar">⚖️ Los rangos máximos suman más de 3000: si un apartado necesita más, otro tiene que quedarse en la parte baja. Deja <b>100-200 palabras de margen</b> para las correcciones finales. Y si tienes que recortar, <b>empieza por la introducción y la metodología</b>, casi nunca por la conclusión y la evaluación, que es donde más puntos se pierden. Tampoco conviertas explicaciones en imágenes o tablas para que no cuenten: no es buena idea y el examinador lo nota.</div>
+
+  <h3>Dónde recortar sin perder contenido</h3>
+  <ul>
+    <li><b>Teoría que no usas después.</b> Si un párrafo de la introducción no te sirve para justificar el método o interpretar los resultados, sobra.</li>
+    <li><b>Repeticiones.</b> La pregunta completa, una vez al principio (y la respuesta en la conclusión). No describas en el texto lo que ya está en una tabla: remite a ella.</li>
+    <li><b>Procedimiento en pasos numerados</b>, con frases cortas que empiezan por el verbo.</li>
+    <li><b>Muletillas y rodeos</b>: «cabe destacar que», «se procedió a», «con el objetivo de»… (prueba el detector de abajo).</li>
+    <li><b>Símbolos y unidades</b>: «5 min» y no «un tiempo de cinco minutos»; «± 1 °C» y no «más o menos un grado».</li>
+    <li><b>Frases vacías por datos</b>: «afectó de alguna manera a los resultados» ocupa lo mismo que «aumentó el CV del 5 al 29 %», pero no dice nada.</li>
+  </ul>
+
+  <h3>Ejemplos de antes y después</h3>
+  <p style="font-size:13px;color:var(--texto-suave)">Palabras contadas como lo hace un procesador de texto. Los ejemplos usan la investigación de la catalasa de la página de incertidumbre.</p>
+  <h3>Introducción · Catalasa: quitar teoría general y muletillas</h3>
+  <div class="dos">
+    <div class="mal"><b>❌ Antes · 116 palabras</b>«Las enzimas son unas moléculas muy importantes para los seres vivos, ya que sin ellas la mayoría de las reacciones químicas que tienen lugar en el interior de las células se producirían de una forma demasiado lenta como para poder mantener la vida. Cabe destacar que las enzimas son proteínas y, como se ha mencionado anteriormente, las proteínas están formadas por aminoácidos. En el caso de la catalasa, se trata de una enzima que se encuentra presente en una gran cantidad de tejidos tanto animales como vegetales, como por ejemplo en la patata, y que lleva a cabo la descomposición del peróxido de hidrógeno, que es una sustancia tóxica para las células, en agua y oxígeno.»</div>
+    <div class="bien"><b>✅ Después · 24 palabras (−79 %)</b>«La catalasa, presente en tejidos animales y vegetales como la patata, descompone el peróxido de hidrógeno, tóxico para las células, en agua y oxígeno.»</div>
+  </div>
+  <ul style="font-size:14px"><li>Fuera la teoría general («las enzimas son proteínas formadas por aminoácidos»): no ayuda a entender esta pregunta.</li><li>Fuera las muletillas: «cabe destacar que», «como se ha mencionado anteriormente», «en el caso de», «se trata de».</li><li>«Lleva a cabo la descomposición de» → «descompone».</li><li>Las palabras ahorradas se usan para lo que sí suma: cómo afecta la temperatura a la catalasa.</li></ul>
+  <h3>Metodología · Procedimiento: frases en pasos numerados</h3>
+  <div class="dos">
+    <div class="mal"><b>❌ Antes · 97 palabras</b>«En primer lugar, lo que se hizo fue cortar la patata en discos con la ayuda de un sacabocados de 1 cm de diámetro y posteriormente se procedió a pesar cada uno de los discos en la balanza digital con el objetivo de que todos ellos tuvieran una masa de 1,00 g. A continuación, se colocaron los discos dentro de un tubo de ensayo que previamente había sido introducido en el baño de agua que se encontraba a la temperatura correspondiente, y se esperó durante un tiempo de 5 minutos para que la temperatura se pudiera equilibrar.»</div>
+    <div class="bien"><b>✅ Después · 46 palabras (−53 %)</b>«1. Cortar discos de patata con un sacabocados de 1 cm de diámetro y ajustar su masa a 1,00 g (± 0,01 g).<br>2. Colocarlos en un tubo de ensayo dentro del baño a la temperatura del ensayo y esperar 5 min para que se equilibre.»</div>
+  </div>
+  <ul style="font-size:14px"><li>Pasos numerados: sobran «en primer lugar», «a continuación», «posteriormente».</li><li>«Lo que se hizo fue», «se procedió a» → el verbo directamente.</li><li>«Con la ayuda de» → «con»; «con el objetivo de» → «para»; «durante un tiempo de 5 minutos» → «5 min».</li><li>Además gana precisión: ahora aparece la incertidumbre de la balanza.</li></ul>
+  <h3>Análisis · Interpretar un gráfico sin repetir la tabla</h3>
+  <div class="dos">
+    <div class="mal"><b>❌ Antes · 74 palabras</b>«En la tabla anterior se puede observar que a 10 °C el volumen medio fue de 1,2 mL, a 20 °C fue de 2,5 mL, a 30 °C fue de 4,9 mL, a 40 °C fue de 3,1 mL y a 50 °C fue de 1,0 mL, por lo que se puede ver claramente que el volumen va aumentando hasta llegar a los 30 °C y que después de esa temperatura empieza a disminuir.»</div>
+    <div class="bien"><b>✅ Después · 27 palabras (−64 %)</b>«El volumen medio de O₂ se cuadruplicó entre 10 y 30 °C (de 1,2 a 4,9 mL) y descendió hasta 1,0 mL a 50 °C (Tabla 2).»</div>
+  </div>
+  <ul style="font-size:14px"><li>No copies en el texto todos los valores de la tabla: el lector ya los tiene. Remite a ella.</li><li>Destaca solo lo importante (máximo, mínimo, cambio) y cuantifícalo: «se cuadruplicó».</li><li>Fuera «se puede observar que» y «se puede ver claramente que»: afirma directamente.</li></ul>
+  <h3>Evaluación · Menos palabras y más contenido</h3>
+  <div class="dos">
+    <div class="mal"><b>❌ Antes · 101 palabras</b>«Una de las limitaciones más importantes que se han podido observar a lo largo de la realización de este experimento es que la temperatura del baño de agua no se mantenía completamente constante en todo momento, sino que en algunas ocasiones variaba un poco, aproximadamente un grado más o menos, y esto es algo que podría haber afectado de alguna manera a los resultados que se obtuvieron, ya que como es bien sabido la temperatura es un factor que influye en la actividad de las enzimas. Para mejorar este aspecto en futuras investigaciones se podría utilizar un baño que fuera mejor.»</div>
+    <div class="bien"><b>✅ Después · 59 palabras (−42 %)</b>«La temperatura del baño fluctuó ± 1 °C. Su efecto fue mayor a 40 y 50 °C, donde el CV llegó al 12-29 % (frente al 5,5 % a 30 °C), porque allí la actividad cambia más con cada grado: aumentó la dispersión, pero no cambia la tendencia. Mejora: baño termostatizado y registro de la temperatura en cada réplica.»</div>
+  </div>
+  <ul style="font-size:14px"><li>La versión larga dice poco: «podría haber afectado de alguna manera» y «un baño que fuera mejor».</li><li>La corta es más breve y además tiene lo que pide el nivel 5-6: evidencia con datos (CV), en qué niveles afectó, impacto en la conclusión y una mejora concreta.</li><li>Recortar no es solo quitar: es cambiar frases vacías por datos.</li></ul>
+
+  <h3>Detector de palabras de relleno</h3>
+  <div class="calc">
+    <label for="pal-txt">Pega un párrafo de tu informe</label>
+    <textarea id="pal-txt" rows="6" placeholder="Pega aquí tu texto…"></textarea>
+    <div class="res" id="pal-res" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ════════ FALLOS DE UNA PROMOCIÓN ANTERIOR ════════ -->
+<section class="sec" id="promocion">
+  <h2>⚠️ Lo que más restó puntos en la convocatoria 2025</h2>
+  <p class="sub">Hemos revisado las nueve investigaciones de una promoción anterior del centro junto con sus plantillas de calificación. Estos son los fallos que más se repitieron. Ninguno es difícil de evitar si lo conoces antes de redactar.</p>
+  <div class="box ambar">📉 <b>Dónde se pierden los puntos.</b> La nota media fue de unos <b>4/6 en Diseño</b> y de unos <b>3/6 en Análisis, Conclusión y Evaluación</b>. El método suele estar bien planteado; los puntos se pierden después, al tratar los datos y al reflexionar sobre ellos.</div>
+  <div class="tabla"><table>
+    <tr><th style="text-align:left">Fallo</th><th>Criterio</th><th>Trabajos en que aparece</th><th>Cómo evitarlo</th></tr>
+    <tr><td style="text-align:left">No se analiza el impacto de las limitaciones: solo se enumeran</td><td><span class="crit c4" style="margin-left:0">Evaluación</span></td><td><b>8 de 9</b></td><td><a href="#evaluacion">Ver →</a></td></tr>
+    <tr><td style="text-align:left">La incertidumbre aparece en la lista de materiales, pero no se procesa ni se comenta</td><td><span class="crit c2" style="margin-left:0">Análisis</span></td><td><b>7 de 9</b></td><td><a href="incertidumbre.html">Ver →</a></td></tr>
+    <tr><td style="text-align:left">La conclusión no se compara con estudios publicados, o solo con una fuente</td><td><span class="crit c3" style="margin-left:0">Conclusión</span></td><td><b>7 de 9</b></td><td><a href="#conclusion">Ver →</a></td></tr>
+    <tr><td style="text-align:left">La prueba estadística no se justifica</td><td><span class="crit c2" style="margin-left:0">Análisis</span></td><td><b>6 de 9</b></td><td><a href="#estadistica-bien">Ver →</a></td></tr>
+    <tr><td style="text-align:left">No se comentan los valores atípicos ni la dispersión de los datos</td><td><span class="crit c2" style="margin-left:0">Análisis</span></td><td><b>6 de 9</b></td><td><a href="#datos">Ver →</a></td></tr>
+    <tr><td style="text-align:left">Las observaciones cualitativas no se planifican o no se registran de forma sistemática</td><td><span class="crit c1" style="margin-left:0">Diseño</span></td><td><b>6 de 9</b></td><td><a href="#cualitativas">Ver →</a></td></tr>
+    <tr><td style="text-align:left">Faltan detalles para repetir el experimento (distancias, concentraciones, periodicidad, criterio de conteo)</td><td><span class="crit c1" style="margin-left:0">Diseño</span></td><td><b>6 de 9</b></td><td><a href="#reproducible">Ver →</a></td></tr>
+    <tr><td style="text-align:left">La conclusión no valora la fiabilidad de los datos</td><td><span class="crit c3" style="margin-left:0">Conclusión</span></td><td><b>5 de 9</b></td><td><a href="#olvidos">Ver →</a></td></tr>
+    <tr><td style="text-align:left">No hay ejemplo de cálculo ni se explica cómo se procesaron los datos</td><td><span class="crit c2" style="margin-left:0">Análisis</span></td><td><b>5 de 9</b></td><td><a href="#datos">Ver →</a></td></tr>
+    <tr><td style="text-align:left">Tablas sin unidad, con decimales distintos o sin pie explicativo</td><td><span class="crit c2" style="margin-left:0">Análisis</span></td><td><b>5 de 9</b></td><td><a href="#datos">Ver →</a></td></tr>
+    <tr><td style="text-align:left">El rango de la VI o el número de réplicas no se justifica</td><td><span class="crit c1" style="margin-left:0">Diseño</span></td><td><b>4 de 9</b></td><td><a href="#decisiones">Ver →</a></td></tr>
+    <tr><td style="text-align:left">Riesgos genéricos: no se tratan los productos o agentes concretos (disolventes, colorantes, radiación UV)</td><td><span class="crit c1" style="margin-left:0">Diseño</span></td><td><b>4 de 9</b></td><td><a href="#seguridad">Ver →</a></td></tr>
+    <tr><td style="text-align:left">Gráficos sin barras de error, o con barras que no corresponden a la desviación típica de la tabla</td><td><span class="crit c2" style="margin-left:0">Análisis</span></td><td><b>4 de 9</b></td><td><a href="#datos">Ver →</a></td></tr>
+    <tr><td style="text-align:left">No se identifica el máximo u óptimo, o no se discute si podría estar entre dos niveles</td><td><span class="crit c3" style="margin-left:0">Conclusión</span></td><td><b>4 de 9</b></td><td><a href="#olvidos">Ver →</a></td></tr>
+    <tr><td style="text-align:left">Grados de libertad mal calculados</td><td><span class="crit c2" style="margin-left:0">Análisis</span></td><td><b>3 de 9</b></td><td><a href="#estadistica-bien">Ver →</a></td></tr>
+    <tr><td style="text-align:left">No hay grupo control, o aparece en los datos sin explicarse en el método</td><td><span class="crit c1" style="margin-left:0">Diseño</span></td><td><b>3 de 9</b></td><td><a href="#decisiones">Ver →</a></td></tr>
+    <tr><td style="text-align:left">La hipótesis no se retoma en la conclusión</td><td><span class="crit c3" style="margin-left:0">Conclusión</span></td><td><b>2 de 9</b></td><td><a href="#olvidos">Ver →</a></td></tr>
+    <tr><td style="text-align:left">Las limitaciones están repartidas por el informe en lugar de en la evaluación</td><td><span class="crit c4" style="margin-left:0">Evaluación</span></td><td><b>2 de 9</b></td><td><a href="#evaluacion">Ver →</a></td></tr>
+  </table></div>
+  <div class="box verde">✅ <b>Lo que sí salió bien en casi todos:</b> una pregunta propia, con la VI y su rango, la VD y cómo se mide, y el nombre científico del organismo. Con esa base, el salto de nota está en las secciones 3 a 6 de esta página.</div>
+</section>
+
+<!-- ════════ 1 · DECISIONES ════════ -->
+<section class="sec" id="decisiones">
+  <h2><span class="paso">1</span> Justifica cada decisión del método <span class="crit c1">Criterio 1 · Diseño</span></h2>
+  <p class="sub">Para el nivel 5-6, las decisiones metodológicas tienen que estar <b>explicadas</b>. No basta con decir qué hiciste: hay que decir <b>por qué ese valor</b> y en qué te basas.</p>
+
+  <h3>Tabla de decisiones</h3>
+  <p>Antes de redactar la metodología, rellena una tabla así para cada número que aparezca en tu método. Si una fila se queda sin «por qué» o sin «evidencia», ahí tienes un punto débil.</p>
+  <div class="tabla"><table>
+    <caption>Ejemplo: actividad de la catalasa de patata a distintas temperaturas</caption>
+    <tr><th>Decisión</th><th>Valor elegido</th><th style="text-align:left">Por qué</th><th style="text-align:left">Evidencia</th></tr>
+    <tr><td>Rango de la VI</td><td>10-50 °C</td><td style="text-align:left">Cubre por debajo y por encima del óptimo esperado para ver la subida y la caída.</td><td style="text-align:left">Bibliografía (cita) + ensayo piloto</td></tr>
+    <tr><td>Intervalo de la VI</td><td>cada 10 °C</td><td style="text-align:left">Cinco niveles, que es lo que permite el tiempo disponible.</td><td style="text-align:left">Limitación que se comentará en la evaluación</td></tr>
+    <tr><td>Réplicas</td><td>5 por nivel</td><td style="text-align:left">En el piloto, con 3 réplicas la dispersión era alta; con 5 la media se estabilizó.</td><td style="text-align:left">Ensayo piloto (datos en anexo)</td></tr>
+    <tr><td>Masa de tejido</td><td>1,00 g</td><td style="text-align:left">Produce un volumen de O₂ medible con la probeta de 10 mL sin desbordarla.</td><td style="text-align:left">Ensayo piloto</td></tr>
+    <tr><td>Tiempo de medida</td><td>5 min</td><td style="text-align:left">La producción de O₂ es aproximadamente lineal en ese tramo.</td><td style="text-align:left">Ensayo piloto</td></tr>
+  </table></div>
+  <div class="dos">
+    <div class="mal"><b>❌ Nivel bajo</b>«Se hicieron 5 repeticiones para aumentar la fiabilidad.»</div>
+    <div class="bien"><b>✅ Nivel alto</b>«Se hicieron 5 repeticiones por nivel porque en el ensayo piloto, con 3, la desviación típica era aproximadamente el 25 % de la media; con 5 bajó al 10 % y la media dejó de cambiar al añadir más.»</div>
+  </div>
+
+  <h3>Ensayo piloto, grupo control y control de variables: no son lo mismo</h3>
+  <div class="tabla"><table>
+    <tr><th>Término</th><th style="text-align:left">Qué es</th><th style="text-align:left">Para qué sirve</th></tr>
+    <tr><td><b>Ensayo piloto</b></td><td style="text-align:left">Prueba previa, antes de recoger los datos definitivos.</td><td style="text-align:left">Decidir rango, tiempos, cantidades y nº de réplicas. Indica qué observaste en él.</td></tr>
+    <tr><td><b>Control negativo</b></td><td style="text-align:left">Montaje igual, pero sin el factor que produce el efecto (p. ej., hígado hervido en lugar de crudo, o agua destilada en lugar de H₂O₂).</td><td style="text-align:left">Saber cuánto «efecto» aparece sin tu VI, y restarlo o descartarlo.</td></tr>
+    <tr><td><b>Control positivo</b></td><td style="text-align:left">Montaje del que se sabe que debe dar resultado.</td><td style="text-align:left">Comprobar que el método funciona.</td></tr>
+    <tr><td><b>Variable controlada</b></td><td style="text-align:left">Factor que se mantiene igual en todos los tratamientos.</td><td style="text-align:left">Que solo cambie la VI.</td></tr>
+  </table></div>
+
+  <p>Si tu VD puede cambiar aunque no actúe la VI, necesitas un control: los nitratos de un agua pueden disminuir sin plantas, un zumo gotea aunque no haya enzima, en una placa pueden crecer colonias sin el tratamiento. Y si haces un control, <b>explícalo en el método</b>: un control que solo aparece en la tabla de datos confunde al lector.</p>
+
+  <h3>Si la controlas, regístrala</h3>
+  <p>Una variable no está «controlada» porque aparezca en una tabla. Tienes que decir qué valor mantuviste, cómo y con qué precisión, y <b>apuntar los valores reales</b> (temperatura, pH, humedad…) para enseñarlos en los resultados. Si no se pudo controlar, al menos regístrala y valórala en la evaluación.</p>
+  <div class="tabla"><table>
+    <tr><th>Variable</th><th style="text-align:left">Por qué afecta a la VD</th><th style="text-align:left">Cómo se controla</th><th>Valor ± incertidumbre</th><th style="text-align:left">Cómo se comprobó</th></tr>
+    <tr><td>Temperatura del baño</td><td style="text-align:left">La velocidad de las reacciones enzimáticas depende de la temperatura.</td><td style="text-align:left">Baño termostatizado</td><td>25 ± 1 °C</td><td style="text-align:left">Termómetro digital al inicio y al final de cada réplica; valores en la tabla de datos.</td></tr>
+  </table></div>
+  <div class="mal" style="margin-top:8px"><b>❌ Nivel bajo</b>«Temperatura: se mantendrá constante.» (Sin valor, sin equipo, sin registro.)</div>
+
+  <h3 id="reproducible">Lo que suele faltar para que se pueda repetir</h3>
+  <ul>
+    <li><b>Distancias e intensidades</b>: a qué distancia está el foco de las plantas y cómo y dónde se midió la intensidad (por ejemplo, con el luxómetro a la altura de las hojas, en cada maceta).</li>
+    <li><b>Concentraciones exactas</b> de cada disolución y cómo se prepararon las diluciones (de qué disolución madre, con qué volúmenes).</li>
+    <li><b>Periodicidad</b>: cada cuánto se mide, a qué hora y durante cuánto tiempo.</li>
+    <li><b>Criterio de medida o de conteo</b>: qué cuenta como colonia, como célula en mitosis o como semilla germinada; cómo se evita contar dos veces.</li>
+    <li><b>Tratamiento de los datos del sensor</b>: cómo se exportan del programa a la hoja de cálculo y qué valor se toma.</li>
+    <li><b>Una foto o un esquema rotulado del montaje</b>: ahorra muchas palabras.</li>
+  </ul>
+
+  <h3 id="cualitativas">Observaciones cualitativas: planifícalas</h3>
+  <p>Seis de los nueve trabajos de la promoción anterior no las tenían previstas o las anotaron «cuando se veía algo». Decide antes de empezar <b>qué</b> observarás, <b>cuándo</b> y <b>cómo</b> lo registrarás, para poder usarlas después en la conclusión y la evaluación.</p>
+  <div class="dos">
+    <div class="mal"><b>❌ Poco útil</b>«Algunas plantas del grupo tratado se veían peor.»</div>
+    <div class="bien"><b>✅ Sistemático</b>«Cada dos días, a la misma hora, se fotografió cada planta a 30 cm y se puntuó el daño foliar con una escala: 0 = sin síntomas; 1 = manchas en menos del 25 % de las hojas; 2 = manchas en el 25-50 %; 3 = más del 50 % o necrosis.»</div>
+  </div>
+
+  <h3>Trampas de diseño frecuentes</h3>
+  <ul>
+    <li><b>Comparar sustancias distintas en % m/v.</b> El mismo % no significa el mismo número de partículas. En un experimento de ósmosis con cilindros de patata, una disolución de NaCl al 5 % m/v tiene unos 0,86 mol/L (y, al disociarse, unas 1,7 osmol/L), mientras que una de sacarosa al 5 % m/v tiene unos 0,15 mol/L. Su efecto sobre la masa de la patata no es comparable. Decide qué quieres igualar (masa, moles, osmolaridad…) y justifícalo.</li>
+    <li><b>Mezclas que diluyen.</b> Si añades 2 mL de H₂O₂ al 3 % a 8 mL de tampón con el extracto de catalasa, la concentración de sustrato en el tubo es del 0,6 %, no del 3 %. Indica la concentración <b>en el tubo</b>, que es la que actúa.</li>
+    <li><b>Dos aparatos para dos tratamientos.</b> Si mides la respiración a dos temperaturas a la vez con dos cámaras y dos sensores de CO₂, alterna qué temperatura va con cada sensor y dilo en el método. Si no, una pequeña diferencia entre aparatos se confunde con el efecto de la VI.</li>
+    <li><b>Cámaras y recipientes cerrados.</b> Si mides la concentración de un gas en una cámara (CO₂ de la respiración de pequeños invertebrados, como en la <a href="ejemplos.html">Inv. 17</a>), el volumen de la cámara y la masa de organismos dentro cambian la lectura. Indícalos, mantenlos iguales o expresa el resultado por gramo de organismo.</li>
+    <li><b>Material biológico que cambia con el tiempo.</b> La forma y el tiempo de conservación del tejido cambian su actividad: la <a href="ejemplos.html">Inv. 16</a> lo estudia precisamente como variable (hígado congelado frente a temperatura ambiente) y la <a href="ejemplos.html">Inv. 05</a> mide cómo cambian las patatas con las semanas de almacenamiento. Si no es tu VI, indica cuándo se obtuvo el material, cómo se conservó y qué réplicas se hicieron cada día.</li>
+    <li><b>Materiales que no coinciden con el procedimiento.</b> Repasa el procedimiento paso a paso y comprueba que cada instrumento aparece en la lista, con su incertidumbre en la unidad correcta.</li>
+  </ul>
+</section>
+
+<!-- ════════ 2 · SEGURIDAD ════════ -->
+<section class="sec" id="seguridad">
+  <h2><span class="paso">2</span> Seguridad, ética y medio ambiente según el riesgo real <span class="crit c1">Criterio 1 · Diseño</span></h2>
+  <p class="sub">Un apartado genérico («usar bata y gafas») no suma. Lo que se valora es que identifiques los riesgos de <b>tu</b> procedimiento concreto.</p>
+  <div class="dos">
+    <div class="mal"><b>❌ Genérico</b>«Se trabajará con precaución y con el equipo de protección del laboratorio. No hay problemas éticos. Los residuos se tirarán correctamente.»</div>
+    <div class="bien"><b>✅ Específico</b>(Catalasa en hígado de pollo) «El H₂O₂ irrita la piel y los ojos: se usó diluido al 3 %, con gafas y guantes. El hígado crudo puede contener <i>Salmonella</i>: se manipuló con guantes, sobre una bandeja, y se desinfectó la superficie al terminar. El hígado se compró en una carnicería como producto alimentario, así que no se sacrificó ningún animal para el experimento, y se usó la masa mínima necesaria. Los restos se desecharon en bolsa cerrada como residuo orgánico y el H₂O₂ sobrante se diluyó con abundante agua.»</div>
+  </div>
+  <div class="tabla"><table>
+    <tr><th>Si tu investigación incluye…</th><th style="text-align:left">Piensa en…</th></tr>
+    <tr><td>Microorganismos</td><td style="text-align:left">Técnica aséptica, no incubar a 37 °C cultivos de origen desconocido, esterilizar antes de desechar. Consulta las directrices del IB.</td></tr>
+    <tr><td>Tejidos animales (hígado, carne)</td><td style="text-align:left">Higiene y riesgo de patógenos, origen del material (subproducto alimentario), desecho en bolsa cerrada.</td></tr>
+    <tr><td>Calor (baños, mecheros)</td><td style="text-align:left">Quemaduras, material de vidrio caliente, temperatura máxima.</td></tr>
+    <tr><td>Productos químicos</td><td style="text-align:left">Peligro concreto de cada uno (ficha de seguridad), concentración usada, cómo se desecha.</td></tr>
+    <tr><td>Disolventes orgánicos (acetona, etanol, hexano)</td><td style="text-align:left">Inhalación de vapores e inflamabilidad: lugar ventilado o vitrina, lejos de llamas, recipientes tapados, residuos en el bidón de disolventes.</td></tr>
+    <tr><td>Colorantes y fijadores (orceína acética, azul de metileno)</td><td style="text-align:left">Tóxicos o corrosivos: guantes, gafas, ventilación; no calentar sin control.</td></tr>
+    <tr><td>Radiación UV</td><td style="text-align:left">Daña ojos y piel: no mirar la lámpara, caja cerrada, gafas con protección UV, tiempo mínimo de exposición.</td></tr>
+    <tr><td>Disoluciones preparadas</td><td style="text-align:left">Etiquetar con contenido, concentración y fecha; dónde y cómo se guardan.</td></tr>
+    <tr><td>Personas</td><td style="text-align:left">Consentimiento informado, anonimato, derecho a retirarse, actividad no perjudicial. Consulta la política del IB.</td></tr>
+    <tr><td>Plantas o animales</td><td style="text-align:left">Número mínimo necesario y qué se hace con ellos al terminar.</td></tr>
+    <tr><td>Residuos</td><td style="text-align:left">Qué residuo concreto se genera y adónde va (cultivos, disolventes, restos de tejidos, material biológico).</td></tr>
+  </table></div>
+</section>
+
+<!-- ════════ 3 · ANTES DE CONCLUIR ════════ -->
+<section class="sec" id="datos">
+  <h2><span class="paso">3</span> Antes de escribir la conclusión: repasa el análisis <span class="crit c2">Criterio 2 · Análisis</span></h2>
+  <p class="sub">La conclusión solo puede ser tan buena como el análisis en el que se apoya. Comprueba estos puntos, que son los que más fallan.</p>
+  <ul>
+    <li><b>Datos brutos de verdad.</b> Si usas un sensor y calculas una pendiente, la pendiente ya es un dato procesado. Enseña al menos una curva representativa de cada tratamiento, el tramo usado para el ajuste y el R² de cada ajuste.</li>
+    <li><b>Incertidumbre con la misma unidad que el dato.</b> Una tasa de producción de CO₂ en ppm/min no puede llevar como incertidumbre la del sensor en ppm sin más. Revisa el <a href="incertidumbre.html">protocolo de incertidumbre</a>.</li>
+    <li><b>La fórmula escrita es la que usaste.</b> Si calculas la desviación típica muestral (DESVEST, n−1), no escribas la fórmula poblacional (N, μ).</li>
+    <li><b>Gráfico que responde a la pregunta.</b> La VI en el eje X y la VD (normalmente la media) en el eje Y, con unidades correctas y barras de error cuyo significado indicas en el pie. Un gráfico que muestra cada réplica por separado, en lugar de la media de cada tratamiento, no responde a la pregunta.</li>
+    <li><b>Muestra cómo procesaste.</b> Incluye un ejemplo de cada cálculo y explica cómo pasaste los datos del sensor o del aparato a la hoja de cálculo.</li>
+    <li><b>Tablas completas.</b> Magnitud, unidad e incertidumbre en el encabezado (<i>Longitud del tallo / cm ± 0,1 cm</i>), los mismos decimales en toda la columna y un pie que explique qué muestra la tabla.</li>
+    <li><b>Barras de error que salen de tus datos.</b> Deben corresponder a la desviación típica (u otra medida) que aparece en tu tabla. Si no la calculaste, no puede haber barras.</li>
+    <li><b>Curva patrón.</b> Si conviertes absorbancias en concentraciones, muestra los puntos de la curva, su ecuación y el R², y comprueba que tus muestras caen dentro del rango de la curva.</li>
+    <li><b>Comenta la incertidumbre, no la escondas.</b> Ponerla en la lista de materiales no basta: compárala con la dispersión de tus datos y di cuál domina (ver el <a href="incertidumbre.html">protocolo</a>).</li>
+    <li><b>Atípicos con criterio.</b> No llames «atípico» a un valor solo porque es alto o bajo: aplica un criterio explícito o habla de dispersión.</li>
+    <li><b>Estadística redactada completa.</b> Indica el nivel de significación (α = 0,05), por qué eliges esa prueba y qué significa el resultado en tu investigación.</li>
+  </ul>
+  <h3 id="estadistica-bien">La prueba estadística, paso a paso</h3>
+  <ol>
+    <li><b>Escribe las hipótesis estadísticas antes de la prueba</b>: H₀ (no hay diferencia, o no hay relación) y H₁.</li>
+    <li><b>Justifica la prueba</b>: cuántos grupos comparas, qué tipo de datos tienes y si siguen una distribución aproximadamente normal. Usa el árbol de decisión de <a href="estadistica.html">Estadística</a>.</li>
+    <li><b>Indica el nivel de significación</b> (normalmente α = 0,05).</li>
+    <li><b>Calcula bien los grados de libertad.</b> En tres de los nueve trabajos de la promoción anterior estaban mal.</li>
+    <li><b>Decide</b>: si p &lt; α, se rechaza H₀; si no, no se puede rechazar.</li>
+    <li><b>Interpreta</b> qué significa en tu investigación y relaciónalo con la magnitud de la diferencia.</li>
+  </ol>
+  <div class="tabla"><table>
+    <caption>Grados de libertad (gl) de las pruebas más usadas</caption>
+    <tr><th>Prueba</th><th>Grados de libertad</th></tr>
+    <tr><td>t de Student, dos grupos independientes</td><td>n₁ + n₂ − 2</td></tr>
+    <tr><td>t de Student, datos emparejados</td><td>n − 1 (n = nº de parejas)</td></tr>
+    <tr><td>ANOVA de un factor (k grupos, N datos en total)</td><td>entre grupos: k − 1 · dentro de los grupos: N − k</td></tr>
+    <tr><td>Correlación de Pearson o de Spearman</td><td>n − 2</td></tr>
+    <tr><td>χ² de bondad de ajuste</td><td>nº de categorías − 1</td></tr>
+    <tr><td>χ² de independencia</td><td>(filas − 1) × (columnas − 1)</td></tr>
+  </table></div>
+  <p style="font-size:13px;color:var(--texto-suave)">La t de Welch (varianzas distintas) usa otra fórmula para los gl; la hoja de cálculo la aplica por ti.</p>
+  <p style="font-size:13px;color:var(--texto-suave);margin-top:10px">Frase modelo inspirada en la <a href="ejemplos.html">Inv. 14</a> (contenido energético de dos fuentes de carbohidratos por calorimetría). Los valores son ilustrativos.</p>
+  <div class="frase">«Como se comparan dos grupos independientes con varianzas muy distintas (s = 0,8 y 2,1 kJ/g), se aplicó la prueba t de Welch. Con α = 0,05, p = 0,02: la diferencia entre los contenidos energéticos medios es estadísticamente significativa. Aun así, la dispersión de la segunda fuente es alta (CV del 15 %, frente al 6 % de la primera), lo que reduce la precisión con la que se puede estimar la magnitud de la diferencia.»</div>
+</section>
+
+<!-- ════════ 4 · CONCLUSIÓN ════════ -->
+<section class="sec" id="conclusion">
+  <h2><span class="paso">4</span> La conclusión en cuatro pasos <span class="crit c3">Criterio 3 · Conclusión</span></h2>
+  <p class="sub">Para 5-6, la conclusión tiene que estar «justificada», ser «totalmente coherente con el análisis» y estar respaldada por una «comparación pertinente con el contexto científico aceptado». Escríbela en un <b>apartado propio</b>, separado de la evaluación.</p>
+
+  <div class="tabla"><table>
+    <tr><th>Paso</th><th style="text-align:left">Qué escribes</th><th style="text-align:left">Ejemplo (catalasa de patata, datos de la página de incertidumbre)</th></tr>
+    <tr><td><b>1 · Datos</b></td><td style="text-align:left">Los valores procesados clave, con su variabilidad.</td><td style="text-align:left">«El volumen medio de O₂ aumentó de 1,2 ± 0,16 mL a 10 °C a 4,9 ± 0,27 mL a 30 °C, y descendió a 1,0 ± 0,29 mL a 50 °C (media ± s, n = 5).»</td></tr>
+    <tr><td><b>2 · Interpretación</b></td><td style="text-align:left">Qué indican esos datos: tendencia, magnitud, fiabilidad, estadística.</td><td style="text-align:left">«El volumen a 30 °C es unas 4 veces el de 10 °C. La diferencia entre 30 y 40 °C es significativa (t de Student, p &lt; 0,001), y las barras de error (± s) no se solapan entre niveles contiguos. En cambio, las de 10 y 50 °C sí se solapan: a esas dos temperaturas la actividad es parecida.»</td></tr>
+    <tr><td><b>3 · Respuesta</b></td><td style="text-align:left">La respuesta directa a la pregunta, con su alcance.</td><td style="text-align:left">«En el rango estudiado, la actividad de la catalasa fue máxima a 30 °C. Con intervalos de 10 °C, el óptimo solo se puede situar entre 20 y 40 °C.»</td></tr>
+    <tr><td><b>4 · Contexto científico</b></td><td style="text-align:left">Comparación con la bibliografía y explicación con el mecanismo.</td><td style="text-align:left">«[Autor, año] sitúa el óptimo de la catalasa vegetal en torno a [valor], lo que es coherente con mi resultado. El descenso por encima de 40 °C se explica por la desnaturalización…»</td></tr>
+  </table></div>
+  <div class="box ambar">🔍 <b>Comprueba la coherencia.</b> ¿Se podría llegar a tu conclusión solo con tus datos, sin conocer la teoría? Si la respuesta es «no», la conclusión no está respaldada. Y revisa los cálculos que haces al redactar («casi cinco veces», «un 60 % más»): son números que el examinador comprueba.</div>
+
+  <h3 id="olvidos">Tres cosas que se suelen olvidar</h3>
+  <ol>
+    <li><b>Retomar la hipótesis</b>: di explícitamente si tus datos la apoyan o no. Si no la apoyan, dilo con claridad (y lee el apartado 5).</li>
+    <li><b>Valorar la fiabilidad</b>: ¿cuánta dispersión hay en cada tratamiento? ¿La incertidumbre es pequeña frente a las diferencias que encuentras? ¿Se solapan las barras de error?</li>
+    <li><b>Situar el máximo u óptimo con prudencia</b>: si el valor más alto está en un nivel intermedio, el óptimo real puede estar entre los niveles vecinos. Por ejemplo, con un máximo a pH 5 y niveles de pH 4, 5 y 6, solo puedes decir que el óptimo está entre 4 y 6.</li>
+  </ol>
+
+  <h3>Comparar con la bibliografía no es poner una cita</h3>
+  <div class="dos">
+    <div class="mal"><b>❌ Nivel bajo</b>«Esto coincide con la teoría sobre enzimas.»</div>
+    <div class="bien"><b>✅ Nivel alto</b>Nombras un estudio o una fuente concreta, comparas tu valor con el suyo y explicas por qué coinciden o difieren (organismo, condiciones, método). Mejor con dos o tres fuentes que con una sola.</div>
+  </div>
+
+  <h3>Palabras que debes vigilar</h3>
+  <div class="tabla"><table>
+    <tr><th>Evita</th><th>Mejor</th><th style="text-align:left">Por qué</th></tr>
+    <tr><td>«demuestra», «prueba»</td><td>«apoya», «indica», «es coherente con»</td><td style="text-align:left">Un experimento escolar con n pequeño no demuestra nada de forma definitiva.</td></tr>
+    <tr><td>«significativo» (sin prueba)</td><td>«notable», «claro»</td><td style="text-align:left">«Significativo» se reserva para el resultado de una prueba estadística.</td></tr>
+    <tr><td>«X causa Y» (en un estudio de correlación)</td><td>«X se asocia con Y»</td><td style="text-align:left">La correlación no demuestra causalidad.</td></tr>
+    <tr><td>«p &lt; 0,05, así que es importante»</td><td>Comenta también la magnitud del efecto</td><td style="text-align:left">Significación estadística no es lo mismo que importancia biológica.</td></tr>
+  </table></div>
+</section>
+
+<!-- ════════ 5 · CONTRADICE ════════ -->
+<section class="sec" id="contradice">
+  <h2><span class="paso">5</span> Si tus resultados contradicen la hipótesis <span class="crit c3">Conclusión</span> <span class="crit c4">Evaluación</span></h2>
+  <p class="sub">No es un fracaso ni resta puntos por sí mismo. Lo que resta es explicarlo con una idea inventada o sin fuente. Sigue este orden:</p>
+  <ol>
+    <li><b>Revisa los datos y los cálculos.</b> ¿Columnas cambiadas? ¿Unidades? ¿Una fórmula mal copiada en la hoja de cálculo?</li>
+    <li><b>Revisa el método.</b> ¿Hay algo que afecte más a un tratamiento que a otro? Por ejemplo: un sensor peor calibrado que otro, material de lotes distintos, plantas colocadas a distinta distancia de la luz, un control que faltó.</li>
+    <li><b>Busca en la bibliografía.</b> ¿Hay estudios con resultados parecidos a los tuyos? ¿Qué explicación dan?</li>
+    <li><b>Presenta tu explicación como posible, no como un hecho,</b> y apóyala en una fuente y en tus datos: «Una posible explicación es…, como describe [autor, año]».</li>
+    <li><b>No te contradigas.</b> Si en la introducción dices que la enzima se desnaturaliza por encima de 40 °C, no expliques en la conclusión una subida de actividad a 45 °C sin comentar esa contradicción.</li>
+    <li><b>Llévalo a la evaluación.</b> Si sospechas que la causa está en el método, es una limitación. Propón cómo comprobarlo como extensión.</li>
+  </ol>
+</section>
+
+<!-- ════════ 6 · EVALUACIÓN ════════ -->
+<section class="sec" id="evaluacion">
+  <h2><span class="paso">6</span> La evaluación: limitaciones con impacto relativo <span class="crit c4">Criterio 4 · Evaluación</span></h2>
+  <p class="sub">Para 5-6 hay que explicar el <b>impacto relativo</b> de limitaciones específicas y proponer mejoras realistas y directamente pertinentes. Una lista de errores, aunque sea larga, se queda en 3-4.</p>
+
+  <h3>La cadena de cada limitación</h3>
+  <div class="formula" style="font-family:var(--ds-sans);font-size:14.5px">Limitación → evidencia en mis datos → efecto (¿más dispersión o sesgo? ¿en qué sentido?) → importancia frente a las demás → impacto en la conclusión → mejora concreta</div>
+
+  <div class="tabla"><table>
+    <caption>Ejemplo (catalasa de patata), ordenado de mayor a menor impacto</caption>
+    <tr><th>Limitación</th><th>Tipo</th><th style="text-align:left">Evidencia en mis datos</th><th style="text-align:left">Efecto e impacto en la conclusión</th><th style="text-align:left">Mejora concreta</th></tr>
+    <tr><td>Intervalo de 10 °C entre niveles</td><td>Diseño</td><td style="text-align:left">El máximo está en 30 °C, pero no hay datos entre 20 y 40 °C.</td><td style="text-align:left"><b>La más importante:</b> no se puede precisar el óptimo, solo acotarlo.</td><td style="text-align:left">Añadir niveles cada 2,5 °C entre 25 y 40 °C.</td></tr>
+    <tr><td>Fluctuación del baño (± 1 °C)</td><td>Aleatorio</td><td style="text-align:left">El CV es mayor a 40 y 50 °C (12-29 %) que a 30 °C (5,5 %).</td><td style="text-align:left">Más dispersión donde la actividad cambia rápido con la temperatura. No cambia la tendencia.</td><td style="text-align:left">Baño termostatizado y registro de la temperatura en cada réplica.</td></tr>
+    <tr><td>O₂ perdido al colocar el tapón</td><td>Sistemático</td><td style="text-align:left">Observación: burbujas antes de cerrar.</td><td style="text-align:left">Subestima todos los volúmenes. Afecta poco a la comparación entre niveles si ocurre igual en todos.</td><td style="text-align:left">Añadir el H₂O₂ con jeringa a través del tapón ya cerrado.</td></tr>
+  </table></div>
+
+  <h3>Aleatorio o sistemático</h3>
+  <div class="dos">
+    <div class="box azul" style="margin:0"><b>Error aleatorio</b><br>Varía de una réplica a otra, unas veces hacia arriba y otras hacia abajo. Se nota en la dispersión (s, CV). Se reduce con más réplicas y mejor control.</div>
+    <div class="box ambar" style="margin:0"><b>Error sistemático</b><br>Desplaza todos los valores (o los de un tratamiento) en el mismo sentido. No se ve en la s y no se corrige con más réplicas. Ejemplos: degradación que siempre da valores más bajos, un sensor descalibrado.</div>
+  </div>
+
+  <h3>Fallos frecuentes en la evaluación</h3>
+  <ul>
+    <li><b>Limitaciones genéricas</b>: «error humano», «falta de tiempo», «medir mejor». Nombra el paso concreto y su efecto.</li>
+    <li><b>Mejora que no ataca la limitación</b>: si el problema es que unas plantas recibían más luz que otras por su posición junto a la ventana, hacer más réplicas no lo resuelve: hay que aleatorizar o rotar su posición (como se plantea en la <a href="ejemplos.html">Inv. 12</a>).</li>
+    <li><b>Mejora que ya debería estar en el método</b>: si propones «registrar la temperatura en cada réplica» y en el método ya dices que lo hiciste, revisa la coherencia.</li>
+    <li><b>Limitaciones sin evidencia</b>: «las semillas eran de mala calidad» necesita algún dato u observación que lo apoye (por ejemplo, el % de germinación del control).</li>
+    <li><b>Fortalezas sin datos</b>: si dices que la balanza digital «elimina el error», tus datos (la dispersión) tienen que respaldarlo.</li>
+    <li><b>Limitaciones repartidas por el informe</b>: si comentas una debilidad en la metodología o en el análisis, recógela también en la evaluación, que es donde se califica.</li>
+    <li><b>Sin extensiones</b>: una extensión es una nueva pregunta que surge de tus resultados, no una mejora del mismo experimento.</li>
+  </ul>
+
+  <div class="box verde">🏅 <b>Lo que funcionó en la evaluación mejor puntuada de la promoción anterior (5/6).</b> Para cada limitación explicaba cómo podía haber influido en los resultados y proponía una mejora ligada a ella. Por ejemplo: con una sola duración de exposición al tratamiento no se puede saber si otra dosis habría tenido un efecto distinto, así que propone probar varias duraciones. <b>Lo que le faltó para el 6:</b> apoyar cada limitación con sus propios datos (la dispersión de cada grupo) y decir cuál de ellas pesó más en la conclusión.</div>
+
+  <h3>Preguntas para encontrar las limitaciones de tu propio método</h3>
+  <ul>
+    <li>¿Qué variables no controlé o no registré?</li>
+    <li>¿Usé siempre el mismo aparato, baño o posición para cada tratamiento?</li>
+    <li>¿Algo cambió entre días o entre la primera y la última réplica?</li>
+    <li>¿Hice un control sin la VI? ¿Lo necesitaba?</li>
+    <li>¿Cuántos niveles de la VI y qué duración? ¿Bastan para responder la pregunta?</li>
+    <li>¿En qué tratamiento hay más dispersión? ¿Por qué?</li>
+    <li>¿Mis resultados se pueden generalizar a otros organismos o condiciones?</li>
+  </ul>
+</section>
+
+<!-- ════════ CHECKLIST ════════ -->
+<section class="sec" id="check">
+  <h2>✅ Checklist antes de entregar</h2>
+  <p class="sub">Revísalo con el informe abierto. Marca cada punto cuando esté comprobado; se guarda en este navegador. <span id="chk-prog" style="font-weight:700;color:var(--verde-oscuro)"></span></p>
+  <div id="chk"></div>
+  <button class="btn" id="chk-reset" type="button" data-goatcounter-click="redaccion-checklist-reiniciar">Borrar marcas</button>
+</section>
+
+</div>
+
+<script>
+const GRUPOS = [
+  ['Coherencia general', 'c1', [
+    'La pregunta de investigación es idéntica en la portada, la introducción, el objetivo y la conclusión',
+    'Los valores (tiempos, concentraciones, volúmenes, temperaturas) son los mismos en todo el informe',
+    'Las tablas y figuras tienen numeración única y correlativa, y títulos que explican qué muestran',
+    'No quedan notas, comentarios ni valores pendientes de completar',
+    'Si hay índice, sus números de página coinciden con el documento',
+    'Incluye título, código de alumno/a y número de palabras (máximo 3000)',
+    'El reparto de palabras es equilibrado y he quitado relleno teórico, repeticiones y muletillas'
+  ]],
+  ['Diseño', 'c1', [
+    'El contexto explica por qué la VI debería afectar a la VD, sin relleno histórico ni teoría general',
+    'Cada número del método (rango, nº de niveles, réplicas, cantidades, tiempos) está justificado',
+    'Distingo el ensayo piloto del grupo control, e indico qué observé en el piloto',
+    'Si mi VD puede cambiar sin la VI, incluyo un control y lo explico en el método',
+    'Tengo previstas las observaciones cualitativas: qué observo, cuándo y cómo lo registro',
+    'Las variables controladas indican valor, método, instrumento y precisión, y sus valores reales están registrados',
+    'La lista de materiales coincide con el procedimiento y cada instrumento tiene su incertidumbre en la unidad correcta',
+    'Otra persona podría repetir el experimento solo con mi informe',
+    'Seguridad, ética y medio ambiente se refieren a los riesgos concretos de mi procedimiento'
+  ]],
+  ['Análisis de datos', 'c2', [
+    'Incluyo los datos brutos (no solo los procesados), con unidades, incertidumbre y decimales coherentes',
+    'La fórmula que escribo es la que usé, y hay un ejemplo de cálculo',
+    'La prueba estadística está justificada, con α indicado y el resultado interpretado',
+    'Escribo H₀ y H₁ antes de la prueba y los grados de libertad son correctos',
+    'Comento la incertidumbre y la dispersión de mis datos, no solo las pongo en la tabla',
+    'Las barras de error salen de la desviación típica de mis tablas',
+    'Si uso una curva patrón, muestro su ecuación y su R²',
+    'El gráfico tiene la VI en X, la VD en Y, unidades correctas y barras de error explicadas en el pie',
+    'Si hablo de valores atípicos, explico el criterio usado'
+  ]],
+  ['Conclusión', 'c3', [
+    'La conclusión está en un apartado propio, separado de la evaluación',
+    'Responde directamente a la pregunta con valores procesados y su variabilidad',
+    'Retomo la hipótesis y digo si mis datos la apoyan',
+    'Valoro la fiabilidad de mis datos (dispersión, incertidumbre, solapamiento de barras)',
+    'He comprobado los cálculos que hago al redactar (proporciones, porcentajes)',
+    'Comparo mis resultados con al menos un estudio o fuente concreta y explico coincidencias o diferencias',
+    'No uso «demuestra» ni afirmo más de lo que mis datos permiten',
+    'Si el resultado contradice la hipótesis, la explicación tiene fuente y no se contradice con el resto del texto'
+  ]],
+  ['Evaluación', 'c4', [
+    'Las limitaciones son de mi método concreto, no genéricas',
+    'Cada limitación tiene evidencia en mis datos u observaciones',
+    'Indico cuál afectó más y cómo afecta cada una a la conclusión (impacto relativo)',
+    'Clasifico los errores en aleatorios o sistemáticos correctamente',
+    'Todas las limitaciones están en la evaluación, aunque las haya mencionado antes',
+    'Cada mejora resuelve su limitación y no estaba ya en el método',
+    'Propongo al menos una extensión de la investigación'
+  ]],
+  ['Fuentes', 'c1', [
+    'Uso fuentes fiables (artículos, libros, organismos oficiales), no webs de divulgación o blogs',
+    'Toda cita del texto está en la bibliografía y al revés, en un único formato, con fecha de consulta en las webs',
+    'Las imágenes que no son mías tienen su fuente',
+    'Reviso la terminología y la clasificación de los organismos (un moho no es una levadura)'
+  ]]
+];
+const CLAVE = 'redaccion-chk';
+const $ = id => document.getElementById(id);
+let marcados = [];
+try { marcados = JSON.parse(localStorage.getItem(CLAVE) || '[]'); } catch (e) {}
+const total = GRUPOS.reduce((n, g) => n + g[2].length, 0);
+function pintar() {
+  let k = 0;
+  $('chk').innerHTML = GRUPOS.map(([nom, c, items]) =>
+    `<h3><span class="crit ${c}" style="margin-left:0">${nom}</span></h3><ul class="chk">` +
+    items.map(t => { const i = k++; const ok = marcados.includes(i);
+      return `<li role="checkbox" tabindex="0" aria-checked="${ok}" data-i="${i}" class="${ok ? 'ok' : ''}">${t}</li>`; }).join('') +
+    '</ul>').join('');
+  $('chk-prog').textContent = `${marcados.length} de ${total} comprobados.`;
+}
+function alternar(li) {
+  const i = +li.dataset.i;
+  marcados = marcados.includes(i) ? marcados.filter(x => x !== i) : [...marcados, i];
+  try { localStorage.setItem(CLAVE, JSON.stringify(marcados)); } catch (e) {}
+  pintar();
+  const nuevo = document.querySelector(`#chk li[data-i="${i}"]`); if (nuevo) nuevo.focus();
+}
+$('chk').addEventListener('click', e => { const li = e.target.closest('li'); if (li) alternar(li); });
+$('chk').addEventListener('keydown', e => { const li = e.target.closest('li'); if (li && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); alternar(li); } });
+$('chk-reset').addEventListener('click', () => { marcados = []; try { localStorage.removeItem(CLAVE); } catch (e) {} pintar(); });
+pintar();
+</script>
+
+
+<script>
+(function () {
+  const EXPR = [
+  ["cabe destacar que", "bórralo"],
+  ["es importante (mencionar|destacar|señalar) que", "bórralo"],
+  ["como se ha (mencionado|dicho|explicado)( anteriormente)?", "bórralo"],
+  ["como es bien sabido", "bórralo o cita la fuente"],
+  ["con el (objetivo|fin) de", "«para»"],
+  ["con la finalidad de", "«para»"],
+  ["debido (a|al hecho de) que", "«porque»"],
+  ["a pesar de que", "«aunque»"],
+  ["(lleva|llevó|llevar|llevan|llevaron) a cabo", "«hacer», «realizar» o el verbo concreto"],
+  ["se procedió a", "el verbo directamente («se pesó»)"],
+  ["lo que se hizo fue", "el verbo directamente"],
+  ["en el caso de", "«en», «con» o «para»"],
+  ["se trata de", "el verbo «ser» o nada"],
+  ["el hecho de que", "«que» o reformula"],
+  ["una gran cantidad de", "«muchos/as»"],
+  ["se (puede|pudo) (observar|ver)( claramente)? que", "afírmalo directamente"],
+  ["de alguna (manera|forma)", "bórralo o concreta cómo"],
+  ["en todo momento", "bórralo"],
+  ["a lo largo de", "«durante»"],
+  ["con la ayuda de", "«con»"],
+  ["durante un (periodo|tiempo) de", "«durante» + el valor"],
+  ["en primer lugar|a continuación|posteriormente|por último", "usa pasos numerados"],
+  ["que se encuentra(ba)?", "bórralo («presente en», «a 25 °C»)"]
+  ];
+  const txt = document.getElementById('pal-txt'), res = document.getElementById('pal-res');
+  const esc = s => s.replace(/[&<>]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;'})[c]);
+  function analizar() {
+    const s = txt.value.trim();
+    if (!s) { res.innerHTML = ''; return; }
+    const n = s.split(/\s+/).filter(Boolean).length;
+    const hallados = [];
+    EXPR.forEach(([p, sug]) => {
+      const m = s.match(new RegExp('\\b(' + p + ')\\b', 'gi'));
+      if (m) hallados.push([m[0], m.length, sug]);
+    });
+    let h = `<div class="kpis"><div class="kpi"><small>Palabras</small><b>${n}</b></div><div class="kpi"><small>Expresiones para acortar</small><b>${hallados.reduce((a, x) => a + x[1], 0)}</b></div></div>`;
+    if (hallados.length) {
+      h += '<div class="tabla"><table><tr><th style="text-align:left">Encontrado</th><th>Veces</th><th style="text-align:left">Prueba con…</th></tr>' +
+        hallados.map(([e, k, sug]) => `<tr><td style="text-align:left">«${esc(e)}»</td><td>${k}</td><td style="text-align:left">${esc(sug)}</td></tr>`).join('') + '</table></div>';
+    } else {
+      h += '<p class="box verde">No se han encontrado las muletillas más habituales. Revisa aun así si hay teoría que no usas o valores repetidos de una tabla.</p>';
+    }
+    res.innerHTML = h;
+  }
+  txt.addEventListener('input', analizar);
+})();
+</script>
+<footer class="ds-footer" role="contentinfo">
+  <div class="ds-wrap">
+    <div>
+      <h2>🧬 Investigación científica · Biología IB</h2>
+      <p>Guía para la evaluación interna del Programa del Diploma (primera evaluación 2025).</p>
+      <p>Elaborada por <strong style="color:#fff">María Dolores Gámez Ortiz</strong>, profesora de Biología IB · IES Celia Viñas, Almería.</p>
+    </div>
+    <div>
+      <h3>Secciones</h3>
+      <ul>
+        <li><a href="index.html">Inicio y criterios</a></li><li><a href="tema.html">1 · Elegir el tema</a></li>
+        <li><a href="catalogo.html">2 · Catálogo de ideas</a></li><li><a href="ejemplos.html">3 · Ejemplos comentados</a></li>
+        <li><a href="estadistica.html">4 · Estadística</a></li><li><a href="incertidumbre.html">5 · Incertidumbre</a></li><li><a href="redaccion.html">6 · Redacción y revisión</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Fuentes y licencia</h3>
+      <p>Basado en la <i>Guía de Biología del IB</i> (primera evaluación 2025) y las <i>Directrices del IB sobre experimentación científica</i> (2023). Los descriptores de nivel son citas de la fuente oficial © IB Organization.</p>
+      <div class="ds-cc" aria-hidden="true"><span>CC</span><span>BY</span><span>NC</span><span>SA</span></div>
+      <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> · Atribución · No comercial · Compartir igual</p>
+    </div>
+  </div>
+  <div class="ds-base">IES Celia Viñas · Almería · Material de apoyo para el alumnado de Biología del Programa del Diploma<span class="aviso-visitas" style="display:block;margin-top:6px;opacity:.8">Esta web registra visitas de forma anónima, sin cookies ni datos personales.</span></div>
+</footer>
+<script>
+/* Accesibilidad: los elementos con onclick que no son botones ni enlaces se pueden usar con el teclado */
+(function(){
+  function mark(root){(root.querySelectorAll?root:document).querySelectorAll('[onclick]:not(button):not(a):not(input):not(select)').forEach(function(el){if(!el.hasAttribute('role')){el.setAttribute('role','button');el.setAttribute('tabindex','0');}});}
+  document.addEventListener('keydown',function(e){var el=e.target.closest&&e.target.closest('[role="button"]');if(el&&el.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();el.click();}});
+  function init(){mark(document);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)mark(n.parentNode||n);});});}).observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.querySelectorAll('a[target="_blank"]').forEach(function(a){a.rel='noopener';});
+})();
+</script>
+<style>@media print{.aviso-visitas{display:none!important}}</style>
+<script data-goatcounter="https://investigacion-bio.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

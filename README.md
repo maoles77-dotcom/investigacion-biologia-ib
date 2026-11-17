@@ -12,6 +12,7 @@ Guía web para que el alumnado de Biología del Programa del Diploma del IB prep
 | [Ejemplos](ejemplos.html) | 17 investigaciones del material de ayuda al profesor del IB y comentarios del examinador ordenados según los criterios actuales |
 | [Estadística](estadistica.html) | Árbol de decisión, 13 fichas, práctica interactiva y guía de Excel y Google Sheets |
 | [Incertidumbre](incertidumbre.html) | Protocolo en 6 pasos para tratar e interpretar la incertidumbre, con calculadora |
+| [Redacción](redaccion.html) | Justificar el método, conclusión, evaluación con impacto relativo y checklist final antes de entregar |
 
 Son páginas HTML estáticas, sin dependencias: basta con abrir `index.html`.
 
